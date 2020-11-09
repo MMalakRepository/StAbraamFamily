@@ -5,7 +5,7 @@ using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace StAbraamFamily.Services.GeneralRepositories
+namespace StAbraamFamily.Repositories.GeneralRepositories
 {
     public interface IEntityRepository<TEntity> where TEntity : class
     {

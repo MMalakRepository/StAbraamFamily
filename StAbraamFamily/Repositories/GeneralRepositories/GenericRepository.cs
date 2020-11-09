@@ -6,7 +6,7 @@ using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace StAbraamFamily.Services.GeneralRepositories
+namespace StAbraamFamily.Repositories.GeneralRepositories
 {
     public class GenericRepository<TEntity> : IEntityRepository<TEntity> where TEntity : class
     {
