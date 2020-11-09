@@ -5,60 +5,56 @@
     Layout = "~/Views/Shared/_FamilyLayout.cshtml";
 }
 
-<h2>Index</h2>
+<header class="page-header" style="background-color: #0088cc;
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
+        border-left-color: #0088cc" >
+    <h2 class="text-white"  style=" border-bottom-color: #ffc107 !important;">@ViewBag.Title</h2>
+
+    <div class="right-wrapper text-left">
+        <ol class="breadcrumbs float-md-right mr-5">
+ 
+            <li>
+                <a href="@Url.Action("Create","Families",null)" class="text-white">
+                    <i class="fas fa-plus-circle fa-2x text-warning"></i> Add New Family
+                </a>
+            </li>
+ 
+        </ol>
+    </div>
+</header>
+ 
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.FamilyCode)
+            <label> الملاحظات</label>
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Address)
+            <label> تقييم العائلة</label>
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.NoOfChildren)
+            <label> الأب المسئول</label>
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.IsActive)
+            <label>أسم الخادم </label>
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Notes)
+            <label> العنوان</label>
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.EvaluationLevel.EvaluationLevel1)
+            <label>أسم الأم </label>
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Father.FatherName)
+            <label> أسم الأب</label>
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Person.FirstName)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Person1.FirstName)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Servant.ServantName)
+            <label>كود العائلة</label>
         </th>
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
+    @foreach (var item in Model)
+    {
     <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.FamilyCode)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Address)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.NoOfChildren)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.IsActive)
-        </td>
         <td>
             @Html.DisplayFor(modelItem => item.Notes)
         </td>
@@ -69,20 +65,26 @@
             @Html.DisplayFor(modelItem => item.Father.FatherName)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.Person.FirstName)
+            @Html.DisplayFor(modelItem => item.Servant.ServantName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Address)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.Person1.FirstName)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.Servant.ServantName)
+            @Html.DisplayFor(modelItem => item.Person.FirstName)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.ID }) |
-            @Html.ActionLink("Details", "Details", new { id=item.ID }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.ID })
+            @Html.DisplayFor(modelItem => item.FamilyCode)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id = item.ID }) |
+            @Html.ActionLink("Details", "Details", new { id = item.ID }) |
+            @Html.ActionLink("Delete", "Delete", new { id = item.ID })
         </td>
     </tr>
-}
+    }
 
 </table>

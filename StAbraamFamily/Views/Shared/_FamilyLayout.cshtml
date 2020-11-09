@@ -140,8 +140,8 @@
             <aside id="sidebar-left" class="sidebar-left">
 
                 <div class="sidebar-header">
-                    <div class="sidebar-title text-primary">
-                        Saint Abraam Family System
+                    <div class="sidebar-title text-primary"><strong>St.Abraam Family System</strong>
+       
                     </div>
                     <div class="sidebar-toggle d-none d-md-block" data-toggle-class="sidebar-left-collapsed" data-target="html" data-fire-event="sidebar-left-toggle">
                         <i class="fas fa-bars" aria-label="Toggle sidebar"></i>
@@ -153,18 +153,11 @@
                         <nav id="menu" class="nav-main" role="navigation">
 
                             <ul class="nav nav-main">
-                                @*<li>
-            <a class="nav-link" href="#">
-                <i class="fas fa-home" aria-hidden="true"></i>
-                <span>Dashboard</span>
-            </a>
-        </li>*@
-
                                 <li>
                                      <a href="@Url.Action("Index","People",null)" class="nav-link">
                                            <span class="float-right badge badge-primary">182</span>
                                            <i class="fas fa-user-circle text-primary" aria-hidden="true"></i>
-                                    الأفراد</a>
+                                           <span>الأفراد</span> </a>
                         
                    
                                 </li>
@@ -172,21 +165,21 @@
                                     <a class="nav-link" href="@Url.Action("Index","Families",null)">
                                         <span class="float-right badge badge-danger">123</span>
                                         <i class="fas fa-list text-danger" aria-hidden="true"></i>
-                                        العائلات 
+                                        <span>العائلات</span>  
                                     </a>
                                 </li>
                                 <li>
                                     <a class="nav-link" href="@Url.Action("Index","ServiceActions",null)">
                                         <span class="float-right badge badge-warning">12</span>
                                         <i class="fas fa-globe text-warning" aria-hidden="true"></i>
-                                        الخدمات 
+                                        <span>الخدمات</span>  
                                     </a>
                                 </li>
                                 <li>
                                     <a class="nav-link" href="@Url.Action("Index","Fathers",null)">
                                         <span class="float-right badge badge-success">4</span>
                                         <i class="fas fa-pray text-success" aria-hidden="true"></i>
-                                        الأباء الكهنة 
+                                        <span>الأباء الكهنة</span>  
                                     </a>
                                 </li>
                                 <li>
@@ -263,24 +256,7 @@
             <!-- end: sidebar -->
 
             <section role="main" class="content-body">
-                <header class="page-header">
-                    <h2>St. Abraam Family</h2>
-
-                    <div class="right-wrapper text-left">
-                        <ol class="breadcrumbs ml-5">
-                            <li>
-                                <a href="#">
-                                    <i class="fas fa-home"></i>
-                                </a>
-                            </li>
-                            <li><span>Layouts</span></li>
-                            <li><span>Light Sidebar</span></li>
-                        </ol>
-
-
-                    </div>
-                </header>
-                @RenderBody();
+                @RenderBody()
 
             </section>
         </div>

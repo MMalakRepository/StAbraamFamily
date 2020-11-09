@@ -5,11 +5,23 @@
     Layout = "~/Views/Shared/_FamilyLayout.cshtml";
 }
 
-<h2>Index</h2>
+<header class="page-header" style="background-color: #0088cc;
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
+        border-left-color: #0088cc">
+    <h2 class="text-white" style=" border-bottom-color: #ffc107 !important;">@ViewBag.Title</h2>
+
+    <div class="right-wrapper text-left">
+        <ol class="breadcrumbs float-md-right mr-5">
+
+            <li>
+                <a href="@Url.Action("Create","FamilyServants",null)" class="text-white">
+                    <i class="fas fa-plus-circle fa-2x text-warning"></i> Add New Family Servant
+                </a>
+            </li>
+
+        </ol>
+    </div>
+</header>
 <table class="table">
     <tr>
         <th>
@@ -24,23 +36,24 @@
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.IsActive)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Family.FamilyCode)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Servant.ServantName)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.ID }) |
-            @Html.ActionLink("Details", "Details", new { id=item.ID }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.ID })
-        </td>
-    </tr>
-}
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.IsActive)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Family.FamilyCode)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Servant.ServantName)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.ID }) |
+                @Html.ActionLink("Details", "Details", new { id = item.ID }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.ID })
+            </td>
+        </tr>
+    }
 
 </table>
