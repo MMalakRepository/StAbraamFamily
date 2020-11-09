@@ -1,0 +1,276 @@
+﻿<!doctype html>
+<html class="fixed has-top-menu">
+<head>
+    <meta charset="UTF-8">
+    <title>St. Abraam Family</title>
+    <meta name="keywords" content="HTML5 Admin Template" />
+    <meta name="description" content="Porto Admin - Responsive HTML5 Template">
+    <meta name="author" content="okler.net">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800|Shadows+Into+Light" rel="stylesheet" type="text/css">
+
+    <link rel="stylesheet" href="~/Assets/vendor/bootstrap/css/bootstrap.css" />
+    <link rel="stylesheet" href="~/Assets/vendor/animate/animate.css">
+
+    <link rel="stylesheet" href="~/Assets/vendor/font-awesome/css/all.min.css" />
+    <link rel="stylesheet" href="~/Assets/vendor/magnific-popup/magnific-popup.css" />
+    <link rel="stylesheet" href="~/Assets/vendor/bootstrap-datepicker/css/bootstrap-datepicker3.css" />
+
+    <link rel="stylesheet" href="~/Assets/vendor/jquery-ui/jquery-ui.css" />
+    <link rel="stylesheet" href="~/Assets/vendor/jquery-ui/jquery-ui.theme.css" />
+    <link rel="stylesheet" href="~/Assets/vendor/bootstrap-multiselect/css/bootstrap-multiselect.css" />
+    <link rel="stylesheet" href="~/Assets/vendor/morris/morris.css" />
+
+    <link rel="stylesheet" href="~/Assets/css/theme.css" />
+
+    <link rel="stylesheet" href="~/Assets/css/skins/default.css" />
+
+    <link rel="stylesheet" href="~/Assets/css/custom.css">
+
+    <script src="~/Assets/vendor/modernizr/modernizr.js"></script>
+
+</head>
+
+<body>
+    <section class="body">
+        <header class="header header-nav-menu">
+            <div class="logo-container">
+                <a href="../" class="logo">
+                    <img src="~/Assets/img/logo.png" width="75" height="35" alt="Porto Admin" />
+                </a>
+
+                @*<button class="btn header-btn-collapse-nav d-lg-none" data-toggle="collapse" data-target=".header-nav">
+                    <i class="fas fa-bars"></i>
+                </button>*@
+
+                <div class="header-nav collapse">
+                    <div class="header-nav-main header-nav-main-effect-1 header-nav-main-sub-effect-1">
+                        <nav>
+                            <ul class="nav nav-pills" id="mainNav">
+ 
+                                <li class="dropdown active">
+                                    <a class="nav-link dropdown-toggle" href="#">
+                                        الأفراد
+                                    </a>
+                                    <ul class="dropdown-menu">
+                                        <li>
+                                            <a class="nav-link" href="pages-signup.html">
+                                                أضافة فرد جديد
+                                            </a>
+                                        </li>
+                                        <li class="dropdown-submenu">
+                                            <a class="nav-link">
+                                                بيانات الأباء و الأمهات
+                                            </a>
+                                            <ul class="dropdown-menu">
+                                                <li>
+                                                    <a class="nav-link" href="layouts-boxed.html">
+                                                        تقرير بيانات الأباء و الأمهات
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                        </li>
+                                        <li class="dropdown-submenu">
+                                            <a class="nav-link">
+                                                بيانات الأطفال المخدومين
+                                            </a>
+                                            <ul class="dropdown-menu">
+                                                <li>
+                                                    <a class="nav-link" href="layouts-boxed.html">
+                                                        كل الأطفال
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a class="nav-link" href="layouts-boxed-fixed-header.html">
+                                                        بحث الأطفال بأسم الأب
+                                                    </a>
+                                                </li>
+
+                                            </ul>
+                                        </li>
+                                    </ul>
+                                </li>
+
+                                <li class="dropdown">
+                                    <a class="nav-link dropdown-toggle" href="#">
+                                        العائلات
+                                    </a>
+                                    <ul class="dropdown-menu">
+                                        <li>
+                                            <a class="nav-link" href="#">
+                                                أضافة عائلة جديدة
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a class="nav-link" href="#" >
+                                              بيانات العائلات  
+                                            </a>
+                                        </li>
+
+                                    </ul>
+                                </li>
+
+                                <li class="dropdown">
+                                    <a class="nav-link dropdown-toggle" href="#">
+                                        الخدام
+                                    </a>
+                                    <ul class="dropdown-menu">
+                                        <li>
+                                            <a class="nav-link" href="#" >
+                                                أضافة خادم جديد
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a class="nav-link" href="#" >
+                                             بيانات خدام الأسرة 
+                                            </a>
+                                        </li>
+
+                                    </ul>
+                                </li>
+
+                                <li class="dropdown">
+                                    <a class="nav-link dropdown-toggle" href="#">
+                                        الأباء الكهنة
+                                    </a>
+                                    <ul class="dropdown-menu">
+                                        <li>
+                                            <a class="nav-link" href="#">
+                                                أضافة أب كاهن
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a class="nav-link" href="pages-signup.html">
+                                                بيانات الأباء الكهنة
+                                            </a>
+                                        </li>
+
+                                    </ul>
+                                </li>
+
+                                <li class="dropdown">
+                                    <a class="nav-link dropdown-toggle" href="#">
+                              المستشفيات و العيادات   
+                                    </a>
+                                    <ul class="dropdown-menu">
+                                        <li>
+                                            <a class="nav-link" href="#">
+                                          أضافة مستشفى جديدة
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a class="nav-link" href="#">
+                                                أضافة عيادة جديدة
+                                            </a>
+                                        </li>
+                                        <li class="dropdown-submenu">
+                                            <a class="nav-link">
+                                                تقارير
+                                            </a>
+                                            <ul class="dropdown-menu">
+                                                <li>
+                                                    <a class="nav-link" href="#">
+                                                        بيانات كل المستشفيات
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a class="nav-link" href="#">
+                                                        بيانات كل العيادات
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a class="nav-link" href="#">
+                                                  تقرير أوامر التحويل
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                        </li>
+                                    </ul>
+                                </li>
+
+                                <li class="">
+                                    <a class="nav-link" href="layouts-default.html">
+                                        Dashboard
+                                    </a>
+                                </li>
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+
+            <div class="header-right">
+                <div id="userbox" class="userbox">
+                    <a href="#" data-toggle="dropdown">
+                        <figure class="profile-picture">
+                            <img src="~/Assets/img/!logged-user.jpg" alt="Joseph Doe" class="rounded-circle" data-lock-picture="~/Assets/img/!logged-user.jpg" />
+                        </figure>
+                        <div class="profile-info" data-lock-name="John Doe" data-lock-email="johndoe@okler.com">
+                            <span class="name">John Doe Junior</span>
+                            <span class="role">administrator</span>
+                        </div>
+                    </a>
+ 
+                </div>
+            </div>
+        </header>
+
+        <div class="inner-wrapper">
+            <section role="main" class="content-body">
+                <!--<header class="page-header" style="background-color: #0088cc !important; ">-->
+                    @*<h2>Default Layout</h2>*@
+                    <!--<div class="right-wrapper text-right">
+                    </div>
+                </header>-->
+                @RenderBody()
+            </section>
+        </div>
+    </section>
+
+
+    <script src="~/Assets/vendor/jquery/jquery.js"></script>
+    <script src="~/Assets/vendor/jquery-browser-mobile/jquery.browser.mobile.js"></script>
+    <script src="~/Assets/vendor/popper/umd/popper.min.js"></script>
+    <script src="~/Assets/vendor/bootstrap/js/bootstrap.js"></script>
+    <script src="~/Assets/vendor/bootstrap-datepicker/js/bootstrap-datepicker.js"></script>
+    <script src="~/Assets/vendor/common/common.js"></script>
+    <script src="~/Assets/vendor/nanoscroller/nanoscroller.js"></script>
+    <script src="~/Assets/vendor/magnific-popup/jquery.magnific-popup.js"></script>
+    <script src="~/Assets/vendor/jquery-placeholder/jquery.placeholder.js"></script>
+
+
+    <script src="~/Assets/vendor/jquery-ui/jquery-ui.js"></script>
+    <script src="~/Assets/vendor/jqueryui-touch-punch/jquery.ui.touch-punch.js"></script>
+    <script src="~/Assets/vendor/jquery-appear/jquery.appear.js"></script>
+    <script src="~/Assets/vendor/bootstrap-multiselect/js/bootstrap-multiselect.js"></script>
+    <script src="~/Assets/vendor/jquery.easy-pie-chart/jquery.easypiechart.js"></script>
+    <script src="~/Assets/vendor/flot/jquery.flot.js"></script>
+    <script src="~/Assets/vendor/flot.tooltip/jquery.flot.tooltip.js"></script>
+    <script src="~/Assets/vendor/flot/jquery.flot.pie.js"></script>
+    <script src="~/Assets/vendor/flot/jquery.flot.categories.js"></script>
+    <script src="~/Assets/vendor/flot/jquery.flot.resize.js"></script>
+    <script src="~/Assets/vendor/jquery-sparkline/jquery.sparkline.js"></script>
+    <script src="~/Assets/vendor/raphael/raphael.js"></script>
+    <script src="~/Assets/vendor/morris/morris.js"></script>
+    <script src="~/Assets/vendor/gauge/gauge.js"></script>
+    <script src="~/Assets/vendor/snap.svg/snap.svg.js"></script>
+    <script src="~/Assets/vendor/liquid-meter/liquid.meter.js"></script>
+    <script src="~/Assets/vendor/jqvmap/jquery.vmap.js"></script>
+    <script src="~/Assets/vendor/jqvmap/data/jquery.vmap.sampledata.js"></script>
+    <script src="~/Assets/vendor/jqvmap/maps/jquery.vmap.world.js"></script>
+    <script src="~/Assets/vendor/jqvmap/maps/continents/jquery.vmap.africa.js"></script>
+    <script src="~/Assets/vendor/jqvmap/maps/continents/jquery.vmap.asia.js"></script>
+    <script src="~/Assets/vendor/jqvmap/maps/continents/jquery.vmap.australia.js"></script>
+    <script src="~/Assets/vendor/jqvmap/maps/continents/jquery.vmap.europe.js"></script>
+    <script src="~/Assets/vendor/jqvmap/maps/continents/jquery.vmap.north-america.js"></script>
+    <script src="~/Assets/vendor/jqvmap/maps/continents/jquery.vmap.south-america.js"></script>
+
+    <script src="~/Assets/js/theme.js"></script>
+    <script src="~/Assets/js/custom.js"></script>
+    <script src="~/Assets/js/theme.init.js"></script>
+    <script src="~/Assets/js/examples/examples.header.menu.js"></script>
+    <script src="~/Assets/js/examples/examples.dashboard.js"></script>
+    @RenderSection("scripts", required: false)
+</body>
+</html>

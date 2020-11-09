@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="72c06d3b208b4a879e97a47d48689a84" Name="Diagram1">
+        <EntityTypeShape EntityType="StAbraamModel.C__MigrationHistory" Width="1.5" PointX="0.75" PointY="1.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="StAbraamModel.AspNetRole" Width="1.5" PointX="6.75" PointY="5.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="StAbraamModel.AspNetUserClaim" Width="1.5" PointX="11.25" PointY="4" IsExpanded="true" />
+        <EntityTypeShape EntityType="StAbraamModel.AspNetUserLogin" Width="1.5" PointX="11.25" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="StAbraamModel.AspNetUser" Width="1.5" PointX="9" PointY="4.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="StAbraamModel.Child" Width="1.5" PointX="3" PointY="12" IsExpanded="true" />
+        <EntityTypeShape EntityType="StAbraamModel.Clinic" Width="1.5" PointX="9" PointY="16.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="StAbraamModel.EvaluationLevel" Width="1.5" PointX="3.75" PointY="17" IsExpanded="true" />
+        <EntityTypeShape EntityType="StAbraamModel.Family" Width="1.5" PointX="6" PointY="11.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="StAbraamModel.FamilyServant" Width="1.5" PointX="8.25" PointY="12.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="StAbraamModel.FamilyVisit" Width="1.5" PointX="8.25" PointY="9.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="StAbraamModel.Father" Width="1.5" PointX="0.75" PointY="6.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="StAbraamModel.Hospital" Width="1.5" PointX="9" PointY="19" IsExpanded="true" />
+        <EntityTypeShape EntityType="StAbraamModel.Person" Width="1.5" PointX="3" PointY="5" IsExpanded="true" />
+        <EntityTypeShape EntityType="StAbraamModel.Servant" Width="1.5" PointX="0.75" PointY="12.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="StAbraamModel.ServiceAction" Width="1.5" PointX="11.25" PointY="8.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="StAbraamModel.ServiceType" Width="1.5" PointX="9" PointY="21.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="StAbraamModel.sysdiagram" Width="1.5" PointX="2.75" PointY="1.75" IsExpanded="true" />
+        <AssociationConnector Association="StAbraamModel.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" ManuallyRouted="false" />
+        <AssociationConnector Association="StAbraamModel.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" ManuallyRouted="false" />
+        <AssociationConnector Association="StAbraamModel.FK_ServiceActions_AspNetUsers" ManuallyRouted="false" />
+        <AssociationConnector Association="StAbraamModel.FK_Child_Families" ManuallyRouted="false" />
+        <AssociationConnector Association="StAbraamModel.FK_Child_Fathers" ManuallyRouted="false" />
+        <AssociationConnector Association="StAbraamModel.FK_Child_Servants" ManuallyRouted="false" />
+        <AssociationConnector Association="StAbraamModel.FK_ServiceActions_Clinics" ManuallyRouted="false" />
+        <AssociationConnector Association="StAbraamModel.FK_Families_EvaluationLevels" ManuallyRouted="false" />
+        <AssociationConnector Association="StAbraamModel.FK_Families_Fathers" ManuallyRouted="false" />
+        <AssociationConnector Association="StAbraamModel.FK_Families_Person" ManuallyRouted="false" />
+        <AssociationConnector Association="StAbraamModel.FK_Families_Person1" ManuallyRouted="false" />
+        <AssociationConnector Association="StAbraamModel.FK_Families_Servants" ManuallyRouted="false" />
+        <AssociationConnector Association="StAbraamModel.FK_FamilyServants_Families" ManuallyRouted="false" />
+        <AssociationConnector Association="StAbraamModel.FK_FamilyVisits_Families" ManuallyRouted="false" />
+        <AssociationConnector Association="StAbraamModel.FK_ServiceActions_Families" ManuallyRouted="false" />
+        <AssociationConnector Association="StAbraamModel.FK_FamilyServants_Servants" ManuallyRouted="false" />
+        <AssociationConnector Association="StAbraamModel.FK_FamilyVisits_Servants" ManuallyRouted="false" />
+        <AssociationConnector Association="StAbraamModel.FK_Person_Fathers" ManuallyRouted="false" />
+        <AssociationConnector Association="StAbraamModel.FK_ServiceActions_Hospitals" ManuallyRouted="false" />
+        <AssociationConnector Association="StAbraamModel.FK_Person_Servants" ManuallyRouted="false" />
+        <AssociationConnector Association="StAbraamModel.FK_ServiceActions_Person" ManuallyRouted="false" />
+        <AssociationConnector Association="StAbraamModel.FK_ServiceActions_Servants" ManuallyRouted="false" />
+        <AssociationConnector Association="StAbraamModel.FK_ServiceActions_ServiceTypes" ManuallyRouted="false" />
+        <AssociationConnector Association="StAbraamModel.AspNetUserRoles" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
