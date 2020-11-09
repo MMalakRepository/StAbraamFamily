@@ -7,21 +7,23 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using StAbraamFamily.Models;
+using StAbraamFamily.UnitsOfWork;
 
 namespace StAbraamFamily.Controllers
 {
     public class FamiliesController : Controller
     {
         private StAbraamEntities db = new StAbraamEntities();
+ 
 
-        // GET: Families
         public ActionResult Index()
         {
+
             var families = db.Families.Include(f => f.EvaluationLevel).Include(f => f.Father).Include(f => f.Person).Include(f => f.Person1).Include(f => f.Servant);
-            return View(families.ToList());
+             return View(families.ToList());
         }
 
-        // GET: Families/Details/5
+ 
         public ActionResult Details(int? id)
         {
             if (id == null)
@@ -36,7 +38,7 @@ namespace StAbraamFamily.Controllers
             return View(family);
         }
 
-        // GET: Families/Create
+ 
         public ActionResult Create()
         {
             ViewBag.EvaluationLevelID = new SelectList(db.EvaluationLevels, "ID", "EvaluationLevel1");
@@ -47,9 +49,7 @@ namespace StAbraamFamily.Controllers
             return View();
         }
 
-        // POST: Families/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
+ 
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "ID,FamilyCode,Address,ServantID,NoOfChildren,FatherID,MotherID,IsActive,Notes,MissingPriestID,EvaluationLevelID")] Family family)
@@ -69,7 +69,6 @@ namespace StAbraamFamily.Controllers
             return View(family);
         }
 
-        // GET: Families/Edit/5
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -89,9 +88,6 @@ namespace StAbraamFamily.Controllers
             return View(family);
         }
 
-        // POST: Families/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "ID,FamilyCode,Address,ServantID,NoOfChildren,FatherID,MotherID,IsActive,Notes,MissingPriestID,EvaluationLevelID")] Family family)
@@ -110,7 +106,6 @@ namespace StAbraamFamily.Controllers
             return View(family);
         }
 
-        // GET: Families/Delete/5
         public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -125,7 +120,6 @@ namespace StAbraamFamily.Controllers
             return View(family);
         }
 
-        // POST: Families/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
