@@ -1,0 +1,51 @@
+﻿@model StAbraamFamily.Models.FamilyVisit
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_FamilyLayout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>FamilyVisit</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.VisitDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.VisitDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Notes)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Notes)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Family.FamilyCode)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Family.FamilyCode)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Servant.ServantName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Servant.ServantName)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.ID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

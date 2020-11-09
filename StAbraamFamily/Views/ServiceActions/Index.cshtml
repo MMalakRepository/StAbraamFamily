@@ -1,0 +1,94 @@
+﻿@model IEnumerable<StAbraamFamily.Models.ServiceAction>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_FamilyLayout.cshtml";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.ActionDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.EnterDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Notes)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.IsActive)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.AspNetUser.Email)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Clinic.ClinicName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Family.FamilyCode)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Hospital.HospitalName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Person.FirstName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Servant.ServantName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ServiceType.ActionType)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.ActionDate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.EnterDate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Notes)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.IsActive)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.AspNetUser.Email)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Clinic.ClinicName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Family.FamilyCode)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Hospital.HospitalName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Person.FirstName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Servant.ServantName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ServiceType.ActionType)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.ID }) |
+            @Html.ActionLink("Details", "Details", new { id=item.ID }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.ID })
+        </td>
+    </tr>
+}
+
+</table>
