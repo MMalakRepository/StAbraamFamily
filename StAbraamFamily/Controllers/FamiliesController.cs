@@ -46,6 +46,8 @@ namespace StAbraamFamily.Controllers
             ViewBag.FatherID = new SelectList(db.People, "ID", "FirstName");
             ViewBag.MotherID = new SelectList(db.People, "ID", "FirstName");
             ViewBag.ServantID = new SelectList(db.Servants, "ID", "ServantName");
+            ViewBag.ConfessionFather = new SelectList(db.Fathers, "ID", "FatherName");
+ 
             return View();
         }
 

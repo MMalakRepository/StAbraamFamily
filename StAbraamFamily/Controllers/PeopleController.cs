@@ -7,6 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using StAbraamFamily.Models;
+using StAbraamFamily.ViewModels;
 
 namespace StAbraamFamily.Controllers
 {
@@ -14,7 +15,7 @@ namespace StAbraamFamily.Controllers
     {
         private StAbraamEntities db = new StAbraamEntities();
 
-        // GET: People
+ 
         public ActionResult Index()
         {
             var people = db.People.Include(p => p.Father).Include(p => p.Servant);
@@ -36,7 +37,7 @@ namespace StAbraamFamily.Controllers
             return View(person);
         }
 
-        // GET: People/Create
+ 
         public ActionResult Create()
         {
             ViewBag.ConfessionFather = new SelectList(db.Fathers, "ID", "FatherName");
@@ -44,23 +45,21 @@ namespace StAbraamFamily.Controllers
             return View();
         }
 
-        // POST: People/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
+  
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ID,FirstName,LastName,Phone,Address,Area,DateOfBirth,DateOfDeath,WorkingPlace,IsActive,Description,FamilyID,EntryDate,ServantID,ConfessionFather,IsWidow,Gender,Notes,NationalID,Salary,OtherIncome")] Person person)
+        public ActionResult Create(NewFamily newFamily)
         {
             if (ModelState.IsValid)
             {
-                db.People.Add(person);
+                db.People.Add(newFamily.person);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            ViewBag.ConfessionFather = new SelectList(db.Fathers, "ID", "FatherName", person.ConfessionFather);
-            ViewBag.ServantID = new SelectList(db.Servants, "ID", "ServantName", person.ServantID);
-            return View(person);
+            ViewBag.ConfessionFather = new SelectList(db.Fathers, "ID", "FatherName", newFamily.person.ConfessionFather);
+            ViewBag.ServantID = new SelectList(db.Servants, "ID", "ServantName", newFamily.person.ServantID);
+            return View(newFamily.person);
         }
 
         // GET: People/Edit/5
