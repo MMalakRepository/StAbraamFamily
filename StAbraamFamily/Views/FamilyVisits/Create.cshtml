@@ -5,61 +5,145 @@
     Layout = "~/Views/Shared/_FamilyLayout.cshtml";
 }
 
-<h2>Create</h2>
-
-
-@using (Html.BeginForm()) 
-{
-    @Html.AntiForgeryToken()
-    
-    <div class="form-horizontal">
-        <h4>FamilyVisit</h4>
-        <hr />
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        <div class="form-group">
-            @Html.LabelFor(model => model.FamilyID, "FamilyID", htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.DropDownList("FamilyID", null, htmlAttributes: new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.FamilyID, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.ServantID, "ServantID", htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.DropDownList("ServantID", null, htmlAttributes: new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.ServantID, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.VisitDate, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.VisitDate, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.VisitDate, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.Notes, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Notes, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Notes, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Create" class="btn btn-default" />
-            </div>
-        </div>
+<header class="page-header" style="background-color: #0088cc;border-left-color: #0088cc">
+    <h2 class="text-white" style="        border-bottom-color: #17a2b8 !important;font-size: 25px;font-weight: bold;font-family: Calibri">  زيارات الأفتقاد الأسرية </h2>
+    <div class="right-wrapper text-left">
+        <ol class="breadcrumbs float-md-right mr-5">
+            <li>
+                <a href="@Url.Action("Index","FamilyVisits",null)" class="text-white" style="font-size: 18px; font-weight: bold; font-family: Calibri">
+                    <i class="fas fa-university text-white"></i> تقرير زيارات الأفتقاد الأسرية
+                </a>
+            </li>
+        </ol>
     </div>
-}
+</header>
 
-<div>
-    @Html.ActionLink("Back to List", "Index")
+<div class="col-lg-12">
+    <section class="card card-featured card-featured-dark mb-4">
+        <header class="card-header">
+            <div class="card-actions">
+                @*<a href="#" class="card-action card-action-toggle" data-card-toggle></a>*@
+            </div>
+
+            <h2 class="card-title" style="text-align:center;font-size:25px;font-weight:bold;font-family:Calibri">زيارات الأفتقاد الأسرية</h2>
+        </header>
+        <div class="card-body">
+            @using (Html.BeginForm())
+            {
+                @Html.AntiForgeryToken()
+
+                <div class="form-horizontal">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="control-label col-md-8" style="float: right;font-size: 14px;font-weight: bold;text-align: right;font-family: Calibri">   العائلة</label>
+                                <div class="col-md-12">
+                                    <div class="input-group">
+                                        <span class="input-group-prepend">
+                                            <span class="input-group-text">
+                                                <i class="fas fa-users text-dark"></i>
+                                            </span>
+                                        </span>
+                                        @Html.DropDownList("FamilyID", null, htmlAttributes: new { @class = "form-control" })
+                                        @Html.ValidationMessageFor(model => model.FamilyID, "", new { @class = "text-danger" })
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="control-label col-md-8" style="float: right;font-size: 14px;font-weight: bold;text-align: right;font-family: Calibri">   الخادم</label>
+                                <div class="col-md-12">
+                                    <div class="input-group">
+                                        <span class="input-group-prepend">
+                                            <span class="input-group-text">
+                                                <i class="fas fa-user-circle text-dark"></i>
+                                            </span>
+                                        </span>
+                                        @Html.DropDownList("ServantID", null, htmlAttributes: new { @class = "form-control" })
+                                        @Html.ValidationMessageFor(model => model.ServantID, "", new { @class = "text-danger" })
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+
+
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label class="control-label col-md-6" style="float: right;font-size: 14px;font-weight: bold;text-align: right;font-family: Calibri">   تاريخ الأفتقاد</label>
+                                <div class="col-md-12">
+                                    <div class="input-group">
+                                        <span class="input-group-prepend">
+                                            <span class="input-group-text">
+                                                <i class="fas fa-calendar-alt text-dark"></i>
+                                            </span>
+                                        </span>
+                                        @Html.EditorFor(model => model.VisitDate, new { htmlAttributes = new { @class = "form-control" } })
+                                        @Html.ValidationMessageFor(model => model.VisitDate, "", new { @class = "text-danger" })
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-8">
+                            <div class="form-group">
+                                <label class="control-label col-md-4" style="float: right;font-size: 14px;font-weight: bold;text-align: right;font-family: Calibri">   ملاحظات الزيارة</label>
+                                <div class="col-md-12">
+                                    <div class="input-group">
+                                        <span class="input-group-prepend">
+                                            <span class="input-group-text">
+                                                <i class="fas fa-user-edit text-dark"></i>
+                                            </span>
+                                        </span>
+                                        @Html.EditorFor(model => model.Notes, new { htmlAttributes = new { @class = "form-control" } })
+                                        @Html.ValidationMessageFor(model => model.Notes, "", new { @class = "text-danger" })
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            }
+        </div>
+        <div class="card-footer">
+            <div class="row">
+                <div class="col-md-6">
+                    <a href="#" class="btn btn-outline-danger" style="width:100%;font-size: 20px;font-weight: bold;text-align: center;font-family: Calibri">ألغاء بيانات الزيارة</a>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <div class="col-md-offset-2 col-md-12" >
+                            <input type="submit" value="أضافة زيارة أفتقاد " class="btn btn-sm btn-dark" style="width:100%;font-size: 20px;font-weight: bold;text-align: center;font-family: Calibri"        />
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </section>
 </div>
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
+
+    <link href="~/Assets/vendor/select2/css/select2.min.css" rel="stylesheet" />
+    <link href="~/Assets/vendor/jquery-ui/jquery-ui.min.css" rel="stylesheet" />
+
+    <script src="~/Assets/vendor/jquery/jquery.min.js"></script>
+    <script src="~/Assets/vendor/select2/js/select2.full.min.js"></script>
+    <script src="~/Assets/vendor/jquery-ui/jquery-ui.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            $("#VisitDate").datepicker();
+        });
+    </script>
 }

@@ -46,9 +46,9 @@
                                         @Html.EditorFor(model => model.FatherName, new { htmlAttributes = new { @class = "form-control" } })
                                         @Html.ValidationMessageFor(model => model.FatherName, "", new { @class = "text-danger" })
                                     </div>
-                 
-                                    </div>
+
                                 </div>
+                            </div>
                         </div>
 
                         <div class="col-md-6">
@@ -64,7 +64,7 @@
                                         @Html.EditorFor(model => model.PhoneNumber, new { htmlAttributes = new { @class = "form-control" } })
                                         @Html.ValidationMessageFor(model => model.PhoneNumber, "", new { @class = "text-danger" })
                                     </div>
-                
+
                                 </div>
                             </div>
                         </div>
@@ -83,7 +83,7 @@
                                         @Html.EditorFor(model => model.Notes, new { htmlAttributes = new { @class = "form-control" } })
                                         @Html.ValidationMessageFor(model => model.Notes, "", new { @class = "text-danger" })
                                     </div>
-                 
+
                                 </div>
                             </div>
                         </div>
@@ -97,7 +97,7 @@
                 <div class="col-md-6">
                     <div class="form-group">
                         <div class="col-md-offset-2 col-md-12">
-                            <input type="submit" value="أضافة أب كاهن" class="btn btn-sm btn-info" style="width:100%;font-size: 20px;font-weight: bold;text-align: center;font-family: Calibri" "    />
+                            <input type="submit" value="أضافة أب كاهن" class="btn btn-sm btn-info" style="width:100%;font-size: 20px;font-weight: bold;text-align: center;font-family: Calibri" "     />
                         </div>
                     </div>
 
@@ -107,10 +107,7 @@
     </section>
 </div>
 
-
-
-
-
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
+
 }
