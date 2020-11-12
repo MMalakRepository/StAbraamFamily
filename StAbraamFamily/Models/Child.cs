@@ -18,7 +18,7 @@ namespace StAbraamFamily.Models
         public string Name { get; set; }
         public Nullable<System.DateTime> DateOfBirth { get; set; }
         public Nullable<bool> IsActive { get; set; }
-        public Nullable<bool> IsWorking { get; set; }
+        public bool IsWorking { get; set; }
         public string WorkingPlace { get; set; }
         public string IsStudying { get; set; }
         public Nullable<System.DateTime> EntryDate { get; set; }

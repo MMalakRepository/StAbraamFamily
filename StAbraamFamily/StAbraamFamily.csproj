@@ -396,7 +396,6 @@
     <Content Include="Assets\js\theme.admin.extension.js" />
     <Content Include="Assets\js\theme.init.js" />
     <Content Include="Assets\js\theme.js" />
-    <Content Include="Assets\layouts-header-menu.html" />
     <Content Include="Assets\master\less\less.js" />
     <Content Include="Assets\master\style-switcher\bootstrap-colorpicker\css\bootstrap-colorpicker.css" />
     <Content Include="Assets\master\style-switcher\bootstrap-colorpicker\css\bootstrap-colorpicker.min.css" />
