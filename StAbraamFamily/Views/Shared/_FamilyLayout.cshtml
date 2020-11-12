@@ -30,6 +30,16 @@
     <link rel="stylesheet" href="~/Assets/vendor/bootstrap-multiselect/css/bootstrap-multiselect.css" />
     <link rel="stylesheet" href="~/Assets/vendor/morris/morris.css" />
 
+    <!-- bootstrap -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <!-- select2 -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel="stylesheet" />
+
+    <!-- select2-bootstrap4-theme -->
+    <link href="https://raw.githack.com/ttskch/select2-bootstrap4-theme/master/dist/select2-bootstrap4.css" rel="stylesheet"> <!-- for live demo page -->
+
+    <link href="~/Assets/vendor/jquery-ui/jquery-ui.min.css" rel="stylesheet" />
+
     <!-- Theme CSS -->
     <link rel="stylesheet" href="~/Assets/css/theme.css" />
 
@@ -42,8 +52,8 @@
     <!-- Head Libs -->
     <script src="~/Assets/vendor/modernizr/modernizr.js"></script>
     <style>
-        .datepicker .datepicker-dropdown .dropdown-menu{
-            top:370px !important;
+        .datepicker .datepicker-dropdown .dropdown-menu {
+            top: 370px !important;
         }
     </style>
 
@@ -94,7 +104,7 @@
                                 <li class="">
                                     @Html.ActionLink("العيادات", "Index", "Clinics", null, new { @class = "nav-link" })
                                 </li>
- 
+
                                 <li class="">
                                     <a class="nav-link" href="#">
                                         Dashboard
@@ -128,12 +138,12 @@
                             <li>
                                 <a role="menuitem" tabindex="-1" href="#"><i class="fas fa-user"></i> Reset Password</a>
                             </li>
- 
+
                             <li>
                                 <a role="menuitem" tabindex="-1" href="#"><i class="fas fa-power-off"></i> Logout</a>
                             </li>
                         </ul>
-                    </div> 
+                    </div>
                 </div>
             </div>
             <!-- end: search & user box -->
@@ -145,8 +155,9 @@
             <aside id="sidebar-left" class="sidebar-left">
 
                 <div class="sidebar-header">
-                    <div class="sidebar-title text-primary"><strong>St.Abraam Family System</strong>
-       
+                    <div class="sidebar-title text-primary">
+                        <strong>St.Abraam Family System</strong>
+
                     </div>
                     <div class="sidebar-toggle d-none d-md-block" data-toggle-class="sidebar-left-collapsed" data-target="html" data-fire-event="sidebar-left-toggle">
                         <i class="fas fa-bars" aria-label="Toggle sidebar"></i>
@@ -159,32 +170,33 @@
 
                             <ul class="nav nav-main">
                                 <li>
-                                     <a href="@Url.Action("Index","People",null)" class="nav-link">
-                                           <span class="float-right badge badge-primary">182</span>
-                                           <i class="fas fa-user-circle text-primary" aria-hidden="true"></i>
-                                           <span>الأفراد</span> </a>
-                        
-                   
+                                    <a href="@Url.Action("Index","People",null)" class="nav-link">
+                                        <span class="float-right badge badge-primary">182</span>
+                                        <i class="fas fa-user-circle text-primary" aria-hidden="true"></i>
+                                        <span>الأفراد</span>
+                                    </a>
+
+
                                 </li>
                                 <li>
                                     <a class="nav-link" href="@Url.Action("Index","Families",null)">
                                         <span class="float-right badge badge-danger">123</span>
                                         <i class="fas fa-list text-danger" aria-hidden="true"></i>
-                                        <span>العائلات</span>  
+                                        <span>العائلات</span>
                                     </a>
                                 </li>
                                 <li>
                                     <a class="nav-link" href="@Url.Action("Index","ServiceActions",null)">
                                         <span class="float-right badge badge-warning">12</span>
                                         <i class="fas fa-globe text-warning" aria-hidden="true"></i>
-                                        <span>الخدمات</span>  
+                                        <span>الخدمات</span>
                                     </a>
                                 </li>
                                 <li>
                                     <a class="nav-link" href="@Url.Action("Index","Fathers",null)">
                                         <span class="float-right badge badge-success">4</span>
                                         <i class="fas fa-pray text-success" aria-hidden="true"></i>
-                                        <span>الأباء الكهنة</span>  
+                                        <span>الأباء الكهنة</span>
                                     </a>
                                 </li>
                                 <li>
@@ -309,6 +321,16 @@
     <script src="~/Assets/js/custom.js"></script>
     <script src="~/Assets/js/theme.init.js"></script>
     <script src="~/Assets/js/examples/examples.dashboard.js"></script>
+
+    @*Select script Michael*@
+    <script src="~/Assets/vendor/jquery-ui/jquery-ui.js"></script>
+
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <!-- select2 -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
+    <script src="~/Assets/js/selectscript.js"></script>
     @RenderSection("scripts", required: false)
 </body>
 </html>

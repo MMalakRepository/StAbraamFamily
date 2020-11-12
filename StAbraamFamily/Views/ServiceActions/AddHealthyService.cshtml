@@ -1,17 +1,30 @@
 ﻿@model StAbraamFamily.Models.ServiceAction
 
 @{
-    ViewBag.Title = "Create";
+    ViewBag.Title = "AddHealthyService";
     Layout = "~/Views/Shared/_FamilyLayout.cshtml";
 }
 
+<header class="page-header" style="background-color: #0088cc;border-left-color: #0088cc">
+    <h2 class="text-white" style="        border-bottom-color: #5bc0de !important;font-size: 25px;font-weight: bold;font-family: Calibri"> بيانات الخدمات العلاجية</h2>
+    <div class="right-wrapper text-left">
+        <ol class="breadcrumbs float-md-right mr-5">
+            <li>
+                <a href="@Url.Action("Index","Clinics",null)" class="text-white" style="font-size:18px;font-weight:bold;font-family:Calibri" ">
+                    <i class="fas fa-user-cog text-white"></i> تقرير الخدمات العلاجية
+                </a>
+            </li>
+        </ol>
+    </div>
+</header>
+
 <div class="col-lg-12">
-    <section class="card card-primary mb-4">
+    <section class="card card-featured card-featured-info mb-4">
         <header class="card-header">
             <div class="card-actions">
                 <a href="#" class="card-action card-action-toggle" data-card-toggle></a>
             </div>
-            <h2 class="card-title" style="text-align:center;font-size:25px;font-weight:bold;font-family:Calibri"> بيانات الخدمة  </h2>
+            <h2 class="card-title" style="text-align:center;font-size:25px;font-weight:bold;font-family:Calibri"> أضافة خدمة علاجية   </h2>
         </header>
         <div class="card-body">
             @using (Html.BeginForm())
@@ -26,7 +39,7 @@
                                     <div class="input-group">
                                         <span class="input-group-prepend">
                                             <span class="input-group-text">
-                                                <i class="fas fa-user text-primary"></i>
+                                                <i class="fas fa-user text-info"></i>
                                             </span>
                                         </span>
                                         @Html.DropDownList("PersonID", null, htmlAttributes: new { @class = "form-control" })
@@ -45,7 +58,7 @@
                                     <div class="input-group">
                                         <span class="input-group-prepend">
                                             <span class="input-group-text">
-                                                <i class="fas fa-user-check text-primary"></i>
+                                                <i class="fas fa-user-check text-info"></i>
                                             </span>
                                         </span>
                                         @Html.DropDownList("ServantID", null, htmlAttributes: new { @class = "form-control " })
@@ -57,51 +70,15 @@
                         </div>
                     </div>
                     <div class="row">
-                        @*<div class="col-md-6">
-                                <div class="form-group">
-                                    <label class="control-label col-md-4" style="float: right;font-size: 14px;font-weight: bold;text-align: right;font-family: Calibri">  العائلة</label>
-                                    <div class="col-md-12">
-                                        <div class="input-group">
-                                            <span class="input-group-prepend">
-                                                <span class="input-group-text">
-                                                    <i class="fas fa-users text-primary"></i>
-                                                </span>
-                                            </span>
-                                            @Html.DropDownList("FamilyID", null, htmlAttributes: new { @class = "form-control" })
-                                            @Html.ValidationMessageFor(model => model.FamilyID, "", new { @class = "text-danger" })
-                                        </div>
 
-                                    </div>
-                                </div>
-                            </div>*@
-
-                        <div class="col-md-6">
-                            <div class="form-group">
-
-                                <label class="control-label col-md-4" style="float: right;font-size: 14px;font-weight: bold;text-align: right;font-family: Calibri">
-                                    نوع الخدمة
-                                </label>
-                                <div class="col-md-12">
-                                    <div class="input-group">
-                                        <span class="input-group-prepend">
-                                            <span class="input-group-text">
-                                                <i class="fas fa-cog text-primary"></i>
-                                            </span>
-                                        </span>
-                                        @Html.DropDownList("ActionTypeID", null, htmlAttributes: new { @class = "form-control" })
-                                        @Html.ValidationMessageFor(model => model.ActionTypeID, "", new { @class = "text-danger" })
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
+                        <div class="col-md-4">
                             <div class="form-group">
                                 <label class="control-label col-md-4" style="float: right;font-size: 14px;font-weight: bold;text-align: right;font-family: Calibri">  التاريخ</label>
                                 <div class="col-md-12">
                                     <div class="input-group">
                                         <span class="input-group-prepend">
                                             <span class="input-group-text">
-                                                <i class="fas fa-calendar-alt text-primary"></i>
+                                                <i class="fas fa-calendar-alt text-info"></i>
                                             </span>
                                         </span>
                                         @Html.EditorFor(model => model.ActionDate, new { htmlAttributes = new { @class = "form-control" } })
@@ -112,6 +89,45 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label class="control-label col-md-6" style="float: right;font-size: 14px;font-weight: bold;text-align: right;font-family: Calibri">أسم  المستشفى</label>
+                                <div class="col-md-12">
+                                    <div class="input-group">
+                                        <span class="input-group-prepend">
+                                            <span class="input-group-text">
+                                                <i class="fas fa-clinic-medical text-info"></i>
+                                            </span>
+                                        </span>
+                                        @Html.DropDownList("HospitalID", null, htmlAttributes: new { @class = "form-control" })
+                                        @Html.ValidationMessageFor(model => model.HospitalID, "", new { @class = "text-danger" })
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label class="control-label col-md-6" style="float: right;font-size: 14px;font-weight: bold;text-align: right;font-family: Calibri">أسم  العيادة</label>
+                                <div class="col-md-12">
+                                    <div class="input-group">
+                                        <span class="input-group-prepend">
+                                            <span class="input-group-text">
+                                                <i class="fas fa-user-nurse text-info"></i>
+                                            </span>
+                                        </span>
+                                        @Html.DropDownList("ClinicID", null, htmlAttributes: new { @class = "form-control" })
+                                        @Html.ValidationMessageFor(model => model.ClinicID, "", new { @class = "text-danger" })
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+
                     </div>
 
 
@@ -123,7 +139,7 @@
                                     <div class="input-group">
                                         <span class="input-group-prepend">
                                             <span class="input-group-text">
-                                                <i class="fas fa-user-edit text-primary"></i>
+                                                <i class="fas fa-user-edit text-info"></i>
                                             </span>
                                         </span>
                                         @Html.EditorFor(model => model.Notes, new { htmlAttributes = new { @class = "form-control" } })
@@ -135,44 +151,6 @@
                         </div>
                     </div>
 
-
-                    @*<div class="row">
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label class="control-label col-md-6" style="float: right;font-size: 14px;font-weight: bold;text-align: right;font-family: Calibri">أسم  المستشفى</label>
-                                    <div class="col-md-12">
-                                        <div class="input-group">
-                                            <span class="input-group-prepend">
-                                                <span class="input-group-text">
-                                                    <i class="fas fa-clinic-medical text-primary"></i>
-                                                </span>
-                                            </span>
-                                            @Html.DropDownList("HospitalID", null, htmlAttributes: new { @class = "form-control" })
-                                            @Html.ValidationMessageFor(model => model.HospitalID, "", new { @class = "text-danger" })
-                                        </div>
-
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label class="control-label col-md-6" style="float: right;font-size: 14px;font-weight: bold;text-align: right;font-family: Calibri">أسم  العيادة</label>
-                                    <div class="col-md-12">
-                                        <div class="input-group">
-                                            <span class="input-group-prepend">
-                                                <span class="input-group-text">
-                                                    <i class="fas fa-user-nurse text-primary"></i>
-                                                </span>
-                                            </span>
-                                            @Html.DropDownList("ClinicID", null, htmlAttributes: new { @class = "form-control" })
-                                            @Html.ValidationMessageFor(model => model.ClinicID, "", new { @class = "text-danger" })
-                                        </div>
-
-                                    </div>
-                                </div>
-                            </div>
-                        </div>*@
 
 
                 </div>
@@ -187,7 +165,7 @@
                 <div class="col-md-6">
                     <div class="form-group">
                         <div class="col-md-offset-2 col-md-12">
-                            <input type="submit" value="أضافة الخدمة " class="btn btn-sm btn-outline-primary" style="width:100%;font-size: 20px;font-weight: bold;text-align: center;font-family: Calibri" />
+                            <input type="submit" value="أضافة الخدمة " class="btn btn-sm btn-outline-info" style="width:100%;font-size: 20px;font-weight: bold;text-align: center;font-family: Calibri" />
                         </div>
                     </div>
                 </div>
@@ -195,6 +173,7 @@
         </div>
     </section>
 </div>
+
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
@@ -208,7 +187,6 @@
 
     <script>
         $(document).ready(function () {
-
             $("#ActionDate").datepicker();
         });
     </script>
