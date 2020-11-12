@@ -38,12 +38,11 @@ namespace StAbraamFamily.Controllers
         // GET: ServiceTypes/Create
         public ActionResult Create()
         {
+            ViewBag.ServantID = new SelectList(db.Servants, "ID", "ServantName");
             return View();
         }
 
-        // POST: ServiceTypes/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
+ 
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "ID,ActionType,Description,IsActive,ServantID")] ServiceType serviceType)
@@ -57,8 +56,7 @@ namespace StAbraamFamily.Controllers
 
             return View(serviceType);
         }
-
-        // GET: ServiceTypes/Edit/5
+         
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -72,10 +70,7 @@ namespace StAbraamFamily.Controllers
             }
             return View(serviceType);
         }
-
-        // POST: ServiceTypes/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
+ 
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "ID,ActionType,Description,IsActive,ServantID")] ServiceType serviceType)
@@ -89,7 +84,7 @@ namespace StAbraamFamily.Controllers
             return View(serviceType);
         }
 
-        // GET: ServiceTypes/Delete/5
+ 
         public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -104,7 +99,7 @@ namespace StAbraamFamily.Controllers
             return View(serviceType);
         }
 
-        // POST: ServiceTypes/Delete/5
+ 
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
