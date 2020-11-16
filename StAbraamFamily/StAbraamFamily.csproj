@@ -3661,6 +3661,7 @@
     <Content Include="Views\Servants\Edit.cshtml" />
     <Content Include="Views\Servants\Index.cshtml" />
     <Content Include="Views\ServiceActions\AddHealthyService.cshtml" />
+    <Content Include="Views\Families\CreateBk.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
