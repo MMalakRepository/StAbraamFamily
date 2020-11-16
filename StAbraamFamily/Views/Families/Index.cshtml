@@ -7,84 +7,122 @@
 
 <header class="page-header" style="background-color: #0088cc;
 
-        border-left-color: #0088cc" >
-    <h2 class="text-white"  style=" border-bottom-color: #ffc107 !important;">@ViewBag.Title</h2>
+        border-left-color: #0088cc">
+    <h2 class="text-white" style=" border-bottom-color: #ffc107 !important;">@ViewBag.Title</h2>
 
     <div class="right-wrapper text-left">
         <ol class="breadcrumbs float-md-right mr-5">
- 
+
             <li>
                 <a href="@Url.Action("Create","Families",null)" class="text-white">
                     <i class="fas fa-plus-circle fa-2x text-warning"></i> Add New Family
                 </a>
             </li>
- 
+
         </ol>
     </div>
 </header>
- 
-<table class="table">
-    <tr>
-        <th>
-            <label> الملاحظات</label>
-        </th>
-        <th>
-            <label> تقييم العائلة</label>
-        </th>
-        <th>
-            <label> الأب المسئول</label>
-        </th>
-        <th>
-            <label>أسم الخادم </label>
-        </th>
-        <th>
-            <label> العنوان</label>
-        </th>
-        <th>
-            <label>أسم الأم </label>
-        </th>
-        <th>
-            <label> أسم الأب</label>
-        </th>
-        <th>
-            <label>كود العائلة</label>
-        </th>
-        <th></th>
-    </tr>
 
-    @foreach (var item in Model)
-    {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Notes)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.EvaluationLevel.EvaluationLevel1)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Father.FatherName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Servant.ServantName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Address)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Person1.FirstName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Person.FirstName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.FamilyCode)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id = item.ID }) |
-            @Html.ActionLink("Details", "Details", new { id = item.ID }) |
-            @Html.ActionLink("Delete", "Delete", new { id = item.ID })
-        </td>
-    </tr>
-    }
+<div class="col-lg-12">
+    <section class="card card-featured card-featured-primary mb-4 card-featured-bottom">
 
-</table>
+        <header class="card-header">
+            <div class="card-actions">
+                @*<a href="#" class="card-action card-action-toggle" data-card-toggle></a>*@
+            </div>
+            <h2 class="card-title" style="text-align:center;font-size:25px;font-weight:bold;font-family:Calibri"> تقرير العائلات  </h2>
+        </header>
+
+        <div class="card-body">
+            <div class="container p-0" style="max-width:90%" >
+                <table class="table table-hover table-sm" id="myDataTable">
+                    <thead class="bg-primary text-white text-center">
+                        <tr>
+                            <th>
+                                <label> الملاحظات</label>
+                            </th>
+                            <th>
+                                <label> تقييم العائلة</label>
+                            </th>
+                            <th>
+                                <label> الأب المسئول</label>
+                            </th>
+                            <th>
+                                <label>أسم الخادم </label>
+                            </th>
+                            <th>
+                                <label> العنوان</label>
+                            </th>
+                            <th>
+                                <label>أسم الأم </label>
+                            </th>
+                            <th>
+                                <label> أسم الأب</label>
+                            </th>
+                            <th>
+                                <label>كود العائلة</label>
+                            </th>
+                            <th></th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Notes)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.EvaluationLevel.EvaluationLevel1)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Father.FatherName)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Servant.ServantName)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Address)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Person1.FirstName)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Person.FirstName)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.FamilyCode)
+                                </td>
+                                <td>
+
+                                    <a href="@Url.Action("Edit",new { id = item.ID })" class="btn bg-primary text-white btn-sm rounded-circle"><i class="fa fa-edit"></i></a>
+                                    <a href="@Url.Action("Delete",new { id = item.ID })" class="btn bg-danger text-white btn-sm rounded-circle"><i class="fa fa-trash-alt"></i></a>
+
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+
+                </table>
+            </div>
+        </div>
+    </section>
+</div>
+
+
+@section Scripts {
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.22/css/dataTables.bootstrap4.min.css" />
+    <script src="https://code.jquery.com/jquery-3.5.1.js" type="text/javascript"></script>
+    <script src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.min.js" type="text/javascript"></script>
+    <script src="https://cdn.datatables.net/1.10.22/js/dataTables.bootstrap4.min.js" type="text/javascript"></script>
+
+
+    <script>
+        $(document).ready(function () {
+            $('#myDataTable').dataTable();
+        });
+    </script>
+
+}
+
