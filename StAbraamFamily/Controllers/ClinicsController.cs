@@ -14,13 +14,11 @@ namespace StAbraamFamily.Controllers
     {
         private StAbraamEntities db = new StAbraamEntities();
 
-        // GET: Clinics
         public ActionResult Index()
         {
             return View(db.Clinics.ToList());
         }
 
-        // GET: Clinics/Details/5
         public ActionResult Details(int? id)
         {
             if (id == null)
@@ -34,16 +32,13 @@ namespace StAbraamFamily.Controllers
             }
             return View(clinic);
         }
-
-        // GET: Clinics/Create
+ 
         public ActionResult Create()
         {
             return View();
         }
 
-        // POST: Clinics/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
+ 
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "ID,ClinicName,Notes,IsActive,Address")] Clinic clinic)
@@ -58,7 +53,7 @@ namespace StAbraamFamily.Controllers
             return View(clinic);
         }
 
-        // GET: Clinics/Edit/5
+ 
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -72,10 +67,7 @@ namespace StAbraamFamily.Controllers
             }
             return View(clinic);
         }
-
-        // POST: Clinics/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
+ 
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "ID,ClinicName,Notes,IsActive,Address")] Clinic clinic)
@@ -89,7 +81,7 @@ namespace StAbraamFamily.Controllers
             return View(clinic);
         }
 
-        // GET: Clinics/Delete/5
+ 
         public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -104,7 +96,7 @@ namespace StAbraamFamily.Controllers
             return View(clinic);
         }
 
-        // POST: Clinics/Delete/5
+ 
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
