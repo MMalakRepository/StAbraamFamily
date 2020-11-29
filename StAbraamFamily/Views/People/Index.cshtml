@@ -40,7 +40,7 @@
                     <thead class="bg-info text-white text-center">
                         <tr>
                             <th>
-                                <label class="control-label " style="float: right;font-size: 14px;font-weight: bold;text-align: right;font-family: Calibri">الأسم </label>
+                                <label class="control-label " style="float: right;font-size: 14px;font-weight: bold;text-align: right;font-family: Calibri">كود الفرد </label>
                             </th>
                             <th>
                                 <label class="control-label " style="float: right;font-size: 14px;font-weight: bold;text-align: right;font-family: Calibri">الأسم بالكامل </label>
@@ -48,12 +48,12 @@
                             <th>
                                 <label class="control-label " style="float: right;font-size: 14px;font-weight: bold;text-align: right;font-family: Calibri">التليفون </label>
                             </th>
-                            <th>
+                            @*<th>
                                 <label class="control-label " style="float: right;font-size: 14px;font-weight: bold;text-align: right;font-family: Calibri">العنوان </label>
                             </th>
                             <th>
                                 <label class="control-label " style="float: right;font-size: 14px;font-weight: bold;text-align: right;font-family: Calibri">المنطقة </label>
-                            </th>
+                            </th>*@
                             <th>
                                 <label class="control-label " style="float: right;font-size: 14px;font-weight: bold;text-align: right;font-family: Calibri">تاريخ الميلاد </label>
                             </th>
@@ -78,20 +78,20 @@
                         {
                             <tr>
                                 <td>
-                                    @Html.DisplayFor(modelItem => item.FirstName)
+                                    @Html.DisplayFor(modelItem => item.Code)
                                 </td>
                                 <td>
-                                    @Html.DisplayFor(modelItem => item.LastName)
+                                    @Html.DisplayFor(modelItem => item.FullName)
                                 </td>
                                 <td>
                                     @Html.DisplayFor(modelItem => item.Phone)
                                 </td>
-                                <td>
+                                @*<td>
                                     @Html.DisplayFor(modelItem => item.Address)
                                 </td>
                                 <td>
                                     @Html.DisplayFor(modelItem => item.Area)
-                                </td>
+                                </td>*@
                                 <td>
                                     @Html.DisplayFor(modelItem => item.DateOfBirth)
                                 </td>

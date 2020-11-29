@@ -4,6 +4,7 @@
     ViewBag.Title = "Create";
     Layout = "~/Views/Shared/_FamilyLayout.cshtml";
 }
+
 <header class="page-header" style="background-color: #0088cc;border-left-color: #0088cc">
     <h2 class="text-white" style="border-bottom-color: #ffc107 !important;font-size: 25px;font-weight: bold;font-family: Calibri">أضافة بيانات العائلة</h2>
     <div class="right-wrapper text-left">
@@ -18,197 +19,192 @@
 </header>
 
 <div class="col-lg-12">
-    <h4 class="display-4 text-center">New Family Data</h4>
+    <div class="row">
+        <div class="col-md-8">
+            <h4 class="display-4 text-center">New Family Data</h4>
+        </div>
+        <div class="col-md-4 mt-4 " >
+            <a href="@Url.Action("Create","People")" class="btn btn-sm btn-primary " style="float:right;"><i class="fa fa-plus-circle"></i> أضافة فرد جديد</a>
+        </div>
+    </div>
+    <section class="card card-featured card-featured-dark mb-4">
+        <header class="card-header">
+            <h2 class="card-title" style="text-align:center;font-size:25px;font-weight:bold;font-family:Calibri"> بيانات  العائلة</h2>
+        </header>
+        <div class="card-body">
+            @using (Html.BeginForm())
+            {
+                @Html.AntiForgeryToken()
+            <div class="form-horizontal">
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label class="control-label col-md-4" style=" float: right; font-size: 14px; font-weight: bold;text-align: right;"> كود العائلة</label>
 
-    <div class="toggle toggle-primary" data-plugin-toggle data-plugin-options="{ 'isAccordion': true }">
-        <section class="toggle">
-            <label style="font-size:20px;font-weight:bold;text-align:center;font-family:Calibri">بيانات العائلة الجديدة</label>
-            <div class="toggle-content">
-                <section class="card card-featured-left card-featured-right card-featured-bottom card-featured-info mb-4">
-                    <div class="card-body">
-                        <div class="widget-summary">
-                            <div class="widget-summary-col">
-                                <div class="summary">
-                                    @using (Html.BeginForm())
-                                    {
-                                        @Html.AntiForgeryToken()
-                                        <div class="form-horizontal">
-                                            <div class="row">
-                                                <div class="col-md-4">
-                                                    <div class="form-group">
-                                                        <label class="control-label col-md-4" style=" float: right; font-size: 14px; font-weight: bold;text-align: right;"> كود العائلة</label>
-
-                                                        <div class="col-md-12">
-                                                            <div class="input-group">
-                                                                <span class="input-group-prepend">
-                                                                    <span class="input-group-text">
-                                                                        <i class="fas fa-users-cog text-primary bg-white"></i>
-                                                                    </span>
-                                                                </span>
-                                                                @Html.EditorFor(model => model.family.FamilyCode, new { htmlAttributes = new { @class = "form-control" } })
-                                                                @Html.ValidationMessageFor(model => model.family.FamilyCode, "", new { @class = "text-danger" })
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-
-                                                <div class="col-md-8">
-                                                    <div class="form-group">
-                                                        <label class="control-label col-md-4" style=" float: right; font-size: 14px; font-weight: bold;text-align: right;"> العنوان</label>
-
-                                                        <div class="col-md-12">
-                                                            <div class="input-group">
-                                                                <span class="input-group-prepend">
-                                                                    <span class="input-group-text">
-                                                                        <i class="fas fa-home text-primary bg-white"></i>
-                                                                    </span>
-                                                                </span>
-                                                                @Html.EditorFor(model => model.family.Address, new { htmlAttributes = new { @class = "form-control" } })
-                                                                @Html.ValidationMessageFor(model => model.family.Address, "", new { @class = "text-danger" })
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                            <div class="row">
-                                                <div class="col-md-6">
-                                                    <div class="form-group">
-                                                        <label class="control-label col-md-4" style=" float: right; font-size: 14px; font-weight: bold;text-align: right;">أسم الأب</label>
-                                                        <div class="col-md-12">
-                                                            <div class="input-group">
-                                                                <span class="input-group-prepend">
-                                                                    <span class="input-group-text">
-                                                                        <i class="fas fa-male text-primary bg-white"></i>
-                                                                    </span>
-                                                                </span>
-                                                                @Html.DropDownList("FatherID", null, htmlAttributes: new { @class = "form-control" })
-                                                                @Html.ValidationMessageFor(model => model.family.FatherID, "", new { @class = "text-danger" })
-                                                            </div>
-
-                                                        </div>
-                                                    </div>
-                                                </div>
-
-                                                <div class="col-md-6">
-                                                    <div class="form-group">
-                                                        <label class="control-label col-md-4" style=" float: right; font-size: 14px; font-weight: bold;text-align: right;">أسم الأم</label>
-                                                        <div class="col-md-12">
-                                                            <div class="input-group">
-                                                                <span class="input-group-prepend">
-                                                                    <span class="input-group-text">
-                                                                        <i class="fas fa-female text-primary bg-white"></i>
-                                                                    </span>
-                                                                </span>
-                                                                @Html.DropDownList("MotherID", null, htmlAttributes: new { @class = "form-control" })
-                                                                @Html.ValidationMessageFor(model => model.family.MotherID, "", new { @class = "text-danger" })
-                                                            </div>
-
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                            <div class="row">
-                                                <div class="col-md-4">
-                                                    <div class="form-group">
-                                                        <label class="control-label col-md-4" style=" float: right; font-size: 14px; font-weight: bold;text-align: right;">تقييم الأسرة</label>
-                                                        <div class="col-md-12">
-                                                            <div class="input-group">
-                                                                <span class="input-group-prepend">
-                                                                    <span class="input-group-text">
-                                                                        <i class="fas fa-list-ul text-primary bg-white"></i>
-                                                                    </span>
-                                                                </span>
-                                                                @Html.DropDownList("EvaluationLevelID", null, htmlAttributes: new { @class = "form-control" })
-                                                                @Html.ValidationMessageFor(model => model.family.EvaluationLevelID, "", new { @class = "text-danger" })
-                                                            </div>
-
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-8">
-                                                    <div class="form-group">
-                                                        <label class="control-label col-md-4" style=" float: right; font-size: 14px; font-weight: bold;text-align: right;"> ملاحظات أضافية</label>
-                                                        <div class="col-md-12">
-                                                            <div class="input-group">
-                                                                <span class="input-group-prepend">
-                                                                    <span class="input-group-text">
-                                                                        <i class="fas fa-edit text-primary bg-white"></i>
-                                                                    </span>
-                                                                </span>
-                                                                @Html.EditorFor(model => model.family.Notes, new { htmlAttributes = new { @class = "form-control" } })
-                                                                @Html.ValidationMessageFor(model => model.family.Notes, "", new { @class = "text-danger" })
-                                                            </div>
-
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                            <div class="row">
-                                                <div class="col-md-6">
-                                                    <div class="form-group">
-                                                        <label class="control-label col-md-4" style=" float: right; font-size: 14px; font-weight: bold;text-align: right;"> خادم الأفتقاد</label>
-                                                        <div class="col-md-12">
-                                                            <div class="input-group">
-                                                                <span class="input-group-prepend">
-                                                                    <span class="input-group-text">
-                                                                        <i class="fas fa-user-cog text-primary bg-white"></i>
-                                                                    </span>
-                                                                </span>
-                                                                @Html.DropDownList("ServantID", null, htmlAttributes: new { @class = "form-control" })
-                                                                @Html.ValidationMessageFor(model => model.family.ServantID, "", new { @class = "text-danger" })
-                                                            </div>
-
-                                                        </div>
-                                                    </div>
-                                                </div>
-
-                                                <div class="col-md-6">
-                                                    <div class="form-group">
-                                                        <label class="control-label col-md-4" style=" float: right; font-size: 14px; font-weight: bold;text-align: right;">  أب ألأعتراف</label>
-                                                        <div class="col-md-12">
-                                                            <div class="input-group">
-                                                                <span class="input-group-prepend">
-                                                                    <span class="input-group-text">
-                                                                        <i class="fas fa-church text-primary bg-white"></i>
-                                                                    </span>
-                                                                </span>
-                                                                @Html.DropDownList("MissingPriestID", null, htmlAttributes: new { @class = "form-control" })
-                                                                @Html.ValidationMessageFor(model => model.family.MissingPriestID, "", new { @class = "text-danger" })
-                                                            </div>
-
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                            <div class="row">
-                                                <div class="col-md-6"></div>
-                                                <div class="col-md-6">
-                                                    <div class="form-group">
-                                                        <div class="col-md-offset-2 col-md-12">
-                                                            <input type="submit" value="أضافة العائلة" class="btn btn-sm btn-primary mt-3" style="width:100%;font-size:16px;font-weight:bold;" />
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    }
+                            <div class="col-md-12">
+                                <div class="input-group">
+                                    <span class="input-group-prepend">
+                                        <span class="input-group-text">
+                                            <i class="fas fa-users-cog text-dark bg-white"></i>
+                                        </span>
+                                    </span>
+                                    @Html.EditorFor(model => model.family.FamilyCode, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.family.FamilyCode, "", new { @class = "text-danger" })
                                 </div>
                             </div>
                         </div>
                     </div>
-                </section>
-            </div>
-        </section>
-    </div>
 
+                    <div class="col-md-8">
+                        <div class="form-group">
+                            <label class="control-label col-md-4" style=" float: right; font-size: 14px; font-weight: bold;text-align: right;"> العنوان</label>
+
+                            <div class="col-md-12">
+                                <div class="input-group">
+                                    <span class="input-group-prepend">
+                                        <span class="input-group-text">
+                                            <i class="fas fa-home text-dark bg-white"></i>
+                                        </span>
+                                    </span>
+                                    @Html.EditorFor(model => model.family.Address, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.family.Address, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label class="control-label col-md-4" style=" float: right; font-size: 14px; font-weight: bold;text-align: right;">أسم الأب</label>
+                            <div class="col-md-12">
+                                <div class="input-group">
+                                    <span class="input-group-prepend">
+                                        <span class="input-group-text">
+                                            <i class="fas fa-male text-dark bg-white"></i>
+                                        </span>
+                                    </span>
+                                    @Html.DropDownList("FatherID", null, htmlAttributes: new { @class = "form-control" })
+                                    @Html.ValidationMessageFor(model => model.family.FatherID, "", new { @class = "text-danger" })
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label class="control-label col-md-4" style=" float: right; font-size: 14px; font-weight: bold;text-align: right;">أسم الأم</label>
+                            <div class="col-md-12">
+                                <div class="input-group">
+                                    <span class="input-group-prepend">
+                                        <span class="input-group-text">
+                                            <i class="fas fa-female text-dark bg-white"></i>
+                                        </span>
+                                    </span>
+                                    @Html.DropDownList("MotherID", null, htmlAttributes: new { @class = "form-control" })
+                                    @Html.ValidationMessageFor(model => model.family.MotherID, "", new { @class = "text-danger" })
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label class="control-label col-md-4" style=" float: right; font-size: 14px; font-weight: bold;text-align: right;">تقييم الأسرة</label>
+                            <div class="col-md-12">
+                                <div class="input-group">
+                                    <span class="input-group-prepend">
+                                        <span class="input-group-text">
+                                            <i class="fas fa-list-ul text-dark bg-white"></i>
+                                        </span>
+                                    </span>
+                                    @Html.DropDownList("EvaluationLevelID", null, htmlAttributes: new { @class = "form-control" })
+                                    @Html.ValidationMessageFor(model => model.family.EvaluationLevelID, "", new { @class = "text-danger" })
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-8">
+                        <div class="form-group">
+                            <label class="control-label col-md-4" style=" float: right; font-size: 14px; font-weight: bold;text-align: right;"> ملاحظات أضافية</label>
+                            <div class="col-md-12">
+                                <div class="input-group">
+                                    <span class="input-group-prepend">
+                                        <span class="input-group-text">
+                                            <i class="fas fa-edit text-dark bg-white"></i>
+                                        </span>
+                                    </span>
+                                    @Html.EditorFor(model => model.family.Notes, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.family.Notes, "", new { @class = "text-danger" })
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label class="control-label col-md-4" style=" float: right; font-size: 14px; font-weight: bold;text-align: right;"> خادم الأفتقاد</label>
+                            <div class="col-md-12">
+                                <div class="input-group">
+                                    <span class="input-group-prepend">
+                                        <span class="input-group-text">
+                                            <i class="fas fa-user-cog text-dark bg-white"></i>
+                                        </span>
+                                    </span>
+                                    @Html.DropDownList("ServantID", null, htmlAttributes: new { @class = "form-control" })
+                                    @Html.ValidationMessageFor(model => model.family.ServantID, "", new { @class = "text-danger" })
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label class="control-label col-md-4" style=" float: right; font-size: 14px; font-weight: bold;text-align: right;">  الأب الكاهن المسئول </label>
+                            <div class="col-md-12">
+                                <div class="input-group">
+                                    <span class="input-group-prepend">
+                                        <span class="input-group-text">
+                                            <i class="fas fa-church text-dark bg-white"></i>
+                                        </span>
+                                    </span>
+                                    @Html.DropDownList("MissingPriestID", null, htmlAttributes: new { @class = "form-control" })
+                                    @Html.ValidationMessageFor(model => model.family.MissingPriestID, "", new { @class = "text-danger" })
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6"></div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <div class="col-md-offset-2 col-md-12">
+                                <input type="submit" value="أضافة العائلة" class="btn btn-sm btn-primary mt-3" style="width:100%;font-size:16px;font-weight:bold;" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            }
+        </div>
+ 
+    </section>
 </div>
+ 
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
-    <script>
-    </script>
+
 }

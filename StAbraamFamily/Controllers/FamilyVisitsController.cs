@@ -43,16 +43,14 @@ namespace StAbraamFamily.Controllers
             ViewBag.ServantID = new SelectList(db.Servants, "ID", "ServantName");
             return View();
         }
-
-        // POST: FamilyVisits/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
+ 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ID,FamilyID,ServantID,VisitDate,Notes")] FamilyVisit familyVisit)
+        public ActionResult Create(FamilyVisit familyVisit)
         {
             if (ModelState.IsValid)
             {
+        
                 db.FamilyVisits.Add(familyVisit);
                 db.SaveChanges();
                 return RedirectToAction("Index");

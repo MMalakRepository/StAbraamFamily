@@ -21,7 +21,6 @@ namespace StAbraamFamily.Controllers
             return View(serviceActions.ToList());
         }
 
- 
         public ActionResult Details(int? id)
         {
             if (id == null)
@@ -36,26 +35,25 @@ namespace StAbraamFamily.Controllers
             return View(serviceAction);
         }
 
- 
         public ActionResult Create()
         {
             ViewBag.UserID = new SelectList(db.AspNetUsers, "Id", "Email");
             ViewBag.ClinicID = new SelectList(db.Clinics, "ID", "ClinicName");
             ViewBag.FamilyID = new SelectList(db.Families, "ID", "FamilyCode");
             ViewBag.HospitalID = new SelectList(db.Hospitals, "ID", "HospitalName");
-            ViewBag.PersonID = new SelectList(db.People, "ID", "FirstName");
+            ViewBag.PersonID = new SelectList(db.People, "ID", "FullName");
             ViewBag.ServantID = new SelectList(db.Servants, "ID", "ServantName");
             ViewBag.ActionTypeID = new SelectList(db.ServiceTypes, "ID", "ActionType");
             return View();
         }
 
- 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ID,ServantID,UserID,ActionDate,EnterDate,Notes,ActionTypeID,IsActive,FamilyID,PersonID,HospitalID,ClinicID")] ServiceAction serviceAction)
+        public ActionResult Create(ServiceAction serviceAction)
         {
             if (ModelState.IsValid)
             {
+                serviceAction.IsActive = true;
                 db.ServiceActions.Add(serviceAction);
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -65,7 +63,7 @@ namespace StAbraamFamily.Controllers
             ViewBag.ClinicID = new SelectList(db.Clinics, "ID", "ClinicName", serviceAction.ClinicID);
             ViewBag.FamilyID = new SelectList(db.Families, "ID", "FamilyCode", serviceAction.FamilyID);
             ViewBag.HospitalID = new SelectList(db.Hospitals, "ID", "HospitalName", serviceAction.HospitalID);
-            ViewBag.PersonID = new SelectList(db.People, "ID", "FirstName", serviceAction.PersonID);
+            ViewBag.PersonID = new SelectList(db.People, "ID", "FullName", serviceAction.PersonID);
             ViewBag.ServantID = new SelectList(db.Servants, "ID", "ServantName", serviceAction.ServantID);
             ViewBag.ActionTypeID = new SelectList(db.ServiceTypes, "ID", "ActionType", serviceAction.ActionTypeID);
             return View(serviceAction);
@@ -73,10 +71,11 @@ namespace StAbraamFamily.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult AddHealthyService([Bind(Include = "ID,ServantID,UserID,ActionDate,EnterDate,Notes,ActionTypeID,IsActive,FamilyID,PersonID,HospitalID,ClinicID")] ServiceAction serviceAction)
+        public ActionResult AddHealthyService(ServiceAction serviceAction)
         {
             if (ModelState.IsValid)
             {
+                
                 db.ServiceActions.Add(serviceAction);
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -86,12 +85,11 @@ namespace StAbraamFamily.Controllers
             ViewBag.ClinicID = new SelectList(db.Clinics, "ID", "ClinicName", serviceAction.ClinicID);
             ViewBag.FamilyID = new SelectList(db.Families, "ID", "FamilyCode", serviceAction.FamilyID);
             ViewBag.HospitalID = new SelectList(db.Hospitals, "ID", "HospitalName", serviceAction.HospitalID);
-            ViewBag.PersonID = new SelectList(db.People, "ID", "FirstName", serviceAction.PersonID);
+            ViewBag.PersonID = new SelectList(db.People, "ID", "FullName", serviceAction.PersonID);
             ViewBag.ServantID = new SelectList(db.Servants, "ID", "ServantName", serviceAction.ServantID);
             ViewBag.ActionTypeID = new SelectList(db.ServiceTypes, "ID", "ActionType", serviceAction.ActionTypeID);
             return View(serviceAction);
         }
-
 
         public ActionResult AddHealthyService()
         {
@@ -99,7 +97,7 @@ namespace StAbraamFamily.Controllers
             ViewBag.ClinicID = new SelectList(db.Clinics, "ID", "ClinicName");
             ViewBag.FamilyID = new SelectList(db.Families, "ID", "FamilyCode");
             ViewBag.HospitalID = new SelectList(db.Hospitals, "ID", "HospitalName");
-            ViewBag.PersonID = new SelectList(db.People, "ID", "FirstName");
+            ViewBag.PersonID = new SelectList(db.People, "ID", "FullName");
             ViewBag.ServantID = new SelectList(db.Servants, "ID", "ServantName");
             ViewBag.ActionTypeID = new SelectList(db.ServiceTypes, "ID", "ActionType");
             return View();
@@ -120,7 +118,7 @@ namespace StAbraamFamily.Controllers
             ViewBag.ClinicID = new SelectList(db.Clinics, "ID", "ClinicName", serviceAction.ClinicID);
             ViewBag.FamilyID = new SelectList(db.Families, "ID", "FamilyCode", serviceAction.FamilyID);
             ViewBag.HospitalID = new SelectList(db.Hospitals, "ID", "HospitalName", serviceAction.HospitalID);
-            ViewBag.PersonID = new SelectList(db.People, "ID", "FirstName", serviceAction.PersonID);
+            ViewBag.PersonID = new SelectList(db.People, "ID", "FullName", serviceAction.PersonID);
             ViewBag.ServantID = new SelectList(db.Servants, "ID", "ServantName", serviceAction.ServantID);
             ViewBag.ActionTypeID = new SelectList(db.ServiceTypes, "ID", "ActionType", serviceAction.ActionTypeID);
             return View(serviceAction);
@@ -128,7 +126,7 @@ namespace StAbraamFamily.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ID,ServantID,UserID,ActionDate,EnterDate,Notes,ActionTypeID,IsActive,FamilyID,PersonID,HospitalID,ClinicID")] ServiceAction serviceAction)
+        public ActionResult Edit(ServiceAction serviceAction)
         {
             if (ModelState.IsValid)
             {
@@ -140,7 +138,7 @@ namespace StAbraamFamily.Controllers
             ViewBag.ClinicID = new SelectList(db.Clinics, "ID", "ClinicName", serviceAction.ClinicID);
             ViewBag.FamilyID = new SelectList(db.Families, "ID", "FamilyCode", serviceAction.FamilyID);
             ViewBag.HospitalID = new SelectList(db.Hospitals, "ID", "HospitalName", serviceAction.HospitalID);
-            ViewBag.PersonID = new SelectList(db.People, "ID", "FirstName", serviceAction.PersonID);
+            ViewBag.PersonID = new SelectList(db.People, "ID", "FullName", serviceAction.PersonID);
             ViewBag.ServantID = new SelectList(db.Servants, "ID", "ServantName", serviceAction.ServantID);
             ViewBag.ActionTypeID = new SelectList(db.ServiceTypes, "ID", "ActionType", serviceAction.ActionTypeID);
             return View(serviceAction);
@@ -160,8 +158,7 @@ namespace StAbraamFamily.Controllers
             return View(serviceAction);
         }
 
- 
-        [HttpPost, ActionName("Delete")]
+         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {

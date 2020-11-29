@@ -45,7 +45,7 @@ namespace StAbraamFamily.Controllers
  
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ID,ActionType,Description,IsActive,ServantID")] ServiceType serviceType)
+        public ActionResult Create(ServiceType serviceType)
         {
             if (ModelState.IsValid)
             {
@@ -73,7 +73,7 @@ namespace StAbraamFamily.Controllers
  
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ID,ActionType,Description,IsActive,ServantID")] ServiceType serviceType)
+        public ActionResult Edit(ServiceType serviceType)
         {
             if (ModelState.IsValid)
             {

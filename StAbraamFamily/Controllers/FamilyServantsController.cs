@@ -14,14 +14,14 @@ namespace StAbraamFamily.Controllers
     {
         private StAbraamEntities db = new StAbraamEntities();
 
-        // GET: FamilyServants
+ 
         public ActionResult Index()
         {
             var familyServants = db.FamilyServants.Include(f => f.Family).Include(f => f.Servant);
             return View(familyServants.ToList());
         }
 
-        // GET: FamilyServants/Details/5
+ 
         public ActionResult Details(int? id)
         {
             if (id == null)
@@ -36,23 +36,21 @@ namespace StAbraamFamily.Controllers
             return View(familyServant);
         }
 
-        // GET: FamilyServants/Create
+ 
         public ActionResult Create()
         {
             ViewBag.FamilyID = new SelectList(db.Families, "ID", "FamilyCode");
             ViewBag.ServantID = new SelectList(db.Servants, "ID", "ServantName");
             return View();
         }
-
-        // POST: FamilyServants/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
+ 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ID,FamilyID,ServantID,IsActive")] FamilyServant familyServant)
+        public ActionResult Create(FamilyServant familyServant)
         {
             if (ModelState.IsValid)
             {
+                familyServant.IsActive = true;
                 db.FamilyServants.Add(familyServant);
                 db.SaveChanges();
                 return RedirectToAction("Index");

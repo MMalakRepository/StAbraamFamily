@@ -14,7 +14,6 @@ namespace StAbraamFamily.Controllers
     {
         private StAbraamEntities db = new StAbraamEntities();
 
-        // GET: Children
         public ActionResult Index()
         {
             var children = db.Children.Include(c => c.Family).Include(c => c.Father).Include(c => c.Servant);
@@ -36,7 +35,6 @@ namespace StAbraamFamily.Controllers
             return View(child);
         }
 
-        // GET: Children/Create
         public ActionResult Create()
         {
             ViewBag.FamilyID = new SelectList(db.Families, "ID", "FamilyCode");
@@ -45,15 +43,16 @@ namespace StAbraamFamily.Controllers
             return View();
         }
 
-        // POST: Children/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
+
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ID,Name,DateOfBirth,IsActive,IsWorking,WorkingPlace,IsStudying,EntryDate,EnteredBy,FamilyID,ConfessionFather,ServantID")] Child child)
+        public ActionResult Create(Child child)
         {
             if (ModelState.IsValid)
             {
+                child.EnteredBy = User.Identity.Name;
+                child.IsActive = true;
+                child.EntryDate = DateTime.Now;
                 db.Children.Add(child);
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -83,12 +82,9 @@ namespace StAbraamFamily.Controllers
             return View(child);
         }
 
-        // POST: Children/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ID,Name,DateOfBirth,IsActive,IsWorking,WorkingPlace,IsStudying,EntryDate,EnteredBy,FamilyID,ConfessionFather,ServantID")] Child child)
+        public ActionResult Edit(Child child)
         {
             if (ModelState.IsValid)
             {
@@ -102,7 +98,6 @@ namespace StAbraamFamily.Controllers
             return View(child);
         }
 
-        // GET: Children/Delete/5
         public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -117,7 +112,6 @@ namespace StAbraamFamily.Controllers
             return View(child);
         }
 
-        // POST: Children/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)

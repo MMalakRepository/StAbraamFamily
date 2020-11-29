@@ -22,7 +22,7 @@
 
 @*<a href="#" class="btn btn-danger" data-toggle="modal" data-target="#myModal">Open Modal</a>*@
 <div class="modal fade" id="myModal">
-    <div class="modal-dialog"  >
+    <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
                 <div class="modal-title">Michael Modal</div>
@@ -76,7 +76,7 @@
                                     <div class="input-group">
                                         <span class="input-group-prepend">
                                             <span class="input-group-text">
-                                                <i class="fas fa-cogs text-primary"></i>
+                                                <i class="fas fa-cogs text-dark"></i>
                                             </span>
                                         </span>
                                         @Html.EditorFor(model => model.ActionType, new { htmlAttributes = new { @class = "form-control" } })
@@ -94,7 +94,7 @@
                                     <div class="input-group">
                                         <span class="input-group-prepend">
                                             <span class="input-group-text">
-                                                <i class="fas fa-user-check text-primary"></i>
+                                                <i class="fas fa-user-check text-dark"></i>
                                             </span>
                                         </span>
                                         @Html.DropDownList("ServantID", null, htmlAttributes: new { @class = "form-control " })
@@ -115,7 +115,7 @@
                                     <div class="input-group">
                                         <span class="input-group-prepend">
                                             <span class="input-group-text">
-                                                <i class="fas fa-user-edit text-primary"></i>
+                                                <i class="fas fa-user-edit text-dark"></i>
                                             </span>
                                         </span>
                                         @Html.EditorFor(model => model.Description, new { htmlAttributes = new { @class = "form-control" } })
@@ -127,38 +127,38 @@
                         </div>
                     </div>
 
+                    <div class="row m-4">
+                        <div class="col-md-6">
+                            <a href="#" class="btn btn-sm btn-outline-danger" style="width:100%;font-size: 20px;font-weight: bold;text-align: center;font-family: Calibri">ألغاء أدخال الخدمة</a>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <div class="col-md-offset-2 col-md-12">
+                                    <input type="submit" value="أضافة نوع الخدمة " class="btn btn-sm btn-dark" style="width:100%;font-size: 20px;font-weight: bold;text-align: center;font-family: Calibri" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
                 </div>
             }
         </div>
 
-        <div class="card-footer">
-            <div class="row">
-                <div class="col-md-6">
-                    <a href="#" class="btn btn-sm btn-outline-danger" style="width:100%;font-size: 20px;font-weight: bold;text-align: center;font-family: Calibri">ألغاء أدخال الخدمة</a>
-                </div>
-                <div class="col-md-6">
-                    <div class="form-group">
-                        <div class="col-md-offset-2 col-md-12">
-                            <input type="submit" value="أضافة نوع الخدمة " class="btn btn-sm btn-dark" style="width:100%;font-size: 20px;font-weight: bold;text-align: center;font-family: Calibri" />
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+
     </section>
 </div>
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
 
-@*<script>
-    $(document).ready(function () {
+    @*<script>
+            $(document).ready(function () {
 
-        $(".modal-dialog").css("maxWidth", ($(window).width() * 0.7 | 0) + "px");
- 
-        $("#ServantID").select2({
-            dropdownParent: $("#myModal")
-        });
-    });
-</script>*@
+                $(".modal-dialog").css("maxWidth", ($(window).width() * 0.7 | 0) + "px");
+
+                $("#ServantID").select2({
+                    dropdownParent: $("#myModal")
+                });
+            });
+        </script>*@
 }

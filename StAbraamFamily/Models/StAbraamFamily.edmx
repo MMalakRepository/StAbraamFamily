@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="StAbraamModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="StAbraamModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="__MigrationHistory">
           <Key>
             <PropertyRef Name="MigrationId" />
@@ -74,7 +74,7 @@
           <Property Name="Name" Type="nvarchar" MaxLength="250" />
           <Property Name="DateOfBirth" Type="datetime" />
           <Property Name="IsActive" Type="bit" />
-          <Property Name="IsWorking" Type="bit" />
+          <Property Name="IsWorking" Type="bit" Nullable="false" />
           <Property Name="WorkingPlace" Type="nvarchar" MaxLength="250" />
           <Property Name="IsStudying" Type="nvarchar" MaxLength="50" />
           <Property Name="EntryDate" Type="datetime" />
@@ -161,8 +161,7 @@
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="FirstName" Type="nvarchar" MaxLength="50" />
-          <Property Name="LastName" Type="nvarchar" MaxLength="50" />
+          <Property Name="FullName" Type="nvarchar(max)" />
           <Property Name="Phone" Type="nvarchar" MaxLength="50" />
           <Property Name="Address" Type="nvarchar(max)" />
           <Property Name="Area" Type="nvarchar" MaxLength="50" />
@@ -179,8 +178,10 @@
           <Property Name="Gender" Type="bit" />
           <Property Name="Notes" Type="nvarchar" MaxLength="500" />
           <Property Name="NationalID" Type="nvarchar" MaxLength="50" />
-          <Property Name="Salary" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="Salary" Type="decimal" Precision="18" Scale="2" Nullable="false" />
           <Property Name="OtherIncome" Type="nvarchar" MaxLength="250" />
+          <Property Name="Status" Type="bit" Nullable="false" />
+          <Property Name="Code" Type="nvarchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="Servants">
           <Key>
@@ -659,8 +660,7 @@
             <End Role="ServiceActions" EntitySet="ServiceActions" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="StAbraamModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -732,7 +732,7 @@
           <Property Name="Name" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
           <Property Name="DateOfBirth" Type="DateTime" Precision="3" />
           <Property Name="IsActive" Type="Boolean" />
-          <Property Name="IsWorking" Type="Boolean" />
+          <Property Name="IsWorking" Type="Boolean" Nullable="false" />
           <Property Name="WorkingPlace" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
           <Property Name="IsStudying" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="EntryDate" Type="DateTime" Precision="3" />
@@ -841,8 +841,6 @@
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="FirstName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="LastName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Phone" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Address" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="Area" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
@@ -859,13 +857,16 @@
           <Property Name="Gender" Type="Boolean" />
           <Property Name="Notes" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
           <Property Name="NationalID" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Salary" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="Salary" Type="Decimal" Precision="18" Scale="2" Nullable="false" />
           <Property Name="OtherIncome" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Families" Relationship="Self.FK_Families_Person" FromRole="Person" ToRole="Families" />
           <NavigationProperty Name="Families1" Relationship="Self.FK_Families_Person1" FromRole="Person" ToRole="Families" />
           <NavigationProperty Name="Father" Relationship="Self.FK_Person_Fathers" FromRole="Person" ToRole="Fathers" />
           <NavigationProperty Name="Servant" Relationship="Self.FK_Person_Servants" FromRole="Person" ToRole="Servants" />
           <NavigationProperty Name="ServiceActions" Relationship="Self.FK_ServiceActions_Person" FromRole="Person" ToRole="ServiceActions" />
+          <Property Name="Status" Type="Boolean" Nullable="false" />
+          <Property Name="Code" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="FullName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="Servant">
           <Key>
@@ -1491,9 +1492,10 @@
           <EntitySetMapping Name="People">
             <EntityTypeMapping TypeName="StAbraamModel.Person">
               <MappingFragment StoreEntitySet="Person">
+                <ScalarProperty Name="FullName" ColumnName="FullName" />
+                <ScalarProperty Name="Code" ColumnName="Code" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
-                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
-                <ScalarProperty Name="LastName" ColumnName="LastName" />
                 <ScalarProperty Name="Phone" ColumnName="Phone" />
                 <ScalarProperty Name="Address" ColumnName="Address" />
                 <ScalarProperty Name="Area" ColumnName="Area" />

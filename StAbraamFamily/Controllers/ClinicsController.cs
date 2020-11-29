@@ -41,10 +41,11 @@ namespace StAbraamFamily.Controllers
  
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ID,ClinicName,Notes,IsActive,Address")] Clinic clinic)
+        public ActionResult Create(Clinic clinic)
         {
             if (ModelState.IsValid)
             {
+                clinic.IsActive = true;
                 db.Clinics.Add(clinic);
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -70,7 +71,7 @@ namespace StAbraamFamily.Controllers
  
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ID,ClinicName,Notes,IsActive,Address")] Clinic clinic)
+        public ActionResult Edit(Clinic clinic)
         {
             if (ModelState.IsValid)
             {

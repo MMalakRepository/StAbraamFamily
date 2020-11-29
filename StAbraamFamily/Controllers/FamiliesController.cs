@@ -14,17 +14,13 @@ namespace StAbraamFamily.Controllers
     public class FamiliesController : Controller
     {
         private StAbraamEntities db = new StAbraamEntities();
- 
-
         public ActionResult Index()
         {
-
             var families = db.Families.Include(f => f.EvaluationLevel).Include(f => f.Father).Include(f => f.Person).Include(f => f.Person1).Include(f => f.Servant);
              return View(families.ToList());
         }
 
- 
-        public ActionResult Details(int? id)
+         public ActionResult Details(int? id)
         {
             if (id == null)
             {
@@ -43,8 +39,8 @@ namespace StAbraamFamily.Controllers
         {
             ViewBag.EvaluationLevelID = new SelectList(db.EvaluationLevels, "ID", "EvaluationLevel1");
             ViewBag.MissingPriestID = new SelectList(db.Fathers, "ID", "FatherName");
-            ViewBag.FatherID = new SelectList(db.People, "ID", "FirstName");
-            ViewBag.MotherID = new SelectList(db.People, "ID", "FirstName");
+            ViewBag.FatherID = new SelectList(db.People.Where(x => x.Gender == true), "ID", "FullName");
+            ViewBag.MotherID = new SelectList(db.People.Where(x => x.Gender == false), "ID", "FullName");
             ViewBag.ServantID = new SelectList(db.Servants, "ID", "ServantName");
             ViewBag.ConfessionFather = new SelectList(db.Fathers, "ID", "FatherName");
  
@@ -54,10 +50,11 @@ namespace StAbraamFamily.Controllers
  
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ID,FamilyCode,Address,ServantID,NoOfChildren,FatherID,MotherID,IsActive,Notes,MissingPriestID,EvaluationLevelID")] Family family)
+        public ActionResult Create(Family family)
         {
             if (ModelState.IsValid)
             {
+                family.IsActive = true;
                 db.Families.Add(family);
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -65,8 +62,8 @@ namespace StAbraamFamily.Controllers
 
             ViewBag.EvaluationLevelID = new SelectList(db.EvaluationLevels, "ID", "EvaluationLevel1", family.EvaluationLevelID);
             ViewBag.MissingPriestID = new SelectList(db.Fathers, "ID", "FatherName", family.MissingPriestID);
-            ViewBag.FatherID = new SelectList(db.People, "ID", "FirstName", family.FatherID);
-            ViewBag.MotherID = new SelectList(db.People, "ID", "FirstName", family.MotherID);
+            ViewBag.FatherID = new SelectList(db.People.Where(x => x.Gender == true), "ID", "FullName", family.FatherID);
+            ViewBag.MotherID = new SelectList(db.People.Where(x => x.Gender == false), "ID", "FullName", family.MotherID);
             ViewBag.ServantID = new SelectList(db.Servants, "ID", "ServantName", family.ServantID);
             return View(family);
         }
@@ -84,15 +81,15 @@ namespace StAbraamFamily.Controllers
             }
             ViewBag.EvaluationLevelID = new SelectList(db.EvaluationLevels, "ID", "EvaluationLevel1", family.EvaluationLevelID);
             ViewBag.MissingPriestID = new SelectList(db.Fathers, "ID", "FatherName", family.MissingPriestID);
-            ViewBag.FatherID = new SelectList(db.People, "ID", "FirstName", family.FatherID);
-            ViewBag.MotherID = new SelectList(db.People, "ID", "FirstName", family.MotherID);
+            ViewBag.FatherID = new SelectList(db.People.Where(x => x.Gender == true), "ID", "FullName", family.FatherID);
+            ViewBag.MotherID = new SelectList(db.People.Where(x => x.Gender == false), "ID", "FullName", family.MotherID);
             ViewBag.ServantID = new SelectList(db.Servants, "ID", "ServantName", family.ServantID);
             return View(family);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ID,FamilyCode,Address,ServantID,NoOfChildren,FatherID,MotherID,IsActive,Notes,MissingPriestID,EvaluationLevelID")] Family family)
+        public ActionResult Edit(Family family)
         {
             if (ModelState.IsValid)
             {
@@ -100,11 +97,13 @@ namespace StAbraamFamily.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
+
             ViewBag.EvaluationLevelID = new SelectList(db.EvaluationLevels, "ID", "EvaluationLevel1", family.EvaluationLevelID);
             ViewBag.MissingPriestID = new SelectList(db.Fathers, "ID", "FatherName", family.MissingPriestID);
-            ViewBag.FatherID = new SelectList(db.People, "ID", "FirstName", family.FatherID);
-            ViewBag.MotherID = new SelectList(db.People, "ID", "FirstName", family.MotherID);
+            ViewBag.FatherID = new SelectList(db.People.Where(x => x.Gender == true), "ID", "FullName", family.FatherID);
+            ViewBag.MotherID = new SelectList(db.People.Where(x => x.Gender == false), "ID", "FullName", family.MotherID);
             ViewBag.ServantID = new SelectList(db.Servants, "ID", "ServantName", family.ServantID);
+
             return View(family);
         }
 

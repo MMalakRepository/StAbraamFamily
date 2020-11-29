@@ -41,15 +41,13 @@ namespace StAbraamFamily.Controllers
             return View();
         }
 
-        // POST: Fathers/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ID,FatherName,PhoneNumber,IsActive,Notes")] Father father)
+        public ActionResult Create(Father father)
         {
             if (ModelState.IsValid)
             {
+                father.IsActive = true;
                 db.Fathers.Add(father);
                 db.SaveChanges();
                 return RedirectToAction("Index");

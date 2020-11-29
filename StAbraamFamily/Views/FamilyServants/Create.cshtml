@@ -27,65 +27,64 @@
             @using (Html.BeginForm())
             {
                 @Html.AntiForgeryToken()
-                <div class="form-horizontal">
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div class="form-group">
-                                <label class="control-label col-md-4" style="float: right;font-size: 14px;font-weight: bold;text-align: right;font-family: Calibri">   العائلة</label>
-                                <div class="col-md-12">
-                                    <div class="input-group">
-                                        <span class="input-group-prepend">
-                                            <span class="input-group-text">
-                                                <i class="fas fa-users text-warning"></i>
-                                            </span>
+            <div class="form-horizontal">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label class="control-label col-md-4" style="float: right;font-size: 14px;font-weight: bold;text-align: right;font-family: Calibri">   العائلة</label>
+                            <div class="col-md-12">
+                                <div class="input-group">
+                                    <span class="input-group-prepend">
+                                        <span class="input-group-text">
+                                            <i class="fas fa-users text-warning"></i>
                                         </span>
-                                        @Html.DropDownList("FamilyID", null, htmlAttributes: new { @class = "form-control" })
-                                        @Html.ValidationMessageFor(model => model.FamilyID, "", new { @class = "text-danger" })
-                                    </div>
-
+                                    </span>
+                                    @Html.DropDownList("FamilyID", null, htmlAttributes: new { @class = "form-control" })
+                                    @Html.ValidationMessageFor(model => model.FamilyID, "", new { @class = "text-danger" })
                                 </div>
-                            </div>
-                        </div>
-                    </div>
 
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div class="form-group">
-                                <label class="control-label col-md-4" style="float: right;font-size: 14px;font-weight: bold;text-align: right;font-family: Calibri">   أسم الخادم</label>
-                                <div class="col-md-12">
-                                    <div class="input-group">
-                                        <span class="input-group-prepend">
-                                            <span class="input-group-text">
-                                                <i class="fas fa-user text-warning"></i>
-                                            </span>
-                                        </span>
-                                        @Html.DropDownList("ServantID", null, htmlAttributes: new { @class = "form-control" })
-                                        @Html.ValidationMessageFor(model => model.ServantID, "", new { @class = "text-danger" })
-                                    </div>
-
-                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            }
-        </div>
-        <div class="card-footer">
-            <div class="row">
-                <div class="col-md-6">
-                    <a href="#" class="btn btn-outline-danger" style="width:100%;font-size: 20px;font-weight: bold;text-align: center;font-family: Calibri">ألغاء بيانات الزيارة</a>
 
-                </div>
-                <div class="col-md-6">
-                    <div class="form-group">
-                        <div class="col-md-offset-2 col-md-12">
-                            <input type="submit" value="أضافة  خادم أسرة" class="btn btn-sm btn-warning" style="width:100%;font-size: 20px;font-weight: bold;text-align: center;font-family: Calibri" />
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label class="control-label col-md-4" style="float: right;font-size: 14px;font-weight: bold;text-align: right;font-family: Calibri">   أسم الخادم</label>
+                            <div class="col-md-12">
+                                <div class="input-group">
+                                    <span class="input-group-prepend">
+                                        <span class="input-group-text">
+                                            <i class="fas fa-user text-warning"></i>
+                                        </span>
+                                    </span>
+                                    @Html.DropDownList("ServantID", null, htmlAttributes: new { @class = "form-control" })
+                                    @Html.ValidationMessageFor(model => model.ServantID, "", new { @class = "text-danger" })
+                                </div>
+
+                            </div>
                         </div>
                     </div>
+                </div>
+                <div class="row m-4">
+                    <div class="col-md-6">
+                        <a href="#" class="btn btn-outline-danger" style="width:80%;font-size: 20px;font-weight: bold;text-align: center;font-family: Calibri">ألغاء بيانات الزيارة</a>
 
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <div class="col-md-offset-2 col-md-12">
+                                <input type="submit" value="أضافة  خادم أسرة" class="btn btn-sm btn-warning" style="width:80%;font-size: 20px;font-weight: bold;text-align: center;font-family: Calibri" />
+                            </div>
+                        </div>
+
+                    </div>
                 </div>
             </div>
+            }
         </div>
+ 
     </section>
 </div>
 

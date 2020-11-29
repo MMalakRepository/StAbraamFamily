@@ -41,15 +41,14 @@ namespace StAbraamFamily.Controllers
             return View();
         }
 
-        // POST: Hospitals/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ID,HospitalName,Address,IsActive,Notes")] Hospital hospital)
+        public ActionResult Create(Hospital hospital)
         {
             if (ModelState.IsValid)
             {
+                hospital.IsActive = true;
+
                 db.Hospitals.Add(hospital);
                 db.SaveChanges();
                 return RedirectToAction("Index");
