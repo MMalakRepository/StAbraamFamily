@@ -14,7 +14,6 @@ namespace StAbraamFamily.Controllers
     {
         private StAbraamEntities db = new StAbraamEntities();
 
- 
         public ActionResult Index()
         {
             var serviceActions = db.ServiceActions.Include(s => s.AspNetUser).Include(s => s.Clinic).Include(s => s.Family).Include(s => s.Hospital).Include(s => s.Person).Include(s => s.Servant).Include(s => s.ServiceType);
@@ -75,7 +74,29 @@ namespace StAbraamFamily.Controllers
         {
             if (ModelState.IsValid)
             {
-                
+                serviceAction.ActionTypeID = 3;
+                db.ServiceActions.Add(serviceAction);
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+
+            ViewBag.UserID = new SelectList(db.AspNetUsers, "Id", "Email", serviceAction.UserID);
+            ViewBag.ClinicID = new SelectList(db.Clinics, "ID", "ClinicName", serviceAction.ClinicID);
+            ViewBag.FamilyID = new SelectList(db.Families, "ID", "FamilyCode", serviceAction.FamilyID);
+            ViewBag.HospitalID = new SelectList(db.Hospitals, "ID", "HospitalName", serviceAction.HospitalID);
+            ViewBag.PersonID = new SelectList(db.People, "ID", "FullName", serviceAction.PersonID);
+            ViewBag.ServantID = new SelectList(db.Servants, "ID", "ServantName", serviceAction.ServantID);
+            ViewBag.ActionTypeID = new SelectList(db.ServiceTypes, "ID", "ActionType", serviceAction.ActionTypeID);
+            return View(serviceAction);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult AddBagService(ServiceAction serviceAction)
+        {
+            if (ModelState.IsValid)
+            {
+                serviceAction.ActionTypeID = 2;
                 db.ServiceActions.Add(serviceAction);
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -92,6 +113,18 @@ namespace StAbraamFamily.Controllers
         }
 
         public ActionResult AddHealthyService()
+        {
+            ViewBag.UserID = new SelectList(db.AspNetUsers, "Id", "Email");
+            ViewBag.ClinicID = new SelectList(db.Clinics, "ID", "ClinicName");
+            ViewBag.FamilyID = new SelectList(db.Families, "ID", "FamilyCode");
+            ViewBag.HospitalID = new SelectList(db.Hospitals, "ID", "HospitalName");
+            ViewBag.PersonID = new SelectList(db.People, "ID", "FullName");
+            ViewBag.ServantID = new SelectList(db.Servants, "ID", "ServantName");
+            ViewBag.ActionTypeID = new SelectList(db.ServiceTypes, "ID", "ActionType");
+            return View();
+        }
+
+        public ActionResult AddBagService()
         {
             ViewBag.UserID = new SelectList(db.AspNetUsers, "Id", "Email");
             ViewBag.ClinicID = new SelectList(db.Clinics, "ID", "ClinicName");

@@ -66,21 +66,21 @@ namespace StAbraamFamily.Controllers
         }
 
 
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult CreateFamily(NewFamily newFamily)
-        {
-            if (ModelState.IsValid)
-            {
-                db.People.Add(newFamily.person);
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+        //public ActionResult CreateFamily(NewFamily newFamily)
+        //{
+        //    if (ModelState.IsValid)
+        //    {
+        //        db.People.Add(newFamily.person);
+        //        db.SaveChanges();
+        //        return RedirectToAction("Index");
+        //    }
 
-            ViewBag.ConfessionFather = new SelectList(db.Fathers, "ID", "FatherName", newFamily.person.ConfessionFather);
-            ViewBag.ServantID = new SelectList(db.Servants, "ID", "ServantName", newFamily.person.ServantID);
-            return View(newFamily.person);
-        }
+        //    ViewBag.ConfessionFather = new SelectList(db.Fathers, "ID", "FatherName", newFamily.person.ConfessionFather);
+        //    ViewBag.ServantID = new SelectList(db.Servants, "ID", "ServantName", newFamily.person.ServantID);
+        //    return View(newFamily.person);
+        //}
 
         public ActionResult Edit(int? id)
         {

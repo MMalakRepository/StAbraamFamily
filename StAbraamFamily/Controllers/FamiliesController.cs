@@ -8,6 +8,8 @@ using System.Web;
 using System.Web.Mvc;
 using StAbraamFamily.Models;
 using StAbraamFamily.UnitsOfWork;
+using StAbraamFamily.ViewModels;
+
 
 namespace StAbraamFamily.Controllers
 {
@@ -17,10 +19,10 @@ namespace StAbraamFamily.Controllers
         public ActionResult Index()
         {
             var families = db.Families.Include(f => f.EvaluationLevel).Include(f => f.Father).Include(f => f.Person).Include(f => f.Person1).Include(f => f.Servant);
-             return View(families.ToList());
+            return View(families.ToList());
         }
 
-         public ActionResult Details(int? id)
+        public ActionResult Details(int? id)
         {
             if (id == null)
             {
@@ -34,7 +36,6 @@ namespace StAbraamFamily.Controllers
             return View(family);
         }
 
- 
         public ActionResult Create()
         {
             ViewBag.EvaluationLevelID = new SelectList(db.EvaluationLevels, "ID", "EvaluationLevel1");
@@ -43,17 +44,19 @@ namespace StAbraamFamily.Controllers
             ViewBag.MotherID = new SelectList(db.People.Where(x => x.Gender == false), "ID", "FullName");
             ViewBag.ServantID = new SelectList(db.Servants, "ID", "ServantName");
             ViewBag.ConfessionFather = new SelectList(db.Fathers, "ID", "FatherName");
- 
+
             return View();
         }
 
- 
         [HttpPost]
-        [ValidateAntiForgeryToken]
         public ActionResult Create(Family family)
         {
             if (ModelState.IsValid)
             {
+                family.FatherID = Convert.ToInt32(Request.Form["FatherID"].ToString());
+                family.MotherID = Convert.ToInt32(Request.Form["MotherID"].ToString());
+                family.MissingPriestID = Convert.ToInt32(Request.Form["MissingPriestID"].ToString());
+                family.ServantID = Convert.ToInt32(Request.Form["ServantID"].ToString());
                 family.IsActive = true;
                 db.Families.Add(family);
                 db.SaveChanges();
@@ -93,6 +96,10 @@ namespace StAbraamFamily.Controllers
         {
             if (ModelState.IsValid)
             {
+                family.FatherID = Convert.ToInt32(Request.Form["FatherID"].ToString());
+                family.MotherID = Convert.ToInt32(Request.Form["MotherID"].ToString());
+                family.MissingPriestID = Convert.ToInt32(Request.Form["MissingPriestID"].ToString());
+                family.ServantID = Convert.ToInt32(Request.Form["ServantID"].ToString());
                 db.Entry(family).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");

@@ -3608,7 +3608,6 @@
     <Content Include="Views\Families\Create.cshtml" />
     <Content Include="Views\Families\Delete.cshtml" />
     <Content Include="Views\Families\Details.cshtml" />
-    <Content Include="Views\Families\Edit.cshtml" />
     <Content Include="Views\Families\Index.cshtml" />
     <Content Include="Views\Clinics\Create.cshtml" />
     <Content Include="Views\Clinics\Delete.cshtml" />
@@ -3662,6 +3661,9 @@
     <Content Include="Views\Servants\Index.cshtml" />
     <Content Include="Views\ServiceActions\AddHealthyService.cshtml" />
     <Content Include="Views\Families\CreateBk.cshtml" />
+    <Content Include="Views\ServiceActions\AddBagService.cshtml" />
+    <Content Include="Views\Families\EditBck.cshtml" />
+    <Content Include="Views\Families\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
