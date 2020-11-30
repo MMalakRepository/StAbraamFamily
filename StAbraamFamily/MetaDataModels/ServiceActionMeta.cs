@@ -4,7 +4,7 @@ using System.Linq;
 using System.Web;
 using System.ComponentModel.DataAnnotations;
 
-namespace StAbraamFamily.MetaDataModels
+namespace StAbraamFamily.Models
 {
     [MetadataType(typeof(ServiceActionMeta))]
     public partial class ServiceAction
