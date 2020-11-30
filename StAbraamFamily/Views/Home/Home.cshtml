@@ -1,4 +1,4 @@
-﻿
+﻿@model StAbraamFamily.ViewModels.SystemDashboard
 
 @{
     ViewBag.Title = "Home Page";
@@ -39,7 +39,7 @@
                                 <div class="summary">
                                     <h4 class="title"> الأباء الكهنة</h4>
                                     <div class="info">
-                                        <strong class="amount">1281</strong>
+                                        <strong class="amount">@Html.DisplayFor(model => model.Fathers) </strong>
                                     </div>
                                 </div>
                                 <div class="summary-footer">
@@ -66,7 +66,7 @@
                                 <div class="summary">
                                     <h4 class="title"> الأفراد</h4>
                                     <div class="info">
-                                        <strong class="amount">1281</strong>
+                                        <strong class="amount">@Html.DisplayFor(model => model.People)</strong>
                                     </div>
                                 </div>
                                 <div class="summary-footer">
@@ -94,7 +94,7 @@
                                 <div class="summary">
                                     <h4 class="title"> العائلات</h4>
                                     <div class="info">
-                                        <strong class="amount">1281</strong>
+                                        <strong class="amount">@Html.DisplayFor(model => model.Families)</strong>
                                     </div>
                                 </div>
                                 <div class="summary-footer">
@@ -122,7 +122,7 @@
                                 <div class="summary">
                                     <h4 class="title">الأطفال</h4>
                                     <div class="info">
-                                        <strong class="amount">1281</strong>
+                                        <strong class="amount">@Html.DisplayFor(model => model.Children)</strong>
                                     </div>
                                 </div>
                                 <div class="summary-footer">
@@ -152,7 +152,7 @@
                                 <div class="summary">
                                     <h4 class="title">كل الخدمات</h4>
                                     <div class="info">
-                                        <strong class="amount">1281</strong>
+                                        <strong class="amount">@Html.DisplayFor(model => model.ServiceActions)</strong>
                                     </div>
                                 </div>
                                 <div class="summary-footer">
@@ -179,7 +179,7 @@
                                 <div class="summary">
                                     <h4 class="title">الخدمات العلاجية</h4>
                                     <div class="info">
-                                        <strong class="amount">1281</strong>
+                                        <strong class="amount">@Html.DisplayFor(model => model.MedicalServices)</strong>
                                     </div>
                                 </div>
                                 <div class="summary-footer">
@@ -207,7 +207,7 @@
                                 <div class="summary">
                                     <h4 class="title">شنط البركة</h4>
                                     <div class="info">
-                                        <strong class="amount">1281</strong>
+                                        <strong class="amount">@Html.DisplayFor(model => model.BagServices)</strong>
                                     </div>
                                 </div>
                                 <div class="summary-footer">
@@ -235,7 +235,7 @@
                                 <div class="summary">
                                     <h4 class="title">أنواع الخدمات المتاحة</h4>
                                     <div class="info">
-                                        <strong class="amount">1281</strong>
+                                        <strong class="amount">@Html.DisplayFor(model => model.serviceTypes)</strong>
                                     </div>
                                 </div>
                                 <div class="summary-footer">
@@ -265,7 +265,7 @@
                                 <div class="summary">
                                     <h4 class="title">العيادات</h4>
                                     <div class="info">
-                                        <strong class="amount">1281</strong>
+                                        <strong class="amount">@Html.DisplayFor(model => model.Clinics)</strong>
                                     </div>
                                 </div>
                                 <div class="summary-footer">
@@ -293,7 +293,7 @@
                                 <div class="summary">
                                     <h4 class="title"> المستشفيات</h4>
                                     <div class="info">
-                                        <strong class="amount">1281</strong>
+                                        <strong class="amount">@Html.DisplayFor(model => model.Hospitals)</strong>
                                     </div>
                                 </div>
                                 <div class="summary-footer">
@@ -321,7 +321,7 @@
                                 <div class="summary">
                                     <h4 class="title">زيارات الأفتقاد </h4>
                                     <div class="info">
-                                        <strong class="amount">1281</strong>
+                                        <strong class="amount">@Html.DisplayFor(model => model.FamilyVisits)</strong>
                                     </div>
                                 </div>
                                 <div class="summary-footer">
@@ -348,7 +348,7 @@
                                 <div class="summary">
                                     <h4 class="title">خدام الأسرة</h4>
                                     <div class="info">
-                                        <strong class="amount">1281</strong>
+                                        <strong class="amount">@Html.DisplayFor(model => model.FamilyServants)</strong>
                                     </div>
                                 </div>
                                 <div class="summary-footer">

@@ -277,6 +277,7 @@
     <Compile Include="UnitsOfWork\IUnitOfWork.cs" />
     <Compile Include="UnitsOfWork\StAbraamUOW.cs" />
     <Compile Include="ViewModels\NewFamily.cs" />
+    <Compile Include="ViewModels\SystemDashboard.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Assets\ajax\ajax-loading-progress.html" />

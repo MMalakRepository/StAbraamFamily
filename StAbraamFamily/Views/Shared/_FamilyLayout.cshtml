@@ -56,6 +56,13 @@
         .datepicker .datepicker-dropdown .dropdown-menu {
             top: 370px !important;
         }
+
+        .linkFont{
+            font-family : Calibri;
+            font-weight :bold;
+            font-size : 1.2em !important;
+        }
+         
     </style>
 
 </head>
@@ -78,38 +85,36 @@
                         <nav>
                             <ul class="nav nav-pills" id="mainNav">
 
-                                <li class="active">
-                                    @Html.ActionLink("الأفراد", "Index", "People", null, new { @class = "nav-link" })
+                                <li>
+                                    @Html.ActionLink("الأفراد", "Index", "People", null, new { @class = "nav-link linkFont" })
                                 </li>
 
                                 <li class="">
-                                    @Html.ActionLink("العائلات", "Index", "Families", null, new { @class = "nav-link" })
+                                    @Html.ActionLink("العائلات", "Index", "Families", null, new { @class = "nav-link linkFont" })
                                 </li>
 
                                 <li class="">
-                                    @Html.ActionLink("الخدام", "Index", "Servants", null, new { @class = "nav-link" })
+                                    @Html.ActionLink("الخدام", "Index", "Servants", null, new { @class = "nav-link linkFont" })
                                 </li>
 
                                 <li class="">
-                                    @Html.ActionLink("الأباء الكهنة", "Index", "Fathers", null, new { @class = "nav-link" })
+                                    @Html.ActionLink("الأباء الكهنة", "Index", "Fathers", null, new { @class = "nav-link linkFont" })
                                 </li>
 
                                 <li class="">
-                                    @Html.ActionLink("الخدمات", "Index", "ServiceActions", null, new { @class = "nav-link" })
+                                    @Html.ActionLink("الخدمات", "Index", "ServiceActions", null, new { @class = "nav-link linkFont" })
                                 </li>
 
                                 <li class="">
-                                    @Html.ActionLink("المستشفيات", "Index", "Hospitals", null, new { @class = "nav-link" })
+                                    @Html.ActionLink("المستشفيات", "Index", "Hospitals", null, new { @class = "nav-link linkFont" })
                                 </li>
 
                                 <li class="">
-                                    @Html.ActionLink("العيادات", "Index", "Clinics", null, new { @class = "nav-link" })
+                                    @Html.ActionLink("العيادات", "Index", "Clinics", null, new { @class = "nav-link linkFont" })
                                 </li>
 
                                 <li class="">
-                                    <a class="nav-link" href="#">
-                                        Dashboard
-                                    </a>
+                                    @Html.ActionLink("Dashboard", "Home", "Home", null, new { @class = "nav-link" })
                                 </li>
                             </ul>
                         </nav>
@@ -171,54 +176,54 @@
 
                             <ul class="nav nav-main">
                                 <li>
-                                    <a href="@Url.Action("Index","People",null)" class="nav-link">
+                                    <a href="@Url.Action("Index","People",null)" class="nav-link linkFont">
                                         <span class="float-right badge badge-primary">182</span>
                                         <i class="fas fa-user-circle text-primary" aria-hidden="true"></i>
-                                        <span>الأفراد</span>
+                                        <span style="font-family:calibri;font-size:1.2em;">الأفراد</span>
                                     </a>
 
 
                                 </li>
                                 <li>
-                                    <a class="nav-link" href="@Url.Action("Index","Families",null)">
+                                    <a class="nav-link linkFont" href="@Url.Action("Index","Families",null)">
                                         <span class="float-right badge badge-danger">123</span>
                                         <i class="fas fa-list text-danger" aria-hidden="true"></i>
-                                        <span>العائلات</span>
+                                        <span style="font-family: calibri;font-size: 1.2em;">العائلات</span>
                                     </a>
                                 </li>
                                 <li>
-                                    <a class="nav-link" href="@Url.Action("Index","ServiceActions",null)">
+                                    <a class="nav-link linkFont" href="@Url.Action("Index","ServiceActions",null)">
                                         <span class="float-right badge badge-warning">12</span>
                                         <i class="fas fa-globe text-warning" aria-hidden="true"></i>
-                                        <span>الخدمات</span>
+                                        <span style="font-family:calibri;font-size :1.2em">الخدمات</span>
                                     </a>
                                 </li>
                                 <li>
-                                    <a class="nav-link" href="@Url.Action("Index","Fathers",null)">
+                                    <a class="nav-link linkFont" href="@Url.Action("Index","Fathers",null)">
                                         <span class="float-right badge badge-success">4</span>
                                         <i class="fas fa-pray text-success" aria-hidden="true"></i>
-                                        <span>الأباء الكهنة</span>
+                                        <span style="font-family:calibri;font-size:1.2em;">الأباء الكهنة</span>
                                     </a>
                                 </li>
                                 <li>
-                                    <a class="nav-link" href="@Url.Action("Index","Servants",null)">
+                                    <a class="nav-link linkFont" href="@Url.Action("Index","Servants",null)">
                                         <span class="float-right badge badge-info">30</span>
                                         <i class="fas fa-user-alt text-info" aria-hidden="true"></i>
-                                        <span>الخدام</span>
+                                        <span style="font-family:calibri;font-size:1.2em;">الخدام</span>
                                     </a>
                                 </li>
                                 <li>
-                                    <a class="nav-link" href="@Url.Action("Index","Hospitals",null)">
+                                    <a class="nav-link linkFont" href="@Url.Action("Index","Hospitals",null)">
                                         <span class="float-right badge" style=" color:white; background-color:sandybrown">20</span>
                                         <i class="fas fa-clinic-medical" style="color:sandybrown" aria-hidden="true"></i>
-                                        <span>المستشفيات  </span>
+                                        <span style="font-family:calibri;font-size:1.2em;">المستشفيات  </span>
                                     </a>
                                 </li>
                                 <li>
-                                    <a class="nav-link" href="@Url.Action("Index","Clinics",null)">
+                                    <a class="nav-link linkFont" href="@Url.Action("Index","Clinics",null)">
                                         <span class="float-right badge" style=" color:white; background-color:orangered">20</span>
-                                        <i class="fas fa-clinic-medical" style="        color: orangered" aria-hidden="true"></i>
-                                        <span>العيادات  </span>
+                                        <i class="fas fa-clinic-medical" style="color: orangered" aria-hidden="true"></i>
+                                        <span style="font-family:calibri;font-size:1.2em">العيادات</span>
                                     </a>
                                 </li>
 
@@ -235,9 +240,9 @@
                             </div>
                             <div class="widget-content">
                                 <ul class="list-unstyled m-0">
-                                    <li><a href="#"> شنط البركة</a></li>
-                                    <li><a href="#">المستشفيات و العيادات</a></li>
-                                    <li><a href="#">التحويلات</a></li>
+                                    <li><a href="@Url.Action("BagServiceList","ServiceActions",null)" class="linkFont"> شنط البركة</a></li>
+                                    <li><a href="@Url.Action("MedicalServiceList","ServiceActions",null)" class="linkFont">المستشفيات و العيادات</a></li>
+                                    <li><a href="#" class="linkFont">التحويلات</a></li>
                                 </ul>
                             </div>
                         </div>
@@ -249,9 +254,9 @@
                             </div>
                             <div class="widget-content">
                                 <ul class="list-unstyled m-0">
-                                    <li><a href="#"> الخدمات</a></li>
-                                    <li><a href="#">العائلات</a></li>
-                                    <li><a href="#">الخدام</a></li>
+                                    <li><a href="@Url.Action("Index","ServiceActions",null)" class="linkFont"> الخدمات</a></li>
+                                    <li><a href="@Url.Action("Index","Families",null)" class="linkFont">العائلات</a></li>
+                                    <li><a href="@Url.Action("Index","FamilyServants",null)" class="linkFont">الخدام</a></li>
                                 </ul>
                             </div>
                         </div>
