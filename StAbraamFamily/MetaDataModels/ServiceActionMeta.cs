@@ -9,8 +9,7 @@ namespace StAbraamFamily.Models
     [MetadataType(typeof(ServiceActionMeta))]
     public partial class ServiceAction
     {
-       
-
+      
     }
 
     public class ServiceActionMeta
