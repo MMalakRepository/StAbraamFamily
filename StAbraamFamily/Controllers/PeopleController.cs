@@ -18,11 +18,10 @@ namespace StAbraamFamily.Controllers
  
         public ActionResult Index()
         {
-            var people = db.People.Include(p => p.Father).Include(p => p.Servant);
+            var people = db.People.Include(p => p.Father).Include(p => p.Servant).Where(x => x.IsActive == true);
             return View(people.ToList());
         }
 
-        // GET: People/Details/5
         public ActionResult Details(int? id)
         {
             if (id == null)
@@ -37,15 +36,12 @@ namespace StAbraamFamily.Controllers
             return View(person);
         }
 
- 
-        public ActionResult Create()
+         public ActionResult Create()
         {
             ViewBag.ConfessionFather = new SelectList(db.Fathers, "ID", "FatherName");
             ViewBag.ServantID = new SelectList(db.Servants, "ID", "ServantName");
             return View();
         }
-
-
 
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -64,23 +60,6 @@ namespace StAbraamFamily.Controllers
             ViewBag.ServantID = new SelectList(db.Servants, "ID", "ServantName");
             return View();
         }
-
-
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
-        //public ActionResult CreateFamily(NewFamily newFamily)
-        //{
-        //    if (ModelState.IsValid)
-        //    {
-        //        db.People.Add(newFamily.person);
-        //        db.SaveChanges();
-        //        return RedirectToAction("Index");
-        //    }
-
-        //    ViewBag.ConfessionFather = new SelectList(db.Fathers, "ID", "FatherName", newFamily.person.ConfessionFather);
-        //    ViewBag.ServantID = new SelectList(db.Servants, "ID", "ServantName", newFamily.person.ServantID);
-        //    return View(newFamily.person);
-        //}
 
         public ActionResult Edit(int? id)
         {
@@ -127,14 +106,13 @@ namespace StAbraamFamily.Controllers
             return View(person);
         }
 
-         [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
+        [HttpPost]
+        public ActionResult DeleteAction(int ID)
         {
-            Person person = db.People.Find(id);
-            db.People.Remove(person);
+            Person person = db.People.Find(ID);
+            person.IsActive = false;
             db.SaveChanges();
-            return RedirectToAction("Index");
+            return Json(data: new { success = true, message = "Person has been deleted successfully" }, JsonRequestBehavior.AllowGet);
         }
 
         protected override void Dispose(bool disposing)

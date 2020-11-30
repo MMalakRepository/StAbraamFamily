@@ -78,9 +78,6 @@ namespace StAbraamFamily.Controllers
             return View(familyServant);
         }
 
-        // POST: FamilyServants/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "ID,FamilyID,ServantID,IsActive")] FamilyServant familyServant)
@@ -111,15 +108,13 @@ namespace StAbraamFamily.Controllers
             return View(familyServant);
         }
 
-        // POST: FamilyServants/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
+        [HttpPost]
+        public ActionResult DeleteAction(int id)
         {
             FamilyServant familyServant = db.FamilyServants.Find(id);
-            db.FamilyServants.Remove(familyServant);
+            familyServant.IsActive = false;
             db.SaveChanges();
-            return RedirectToAction("Index");
+            return Json(data: new { sucess = true, message = "Servant has been deleted successfully" }, JsonRequestBehavior.AllowGet);
         }
 
         protected override void Dispose(bool disposing)

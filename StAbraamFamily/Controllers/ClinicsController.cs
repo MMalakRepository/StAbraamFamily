@@ -98,14 +98,14 @@ namespace StAbraamFamily.Controllers
         }
 
  
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
+        [HttpPost]
+        public ActionResult DeleteAction(int id)
         {
             Clinic clinic = db.Clinics.Find(id);
-            db.Clinics.Remove(clinic);
+            clinic.IsActive = false;
             db.SaveChanges();
-            return RedirectToAction("Index");
+            return Json(data: new { success = true, message = "Clinic has been deleted successfully" }, JsonRequestBehavior.AllowGet);
+
         }
 
         protected override void Dispose(bool disposing)

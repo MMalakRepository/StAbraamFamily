@@ -14,13 +14,11 @@ namespace StAbraamFamily.Controllers
     {
         private StAbraamEntities db = new StAbraamEntities();
 
-        // GET: Hospitals
         public ActionResult Index()
         {
             return View(db.Hospitals.ToList());
         }
 
-        // GET: Hospitals/Details/5
         public ActionResult Details(int? id)
         {
             if (id == null)
@@ -35,7 +33,6 @@ namespace StAbraamFamily.Controllers
             return View(hospital);
         }
 
-        // GET: Hospitals/Create
         public ActionResult Create()
         {
             return View();
@@ -57,7 +54,6 @@ namespace StAbraamFamily.Controllers
             return View(hospital);
         }
 
-        // GET: Hospitals/Edit/5
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -72,12 +68,9 @@ namespace StAbraamFamily.Controllers
             return View(hospital);
         }
 
-        // POST: Hospitals/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ID,HospitalName,Address,IsActive,Notes")] Hospital hospital)
+        public ActionResult Edit(Hospital hospital)
         {
             if (ModelState.IsValid)
             {
@@ -88,7 +81,6 @@ namespace StAbraamFamily.Controllers
             return View(hospital);
         }
 
-        // GET: Hospitals/Delete/5
         public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -103,15 +95,13 @@ namespace StAbraamFamily.Controllers
             return View(hospital);
         }
 
-        // POST: Hospitals/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
+        [HttpPost]
+        public ActionResult DeleteAction(int id)
         {
             Hospital hospital = db.Hospitals.Find(id);
-            db.Hospitals.Remove(hospital);
+            hospital.IsActive = false;
             db.SaveChanges();
-            return RedirectToAction("Index");
+            return Json(data: new { success = true, message = "Hospital deleted successfully" }, JsonRequestBehavior.AllowGet);
         }
 
         protected override void Dispose(bool disposing)

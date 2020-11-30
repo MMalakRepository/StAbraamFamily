@@ -70,7 +70,8 @@
                         {
                             <tr>
                                 <td>
-                                    @Html.DisplayFor(modelItem => item.ActionDate)
+                                    @*@Html.DisplayFor(modelItem => item.ActionDate, "{0:dd/MM/yyyy}")*@
+                                    @Convert.ToDateTime(item.ActionDate).ToString("dd/MM/yyyy")
                                 </td>
 
                                 <td>
@@ -92,7 +93,9 @@
                                 </td>
                                 <td>
                                     <a href="@Url.Action("Edit",new { id = item.ID })" class="btn bg-primary text-white btn-sm rounded-circle"><i class="fa fa-edit"></i></a>
-                                    <a href="@Url.Action("Delete",new { id = item.ID })" class="btn bg-danger text-white btn-sm rounded-circle"><i class="fa fa-trash-alt"></i></a>
+                                    @*<a href="@Url.Action("Delete",new { id = item.ID })" class="btn bg-danger text-white btn-sm rounded-circle"><i class="fa fa-trash-alt"></i></a>*@
+                                    <a href="#" id="btnDelete" onclick="DeleteAction(@item.ID)" class="btn bg-danger text-white btn-sm rounded-circle"><i class="fa fa-trash-alt"></i></a>
+
                                 </td>
                             </tr>
                         }
@@ -104,7 +107,6 @@
         </div>
     </section>
 </div>
-
 
 
 @section Scripts {
@@ -144,6 +146,8 @@
                 ]
             });
 
+
+
             var btnexcel = document.querySelector('.buttons-excel');
             var btnprint = document.querySelector('.buttons-print');
             var btnpdf = document.querySelector('.buttons-pdf');
@@ -178,7 +182,46 @@
                 btnpdf.className = 'btn btn-danger rounded-circle text-white ml-1 border-danger';
             });
 
+
+
+
+
         });
+
+         function DeleteAction(ID) {
+            var reqID = { ID: ID };
+            alert(ID);
+
+            $.ajax({
+                async: true,
+                type: 'POST',
+                dataType: 'JSON',
+                contentType: 'application/json;charset=utf-8',
+                data: JSON.stringify(reqID),
+                url: '@Url.Action("DeleteAction","ServiceActions")',
+                success: function (res) {
+                    console.log(res);
+                    if (res.success === true) {
+                        toastr.error(res.message, "Service Action", { timeout: 2000 });
+                        setTimeout(function () {
+                            window.location.href = '@Url.Action("Index", "ServiceActions")';
+                        }, 2000);
+                    }
+                    else {
+                        console.log(res);
+                        toastr.error(res.message, "Error Alert", { timeout: 2000 });
+                        setTimeout(function () {
+                           window.location.href = '@Url.Action("Index", "ServiceActions")';
+                        }, 2000)
+                    }
+                },
+                error: function (err) {
+                    console.log(err);
+                    toastr.error(err.message, "Error Alert", { timeout: 2000 })
+                }
+            });
+        }
+
     </script>
 
 }

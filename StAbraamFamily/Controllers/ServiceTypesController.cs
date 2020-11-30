@@ -14,13 +14,11 @@ namespace StAbraamFamily.Controllers
     {
         private StAbraamEntities db = new StAbraamEntities();
 
-        // GET: ServiceTypes
         public ActionResult Index()
         {
             return View(db.ServiceTypes.ToList());
         }
 
-        // GET: ServiceTypes/Details/5
         public ActionResult Details(int? id)
         {
             if (id == null)
@@ -35,7 +33,6 @@ namespace StAbraamFamily.Controllers
             return View(serviceType);
         }
 
-        // GET: ServiceTypes/Create
         public ActionResult Create()
         {
             ViewBag.ServantID = new SelectList(db.Servants, "ID", "ServantName");
@@ -100,14 +97,13 @@ namespace StAbraamFamily.Controllers
         }
 
  
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
+        [HttpPost]
+        public ActionResult DeleteAction(int id)
         {
             ServiceType serviceType = db.ServiceTypes.Find(id);
-            db.ServiceTypes.Remove(serviceType);
+            serviceType.IsActive = false;
             db.SaveChanges();
-            return RedirectToAction("Index");
+            return Json(data: new { success = true, message = "Service Type Deleted Successfully" }, JsonRequestBehavior.AllowGet);
         }
 
         protected override void Dispose(bool disposing)

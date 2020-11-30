@@ -112,14 +112,13 @@ namespace StAbraamFamily.Controllers
             return View(child);
         }
 
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
+        [HttpPost]
+        public ActionResult DeleteAction(int id)
         {
             Child child = db.Children.Find(id);
-            db.Children.Remove(child);
+            child.IsActive = false;
             db.SaveChanges();
-            return RedirectToAction("Index");
+            return Json(data: new { success = true, message = "Child has been deleted successfully" }, JsonRequestBehavior.AllowGet);
         }
 
         protected override void Dispose(bool disposing)

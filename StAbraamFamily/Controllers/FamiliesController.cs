@@ -70,7 +70,6 @@ namespace StAbraamFamily.Controllers
             ViewBag.ServantID = new SelectList(db.Servants, "ID", "ServantName", family.ServantID);
             return View(family);
         }
-
         public ActionResult Edit(int? id)
         {
             if (id == null)

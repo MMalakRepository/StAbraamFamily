@@ -104,8 +104,8 @@
                                 <td>
 
                                     <a href="@Url.Action("Edit",new { id = item.ID })" class="btn bg-primary text-white btn-sm rounded-circle"><i class="fa fa-edit"></i></a>
-                                    <a href="@Url.Action("Delete",new { id = item.ID })" class="btn bg-danger text-white btn-sm rounded-circle"><i class="fa fa-trash-alt"></i></a>
-
+                                    @*<a href="@Url.Action("Delete",new { id = item.ID })" class="btn bg-danger text-white btn-sm rounded-circle"><i class="fa fa-trash-alt"></i></a>*@
+                                    <a href="#" onclick="DeleteAction(@item.ID)" class="btn bg-danger text-white btn-sm rounded-circle"><i class="fa fa-trash-alt"></i></a>
                                 </td>
                             </tr>
                         }
@@ -191,6 +191,34 @@
             });
 
         });
+
+
+         function DeleteAction(ID) {
+            var reqID = { ID: ID };
+            $.ajax({
+                async: true,
+                type: 'POST',
+                dataType: 'JSON',
+                contentType: 'application/json;charset=utf-8',
+                data: JSON.stringify(reqID),
+                url: '@Url.Action("DeleteAction","Families")',
+                success: function (res) {
+                    if (res.success === true) {
+                        console.log('Success' + res);
+                        toastr.error(res.message, "Family Data", { timeout: 2000 });
+                        setTimeout(function () {window.location.href = '@Url.Action("Index", "Families")';}, 2000);
+                    }
+                    else {
+                        console.log('Error' + res);
+                        toastr.error(res.message, "Error Alert", { timeout: 2000 });
+                        setTimeout(function () {window.location.href = '@Url.Action("Index", "Families")'; }, 2000)
+                    }
+                },
+                error: function (err) {
+                    toastr.error(err.message, "Error Alert", { timeout: 2000 })
+                }
+            })
+        }
     </script>
 
 }

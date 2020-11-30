@@ -14,13 +14,10 @@ namespace StAbraamFamily.Controllers
     {
         private StAbraamEntities db = new StAbraamEntities();
 
-        // GET: Fathers
         public ActionResult Index()
         {
             return View(db.Fathers.ToList());
         }
-
-        // GET: Fathers/Details/5
         public ActionResult Details(int? id)
         {
             if (id == null)
@@ -35,7 +32,6 @@ namespace StAbraamFamily.Controllers
             return View(father);
         }
 
-        // GET: Fathers/Create
         public ActionResult Create()
         {
             return View();
@@ -56,7 +52,6 @@ namespace StAbraamFamily.Controllers
             return View(father);
         }
 
-        // GET: Fathers/Edit/5
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -71,12 +66,9 @@ namespace StAbraamFamily.Controllers
             return View(father);
         }
 
-        // POST: Fathers/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ID,FatherName,PhoneNumber,IsActive,Notes")] Father father)
+        public ActionResult Edit(Father father)
         {
             if (ModelState.IsValid)
             {
@@ -87,7 +79,7 @@ namespace StAbraamFamily.Controllers
             return View(father);
         }
 
-        // GET: Fathers/Delete/5
+
         public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -102,15 +94,14 @@ namespace StAbraamFamily.Controllers
             return View(father);
         }
 
-        // POST: Fathers/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
+
+        [HttpPost]
+        public ActionResult DeleteAction(int id)
         {
             Father father = db.Fathers.Find(id);
             db.Fathers.Remove(father);
             db.SaveChanges();
-            return RedirectToAction("Index");
+            return Json(data : new { success = true , message ="Father has been deleted successfully"},JsonRequestBehavior.AllowGet);
         }
 
         protected override void Dispose(bool disposing)

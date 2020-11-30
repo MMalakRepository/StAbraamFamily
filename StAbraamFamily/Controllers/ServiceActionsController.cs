@@ -16,7 +16,7 @@ namespace StAbraamFamily.Controllers
 
         public ActionResult Index()
         {
-            var serviceActions = db.ServiceActions.Include(s => s.AspNetUser).Include(s => s.Clinic).Include(s => s.Family).Include(s => s.Hospital).Include(s => s.Person).Include(s => s.Servant).Include(s => s.ServiceType);
+            var serviceActions = db.ServiceActions.Include(s => s.AspNetUser).Include(s => s.Clinic).Include(s => s.Family).Include(s => s.Hospital).Include(s => s.Person).Include(s => s.Servant).Include(s => s.ServiceType).Where(x => x.IsActive == true);
             return View(serviceActions.ToList());
         }
 
@@ -64,7 +64,7 @@ namespace StAbraamFamily.Controllers
             ViewBag.HospitalID = new SelectList(db.Hospitals, "ID", "HospitalName", serviceAction.HospitalID);
             ViewBag.PersonID = new SelectList(db.People, "ID", "FullName", serviceAction.PersonID);
             ViewBag.ServantID = new SelectList(db.Servants, "ID", "ServantName", serviceAction.ServantID);
-            ViewBag.ActionTypeID = new SelectList(db.ServiceTypes, "ID", "ActionType", serviceAction.ActionTypeID);
+            ViewBag.ActionTypeID = new SelectList(db.ServiceTypes.Where(x => x.ID != 1 || x.ID != 2), "ID", "ActionType", serviceAction.ActionTypeID);
             return View(serviceAction);
         }
 
@@ -74,7 +74,7 @@ namespace StAbraamFamily.Controllers
         {
             if (ModelState.IsValid)
             {
-                serviceAction.ActionTypeID = 3;
+                serviceAction.ActionTypeID = 1;
                 db.ServiceActions.Add(serviceAction);
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -86,7 +86,7 @@ namespace StAbraamFamily.Controllers
             ViewBag.HospitalID = new SelectList(db.Hospitals, "ID", "HospitalName", serviceAction.HospitalID);
             ViewBag.PersonID = new SelectList(db.People, "ID", "FullName", serviceAction.PersonID);
             ViewBag.ServantID = new SelectList(db.Servants, "ID", "ServantName", serviceAction.ServantID);
-            ViewBag.ActionTypeID = new SelectList(db.ServiceTypes, "ID", "ActionType", serviceAction.ActionTypeID);
+            ViewBag.ActionTypeID = new SelectList(db.ServiceTypes.Where(x => x.ID == 2), "ID", "ActionType", serviceAction.ActionTypeID);
             return View(serviceAction);
         }
 
@@ -191,14 +191,13 @@ namespace StAbraamFamily.Controllers
             return View(serviceAction);
         }
 
-         [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
+        [HttpPost]
+        public ActionResult DeleteAction(int id)
         {
             ServiceAction serviceAction = db.ServiceActions.Find(id);
-            db.ServiceActions.Remove(serviceAction);
+            serviceAction.IsActive = false;
             db.SaveChanges();
-            return RedirectToAction("Index");
+            return Json(data: new { success = true, message = "Service has been deleted successfully" }, JsonRequestBehavior.AllowGet);
         }
 
         protected override void Dispose(bool disposing)
