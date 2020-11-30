@@ -37,9 +37,9 @@ namespace StAbraamFamily.Controllers
 
         public ActionResult Create()
         {
-            ViewBag.FamilyID = new SelectList(db.Families, "ID", "FamilyCode");
-            ViewBag.ConfessionFather = new SelectList(db.Fathers, "ID", "FatherName");
-            ViewBag.ServantID = new SelectList(db.Servants, "ID", "ServantName");
+            ViewBag.FamilyID = new SelectList(db.Families.Where(x => x.IsActive == true), "ID", "FamilyCode");
+            ViewBag.ConfessionFather = new SelectList(db.Fathers.Where(x => x.IsActive == true), "ID", "FatherName");
+            ViewBag.ServantID = new SelectList(db.Servants.Where(x => x.IsActive == true), "ID", "ServantName");
             return View();
         }
 
@@ -58,9 +58,9 @@ namespace StAbraamFamily.Controllers
                 return RedirectToAction("Index");
             }
 
-            ViewBag.FamilyID = new SelectList(db.Families, "ID", "FamilyCode", child.FamilyID);
-            ViewBag.ConfessionFather = new SelectList(db.Fathers, "ID", "FatherName", child.ConfessionFather);
-            ViewBag.ServantID = new SelectList(db.Servants, "ID", "ServantName", child.ServantID);
+            ViewBag.FamilyID = new SelectList(db.Families.Where(x => x.IsActive == true), "ID", "FamilyCode", child.FamilyID);
+            ViewBag.ConfessionFather = new SelectList(db.Fathers.Where(x => x.IsActive == true), "ID", "FatherName", child.ConfessionFather);
+            ViewBag.ServantID = new SelectList(db.Servants.Where(x => x.IsActive == true), "ID", "ServantName", child.ServantID);
             return View(child);
         }
 
@@ -76,9 +76,9 @@ namespace StAbraamFamily.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.FamilyID = new SelectList(db.Families, "ID", "FamilyCode", child.FamilyID);
-            ViewBag.ConfessionFather = new SelectList(db.Fathers, "ID", "FatherName", child.ConfessionFather);
-            ViewBag.ServantID = new SelectList(db.Servants, "ID", "ServantName", child.ServantID);
+            ViewBag.FamilyID = new SelectList(db.Families.Where(x => x.IsActive == true), "ID", "FamilyCode", child.FamilyID);
+            ViewBag.ConfessionFather = new SelectList(db.Fathers.Where(x => x.IsActive == true), "ID", "FatherName", child.ConfessionFather);
+            ViewBag.ServantID = new SelectList(db.Servants.Where(x => x.IsActive == true), "ID", "ServantName", child.ServantID);
             return View(child);
         }
 
@@ -92,9 +92,9 @@ namespace StAbraamFamily.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.FamilyID = new SelectList(db.Families, "ID", "FamilyCode", child.FamilyID);
-            ViewBag.ConfessionFather = new SelectList(db.Fathers, "ID", "FatherName", child.ConfessionFather);
-            ViewBag.ServantID = new SelectList(db.Servants, "ID", "ServantName", child.ServantID);
+            ViewBag.FamilyID = new SelectList(db.Families.Where(x => x.IsActive == true), "ID", "FamilyCode", child.FamilyID);
+            ViewBag.ConfessionFather = new SelectList(db.Fathers.Where(x => x.IsActive == true), "ID", "FatherName", child.ConfessionFather);
+            ViewBag.ServantID = new SelectList(db.Servants.Where(x => x.IsActive == true), "ID", "ServantName", child.ServantID);
             return View(child);
         }
 

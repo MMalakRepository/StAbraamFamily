@@ -16,7 +16,7 @@ namespace StAbraamFamily.Controllers
 
         public ActionResult Index()
         {
-            return View(db.Clinics.ToList());
+            return View(db.Clinics.Where(x => x.IsActive == true).ToList());
         }
 
         public ActionResult Details(int? id)

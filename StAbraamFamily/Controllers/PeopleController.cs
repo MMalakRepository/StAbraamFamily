@@ -15,27 +15,11 @@ namespace StAbraamFamily.Controllers
     {
         private StAbraamEntities db = new StAbraamEntities();
 
- 
-        public ActionResult Index()
+         public ActionResult Index()
         {
             var people = db.People.Include(p => p.Father).Include(p => p.Servant).Where(x => x.IsActive == true);
             return View(people.ToList());
         }
-
-        public ActionResult Details(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Person person = db.People.Find(id);
-            if (person == null)
-            {
-                return HttpNotFound();
-            }
-            return View(person);
-        }
-
          public ActionResult Create()
         {
             ViewBag.ConfessionFather = new SelectList(db.Fathers, "ID", "FatherName");
@@ -56,9 +40,14 @@ namespace StAbraamFamily.Controllers
                 return RedirectToAction("Index");
             }
 
-            ViewBag.ConfessionFather = new SelectList(db.Fathers, "ID", "FatherName");
-            ViewBag.ServantID = new SelectList(db.Servants, "ID", "ServantName");
+            ResetData();
             return View();
+        }
+
+        private void ResetData()
+        {
+            ViewBag.ConfessionFather = new SelectList(db.Fathers.Where(x => x.IsActive ==true), "ID", "FatherName");
+            ViewBag.ServantID = new SelectList(db.Servants.Where(x => x.IsActive == true), "ID", "ServantName");
         }
 
         public ActionResult Edit(int? id)
@@ -72,8 +61,7 @@ namespace StAbraamFamily.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.ConfessionFather = new SelectList(db.Fathers, "ID", "FatherName", person.ConfessionFather);
-            ViewBag.ServantID = new SelectList(db.Servants, "ID", "ServantName", person.ServantID);
+            ResetData();
             return View(person);
         }
  
@@ -87,22 +75,7 @@ namespace StAbraamFamily.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.ConfessionFather = new SelectList(db.Fathers, "ID", "FatherName", person.ConfessionFather);
-            ViewBag.ServantID = new SelectList(db.Servants, "ID", "ServantName", person.ServantID);
-            return View(person);
-        }
-
-        public ActionResult Delete(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Person person = db.People.Find(id);
-            if (person == null)
-            {
-                return HttpNotFound();
-            }
+            ResetData();
             return View(person);
         }
 

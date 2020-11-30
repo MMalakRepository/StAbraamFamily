@@ -16,30 +16,15 @@ namespace StAbraamFamily.Controllers
 
         public ActionResult Index()
         {
-            return View(db.ServiceTypes.ToList());
-        }
-
-        public ActionResult Details(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            ServiceType serviceType = db.ServiceTypes.Find(id);
-            if (serviceType == null)
-            {
-                return HttpNotFound();
-            }
-            return View(serviceType);
+            return View(db.ServiceTypes.Where(x => x.IsActive ==true).ToList());
         }
 
         public ActionResult Create()
         {
-            ViewBag.ServantID = new SelectList(db.Servants, "ID", "ServantName");
+            ViewBag.ServantID = new SelectList(db.Servants.Where(x => x.IsActive == true), "ID", "ServantName");
             return View();
         }
 
- 
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create(ServiceType serviceType)
@@ -53,7 +38,7 @@ namespace StAbraamFamily.Controllers
 
             return View(serviceType);
         }
-         
+        
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -81,23 +66,7 @@ namespace StAbraamFamily.Controllers
             return View(serviceType);
         }
 
- 
-        public ActionResult Delete(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            ServiceType serviceType = db.ServiceTypes.Find(id);
-            if (serviceType == null)
-            {
-                return HttpNotFound();
-            }
-            return View(serviceType);
-        }
-
- 
-        [HttpPost]
+         [HttpPost]
         public ActionResult DeleteAction(int id)
         {
             ServiceType serviceType = db.ServiceTypes.Find(id);

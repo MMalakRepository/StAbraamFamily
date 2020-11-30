@@ -18,7 +18,8 @@ namespace StAbraamFamily.Controllers
         private StAbraamEntities db = new StAbraamEntities();
         public ActionResult Index()
         {
-            var families = db.Families.Include(f => f.EvaluationLevel).Include(f => f.Father).Include(f => f.Person).Include(f => f.Person1).Include(f => f.Servant);
+            var families = db.Families.Include(f => f.EvaluationLevel).Include(f => f.Father).Include(f => f.Person)
+                .Include(f => f.Person1).Include(f => f.Servant).Where(x => x.IsActive == true);
             return View(families.ToList());
         }
 
@@ -38,13 +39,7 @@ namespace StAbraamFamily.Controllers
 
         public ActionResult Create()
         {
-            ViewBag.EvaluationLevelID = new SelectList(db.EvaluationLevels, "ID", "EvaluationLevel1");
-            ViewBag.MissingPriestID = new SelectList(db.Fathers, "ID", "FatherName");
-            ViewBag.FatherID = new SelectList(db.People.Where(x => x.Gender == true), "ID", "FullName");
-            ViewBag.MotherID = new SelectList(db.People.Where(x => x.Gender == false), "ID", "FullName");
-            ViewBag.ServantID = new SelectList(db.Servants, "ID", "ServantName");
-            ViewBag.ConfessionFather = new SelectList(db.Fathers, "ID", "FatherName");
-
+            ResetData();
             return View();
         }
 
@@ -63,11 +58,7 @@ namespace StAbraamFamily.Controllers
                 return RedirectToAction("Index");
             }
 
-            ViewBag.EvaluationLevelID = new SelectList(db.EvaluationLevels, "ID", "EvaluationLevel1", family.EvaluationLevelID);
-            ViewBag.MissingPriestID = new SelectList(db.Fathers, "ID", "FatherName", family.MissingPriestID);
-            ViewBag.FatherID = new SelectList(db.People.Where(x => x.Gender == true), "ID", "FullName", family.FatherID);
-            ViewBag.MotherID = new SelectList(db.People.Where(x => x.Gender == false), "ID", "FullName", family.MotherID);
-            ViewBag.ServantID = new SelectList(db.Servants, "ID", "ServantName", family.ServantID);
+            ResetData();
             return View(family);
         }
         public ActionResult Edit(int? id)
@@ -81,11 +72,8 @@ namespace StAbraamFamily.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.EvaluationLevelID = new SelectList(db.EvaluationLevels, "ID", "EvaluationLevel1", family.EvaluationLevelID);
-            ViewBag.MissingPriestID = new SelectList(db.Fathers, "ID", "FatherName", family.MissingPriestID);
-            ViewBag.FatherID = new SelectList(db.People.Where(x => x.Gender == true), "ID", "FullName", family.FatherID);
-            ViewBag.MotherID = new SelectList(db.People.Where(x => x.Gender == false), "ID", "FullName", family.MotherID);
-            ViewBag.ServantID = new SelectList(db.Servants, "ID", "ServantName", family.ServantID);
+
+            ResetData();
             return View(family);
         }
 
@@ -104,11 +92,7 @@ namespace StAbraamFamily.Controllers
                 return RedirectToAction("Index");
             }
 
-            ViewBag.EvaluationLevelID = new SelectList(db.EvaluationLevels, "ID", "EvaluationLevel1", family.EvaluationLevelID);
-            ViewBag.MissingPriestID = new SelectList(db.Fathers, "ID", "FatherName", family.MissingPriestID);
-            ViewBag.FatherID = new SelectList(db.People.Where(x => x.Gender == true), "ID", "FullName", family.FatherID);
-            ViewBag.MotherID = new SelectList(db.People.Where(x => x.Gender == false), "ID", "FullName", family.MotherID);
-            ViewBag.ServantID = new SelectList(db.Servants, "ID", "ServantName", family.ServantID);
+            ResetData();
 
             return View(family);
         }
@@ -144,6 +128,17 @@ namespace StAbraamFamily.Controllers
                 db.Dispose();
             }
             base.Dispose(disposing);
+        }
+
+
+        public void ResetData()
+        {
+            ViewBag.EvaluationLevelID = new SelectList(db.EvaluationLevels, "ID", "EvaluationLevel1");
+            ViewBag.MissingPriestID = new SelectList(db.Fathers.Where(x => x.IsActive == true), "ID", "FatherName");
+            ViewBag.FatherID = new SelectList(db.People.Where(x => x.Gender == true && x.IsActive == true), "ID", "FullName");
+            ViewBag.MotherID = new SelectList(db.People.Where(x => x.Gender == false && x.IsActive == true), "ID", "FullName");
+            ViewBag.ServantID = new SelectList(db.Servants.Where(x => x.IsActive == true), "ID", "ServantName");
+            ViewBag.ConfessionFather = new SelectList(db.Fathers.Where(x => x.IsActive == true), "ID", "FatherName");
         }
     }
 }

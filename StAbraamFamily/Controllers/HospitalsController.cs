@@ -16,21 +16,7 @@ namespace StAbraamFamily.Controllers
 
         public ActionResult Index()
         {
-            return View(db.Hospitals.ToList());
-        }
-
-        public ActionResult Details(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Hospital hospital = db.Hospitals.Find(id);
-            if (hospital == null)
-            {
-                return HttpNotFound();
-            }
-            return View(hospital);
+            return View(db.Hospitals.Where(x => x.IsActive == true).ToList());
         }
 
         public ActionResult Create()
@@ -77,20 +63,6 @@ namespace StAbraamFamily.Controllers
                 db.Entry(hospital).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
-            }
-            return View(hospital);
-        }
-
-        public ActionResult Delete(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Hospital hospital = db.Hospitals.Find(id);
-            if (hospital == null)
-            {
-                return HttpNotFound();
             }
             return View(hospital);
         }

@@ -14,36 +14,24 @@ namespace StAbraamFamily.Controllers
     {
         private StAbraamEntities db = new StAbraamEntities();
 
- 
         public ActionResult Index()
         {
-            var familyVisits = db.FamilyVisits.Include(f => f.Family).Include(f => f.Servant);
+            var familyVisits = db.FamilyVisits.Include(f => f.Family).Include(f => f.Servant).Where(x => x.IsActive == true);
             return View(familyVisits.ToList());
         }
-
- 
-        public ActionResult Details(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            FamilyVisit familyVisit = db.FamilyVisits.Find(id);
-            if (familyVisit == null)
-            {
-                return HttpNotFound();
-            }
-            return View(familyVisit);
-        }
-
  
         public ActionResult Create()
         {
-            ViewBag.FamilyID = new SelectList(db.Families, "ID", "FamilyCode");
-            ViewBag.ServantID = new SelectList(db.Servants, "ID", "ServantName");
+            ResetData();
             return View();
         }
- 
+
+        private void ResetData()
+        {
+            ViewBag.FamilyID = new SelectList(db.Families.Where(x => x.IsActive == true), "ID", "FamilyCode");
+            ViewBag.ServantID = new SelectList(db.Servants.Where(x => x.IsActive == true), "ID", "ServantName");
+        }
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create(FamilyVisit familyVisit)
@@ -56,8 +44,7 @@ namespace StAbraamFamily.Controllers
                 return RedirectToAction("Index");
             }
 
-            ViewBag.FamilyID = new SelectList(db.Families, "ID", "FamilyCode", familyVisit.FamilyID);
-            ViewBag.ServantID = new SelectList(db.Servants, "ID", "ServantName", familyVisit.ServantID);
+            ResetData();
             return View(familyVisit);
         }
 
@@ -72,14 +59,15 @@ namespace StAbraamFamily.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.FamilyID = new SelectList(db.Families, "ID", "FamilyCode", familyVisit.FamilyID);
-            ViewBag.ServantID = new SelectList(db.Servants, "ID", "ServantName", familyVisit.ServantID);
+
+
+            ResetData();
             return View(familyVisit);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ID,FamilyID,ServantID,VisitDate,Notes")] FamilyVisit familyVisit)
+        public ActionResult Edit(FamilyVisit familyVisit)
         {
             if (ModelState.IsValid)
             {
@@ -87,22 +75,8 @@ namespace StAbraamFamily.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.FamilyID = new SelectList(db.Families, "ID", "FamilyCode", familyVisit.FamilyID);
-            ViewBag.ServantID = new SelectList(db.Servants, "ID", "ServantName", familyVisit.ServantID);
-            return View(familyVisit);
-        }
 
-        public ActionResult Delete(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            FamilyVisit familyVisit = db.FamilyVisits.Find(id);
-            if (familyVisit == null)
-            {
-                return HttpNotFound();
-            }
+            ResetData();
             return View(familyVisit);
         }
 

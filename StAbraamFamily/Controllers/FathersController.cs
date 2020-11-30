@@ -16,22 +16,9 @@ namespace StAbraamFamily.Controllers
 
         public ActionResult Index()
         {
-            return View(db.Fathers.ToList());
+            return View(db.Fathers.Where(x => x.IsActive ==true).ToList());
         }
-        public ActionResult Details(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Father father = db.Fathers.Find(id);
-            if (father == null)
-            {
-                return HttpNotFound();
-            }
-            return View(father);
-        }
-
+       
         public ActionResult Create()
         {
             return View();
@@ -78,22 +65,6 @@ namespace StAbraamFamily.Controllers
             }
             return View(father);
         }
-
-
-        public ActionResult Delete(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Father father = db.Fathers.Find(id);
-            if (father == null)
-            {
-                return HttpNotFound();
-            }
-            return View(father);
-        }
-
 
         [HttpPost]
         public ActionResult DeleteAction(int id)

@@ -7,6 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using StAbraamFamily.Models;
+using StAbraamFamily.UnitsOfWork;
 
 namespace StAbraamFamily.Controllers
 {
@@ -14,10 +15,9 @@ namespace StAbraamFamily.Controllers
     {
         private StAbraamEntities db = new StAbraamEntities();
 
- 
         public ActionResult Index()
         {
-            var familyServants = db.FamilyServants.Include(f => f.Family).Include(f => f.Servant);
+            var familyServants = db.FamilyServants.Include(f => f.Family).Include(f => f.Servant).Where(x =>x.IsActive ==true);
             return View(familyServants.ToList());
         }
 
@@ -39,11 +39,17 @@ namespace StAbraamFamily.Controllers
  
         public ActionResult Create()
         {
-            ViewBag.FamilyID = new SelectList(db.Families, "ID", "FamilyCode");
-            ViewBag.ServantID = new SelectList(db.Servants, "ID", "ServantName");
+            ResetData();
             return View();
         }
  
+
+        public void ResetData()
+        {
+            ViewBag.FamilyID = new SelectList(db.Families.Where(x => x.IsActive == true), "ID", "FamilyCode");
+            ViewBag.ServantID = new SelectList(db.Servants.Where(x => x.IsActive == true), "ID", "ServantName");
+        }
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create(FamilyServant familyServant)
@@ -56,8 +62,7 @@ namespace StAbraamFamily.Controllers
                 return RedirectToAction("Index");
             }
 
-            ViewBag.FamilyID = new SelectList(db.Families, "ID", "FamilyCode", familyServant.FamilyID);
-            ViewBag.ServantID = new SelectList(db.Servants, "ID", "ServantName", familyServant.ServantID);
+            ResetData();
             return View(familyServant);
         }
 
@@ -73,14 +78,15 @@ namespace StAbraamFamily.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.FamilyID = new SelectList(db.Families, "ID", "FamilyCode", familyServant.FamilyID);
-            ViewBag.ServantID = new SelectList(db.Servants, "ID", "ServantName", familyServant.ServantID);
+
+
+            ResetData();
             return View(familyServant);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ID,FamilyID,ServantID,IsActive")] FamilyServant familyServant)
+        public ActionResult Edit(FamilyServant familyServant)
         {
             if (ModelState.IsValid)
             {
@@ -88,8 +94,8 @@ namespace StAbraamFamily.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.FamilyID = new SelectList(db.Families, "ID", "FamilyCode", familyServant.FamilyID);
-            ViewBag.ServantID = new SelectList(db.Servants, "ID", "ServantName", familyServant.ServantID);
+
+            ResetData();
             return View(familyServant);
         }
 
