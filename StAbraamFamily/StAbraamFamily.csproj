@@ -172,6 +172,7 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\ChildrenController.cs" />
     <Compile Include="Controllers\ClinicsController.cs" />
+    <Compile Include="Controllers\EvaluationLevelsController.cs" />
     <Compile Include="Controllers\FamiliesController.cs" />
     <Compile Include="Controllers\FamilyServantsController.cs" />
     <Compile Include="Controllers\FamilyVisitsController.cs" />
@@ -3654,6 +3655,10 @@
     <Content Include="Views\ServiceActions\AddBagService.cshtml" />
     <Content Include="Views\Families\EditBck.cshtml" />
     <Content Include="Views\Families\Edit.cshtml" />
+    <Content Include="Views\EvaluationLevels\Create.cshtml" />
+    <Content Include="Views\EvaluationLevels\Delete.cshtml" />
+    <Content Include="Views\EvaluationLevels\Edit.cshtml" />
+    <Content Include="Views\EvaluationLevels\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
