@@ -1,7 +1,7 @@
 ﻿@model IEnumerable<StAbraamFamily.Models.Person>
 
 @{
-    ViewBag.Title = "People";
+    ViewBag.Title = "People Master Data";
     Layout = "~/Views/Shared/_FamilyLayout.cshtml";
 }
 
@@ -15,9 +15,13 @@
         <ol class="breadcrumbs float-md-right mr-5">
 
             <li>
-                <a href="@Url.Action("Create","People",null)" class="text-white">
-                    <i class="fas fa-plus-circle fa-2x text-warning"></i> Add New Person
-                </a>
+                <a href="@Url.Action("Create","People",null)" class="text-white" style="font-weight:bold"><i class="fas fa-plus-circle fa-2x text-warning"></i> أضافة شخص جديد</a>
+            </li>
+            <li>
+                <a href="@Url.Action("AddHealthyService","ServiceActions",null)" class="text-white" style="font-weight:bold"><i class="fas fa-clinic-medical fa-2x text-warning"></i> أضافة خدمة علاجية</a>
+            </li>
+            <li>
+                <a href="@Url.Action("AddBagService","ServiceActions",null)" class="text-white" style="font-weight:bold"><i class="fas fa-shopping-bag fa-2x text-warning"></i>  أضافة شنطة البركة  </a>
             </li>
 
         </ol>
@@ -36,9 +40,9 @@
         <div class="card-body">
             <div class="container p-0" style="max-width:90%">
                 <table class="table table-hover table-sm" id="myDataTable">
-
                     <thead class="bg-info text-white text-center">
                         <tr>
+                            <th></th>
                             <th>
                                 <label class="control-label " style="float: right;font-size: 14px;font-weight: bold;text-align: right;font-family: Calibri">كود الفرد </label>
                             </th>
@@ -48,12 +52,6 @@
                             <th>
                                 <label class="control-label " style="float: right;font-size: 14px;font-weight: bold;text-align: right;font-family: Calibri">التليفون </label>
                             </th>
-                            @*<th>
-                                <label class="control-label " style="float: right;font-size: 14px;font-weight: bold;text-align: right;font-family: Calibri">العنوان </label>
-                            </th>
-                            <th>
-                                <label class="control-label " style="float: right;font-size: 14px;font-weight: bold;text-align: right;font-family: Calibri">المنطقة </label>
-                            </th>*@
                             <th>
                                 <label class="control-label " style="float: right;font-size: 14px;font-weight: bold;text-align: right;font-family: Calibri">تاريخ الميلاد </label>
                             </th>
@@ -66,17 +64,19 @@
                             <th>
                                 <label class="control-label " style="float: right;font-size: 14px;font-weight: bold;text-align: right;font-family: Calibri">رقم البطاقة </label>
                             </th>
-
                             <th></th>
                         </tr>
 
                     </thead>
-
                     <tbody>
-
                         @foreach (var item in Model)
                         {
                             <tr>
+                                <td>
+                                    <a target="_blank" href="@Url.Action("AllServicesList","ServiceActions",new { id = item.ID })" title="كل الخدمات " class="btn btn-primary btn-sm rounded-circle text-white"><i class="fa fa-list"></i></a>
+                                    <a target="_blank" href="@Url.Action("MedicalServiceList","ServiceActions",new { id = item.ID })" title="الخدمات العلاجية" class="btn btn-success btn-sm rounded-circle text-white"><i class="fa fa-clinic-medical"></i></a>
+                                    <a target="_blank" href="@Url.Action("BagServiceList","ServiceActions",new { id = item.ID })" title="شنط البركة" class="btn btn-warning btn-sm rounded-circle text-white"><i class="fa fa-shopping-bag"></i></a>
+                                </td>
                                 <td>
                                     @Html.DisplayFor(modelItem => item.Code)
                                 </td>
@@ -86,14 +86,9 @@
                                 <td>
                                     @Html.DisplayFor(modelItem => item.Phone)
                                 </td>
-                                @*<td>
-                                    @Html.DisplayFor(modelItem => item.Address)
-                                </td>
                                 <td>
-                                    @Html.DisplayFor(modelItem => item.Area)
-                                </td>*@
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.DateOfBirth)
+                                    @*@Html.DisplayFor(modelItem => item.DateOfBirth)*@
+                                    @Convert.ToDateTime(item.DateOfBirth).ToString("dd/MM/yyyy")
                                 </td>
 
                                 <td>
@@ -105,16 +100,13 @@
                                 <td>
                                     @Html.DisplayFor(modelItem => item.NationalID)
                                 </td>
-
                                 <td>
-                                    <a href="@Url.Action("Edit",new { id = item.ID })" class="btn bg-primary text-white btn-sm rounded-circle"><i class="fa fa-edit"></i></a>
-                                    <a href="#" onclick="DeleteAction(@item.ID)" class="btn btn-danger btn-sm rounded-circle text-white"><i class="fa fa-trash-alt"></i></a>     
+                                    <a href="@Url.Action("Edit",new { id = item.ID })" title="تعديل البيانات" class="btn bg-primary text-white btn-sm rounded-circle"><i class="fa fa-edit"></i></a>
+                                    <a href="#" onclick="DeleteAction(@item.ID)" title="حذف الشخص" class="btn btn-danger btn-sm rounded-circle text-white"><i class="fa fa-trash-alt"></i></a>
                                 </td>
                             </tr>
                         }
-
                     </tbody>
-
                 </table>
             </div>
         </div>

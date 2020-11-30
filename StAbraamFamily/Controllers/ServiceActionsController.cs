@@ -16,8 +16,50 @@ namespace StAbraamFamily.Controllers
 
         public ActionResult Index()
         {
-            var serviceActions = db.ServiceActions.Include(s => s.AspNetUser).Include(s => s.Clinic).Include(s => s.Family).Include(s => s.Hospital).Include(s => s.Person).Include(s => s.Servant).Include(s => s.ServiceType).Where(x => x.IsActive == true);
-            return View(serviceActions.ToList());
+            var serviceActions = db.ServiceActions.Include(s => s.AspNetUser)
+                .Include(s => s.Clinic).Include(s => s.Family)
+                .Include(s => s.Hospital).Include(s => s.Person)
+                .Include(s => s.Servant).Include(s => s.ServiceType)
+                .Where(x => x.IsActive == true && (x.ServiceType.ID != 1 || x.ServiceType.ID !=2));
+            return View("Index",serviceActions.ToList());
+        }
+
+        public ActionResult BagServiceList(int? id)
+        {
+            var serviceActions = db.ServiceActions.Include(s => s.AspNetUser)
+                .Include(s => s.Clinic).Include(s => s.Family)
+                .Include(s => s.Hospital).Include(s => s.Person)
+                .Include(s => s.Servant).Include(s => s.ServiceType)
+                .Where(x => x.IsActive == true && x.ServiceType.ID == 1);
+
+            if (id != null)
+                serviceActions = serviceActions.Where(x => x.PersonID == id);
+
+            return View("Index",serviceActions.ToList());
+        }
+
+        public ActionResult MedicalServiceList(int? id)
+        {
+            var serviceActions = db.ServiceActions.Include(s => s.AspNetUser)
+                                    .Include(s => s.Clinic).Include(s => s.Family)
+                                    .Include(s => s.Hospital).Include(s => s.Person).Include(s => s.Servant)
+                                    .Include(s => s.ServiceType).Where(x => x.IsActive == true && x.ServiceType.ID == 2);
+            if (id != null)
+                serviceActions = serviceActions.Where(x => x.PersonID == id);
+  
+            return View("Index",serviceActions.ToList());
+        }
+
+        public ActionResult AllServicesList(int? id)
+        {
+            var serviceActions = db.ServiceActions.Include(s => s.AspNetUser)
+                        .Include(s => s.Clinic).Include(s => s.Family)
+                        .Include(s => s.Hospital).Include(s => s.Person).Include(s => s.Servant)
+                        .Include(s => s.ServiceType).Where(x => x.IsActive == true);
+            if (id != null)
+                serviceActions = serviceActions.Where(x => x.PersonID == id);
+
+            return View("Index", serviceActions.ToList());
         }
 
         public ActionResult Details(int? id)

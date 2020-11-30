@@ -21,6 +21,7 @@
 
 <div class="col-lg-12">
     <section class="card card-featured card-featured-success mb-4">
+
         <header class="card-header">
             <div class="card-actions">
                 <a href="#" class="card-action card-action-toggle" data-card-toggle></a>
@@ -28,6 +29,7 @@
 
             <h2 class="card-title" style="text-align:center;font-size:25px;font-weight:bold;font-family:Calibri"> بيانات عيادة جديدة</h2>
         </header>
+
         <div class="card-body">
             @using (Html.BeginForm())
             {
@@ -94,7 +96,7 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <div class="col-md-offset-2 col-md-12">
-                                    <input type="submit" value="أضافة العيادة" class="btn btn-sm btn-success" style="width:100%;font-size: 20px;font-weight: bold;text-align: center;font-family: Calibri"/>
+                                    <input type="submit" value="أضافة العيادة" class="btn btn-sm btn-success" style="width:100%;font-size: 20px;font-weight: bold;text-align: center;font-family: Calibri" />
                                 </div>
                             </div>
 
@@ -102,14 +104,13 @@
                     </div>
 
                 </div>
-                }
-            </div>
+            }
+        </div>
 
-        </section>
-    </div>
+    </section>
+</div>
 
 
-
-    @section Scripts {
-        @Scripts.Render("~/bundles/jqueryval")
-    }
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
