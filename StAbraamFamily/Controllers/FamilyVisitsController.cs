@@ -16,7 +16,7 @@ namespace StAbraamFamily.Controllers
 
         public ActionResult Index()
         {
-            var familyVisits = db.FamilyVisits.Include(f => f.Family).Include(f => f.Servant).Where(x => x.IsActive == true);
+            var familyVisits = db.FamilyVisits.Include(f => f.Family).Include(f => f.Servant);
             return View(familyVisits.ToList());
         }
  
