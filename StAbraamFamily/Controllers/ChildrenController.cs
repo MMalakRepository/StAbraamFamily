@@ -20,7 +20,7 @@ namespace StAbraamFamily.Controllers
             return View(children.ToList());
         }
 
-        // GET: Children/Details/5
+ 
         public ActionResult Details(int? id)
         {
             if (id == null)
@@ -51,6 +51,11 @@ namespace StAbraamFamily.Controllers
             if (ModelState.IsValid)
             {
                 child.EnteredBy = User.Identity.Name;
+                child.FamilyID = Convert.ToInt32(Request.Form["FamilyID"].ToString());
+                child.ConfessionFather = Convert.ToInt32(Request.Form["ConfessionFather"].ToString());
+                child.ServantID = Convert.ToInt32(Request.Form["ServantID"].ToString());
+                child.IsStudying = Convert.ToBoolean(Request.Form["IsStudying"].ToString());
+                //child.IsWorking = Convert.ToBoolean(Request.Form["IsWorking"].ToString());
                 child.IsActive = true;
                 child.EntryDate = DateTime.Now;
                 db.Children.Add(child);
@@ -64,7 +69,7 @@ namespace StAbraamFamily.Controllers
             return View(child);
         }
 
-        // GET: Children/Edit/5
+ 
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -88,6 +93,13 @@ namespace StAbraamFamily.Controllers
         {
             if (ModelState.IsValid)
             {
+                child.FamilyID = Convert.ToInt32(Request.Form["FamilyID"].ToString());
+                child.ConfessionFather = Convert.ToInt32(Request.Form["ConfessionFather"].ToString());
+                child.ServantID = Convert.ToInt32(Request.Form["ServantID"].ToString());
+                child.IsStudying = Convert.ToBoolean(Request.Form["IsStudying"].ToString());
+                child.IsWorking = Convert.ToBoolean(Request.Form["IsWorking"].ToString());
+                child.IsActive = true;
+                child.EntryDate = DateTime.Now;
                 db.Entry(child).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");

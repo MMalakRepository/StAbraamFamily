@@ -31,6 +31,7 @@ namespace StAbraamFamily.Controllers
         {
             if (ModelState.IsValid)
             {
+                serviceType.ServantID = Convert.ToInt32(Request.Form["ServantID"].ToString());
                 db.ServiceTypes.Add(serviceType);
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -59,6 +60,7 @@ namespace StAbraamFamily.Controllers
         {
             if (ModelState.IsValid)
             {
+                serviceType.ServantID = Convert.ToInt32(Request.Form["ServantID"].ToString());
                 db.Entry(serviceType).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");

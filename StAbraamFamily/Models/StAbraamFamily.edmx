@@ -76,7 +76,7 @@
           <Property Name="IsActive" Type="bit" />
           <Property Name="IsWorking" Type="bit" Nullable="false" />
           <Property Name="WorkingPlace" Type="nvarchar" MaxLength="250" />
-          <Property Name="IsStudying" Type="nvarchar" MaxLength="50" />
+          <Property Name="IsStudying" Type="bit" />
           <Property Name="EntryDate" Type="datetime" />
           <Property Name="EnteredBy" Type="nvarchar" MaxLength="128" />
           <Property Name="FamilyID" Type="int" />
@@ -724,26 +724,6 @@
           <NavigationProperty Name="ServiceActions" Relationship="Self.FK_ServiceActions_AspNetUsers" FromRole="AspNetUsers" ToRole="ServiceActions" />
           <NavigationProperty Name="AspNetRoles" Relationship="Self.AspNetUserRoles" FromRole="AspNetUsers" ToRole="AspNetRoles" />
         </EntityType>
-        <EntityType Name="Child">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Name" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
-          <Property Name="DateOfBirth" Type="DateTime" Precision="3" />
-          <Property Name="IsActive" Type="Boolean" />
-          <Property Name="IsWorking" Type="Boolean" Nullable="false" />
-          <Property Name="WorkingPlace" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
-          <Property Name="IsStudying" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="EntryDate" Type="DateTime" Precision="3" />
-          <Property Name="EnteredBy" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
-          <Property Name="FamilyID" Type="Int32" />
-          <Property Name="ConfessionFather" Type="Int32" />
-          <Property Name="ServantID" Type="Int32" />
-          <NavigationProperty Name="Family" Relationship="Self.FK_Child_Families" FromRole="Child" ToRole="Families" />
-          <NavigationProperty Name="Father" Relationship="Self.FK_Child_Fathers" FromRole="Child" ToRole="Fathers" />
-          <NavigationProperty Name="Servant" Relationship="Self.FK_Child_Servants" FromRole="Child" ToRole="Servants" />
-        </EntityType>
         <EntityType Name="Clinic">
           <Key>
             <PropertyRef Name="ID" />
@@ -779,7 +759,6 @@
           <Property Name="Notes" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="MissingPriestID" Type="Int32" />
           <Property Name="EvaluationLevelID" Type="Int32" />
-          <NavigationProperty Name="Children" Relationship="Self.FK_Child_Families" FromRole="Families" ToRole="Child" />
           <NavigationProperty Name="EvaluationLevel" Relationship="Self.FK_Families_EvaluationLevels" FromRole="Families" ToRole="EvaluationLevels" />
           <NavigationProperty Name="Father" Relationship="Self.FK_Families_Fathers" FromRole="Families" ToRole="Fathers" />
           <NavigationProperty Name="Person" Relationship="Self.FK_Families_Person" FromRole="Families" ToRole="Person" />
@@ -788,6 +767,7 @@
           <NavigationProperty Name="FamilyServants" Relationship="Self.FK_FamilyServants_Families" FromRole="Families" ToRole="FamilyServants" />
           <NavigationProperty Name="FamilyVisits" Relationship="Self.FK_FamilyVisits_Families" FromRole="Families" ToRole="FamilyVisits" />
           <NavigationProperty Name="ServiceActions" Relationship="Self.FK_ServiceActions_Families" FromRole="Families" ToRole="ServiceActions" />
+          <NavigationProperty Name="Children" Relationship="StAbraamModel.FK_Child_Families" FromRole="Family" ToRole="Child" />
         </EntityType>
         <EntityType Name="FamilyServant">
           <Key>
@@ -821,9 +801,9 @@
           <Property Name="PhoneNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="IsActive" Type="Boolean" />
           <Property Name="Notes" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="Children" Relationship="Self.FK_Child_Fathers" FromRole="Fathers" ToRole="Child" />
           <NavigationProperty Name="Families" Relationship="Self.FK_Families_Fathers" FromRole="Fathers" ToRole="Families" />
           <NavigationProperty Name="People" Relationship="Self.FK_Person_Fathers" FromRole="Fathers" ToRole="Person" />
+          <NavigationProperty Name="Children" Relationship="StAbraamModel.FK_Child_Fathers" FromRole="Father" ToRole="Child" />
         </EntityType>
         <EntityType Name="Hospital">
           <Key>
@@ -878,12 +858,12 @@
           <Property Name="EmailAddress" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="DateOfBirth" Type="DateTime" Precision="3" />
           <Property Name="IsActive" Type="Boolean" />
-          <NavigationProperty Name="Children" Relationship="Self.FK_Child_Servants" FromRole="Servants" ToRole="Child" />
           <NavigationProperty Name="Families" Relationship="Self.FK_Families_Servants" FromRole="Servants" ToRole="Families" />
           <NavigationProperty Name="FamilyServants" Relationship="Self.FK_FamilyServants_Servants" FromRole="Servants" ToRole="FamilyServants" />
           <NavigationProperty Name="FamilyVisits" Relationship="Self.FK_FamilyVisits_Servants" FromRole="Servants" ToRole="FamilyVisits" />
           <NavigationProperty Name="People" Relationship="Self.FK_Person_Servants" FromRole="Servants" ToRole="Person" />
           <NavigationProperty Name="ServiceActions" Relationship="Self.FK_ServiceActions_Servants" FromRole="Servants" ToRole="ServiceActions" />
+          <NavigationProperty Name="Children" Relationship="StAbraamModel.FK_Child_Servants" FromRole="Servant" ToRole="Child" />
         </EntityType>
         <EntityType Name="ServiceAction">
           <Key>
@@ -967,42 +947,6 @@
             </Principal>
             <Dependent Role="ServiceActions">
               <PropertyRef Name="UserID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Child_Families">
-          <End Role="Families" Type="Self.Family" Multiplicity="0..1" />
-          <End Role="Child" Type="Self.Child" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Families">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="Child">
-              <PropertyRef Name="FamilyID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Child_Fathers">
-          <End Role="Fathers" Type="Self.Father" Multiplicity="0..1" />
-          <End Role="Child" Type="Self.Child" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Fathers">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="Child">
-              <PropertyRef Name="ConfessionFather" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Child_Servants">
-          <End Role="Servants" Type="Self.Servant" Multiplicity="0..1" />
-          <End Role="Child" Type="Self.Child" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Servants">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="Child">
-              <PropertyRef Name="ServantID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1220,7 +1164,6 @@
           <EntitySet Name="AspNetUserClaims" EntityType="Self.AspNetUserClaim" />
           <EntitySet Name="AspNetUserLogins" EntityType="Self.AspNetUserLogin" />
           <EntitySet Name="AspNetUsers" EntityType="Self.AspNetUser" />
-          <EntitySet Name="Children" EntityType="Self.Child" />
           <EntitySet Name="Clinics" EntityType="Self.Clinic" />
           <EntitySet Name="EvaluationLevels" EntityType="Self.EvaluationLevel" />
           <EntitySet Name="Families" EntityType="Self.Family" />
@@ -1244,18 +1187,6 @@
           <AssociationSet Name="FK_ServiceActions_AspNetUsers" Association="Self.FK_ServiceActions_AspNetUsers">
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
             <End Role="ServiceActions" EntitySet="ServiceActions" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Child_Families" Association="Self.FK_Child_Families">
-            <End Role="Families" EntitySet="Families" />
-            <End Role="Child" EntitySet="Children" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Child_Fathers" Association="Self.FK_Child_Fathers">
-            <End Role="Fathers" EntitySet="Fathers" />
-            <End Role="Child" EntitySet="Children" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Child_Servants" Association="Self.FK_Child_Servants">
-            <End Role="Servants" EntitySet="Servants" />
-            <End Role="Child" EntitySet="Children" />
           </AssociationSet>
           <AssociationSet Name="FK_ServiceActions_Clinics" Association="Self.FK_ServiceActions_Clinics">
             <End Role="Clinics" EntitySet="Clinics" />
@@ -1329,7 +1260,76 @@
             <End Role="AspNetRoles" EntitySet="AspNetRoles" />
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
           </AssociationSet>
+          <EntitySet Name="Children" EntityType="StAbraamModel.Child" />
+          <AssociationSet Name="FK_Child_Families" Association="StAbraamModel.FK_Child_Families">
+            <End Role="Family" EntitySet="Families" />
+            <End Role="Child" EntitySet="Children" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Child_Fathers" Association="StAbraamModel.FK_Child_Fathers">
+            <End Role="Father" EntitySet="Fathers" />
+            <End Role="Child" EntitySet="Children" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Child_Servants" Association="StAbraamModel.FK_Child_Servants">
+            <End Role="Servant" EntitySet="Servants" />
+            <End Role="Child" EntitySet="Children" />
+          </AssociationSet>
         </EntityContainer>
+        <EntityType Name="Child">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="DateOfBirth" Type="DateTime" Precision="3" />
+          <Property Name="IsActive" Type="Boolean" />
+          <Property Name="IsWorking" Type="Boolean" Nullable="false" />
+          <Property Name="WorkingPlace" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="IsStudying" Type="Boolean" />
+          <Property Name="EntryDate" Type="DateTime" Precision="3" />
+          <Property Name="EnteredBy" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="FamilyID" Type="Int32" />
+          <Property Name="ConfessionFather" Type="Int32" />
+          <Property Name="ServantID" Type="Int32" />
+          <NavigationProperty Name="Family" Relationship="StAbraamModel.FK_Child_Families" FromRole="Child" ToRole="Family" />
+          <NavigationProperty Name="Father" Relationship="StAbraamModel.FK_Child_Fathers" FromRole="Child" ToRole="Father" />
+          <NavigationProperty Name="Servant" Relationship="StAbraamModel.FK_Child_Servants" FromRole="Child" ToRole="Servant" />
+        </EntityType>
+        <Association Name="FK_Child_Families">
+          <End Type="StAbraamModel.Family" Role="Family" Multiplicity="0..1" />
+          <End Type="StAbraamModel.Child" Role="Child" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Family">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Child">
+              <PropertyRef Name="FamilyID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Child_Fathers">
+          <End Type="StAbraamModel.Father" Role="Father" Multiplicity="0..1" />
+          <End Type="StAbraamModel.Child" Role="Child" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Father">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Child">
+              <PropertyRef Name="ConfessionFather" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Child_Servants">
+          <End Type="StAbraamModel.Servant" Role="Servant" Multiplicity="0..1" />
+          <End Type="StAbraamModel.Child" Role="Child" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Servant">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Child">
+              <PropertyRef Name="ServantID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1388,24 +1388,6 @@
                 <ScalarProperty Name="LockoutEnabled" ColumnName="LockoutEnabled" />
                 <ScalarProperty Name="AccessFailedCount" ColumnName="AccessFailedCount" />
                 <ScalarProperty Name="UserName" ColumnName="UserName" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Children">
-            <EntityTypeMapping TypeName="StAbraamModel.Child">
-              <MappingFragment StoreEntitySet="Child">
-                <ScalarProperty Name="ID" ColumnName="ID" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="DateOfBirth" ColumnName="DateOfBirth" />
-                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
-                <ScalarProperty Name="IsWorking" ColumnName="IsWorking" />
-                <ScalarProperty Name="WorkingPlace" ColumnName="WorkingPlace" />
-                <ScalarProperty Name="IsStudying" ColumnName="IsStudying" />
-                <ScalarProperty Name="EntryDate" ColumnName="EntryDate" />
-                <ScalarProperty Name="EnteredBy" ColumnName="EnteredBy" />
-                <ScalarProperty Name="FamilyID" ColumnName="FamilyID" />
-                <ScalarProperty Name="ConfessionFather" ColumnName="ConfessionFather" />
-                <ScalarProperty Name="ServantID" ColumnName="ServantID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1577,6 +1559,24 @@
               <ScalarProperty Name="Id" ColumnName="UserId" />
             </EndProperty>
           </AssociationSetMapping>
+          <EntitySetMapping Name="Children">
+            <EntityTypeMapping TypeName="StAbraamModel.Child">
+              <MappingFragment StoreEntitySet="Child">
+                <ScalarProperty Name="ServantID" ColumnName="ServantID" />
+                <ScalarProperty Name="ConfessionFather" ColumnName="ConfessionFather" />
+                <ScalarProperty Name="FamilyID" ColumnName="FamilyID" />
+                <ScalarProperty Name="EnteredBy" ColumnName="EnteredBy" />
+                <ScalarProperty Name="EntryDate" ColumnName="EntryDate" />
+                <ScalarProperty Name="IsStudying" ColumnName="IsStudying" />
+                <ScalarProperty Name="WorkingPlace" ColumnName="WorkingPlace" />
+                <ScalarProperty Name="IsWorking" ColumnName="IsWorking" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="DateOfBirth" ColumnName="DateOfBirth" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

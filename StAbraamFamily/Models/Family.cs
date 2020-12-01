@@ -17,10 +17,10 @@ namespace StAbraamFamily.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Family()
         {
-            this.Children = new HashSet<Child>();
             this.FamilyServants = new HashSet<FamilyServant>();
             this.FamilyVisits = new HashSet<FamilyVisit>();
             this.ServiceActions = new HashSet<ServiceAction>();
+            this.Children = new HashSet<Child>();
         }
     
         public int ID { get; set; }
@@ -35,8 +35,6 @@ namespace StAbraamFamily.Models
         public Nullable<int> MissingPriestID { get; set; }
         public Nullable<int> EvaluationLevelID { get; set; }
     
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Child> Children { get; set; }
         public virtual EvaluationLevel EvaluationLevel { get; set; }
         public virtual Father Father { get; set; }
         public virtual Person Person { get; set; }
@@ -48,5 +46,7 @@ namespace StAbraamFamily.Models
         public virtual ICollection<FamilyVisit> FamilyVisits { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ServiceAction> ServiceActions { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Child> Children { get; set; }
     }
 }

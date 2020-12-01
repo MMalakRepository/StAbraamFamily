@@ -35,6 +35,8 @@ namespace StAbraamFamily.Controllers
             if (ModelState.IsValid)
             {
                 person.IsActive = true;
+                person.ServantID = Convert.ToInt32(Request.Form["ServantID"].ToString());
+                person.ConfessionFather = Convert.ToInt32(Request.Form["ConfessionFather"].ToString());
                 db.People.Add(person);
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -71,6 +73,9 @@ namespace StAbraamFamily.Controllers
         {
             if (ModelState.IsValid)
             {
+                person.IsActive = true;
+                person.ServantID = Convert.ToInt32(Request.Form["ServantID"].ToString());
+                person.ConfessionFather = Convert.ToInt32(Request.Form["ConfessionFather"].ToString());
                 db.Entry(person).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");

@@ -44,7 +44,7 @@
                                             <i class="fas fa-users text-dark"></i>
                                         </span>
                                     </span>
-                                    @Html.DropDownList("FamilyID", null, htmlAttributes: new { @class = "form-control" })
+                                    @Html.DropDownList("FamilyID", null, "أختار العائلة", htmlAttributes: new { @class = "form-control" })
                                     @Html.ValidationMessageFor(model => model.FamilyID, "", new { @class = "text-danger" })
                                 </div>
 
@@ -62,7 +62,7 @@
                                             <i class="fas fa-user-circle text-dark"></i>
                                         </span>
                                     </span>
-                                    @Html.DropDownList("ServantID", null, htmlAttributes: new { @class = "form-control" })
+                                    @Html.DropDownList("ServantID", null, "أختار الخادم", htmlAttributes: new { @class = "form-control" })
                                     @Html.ValidationMessageFor(model => model.ServantID, "", new { @class = "text-danger" })
                                 </div>
 

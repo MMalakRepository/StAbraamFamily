@@ -11,7 +11,7 @@
     <div class="right-wrapper text-left">
         <ol class="breadcrumbs float-md-right mr-5">
             <li>
-                <a href="@Url.Action("Index","Clinics",null)" class="text-white" style="font-size:18px;font-weight:bold;font-family:Calibri" ">
+                <a href="@Url.Action("Index","Clinics",null)" class="text-white" style="font-size:18px;font-weight:bold;font-family:Calibri">
                     <i class="fas fa-users text-white"></i> تقرير الأطفال
                 </a>
             </li>
@@ -45,7 +45,7 @@
                                                 <i class="fas fa-users text-success bg-white"></i>
                                             </span>
                                         </span>
-                                        @Html.DropDownList("FamilyID", null, htmlAttributes: new { @class = "form-control" })
+                                        @Html.DropDownList("FamilyID", null, "أختار العائلة", htmlAttributes: new { @class = "form-control" })
                                         @Html.ValidationMessageFor(model => model.FamilyID, "", new { @class = "text-danger" })
                                     </div>
 
@@ -74,16 +74,16 @@
                     <div class="row">
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label class="control-label col-md-6" style="float: right;font-size: 14px;font-weight: bold;text-align: right;font-family: Calibri">تاريخ الميلاد</label>
+                                <label class="control-label col-md-6" style="float: right;font-size: 14px;font-weight: bold;text-align: right;font-family: Calibri">أب الأعتراف</label>
                                 <div class="col-md-12">
                                     <div class="input-group">
                                         <span class="input-group-prepend">
                                             <span class="input-group-text">
-                                                <i class="fas fa-calendar-alt text-success bg-white"></i>
+                                                <i class="fas fa-user-alt text-success bg-white"></i>
                                             </span>
                                         </span>
-                                        @Html.EditorFor(model => model.DateOfBirth, new { htmlAttributes = new { @class = "form-control" } })
-                                        @Html.ValidationMessageFor(model => model.DateOfBirth, "", new { @class = "text-danger" })
+                                        @Html.DropDownList("ConfessionFather", null, "أختار الأب الكاهن", htmlAttributes: new { @class = "form-control" })
+                                        @Html.ValidationMessageFor(model => model.ConfessionFather, "", new { @class = "text-danger" })
                                     </div>
 
                                 </div>
@@ -92,16 +92,16 @@
 
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label class="control-label col-md-6" style="float: right;font-size: 14px;font-weight: bold;text-align: right;font-family: Calibri">يدرس ؟</label>
+                                <label class="control-label col-md-6" style="float: right;font-size: 14px;font-weight: bold;text-align: right;font-family: Calibri">خادم الطفل</label>
                                 <div class="col-md-12">
                                     <div class="input-group">
                                         <span class="input-group-prepend">
                                             <span class="input-group-text">
-                                                <i class="fas fa-book-open text-success bg-white"></i>
+                                                <i class="fas fa-user-circle text-success bg-white"></i>
                                             </span>
                                         </span>
-                                        @Html.EditorFor(model => model.IsStudying, new { htmlAttributes = new { @class = "form-control" } })
-                                        @Html.ValidationMessageFor(model => model.IsStudying, "", new { @class = "text-danger" })
+                                        @Html.DropDownList("ServantID", null, "أختار الخادم", htmlAttributes: new { @class = "form-control" })
+                                        @Html.ValidationMessageFor(model => model.ServantID, "", new { @class = "text-danger" })
                                     </div>
 
                                 </div>
@@ -111,14 +111,33 @@
 
                     <div class="row">
 
-                        <div class="col-md-6 mt-3 pull-right">
+                        <div class="col-md-3 mt-3 pull-right">
                             <div class="form-group">
                                 <div class="col-md-12">
-                                    <div class="input-group" style="padding-left:50%">
-
+                                    <div class="input-group">
                                         <div class="checkbox">
                                             @*@Html.EditorFor(model => model.IsWorking)*@
-                                            @Html.CheckBoxFor(model => model.IsWorking, new { id = "IsWorking", data_toggle = "toggle", data_onstyle = "success" })
+                                            @Html.CheckBoxFor(model => model.IsStudying, new { id = "IsStudying", data_toggle = "toggle", data_onstyle = "success" })
+
+                                            @Html.ValidationMessageFor(model => model.IsStudying, "", new { @class = "text-danger" })
+                                        </div>
+                                        <span class="input-group-append">
+                                            <label class="control-label mt-3 ml-3" style="float: right;font-size: 14px;font-weight: bold;text-align: right;font-family: Calibri">يدرس ؟</label>
+                                        </span>
+                                    </div>
+                                </div>
+                                @*@Html.CheckBoxFor(model => model.IsWorking, new {id = "IsWorking" ,data_toggle = "toggle",data_onstyle = "success"})*@
+
+
+                            </div>
+                        </div>
+                        <div class="col-md-3 mt-3 pull-right">
+                            <div class="form-group">
+                                <div class="col-md-12">
+                                    <div class="input-group">
+                                        <div class="checkbox">
+                                            @*@Html.EditorFor(model => model.IsWorking)*@
+                                            @Html.CheckBoxFor(model => model.IsWorking, new { id = "IsWorking", data_toggle = "toggle", data_onstyle = "primary" })
 
                                             @Html.ValidationMessageFor(model => model.IsWorking, "", new { @class = "text-danger" })
                                         </div>
@@ -126,7 +145,6 @@
                                             <label class="control-label mt-3 ml-3" style="float: right;font-size: 14px;font-weight: bold;text-align: right;font-family: Calibri">يعمل ؟</label>
                                         </span>
                                     </div>
-
                                 </div>
                                 @*@Html.CheckBoxFor(model => model.IsWorking, new {id = "IsWorking" ,data_toggle = "toggle",data_onstyle = "success"})*@
 
@@ -151,38 +169,19 @@
                             </div>
                         </div>
                     </div>
-
                     <div class="row">
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label class="control-label col-md-6" style="float: right;font-size: 14px;font-weight: bold;text-align: right;font-family: Calibri">أب الأعتراف</label>
+                                <label class="control-label col-md-6" style="float: right;font-size: 14px;font-weight: bold;text-align: right;font-family: Calibri">تاريخ الميلاد</label>
                                 <div class="col-md-12">
                                     <div class="input-group">
                                         <span class="input-group-prepend">
                                             <span class="input-group-text">
-                                                <i class="fas fa-user-alt text-success bg-white"></i>
+                                                <i class="fas fa-calendar-alt text-success bg-white"></i>
                                             </span>
                                         </span>
-                                        @Html.DropDownList("ConfessionFather", null, htmlAttributes: new { @class = "form-control" })
-                                        @Html.ValidationMessageFor(model => model.ConfessionFather, "", new { @class = "text-danger" })
-                                    </div>
-
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label class="control-label col-md-6" style="float: right;font-size: 14px;font-weight: bold;text-align: right;font-family: Calibri">خادم الطفل</label>
-                                <div class="col-md-12">
-                                    <div class="input-group">
-                                        <span class="input-group-prepend">
-                                            <span class="input-group-text">
-                                                <i class="fas fa-user-circle text-success bg-white"></i>
-                                            </span>
-                                        </span>
-                                        @Html.DropDownList("ServantID", null, htmlAttributes: new { @class = "form-control" })
-                                        @Html.ValidationMessageFor(model => model.ServantID, "", new { @class = "text-danger" })
+                                        @Html.EditorFor(model => model.DateOfBirth, new { htmlAttributes = new { @class = "form-control" } })
+                                        @Html.ValidationMessageFor(model => model.DateOfBirth, "", new { @class = "text-danger" })
                                     </div>
 
                                 </div>
@@ -191,12 +190,29 @@
                     </div>
 
 
+
+                    <div class="row m-4">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <div class="col-md-offset-2 col-md-12">
+                                    @*<input type="submit" value="أضافة الطفل" class="btn btn-sm btn-outline-secondary" style="width:100%;font-size: 20px;font-weight: bold;text-align: center;font-family: Calibri" />*@
+                                    <a href="@Url.Action("Index","Children")" class="btn btn-sm btn-outline-danger" style="width:100%;font-size: 20px;font-weight: bold;text-align: center;font-family: Calibri">Back to Children List</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <div class="col-md-offset-2 col-md-12">
+                                    <input type="submit" value="أضافة الطفل" class="btn btn-sm btn-outline-success" style="width:100%;font-size: 20px;font-weight: bold;text-align: center;font-family: Calibri" />
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
                 </div>
             }
         </div>
-        <div class="card-footer">
-           
-        </div>
+
     </section>
 </div>
 
@@ -209,6 +225,13 @@
     <script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
     <script src="~/Assets/vendor/ios7-switch/ios7-switch.js"></script>
     <script src="~/Assets/js/examples/examples.advanced.form.js"></script>
+
+    <link href="~/Assets/vendor/select2/css/select2.min.css" rel="stylesheet" />
+    <link href="~/Assets/vendor/jquery-ui/jquery-ui.min.css" rel="stylesheet" />
+
+    <script src="~/Assets/vendor/jquery/jquery.min.js"></script>
+    <script src="~/Assets/vendor/select2/js/select2.full.min.js"></script>
+    <script src="~/Assets/vendor/jquery-ui/jquery-ui.js"></script>
 
     <script>
         $(document).ready(function () {

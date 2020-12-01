@@ -7,6 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using StAbraamFamily.Models;
+using Microsoft.AspNet.Identity;
 
 namespace StAbraamFamily.Controllers
 {
@@ -85,6 +86,10 @@ namespace StAbraamFamily.Controllers
         {
             if (ModelState.IsValid)
             {
+                serviceAction.UserID = User.Identity.GetUserId();
+                serviceAction.ServantID = Convert.ToInt32(Request.Form["ServantID"].ToString());
+                serviceAction.PersonID = Convert.ToInt32(Request.Form["PersonID"].ToString());
+                serviceAction.ActionTypeID = Convert.ToInt32(Request.Form["ActionTypeID"].ToString());
                 serviceAction.IsActive = true;
                 db.ServiceActions.Add(serviceAction);
                 db.SaveChanges();
@@ -101,7 +106,10 @@ namespace StAbraamFamily.Controllers
         {
             if (ModelState.IsValid)
             {
-                serviceAction.ActionTypeID = 1;
+                serviceAction.UserID = User.Identity.GetUserId();
+                serviceAction.ServantID = Convert.ToInt32(Request.Form["ServantID"].ToString());
+                serviceAction.PersonID = Convert.ToInt32(Request.Form["PersonID"].ToString());
+                serviceAction.ActionTypeID = 2;
                 db.ServiceActions.Add(serviceAction);
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -117,7 +125,10 @@ namespace StAbraamFamily.Controllers
         {
             if (ModelState.IsValid)
             {
-                serviceAction.ActionTypeID = 2;
+                serviceAction.UserID = User.Identity.GetUserId();
+                serviceAction.ServantID = Convert.ToInt32(Request.Form["ServantID"].ToString());
+                serviceAction.PersonID = Convert.ToInt32(Request.Form["PersonID"].ToString());
+                serviceAction.ActionTypeID = 1;
                 db.ServiceActions.Add(serviceAction);
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -161,6 +172,9 @@ namespace StAbraamFamily.Controllers
         {
             if (ModelState.IsValid)
             {
+                serviceAction.UserID = User.Identity.GetUserId();
+                serviceAction.ServantID = Convert.ToInt32(Request.Form["ServantID"].ToString());
+                serviceAction.PersonID = Convert.ToInt32(Request.Form["PersonID"].ToString());
                 db.Entry(serviceAction).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");

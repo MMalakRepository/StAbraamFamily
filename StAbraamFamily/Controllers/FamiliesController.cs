@@ -52,6 +52,7 @@ namespace StAbraamFamily.Controllers
                 family.MotherID = Convert.ToInt32(Request.Form["MotherID"].ToString());
                 family.MissingPriestID = Convert.ToInt32(Request.Form["MissingPriestID"].ToString());
                 family.ServantID = Convert.ToInt32(Request.Form["ServantID"].ToString());
+                family.EvaluationLevelID = Convert.ToInt32(Request.Form["EvaluationLevelID"].ToString());
                 family.IsActive = true;
                 db.Families.Add(family);
                 db.SaveChanges();
@@ -87,6 +88,7 @@ namespace StAbraamFamily.Controllers
                 family.MotherID = Convert.ToInt32(Request.Form["MotherID"].ToString());
                 family.MissingPriestID = Convert.ToInt32(Request.Form["MissingPriestID"].ToString());
                 family.ServantID = Convert.ToInt32(Request.Form["ServantID"].ToString());
+                family.EvaluationLevelID = Convert.ToInt32(Request.Form["EvaluationLevelID"].ToString());
                 db.Entry(family).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");

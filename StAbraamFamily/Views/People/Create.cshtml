@@ -188,7 +188,7 @@
                                                     <i class="fas fa-user-cog text-info bg-white"></i>
                                                 </span>
                                             </span>
-                                            @Html.DropDownList("ServantID", null, htmlAttributes: new { @class = "form-control" })
+                                            @Html.DropDownList("ServantID", null, "أختار الخادم", htmlAttributes: new { @class = "form-control" })
                                             @Html.ValidationMessageFor(model => model.ServantID, "", new { @class = "text-danger" })
                                         </div>
                                     </div>
@@ -205,7 +205,7 @@
                                                     <i class="fas fa-church text-info bg-white"></i>
                                                 </span>
                                             </span>
-                                            @Html.DropDownList("ConfessionFather", null, htmlAttributes: new { @class = "form-control" })
+                                            @Html.DropDownList("ConfessionFather", null, " أختار أب الأعتراف  ", htmlAttributes: new { @class = "form-control" })
                                             @Html.ValidationMessageFor(model => model.ConfessionFather, "", new { @class = "text-danger" })
                                         </div>
                                     </div>

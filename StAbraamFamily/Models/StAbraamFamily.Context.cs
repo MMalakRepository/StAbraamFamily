@@ -30,7 +30,6 @@ namespace StAbraamFamily.Models
         public virtual DbSet<AspNetUserClaim> AspNetUserClaims { get; set; }
         public virtual DbSet<AspNetUserLogin> AspNetUserLogins { get; set; }
         public virtual DbSet<AspNetUser> AspNetUsers { get; set; }
-        public virtual DbSet<Child> Children { get; set; }
         public virtual DbSet<Clinic> Clinics { get; set; }
         public virtual DbSet<EvaluationLevel> EvaluationLevels { get; set; }
         public virtual DbSet<Family> Families { get; set; }
@@ -43,5 +42,6 @@ namespace StAbraamFamily.Models
         public virtual DbSet<ServiceAction> ServiceActions { get; set; }
         public virtual DbSet<ServiceType> ServiceTypes { get; set; }
         public virtual DbSet<sysdiagram> sysdiagrams { get; set; }
+        public virtual DbSet<Child> Children { get; set; }
     }
 }

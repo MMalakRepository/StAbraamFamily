@@ -20,7 +20,7 @@ namespace StAbraamFamily.Models
         public Nullable<bool> IsActive { get; set; }
         public bool IsWorking { get; set; }
         public string WorkingPlace { get; set; }
-        public string IsStudying { get; set; }
+        public bool IsStudying { get; set; }
         public Nullable<System.DateTime> EntryDate { get; set; }
         public string EnteredBy { get; set; }
         public Nullable<int> FamilyID { get; set; }
