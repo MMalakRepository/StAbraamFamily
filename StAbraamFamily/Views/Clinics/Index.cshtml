@@ -15,10 +15,22 @@
         <ol class="breadcrumbs float-md-right mr-5">
 
             <li>
-                <a href="@Url.Action("Create","Clinics",null)" class="text-white">
-                    <i class="fas fa-plus-circle fa-2x text-warning"></i> Add New Clinic
+                <a href="@Url.Action("Create","Clinics",null)" class="text-white" style="font-size: 18px; font-weight: bold; font-family: Calibri">
+                    <i class="fas fa-plus-circle  text-warning"></i> أضافة عيادة جديدة
                 </a>
             </li>
+            <li>
+                <a href="@Url.Action("Create","Hospitals")" class="text-white" style="font-size: 18px; font-weight: bold; font-family: Calibri">
+                    <i class="fa fa-clinic-medical text-warning"></i> أضافة مستشفى جديدة
+                </a>
+
+            </li>
+            <li>
+                <a href="@Url.Action("Index","Hospitals")" class="text-white" style="font-size: 18px; font-weight: bold; font-family: Calibri">
+                    <i class="fa fa-briefcase-medical text-warning"></i> تقرير المستشفيات
+                </a>
+            </li>
+
 
         </ol>
     </div>

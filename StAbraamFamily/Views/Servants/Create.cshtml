@@ -10,8 +10,23 @@
     <div class="right-wrapper text-left">
         <ol class="breadcrumbs float-md-right mr-5">
             <li>
-                <a href="@Url.Action("Index","Servants",null)" class="text-white" style="font-size:18px;font-weight:bold;font-family:Calibri" >
+                <a href="@Url.Action("Index","Servants",null)" class="text-white" style="font-size:18px;font-weight:bold;font-family:Calibri">
                     <i class="fas fa-user-cog text-white"></i> تقرير الخدام
+                </a>
+            </li>
+            <li>
+                <a href="@Url.Action("Create","FamilyServants",null)" class="text-white" style="font-size: 18px; font-weight: bold; font-family: Calibri">
+                    <i class="fas fa-users-cog  text-warning"></i> أضافة خادم أسرة جديد
+                </a>
+            </li>
+            <li>
+                <a href="@Url.Action("Create","Servants",null)" class="text-white" style="font-size: 18px; font-weight: bold; font-family: Calibri">
+                    <i class="fas fa-church  text-warning"></i> أضافة أب كاهن جديد
+                </a>
+            </li>
+            <li>
+                <a href="@Url.Action("Create","FamilyVisits")" class="text-white" style="font-size: 18px; font-weight: bold; font-family: Calibri">
+                    <i class="fa fa-home text-warning"></i>  أضافة زيارة أفتقاد
                 </a>
             </li>
         </ol>

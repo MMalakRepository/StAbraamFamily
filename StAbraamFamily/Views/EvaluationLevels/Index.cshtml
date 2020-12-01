@@ -16,7 +16,22 @@
     <h2 class="text-white" style=" border-bottom-color: #ffc107 !important;">@ViewBag.Title</h2>
     <div class="right-wrapper text-left">
         <ol class="breadcrumbs float-md-right mr-5">
-           <li><a href="@Url.Action("Create","EvaluationLevels",null)" class="text-white"><i class="fas fa-plus-circle fa-2x text-warning"></i> Add New Evaluation Level</a></li>
+            @*<li><a href="@Url.Action("Create","EvaluationLevels",null)" class="text-white"><i class="fas fa-plus-circle fa-2x text-warning"></i> Add New Evaluation Level</a></li>*@
+            <li>
+                <a href="@Url.Action("Index","Families",null)" class="text-white" style="font-size: 18px; font-weight: bold; font-family: Calibri">
+                    <i class="fas fa-list-ul text-warning"></i> تقرير العائلات
+                </a>
+            </li>
+            <li>
+                <a href="@Url.Action("Create","EvaluationLevels")" class="text-white" style="font-size: 18px; font-weight: bold; font-family: Calibri">
+                    <i class="fa fa-plus-circle text-warning"></i> أضافة مستوى تقييم العائلة
+                </a>
+            </li>
+            <li>
+                <a href="@Url.Action("Create","People")" class="text-white" style="font-size: 18px; font-weight: bold; font-family: Calibri">
+                    <i class="fa fa-user-plus text-warning"></i> أضافة فرد جديد
+                </a>
+            </li>
         </ol>
     </div>
 </header>

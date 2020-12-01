@@ -14,11 +14,26 @@
         <ol class="breadcrumbs float-md-right mr-5">
 
             <li>
-                <a href="@Url.Action("Create","Families",null)" class="text-white">
-                    <i class="fas fa-plus-circle fa-2x text-warning"></i> Add New Family
+                <a href="@Url.Action("Create","Families",null)" class="text-white" style="font-size: 18px; font-weight: bold; font-family: Calibri">
+                    <i class="fas fa-plus-circle text-warning"></i> أضافة عائلة جديدة
                 </a>
             </li>
+            <li>
+                <a href="@Url.Action("Create","Hospitals")" class="text-white" style="font-size: 18px; font-weight: bold; font-family: Calibri">
+                    <i class="fa fa-user-plus text-warning"></i> أضافة فرد جديد
+                </a>
 
+            </li>
+            <li>
+                <a href="@Url.Action("Index","Hospitals")" class="text-white" style="font-size: 18px; font-weight: bold; font-family: Calibri">
+                    <i class="fa fa-users text-warning"></i> تقرير الأفراد
+                </a>
+            </li>
+            <li>
+                <a href="@Url.Action("Create","FamilyVisits")" class="text-white" style="font-size: 18px; font-weight: bold; font-family: Calibri">
+                    <i class="fa fa-home text-warning"></i>  أضافة زيارة أفتقاد  
+                </a>
+            </li>
         </ol>
     </div>
 </header>

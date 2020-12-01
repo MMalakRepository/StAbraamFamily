@@ -118,7 +118,8 @@ namespace StAbraamFamily.Controllers
         public ActionResult DeleteConfirmed(int id)
         {
             Family family = db.Families.Find(id);
-            db.Families.Remove(family);
+            //db.Families.Remove(family);
+            family.IsActive = false;
             db.SaveChanges();
             return RedirectToAction("Index");
         }

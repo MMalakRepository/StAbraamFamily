@@ -83,7 +83,8 @@ namespace StAbraamFamily.Controllers
         public ActionResult DeleteAction(int id)
         {
             EvaluationLevel evaluationLevel = db.EvaluationLevels.Find(id);
-            db.EvaluationLevels.Remove(evaluationLevel);
+            //db.EvaluationLevels.Remove(evaluationLevel);
+            evaluationLevel.IsActive = false;
             db.SaveChanges();
             return RedirectToAction("Index");
         }

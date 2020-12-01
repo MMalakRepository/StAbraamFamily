@@ -70,7 +70,8 @@ namespace StAbraamFamily.Controllers
         public ActionResult DeleteAction(int id)
         {
             Father father = db.Fathers.Find(id);
-            db.Fathers.Remove(father);
+            father.IsActive = false;
+            //db.Fathers.Remove(father);
             db.SaveChanges();
             return Json(data : new { success = true , message ="Father has been deleted successfully"},JsonRequestBehavior.AllowGet);
         }

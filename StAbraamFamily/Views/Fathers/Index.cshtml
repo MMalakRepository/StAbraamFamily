@@ -13,12 +13,27 @@
 
     <div class="right-wrapper text-left">
         <ol class="breadcrumbs float-md-right mr-5">
-
             <li>
-                <a href="@Url.Action("Create","Fathers",null)" class="text-white">
-                    <i class="fas fa-plus-circle fa-2x text-warning"></i> Add New Father
+                <a href="@Url.Action("Create","Servants",null)" class="text-white" style="font-size: 18px; font-weight: bold; font-family: Calibri">
+                    <i class="fas fa-user-plus  text-warning"></i> أضافة خادم جديد
                 </a>
             </li>
+            <li>
+                <a href="@Url.Action("Create","FamilyServants",null)" class="text-white" style="font-size: 18px; font-weight: bold; font-family: Calibri">
+                    <i class="fas fa-users-cog  text-warning"></i> أضافة خادم أسرة جديد
+                </a>
+            </li>
+            <li>
+                <a href="@Url.Action("Create","Servants",null)" class="text-white" style="font-size: 18px; font-weight: bold; font-family: Calibri">
+                    <i class="fas fa-church  text-warning"></i> أضافة أب كاهن جديد
+                </a>
+            </li>
+            <li>
+                <a href="@Url.Action("Create","FamilyVisits")" class="text-white" style="font-size: 18px; font-weight: bold; font-family: Calibri">
+                    <i class="fa fa-home text-warning"></i>  أضافة زيارة أفتقاد
+                </a>
+            </li>
+
 
         </ol>
     </div>
@@ -167,7 +182,7 @@
                 dataType: 'JSON',
                 contentType: 'application/json;charset=utf-8',
                 data: JSON.stringify(reqID),
-                url: '@Url.Action("DeleteAction","Fathers")',
+                url: '@Url.Action("DeleteAction", "Fathers")',
                 success: function (res) {
                     if (res.success === true) {
                         console.log('Success' + res);

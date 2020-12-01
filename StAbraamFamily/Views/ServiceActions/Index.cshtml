@@ -15,11 +15,21 @@
         <ol class="breadcrumbs float-md-right mr-5">
 
             <li>
-                <a href="@Url.Action("Create","ServiceActions",null)" class="text-white">
-                    <i class="fas fa-plus-circle fa-2x text-danger bg-white rounded-circle"></i> Add New Action
+                <a href="@Url.Action("Create","ServiceActions",null)" class="text-white"  style="font-size: 18px; font-weight: bold; font-family: Calibri">
+                    <i class="fas fa-plus-circle text-warning  rounded-circle"></i> أضافة خدمات اخرى
                 </a>
             </li>
+            <li>
+                <a href="@Url.Action("AddBagService","ServiceActions")" class="text-white" style="font-size: 18px; font-weight: bold; font-family: Calibri">
+                    <i class="fa fa-shopping-basket text-warning"></i> أضافة شنطة البركة
+                </a>
+            </li>
+            <li>
+                <a href="@Url.Action("AddMedicalService","ServiceActions")" class="text-white" style="font-size: 18px; font-weight: bold; font-family: Calibri">
+                    <i class="fa fa-briefcase-medical text-warning"></i> أضافة خدمة علاجية
+                </a>
 
+            </li>
         </ol>
     </div>
 </header>
