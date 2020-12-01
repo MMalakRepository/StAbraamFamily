@@ -36,7 +36,7 @@ namespace StAbraamFamily.Controllers
             if (id != null)
                 serviceActions = serviceActions.Where(x => x.PersonID == id);
 
-            return View("Index",serviceActions.ToList());
+            return View("ServiceList",serviceActions.ToList());
         }
 
         public ActionResult MedicalServiceList(int? id)
@@ -60,7 +60,7 @@ namespace StAbraamFamily.Controllers
             if (id != null)
                 serviceActions = serviceActions.Where(x => x.PersonID == id);
 
-            return View("Index", serviceActions.ToList());
+            return View("ServiceList", serviceActions.ToList());
         }
 
         public ActionResult AllServicesList(int? id)
@@ -213,7 +213,7 @@ namespace StAbraamFamily.Controllers
         {
             if (ModelState.IsValid)
             {
-                serviceAction.UserID = User.Identity.GetUserId();
+                //serviceAction.UserID = User.Identity.GetUserId();
                 serviceAction.ServantID = Convert.ToInt32(Request.Form["ServantID"].ToString());
                 serviceAction.PersonID = Convert.ToInt32(Request.Form["PersonID"].ToString());
                 db.Entry(serviceAction).State = EntityState.Modified;

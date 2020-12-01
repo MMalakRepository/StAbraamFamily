@@ -3639,7 +3639,6 @@
     <Content Include="Views\ServiceTypes\Edit.cshtml" />
     <Content Include="Views\ServiceTypes\Index.cshtml" />
     <Content Include="Views\ServiceActions\Create.cshtml" />
-    <Content Include="Views\ServiceActions\Delete.cshtml" />
     <Content Include="Views\ServiceActions\Edit.cshtml" />
     <Content Include="Views\ServiceActions\Index.cshtml" />
     <Content Include="Views\People\Create.cshtml" />
