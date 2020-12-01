@@ -15,7 +15,6 @@
     a:hover{
         text-decoration :none;
         font-family : 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
-        color : white !important;
         font-size : 1rem;
         font-weight : bold;
 
@@ -228,18 +227,18 @@
                         <div class="widget-summary">
                             <div class="widget-summary-col widget-summary-col-icon">
                                 <div class="summary-icon">
-                                    <i class="fas fa-cogs"></i>
+                                    <i class="fas fa-dollar-sign"></i>
                                 </div>
                             </div>
                             <div class="widget-summary-col">
                                 <div class="summary">
-                                    <h4 class="title">أنواع الخدمات </h4>
+                                    <h4 class="title"> الخدمات المالية </h4>
                                     <div class="info">
-                                        <strong class="amount">@Html.DisplayFor(model => model.serviceTypes)</strong>
+                                        <strong class="amount">@Html.DisplayFor(model => model.FinancialServices)</strong>
                                     </div>
                                 </div>
                                 <div class="summary-footer">
-                                    <a href="@Url.Action("Index","ServiceTypes")" ><i class="fa fa-cogs"></i>  View All</a>
+                                    <a href="@Url.Action("FinancialServiceList","ServiceActions")" ><i class="fa fa-dollar-sign"></i>  View All</a>
 
                                 </div>
                             </div>

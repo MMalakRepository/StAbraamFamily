@@ -1,22 +1,23 @@
 ﻿@model StAbraamFamily.Models.ServiceAction
 
 @{
-    ViewBag.Title = "AddHealthyService";
+    ViewBag.Title = "AddFinancialService";
     Layout = "~/Views/Shared/_FamilyLayout.cshtml";
 }
 
 <header class="page-header" style="background-color: #0088cc;border-left-color: #0088cc">
-    <h2 class="text-white" style="        border-bottom-color: #5bc0de !important;font-size: 25px;font-weight: bold;font-family: Calibri"> بيانات  خدمة شنطة البركة</h2>
+    <h2 class="text-white" style="        border-bottom-color: #5bc0de !important;font-size: 25px;font-weight: bold;font-family: Calibri"> بيانات  الخدمات المالية</h2>
     <div class="right-wrapper text-left">
         <ol class="breadcrumbs float-md-right mr-5">
             <li>
-                <a href="@Url.Action("BagServiceList","ServiceActions",null)" class="text-white" style="font-size:18px;font-weight:bold;font-family:Calibri" ">
-                    <i class="fas fa-shopping-bag text-white"></i> تقرير شنط البركة 
+                <a href="@Url.Action("FinancialServiceList","ServiceActions",null)" class="text-white" style="font-size:18px;font-weight:bold;font-family:Calibri" ">
+                    <i class="fas fa-dollar-sign text-white"></i> تقرير الخدمات المالية
                 </a>
             </li>
         </ol>
     </div>
 </header>
+
 
 <div class="col-lg-12">
     <section class="card card-featured card-featured-primary mb-4">
@@ -24,7 +25,7 @@
             <div class="card-actions">
                 @*<a href="#" class="card-action card-action-toggle" data-card-toggle></a>*@
             </div>
-            <h2 class="card-title" style="text-align:center;font-size:25px;font-weight:bold;font-family:Calibri"> أضافة خدمة شنطة البركة   </h2>
+            <h2 class="card-title" style="text-align:center;font-size:25px;font-weight:bold;font-family:Calibri"> أضافة خدمة شهرية مالية   </h2>
         </header>
         <div class="card-body">
             @using (Html.BeginForm())
@@ -68,9 +69,9 @@
                                 </div>
                             </div>
                         </div>
-                        
+
                     </div>
-         
+
 
 
                     <div class="row">

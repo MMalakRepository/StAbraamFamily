@@ -17,16 +17,20 @@ namespace StAbraamFamily.Controllers
         {
             SystemDashboard systemDashboard = new SystemDashboard()
             {
-                Fathers = db.Fathers.Where(x => x.IsActive == true).ToList().Count(),
-                Servants = db.Servants.Where(x => x.IsActive == true).ToList().Count(),
-                Families = db.Families.Where(x => x.IsActive == true).ToList().Count(),
-                FamilyServants = db.FamilyServants.Where(x => x.IsActive == true).ToList().Count(),
-                BagServices = db.ServiceActions.Where(x => x.IsActive == true && x.ServiceType.ID == 1).ToList().Count(),
-                MedicalServices = db.ServiceActions.Where(x => x.IsActive == true && x.ServiceType.ID == 2).ToList().Count(),
-                ServiceActions = db.ServiceActions.Where(x => x.IsActive == true).ToList().Count(),
-                Children = db.Children.Where(x => x.IsActive == true).ToList().Count(),
-                People = db.People.Where(x => x.IsActive == true).ToList().Count(),
-                FamilyVisits = db.FamilyVisits.ToList().Count()
+                Fathers = db.Fathers.Where(x => x.IsActive == true).Count(),
+                Servants = db.Servants.Where(x => x.IsActive == true).Count(),
+                Families = db.Families.Where(x => x.IsActive == true).Count(),
+                FamilyServants = db.FamilyServants.Where(x => x.IsActive == true).Count(),
+                BagServices = db.ServiceActions.Where(x => x.IsActive == true && x.ServiceType.ID == 1).Count(),
+                MedicalServices = db.ServiceActions.Where(x => x.IsActive == true && x.ServiceType.ID == 2).Count(),
+                ServiceActions = db.ServiceActions.Where(x => x.IsActive == true).Count(),  
+                Children = db.Children.Where(x => x.IsActive == true).Count(),
+                People = db.People.Where(x => x.IsActive == true).Count(),
+                FamilyVisits = db.FamilyVisits.Count(),
+                serviceTypes = db.ServiceTypes.Where(x => x.IsActive == true).Count(),
+                Clinics = db.Clinics.Where(x => x.IsActive == true).Count(),
+                Hospitals = db.Hospitals.Where(x => x.IsActive == true).Count(),
+                FinancialServices = db.ServiceActions.Where(x => x.IsActive == true && x.ServiceType.ID == 3).Count()
             };
 
             return View(systemDashboard);

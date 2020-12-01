@@ -22,5 +22,7 @@ namespace StAbraamFamily.ViewModels
         public int MedicalServices { get; set; }
         public int BagServices { get; set; }
 
+        public int FinancialServices { get; set; }
+
     }
 }

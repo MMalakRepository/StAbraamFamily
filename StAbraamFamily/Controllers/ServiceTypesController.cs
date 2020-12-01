@@ -32,6 +32,7 @@ namespace StAbraamFamily.Controllers
             if (ModelState.IsValid)
             {
                 serviceType.ServantID = Convert.ToInt32(Request.Form["ServantID"].ToString());
+                serviceType.IsActive = true;
                 db.ServiceTypes.Add(serviceType);
                 db.SaveChanges();
                 return RedirectToAction("Index");

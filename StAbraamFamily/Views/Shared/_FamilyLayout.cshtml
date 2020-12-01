@@ -5,7 +5,7 @@
     <!-- Basic -->
     <meta charset="UTF-8">
 
-    <title>St. Abraam Family | @ViewBag.Title </title>
+    <title>@ViewBag.Title </title>
     <meta name="keywords" content="HTML5 Admin Template" />
     <meta name="description" content="Porto Admin - Responsive HTML5 Template">
     <meta name="author" content="okler.net">
@@ -111,7 +111,9 @@
                                 <li class="">
                                     @Html.ActionLink("شنطة البركة", "AddBagService", "ServiceActions", null, new { @class = "nav-link linkFont" })
                                 </li>
-
+                                <li class="">
+                                    @Html.ActionLink("الخدمات المالية", "AddFinancialService", "ServiceActions", null, new { @class = "nav-link linkFont" })
+                                </li>
                                 <li class="">
                                     @Html.ActionLink("المستشفيات", "Index", "Hospitals", null, new { @class = "nav-link linkFont" })
                                 </li>
@@ -247,9 +249,9 @@
                             </div>
                             <div class="widget-content">
                                 <ul class="list-unstyled m-0">
-                                    <li><a href="@Url.Action("BagServiceList","ServiceActions",null)" class="linkFont"> شنط البركة</a></li>
-                                    <li><a href="@Url.Action("MedicalServiceList","ServiceActions",null)" class="linkFont">المستشفيات و العيادات</a></li>
-                                    <li><a href="#" class="linkFont">التحويلات</a></li>
+                                    <li><a href="@Url.Action("AddBagService","ServiceActions")" class="linkFont"> شنط البركة</a></li>
+                                    <li><a href="@Url.Action("AddHealthyService","ServiceActions")" class="linkFont">المستشفيات و العيادات</a></li>
+                                    <li><a href="#" class="linkFont">الخدمات المالية</a></li>
                                 </ul>
                             </div>
                         </div>

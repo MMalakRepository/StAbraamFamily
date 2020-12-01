@@ -5,7 +5,11 @@
     Layout = "~/Views/Shared/_FamilyLayout.cshtml";
 }
 
-
+<style>
+    td {
+        text-align: right;
+    }
+</style>
 <header class="page-header" style="background-color: #0088cc;border-left-color: #0088cc">
     <h2 class="text-white" style=" border-bottom-color: #ffc107 !important;">@ViewBag.Title</h2>
 
@@ -14,15 +18,23 @@
 
             <li>
                 <a href="@Url.Action("Create","People",null)" class="text-white" style="font-size:18px;font-weight:bold;font-family:Calibri">
-                <i class="fas fa-plus-circle text-warning"></i> أضافة شخص جديد</a>
+                    <i class="fas fa-plus-circle text-warning"></i> أضافة شخص جديد
+                </a>
             </li>
             <li>
                 <a href="@Url.Action("AddHealthyService","ServiceActions",null)" class="text-white" style="font-size:18px;font-weight:bold;font-family:Calibri">
-                <i class="fas fa-clinic-medical text-warning"></i> أضافة خدمة علاجية</a>
+                    <i class="fas fa-clinic-medical text-warning"></i> أضافة خدمة علاجية
+                </a>
             </li>
             <li>
                 <a href="@Url.Action("AddBagService","ServiceActions",null)" class="text-white" style="font-size:18px;font-weight:bold;font-family:Calibri">
-                <i class="fas fa-shopping-basket text-warning"></i>  أضافة شنطة البركة  </a>
+                    <i class="fas fa-shopping-basket text-warning"></i>  أضافة شنطة البركة
+                </a>
+            </li>
+            <li>
+                <a href="@Url.Action("AddFinancialService","ServiceActions",null)" class="text-white" style="font-size:18px;font-weight:bold;font-family:Calibri">
+                    <i class="fas fa-dollar-sign text-warning"></i>  أضافة خدمة مالية
+                </a>
             </li>
 
         </ol>
@@ -77,6 +89,7 @@
                                     <a target="_blank" href="@Url.Action("AllServicesList","ServiceActions",new { id = item.ID })" title="كل الخدمات " class="btn btn-primary btn-sm rounded-circle text-white"><i class="fa fa-list"></i></a>
                                     <a target="_blank" href="@Url.Action("MedicalServiceList","ServiceActions",new { id = item.ID })" title="الخدمات العلاجية" class="btn btn-success btn-sm rounded-circle text-white"><i class="fa fa-clinic-medical"></i></a>
                                     <a target="_blank" href="@Url.Action("BagServiceList","ServiceActions",new { id = item.ID })" title="شنط البركة" class="btn btn-warning btn-sm rounded-circle text-white"><i class="fa fa-shopping-bag"></i></a>
+                                    <a target="_blank" href="@Url.Action("FinancialServiceList","ServiceActions",new { id = item.ID })" title=" خدمات مالية" class="btn btn-info btn-sm rounded-circle text-white"><i class="fa fa-dollar-sign"></i></a>
                                 </td>
                                 <td>
                                     @Html.DisplayFor(modelItem => item.Code)

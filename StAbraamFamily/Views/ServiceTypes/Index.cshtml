@@ -15,11 +15,27 @@
         <ol class="breadcrumbs float-md-right mr-5">
 
             <li>
-                <a href="@Url.Action("Create","ServiceTypes",null)" class="text-white">
-                    <i class="fas fa-plus-circle fa-2x text-white"></i> Add New Service Type
+                <a href="@Url.Action("Create","ServiceTypes")" class="text-white" style="font-size: 18px; font-weight: bold; font-family: Calibri">
+                    <i class="fas fa-plus-circle text-warning"></i> أضافة نوع خدمة جديد
                 </a>
             </li>
 
+            <li>
+                <a href="@Url.Action("Create","ServiceActions")" class="text-white" style="font-size: 18px; font-weight: bold; font-family: Calibri">
+                    <i class="fas fa-plus-circle text-warning  rounded-circle"></i> أضافة خدمات اخرى
+                </a>
+            </li>
+            <li>
+                <a href="@Url.Action("AddBagService","ServiceActions")" class="text-white" style="font-size: 18px; font-weight: bold; font-family: Calibri">
+                    <i class="fa fa-shopping-basket text-warning"></i> أضافة شنطة البركة
+                </a>
+            </li>
+            <li>
+                <a href="@Url.Action("AddMedicalService","ServiceActions")" class="text-white" style="font-size: 18px; font-weight: bold; font-family: Calibri">
+                    <i class="fa fa-briefcase-medical text-warning"></i> أضافة خدمة علاجية
+                </a>
+
+            </li>
         </ol>
     </div>
 </header>
@@ -54,13 +70,13 @@
                         @foreach (var item in Model)
                         {
                             <tr>
-                                <td>
+                                <td class="text-right">
                                     @Html.DisplayFor(modelItem => item.ActionType)
                                 </td>
-                                <td>
+                                <td class="text-right">
                                     @Html.DisplayFor(modelItem => item.Description)
                                 </td>
-                                <td>
+                                <td class="text-center">
                                     <a href="@Url.Action("Edit",new { id = item.ID })" class="btn bg-primary text-white btn-sm rounded-circle"><i class="fa fa-edit"></i></a>
                                     @*<a href="@Url.Action("Delete",new { id = item.ID })" class="btn bg-danger text-white btn-sm rounded-circle"><i class="fa fa-trash-alt"></i></a>*@
                                     <a href="#" onclick="DeleteAction(@item.ID)" class="btn bg-danger text-white btn-sm rounded-circle"><i class="fa fa-trash-alt"></i></a>

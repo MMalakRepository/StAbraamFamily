@@ -48,17 +48,54 @@ namespace StAbraamFamily.Controllers
         {
             if (ModelState.IsValid)
             {
-                family.FatherID = Convert.ToInt32(Request.Form["FatherID"].ToString());
-                family.MotherID = Convert.ToInt32(Request.Form["MotherID"].ToString());
-                family.MissingPriestID = Convert.ToInt32(Request.Form["MissingPriestID"].ToString());
-                family.ServantID = Convert.ToInt32(Request.Form["ServantID"].ToString());
-                family.EvaluationLevelID = Convert.ToInt32(Request.Form["EvaluationLevelID"].ToString());
+                var fatherName = Request.Form["FatherID"].ToString() == null ? "" : Request.Form["FatherID"].ToString();
+                var motherName = Request.Form["MotherID"].ToString() == null ? "" : Request.Form["MotherID"].ToString();
+                var MissingPriestName = Request.Form["MissingPriestID"].ToString() == null ? "" : Request.Form["MissingPriestID"].ToString();
+                var servantName = Request.Form["ServantID"].ToString() == null ? "" : Request.Form["ServantID"].ToString();
+                var Evaluation = Request.Form["EvaluationLevelID"].ToString() == null ? "" : Request.Form["EvaluationLevelID"].ToString();
+
+                if (String.IsNullOrEmpty(fatherName))
+                    family.FatherID = null;
+                else
+                    family.FatherID = Convert.ToInt32(fatherName);
+
+
+                if (String.IsNullOrEmpty(motherName))
+                    family.MotherID = null;
+                else
+                    family.MotherID = Convert.ToInt32(motherName);
+
+                if (String.IsNullOrEmpty(MissingPriestName))
+                    family.MissingPriestID = null;
+                else
+                    family.MissingPriestID = Convert.ToInt32(MissingPriestName);
+
+                if (String.IsNullOrEmpty(servantName))
+                    family.ServantID = null;
+                else
+                    family.ServantID = Convert.ToInt32(servantName);
+
+                if (String.IsNullOrEmpty(Evaluation))
+                    family.EvaluationLevelID = null;
+                else
+                    family.EvaluationLevelID = Convert.ToInt32(Evaluation);
+
                 family.IsActive = true;
                 db.Families.Add(family);
                 db.SaveChanges();
+
+                var familyData = db.Families.Where(x => x.FatherID == family.FatherID).FirstOrDefault();
+                var familyFather = db.People.Where(x => x.ID == family.FatherID).FirstOrDefault();
+                var familyMother = db.People.Where(x => x.ID == family.MotherID).FirstOrDefault();
+                if(familyFather != null)
+                    familyFather.FamilyID = familyData.ID;
+
+                if(familyMother != null)
+                    familyMother.FamilyID = familyData.ID;
+
+                db.SaveChanges();
                 return RedirectToAction("Index");
             }
-
             ResetData();
             return View(family);
         }
@@ -84,12 +121,51 @@ namespace StAbraamFamily.Controllers
         {
             if (ModelState.IsValid)
             {
-                family.FatherID = Convert.ToInt32(Request.Form["FatherID"].ToString());
-                family.MotherID = Convert.ToInt32(Request.Form["MotherID"].ToString());
-                family.MissingPriestID = Convert.ToInt32(Request.Form["MissingPriestID"].ToString());
-                family.ServantID = Convert.ToInt32(Request.Form["ServantID"].ToString());
-                family.EvaluationLevelID = Convert.ToInt32(Request.Form["EvaluationLevelID"].ToString());
+                var fatherName = Request.Form["FatherID"].ToString() == null ? "" : Request.Form["FatherID"].ToString();
+                var motherName = Request.Form["MotherID"].ToString() == null ? "" : Request.Form["MotherID"].ToString();
+                var MissingPriestName = Request.Form["MissingPriestID"].ToString() == null ? "" : Request.Form["MissingPriestID"].ToString();
+                var servantName = Request.Form["ServantID"].ToString() == null ? "" : Request.Form["ServantID"].ToString();
+                var Evaluation = Request.Form["EvaluationLevelID"].ToString() == null ? "" : Request.Form["EvaluationLevelID"].ToString();
+
+                if (String.IsNullOrEmpty(fatherName))
+                    family.FatherID = null;
+                else
+                    family.FatherID = Convert.ToInt32(fatherName);
+
+
+                if (String.IsNullOrEmpty(motherName))
+                    family.MotherID = null;
+                else
+                    family.MotherID = Convert.ToInt32(motherName);
+
+                if (String.IsNullOrEmpty(MissingPriestName))
+                    family.MissingPriestID = null;
+                else
+                    family.MissingPriestID = Convert.ToInt32(MissingPriestName);
+
+                if (String.IsNullOrEmpty(servantName))
+                    family.ServantID = null;
+                else
+                    family.ServantID = Convert.ToInt32(servantName);
+
+                if (String.IsNullOrEmpty(Evaluation))
+                    family.EvaluationLevelID = null;
+                else
+                    family.EvaluationLevelID = Convert.ToInt32(Evaluation);
+
+                family.IsActive = true;
                 db.Entry(family).State = EntityState.Modified;
+                db.SaveChanges();
+
+                var familyData = db.Families.Where(x => x.FatherID == family.FatherID).FirstOrDefault();
+                var familyFather = db.People.Where(x => x.ID == family.FatherID).FirstOrDefault();
+                var familyMother = db.People.Where(x => x.ID == family.MotherID).FirstOrDefault();
+                if (familyFather != null)
+                    familyFather.FamilyID = familyData.ID;
+
+                if (familyMother != null)
+                    familyMother.FamilyID = familyData.ID;
+
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }

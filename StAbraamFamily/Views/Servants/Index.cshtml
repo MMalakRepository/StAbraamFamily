@@ -4,7 +4,11 @@
     ViewBag.Title = "Servants";
     Layout = "~/Views/Shared/_FamilyLayout.cshtml";
 }
-
+<style>
+    td{
+        text-align:right;
+    }
+</style>
 
 <header class="page-header" style="background-color: #0088cc;
 
@@ -87,7 +91,7 @@
                                     @Html.DisplayFor(modelItem => item.EmailAddress)
                                 </td>
                                 <td>
-                                    @Html.DisplayFor(modelItem => item.DateOfBirth)
+                                    @Convert.ToDateTime(item.DateOfBirth).ToString("dd/MM/yyyy");
                                 </td>
 
                                 <td>
