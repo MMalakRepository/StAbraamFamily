@@ -103,7 +103,8 @@ namespace StAbraamFamily.Controllers
                 serviceAction.PersonID = Convert.ToInt32(Request.Form["PersonID"].ToString());
                 serviceAction.ActionTypeID = Convert.ToInt32(Request.Form["ActionTypeID"].ToString());
                 serviceAction.IsActive = true;
-                serviceAction.FamilyID = Convert.ToInt32(db.People.Where(x => x.ID == serviceAction.PersonID).Select(x => x.FamilyID));
+                var p = db.People.Where(x => x.ID == serviceAction.PersonID).FirstOrDefault();
+                serviceAction.FamilyID = p.FamilyID;
                 db.ServiceActions.Add(serviceAction);
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -124,7 +125,8 @@ namespace StAbraamFamily.Controllers
                 serviceAction.PersonID = Convert.ToInt32(Request.Form["PersonID"].ToString());
                 serviceAction.ActionTypeID = 2;
                 serviceAction.IsActive = true;
-                serviceAction.FamilyID = Convert.ToInt32(db.People.Where(x => x.ID == serviceAction.PersonID).Select(x => x.FamilyID));
+                var p = db.People.Where(x => x.ID == serviceAction.PersonID).FirstOrDefault();
+                serviceAction.FamilyID = p.FamilyID;
                 db.ServiceActions.Add(serviceAction);
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -145,7 +147,8 @@ namespace StAbraamFamily.Controllers
                 serviceAction.PersonID = Convert.ToInt32(Request.Form["PersonID"].ToString());
                 serviceAction.ActionTypeID = 1;
                 serviceAction.IsActive = true;
-                serviceAction.FamilyID = Convert.ToInt32(db.People.Where(x => x.ID == serviceAction.PersonID).Select(x => x.FamilyID));
+                var p = db.People.Where(x => x.ID == serviceAction.PersonID).FirstOrDefault();
+                serviceAction.FamilyID = p.FamilyID;
                 db.ServiceActions.Add(serviceAction);
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -166,7 +169,8 @@ namespace StAbraamFamily.Controllers
                 serviceAction.PersonID = Convert.ToInt32(Request.Form["PersonID"].ToString());
                 serviceAction.ActionTypeID = 3;
                 serviceAction.IsActive = true;
-                serviceAction.FamilyID = Convert.ToInt32(db.People.Where(x => x.ID == serviceAction.PersonID).Select(x => x.FamilyID)); 
+                var p = db.People.Where(x => x.ID == serviceAction.PersonID).FirstOrDefault();
+                serviceAction.FamilyID = p.FamilyID;
                 db.ServiceActions.Add(serviceAction);
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -216,6 +220,7 @@ namespace StAbraamFamily.Controllers
                 //serviceAction.UserID = User.Identity.GetUserId();
                 serviceAction.ServantID = Convert.ToInt32(Request.Form["ServantID"].ToString());
                 serviceAction.PersonID = Convert.ToInt32(Request.Form["PersonID"].ToString());
+                serviceAction.IsActive = true;
                 db.Entry(serviceAction).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");

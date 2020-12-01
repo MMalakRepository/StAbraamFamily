@@ -3659,6 +3659,7 @@
     <Content Include="Views\EvaluationLevels\Edit.cshtml" />
     <Content Include="Views\EvaluationLevels\Index.cshtml" />
     <Content Include="Views\ServiceActions\AddFinancialService.cshtml" />
+    <Content Include="Views\ServiceActions\Editbk.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
