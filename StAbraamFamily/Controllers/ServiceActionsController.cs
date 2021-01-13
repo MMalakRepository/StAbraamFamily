@@ -49,7 +49,7 @@ namespace StAbraamFamily.Controllers
             if (id != null)
                 serviceActions = serviceActions.Where(x => x.PersonID == id);
   
-            return View("Index",serviceActions.ToList());
+            return View("MedicalServiceList",serviceActions.ToList());
         }
 
         public ActionResult FinancialServiceList(int? id)
@@ -130,7 +130,7 @@ namespace StAbraamFamily.Controllers
                 serviceAction.FamilyID = p.FamilyID;
                 db.ServiceActions.Add(serviceAction);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("MedicalServiceList");
             }
 
             ResetData();

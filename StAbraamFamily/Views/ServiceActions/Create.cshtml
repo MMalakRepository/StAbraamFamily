@@ -12,7 +12,17 @@
         <ol class="breadcrumbs float-md-right mr-5">
             <li>
                 <a href="@Url.Action("Index","ServiceActions",null)" class="text-white" style="font-size:18px;font-weight:bold;font-family:Calibri" ">
-                    <i class="fas fa-user-cog text-white"></i> تقرير الخدمات 
+                    <i class="fas fa-user-cog text-warning"></i> تقرير كل الخدمات
+                </a>
+            </li>
+            <li>
+                <a href="@Url.Action("BagServiceList","ServiceActions",null)" class="text-white" style="font-size:18px;font-weight:bold;font-family:Calibri" ">
+                    <i class="fas fa-user-cog text-warning"></i>  شنط البركة
+                </a>
+            </li>
+            <li>
+                <a href="@Url.Action("MedicalServiceList","ServiceActions",null)" class="text-white" style="font-size:18px;font-weight:bold;font-family:Calibri" ">
+                    <i class="fas fa-user-cog text-warning"></i>  الخدمات العلاجية
                 </a>
             </li>
         </ol>
@@ -170,9 +180,13 @@
                 </div>
             </div>
         </div>*@
-                <div class="row">
+                <div class="row"></div>
+                <div class="row" style="margin-top:20px">
                     <div class="col-md-6">
-                        <a href="#" class="btn btn-sm btn-outline-danger" style="width:100%;font-size: 20px;font-weight: bold;text-align: center;font-family: Calibri">ألغاء أدخال الخدمة</a>
+                        <div class="form-group">
+                            <a href="#" class="btn btn-sm btn-outline-danger" style="width:100%;font-size: 20px;font-weight: bold;text-align: center;font-family: Calibri">ألغاء أدخال الخدمة</a>
+
+                        </div>
                     </div>
                     <div class="col-md-6">
                         <div class="form-group">

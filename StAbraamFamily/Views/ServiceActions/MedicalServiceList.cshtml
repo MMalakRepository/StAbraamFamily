@@ -1,7 +1,7 @@
 ﻿@model IEnumerable<StAbraamFamily.Models.ServiceAction>
 
 @{
-    ViewBag.Title = "Our Services List";
+    ViewBag.Title = "Medical Services List";
     Layout = "~/Views/Shared/_FamilyLayout.cshtml";
 }
 
@@ -15,7 +15,7 @@
         <ol class="breadcrumbs float-md-right mr-5">
 
             <li>
-                <a href="@Url.Action("Create","ServiceActions",null)" class="text-white" style="font-size: 18px; font-weight: bold; font-family: Calibri">
+                <a href="@Url.Action("Create","ServiceActions",null)" class="text-white"  style="font-size: 18px; font-weight: bold; font-family: Calibri">
                     <i class="fas fa-plus-circle text-warning  rounded-circle"></i> أضافة خدمات اخرى
                 </a>
             </li>
@@ -30,37 +30,32 @@
                 </a>
 
             </li>
-            <li>
-                <a href="@Url.Action("MedicalServiceList","ServiceActions",null)" class="text-white" style="font-size:18px;font-weight:bold;font-family:Calibri" ">
-                    <i class="fas fa-user-cog text-warning"></i> تقرير الخدمات العلاجية
-                </a>
-            </li>
         </ol>
     </div>
 </header>
 
 
 <div class="col-lg-12">
-    <section class="card card-featured card-featured-danger mb-4 card-featured-bottom">
+    <section class="card card-featured card-featured-success mb-4 card-featured-bottom">
         <header class="card-header">
             <div class="card-actions">
                 @*<a href="#" class="card-action card-action-toggle" data-card-toggle></a>*@
             </div>
-            <h2 class="card-title" style="text-align:center;font-size:25px;font-weight:bold;font-family:Calibri"> تقرير الخدمات المقدمة  </h2>
+            <h2 class="card-title" style="text-align:center;font-size:25px;font-weight:bold;font-family:Calibri"> تقرير الخدمات العلاجية  </h2>
         </header>
 
         <div class="card-body">
             <div class="container p-0" style="max-width:90%">
                 <table class="table table-hover table-sm" id="myDataTable">
 
-                    <thead class="bg-danger text-white text-center">
+                    <thead class="bg-success text-white text-center">
                         <tr>
                             <th>
                                 <label class="control-label " style="float: right;font-size: 14px;font-weight: bold;text-align: right;font-family: Calibri">تاريخ الخدمة </label>
                             </th>
                             <th>
                                 <label class="control-label " style="float: right;font-size: 14px;font-weight: bold;text-align: right;font-family: Calibri">ملاحظات أضافية </label>
-                            </th>         
+                            </th>
                             <th>
                                 <label class="control-label " style="float: right;font-size: 14px;font-weight: bold;text-align: right;font-family: Calibri">أسم الشخص  </label>
                             </th>
@@ -69,6 +64,12 @@
                             </th>
                             <th>
                                 <label class="control-label " style="float: right;font-size: 14px;font-weight: bold;text-align: right;font-family: Calibri">نوع الخدمة </label>
+                            </th>
+                            <th>
+                                <label class="control-label " style="float: right;font-size: 14px;font-weight: bold;text-align: right;font-family: Calibri">أسم العيادة  </label>
+                            </th>
+                            <th>
+                                <label class="control-label " style="float: right;font-size: 14px;font-weight: bold;text-align: right;font-family: Calibri">أسم المستشفى  </label>
                             </th>
                             <th></th>
                         </tr>
@@ -79,31 +80,37 @@
 
                         @foreach (var item in Model)
                         {
-                            <tr>
-                                <td class="text-right">
-                                    @*@Html.DisplayFor(modelItem => item.ActionDate, "{0:dd/MM/yyyy}")*@
-                                    @Convert.ToDateTime(item.ActionDate).ToString("dd/MM/yyyy")
-                                </td>
+                        <tr>
+                            <td class="text-right">
+                                @*@Html.DisplayFor(modelItem => item.ActionDate, "{0:dd/MM/yyyy}")*@
+                                @Convert.ToDateTime(item.ActionDate).ToString("dd/MM/yyyy")
+                            </td>
 
-                                <td class="text-right">
-                                    @Html.DisplayFor(modelItem => item.Notes)
-                                </td>
-                                <td class="text-right">
-                                    @Html.DisplayFor(modelItem => item.Person.FullName)
-                                </td>
-                                <td class="text-right">
-                                    @Html.DisplayFor(modelItem => item.Servant.ServantName)
-                                </td>
-                                <td class="text-right">
-                                    @Html.DisplayFor(modelItem => item.ServiceType.ActionType)
-                                </td>
-                                <td class="text-center">
-                                    <a href="@Url.Action("Edit",new { id = item.ID })" class="btn bg-primary text-white btn-sm rounded-circle"><i class="fa fa-edit"></i></a>
-                                    @*<a href="@Url.Action("Delete",new { id = item.ID })" class="btn bg-danger text-white btn-sm rounded-circle"><i class="fa fa-trash-alt"></i></a>*@
-                                    <a href="#" id="btnDelete" onclick="DeleteAction(@item.ID)" class="btn bg-danger text-white btn-sm rounded-circle"><i class="fa fa-trash-alt"></i></a>
+                            <td class="text-right">
+                                @Html.DisplayFor(modelItem => item.Notes)
+                            </td>
+                            <td class="text-right">
+                                @Html.DisplayFor(modelItem => item.Person.FullName)
+                            </td>
+                            <td class="text-right">
+                                @Html.DisplayFor(modelItem => item.Servant.ServantName)
+                            </td>
+                            <td class="text-right">
+                                @Html.DisplayFor(modelItem => item.ServiceType.ActionType)
+                            </td>
+                            <td class="text-right">
+                                @Html.DisplayFor(modelItem => item.Clinic.ClinicName)
+                            </td>
+                            <td class="text-right">
+                                @Html.DisplayFor(modelItem => item.Hospital.HospitalName)
+                            </td>
+                            <td class="text-center">
+                                <a href="@Url.Action("Edit",new { id = item.ID })" class="btn bg-primary text-white btn-sm rounded-circle"><i class="fa fa-edit"></i></a>
+                                @*<a href="@Url.Action("Delete",new { id = item.ID })" class="btn bg-danger text-white btn-sm rounded-circle"><i class="fa fa-trash-alt"></i></a>*@
+                                <a href="#" id="btnDelete" onclick="DeleteAction(@item.ID)" class="btn bg-danger text-white btn-sm rounded-circle"><i class="fa fa-trash-alt"></i></a>
 
-                                </td>
-                            </tr>
+                            </td>
+                        </tr>
                         }
 
                     </tbody>

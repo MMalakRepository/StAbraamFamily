@@ -3670,6 +3670,7 @@
     <Content Include="Views\ServiceActions\AddFinancialService.cshtml" />
     <Content Include="Views\ServiceActions\Editbk.cshtml" />
     <Content Include="Views\Account\LoginBck.cshtml" />
+    <Content Include="Views\ServiceActions\MedicalServiceList.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
