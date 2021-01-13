@@ -47,6 +47,11 @@ namespace StAbraamFamily.Controllers
         [HttpPost]
         public ActionResult Create(Family family)
         {
+            var IsExisted = db.Families.Any(x => x.FamilyCode == family.FamilyCode);
+            if (IsExisted)
+                ModelState.AddModelError(String.Empty, "تم أدخال نفس الكود مسبقاً");
+  
+
             if (ModelState.IsValid)
             {
                 var fatherName = Request.Form["FatherID"].ToString() == null ? "" : Request.Form["FatherID"].ToString();
