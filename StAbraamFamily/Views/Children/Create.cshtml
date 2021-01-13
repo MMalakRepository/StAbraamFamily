@@ -6,13 +6,14 @@
 }
 
 
+    
 <header class="page-header" style="background-color: #0088cc;border-left-color: #0088cc">
     <h2 class="text-white" style="border-bottom-color: #388038 !important;font-size: 25px;font-weight: bold;font-family: Calibri"> بيانات الأطفال</h2>
     <div class="right-wrapper text-left">
         <ol class="breadcrumbs float-md-right mr-5">
             <li>
-                <a href="@Url.Action("Index","Clinics",null)" class="text-white" style="font-size:18px;font-weight:bold;font-family:Calibri">
-                    <i class="fas fa-users text-white"></i> تقرير الأطفال
+                <a href="@Url.Action("Index","Children",null)" class="text-white" style="font-size:18px;font-weight:bold;font-family:Calibri">
+                    <i class="fas fa-users text-warning"></i> تقرير الأطفال
                 </a>
             </li>
         </ol>
@@ -117,7 +118,7 @@
                                     <div class="input-group">
                                         <div class="checkbox">
                                             @*@Html.EditorFor(model => model.IsWorking)*@
-                                            @Html.CheckBoxFor(model => model.IsStudying, new { id = "IsStudying", data_toggle = "toggle", data_onstyle = "success" })
+                                            @Html.CheckBoxFor(model => model.IsStudying, new { id = "IsStudying", data_toggle = "toggle", data_onstyle = "warning" })
 
                                             @Html.ValidationMessageFor(model => model.IsStudying, "", new { @class = "text-danger" })
                                         </div>
@@ -137,7 +138,7 @@
                                     <div class="input-group">
                                         <div class="checkbox">
                                             @*@Html.EditorFor(model => model.IsWorking)*@
-                                            @Html.CheckBoxFor(model => model.IsWorking, new { id = "IsWorking", data_toggle = "toggle", data_onstyle = "primary" })
+                                            @Html.CheckBoxFor(model => model.IsWorking, new { id = "IsWorking", data_toggle = "toggle", data_onstyle = "info" })
 
                                             @Html.ValidationMessageFor(model => model.IsWorking, "", new { @class = "text-danger" })
                                         </div>

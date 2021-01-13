@@ -95,6 +95,9 @@
                                 <li class="">
                                     @Html.ActionLink("العائلات", "Index", "Families", null, new { @class = "nav-link linkFont" })
                                 </li>
+                                <li class="">
+                                    @Html.ActionLink("الأطفال", "Index", "Children", null, new { @class = "nav-link linkFont" })
+                                </li>
 
                                 <li class="">
                                     @Html.ActionLink("الخدام", "Index", "Servants", null, new { @class = "nav-link linkFont" })
@@ -200,6 +203,13 @@
                                         @*<span class="float-right badge badge-danger">123</span>*@
                                         <i class="fas fa-list text-danger" aria-hidden="true"></i>
                                         <span style="font-family: calibri;font-size: 1.2em;">العائلات</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="nav-link linkFont" href="@Url.Action("Index","Children",null)">
+                                        @*<span class="float-right badge badge-danger">123</span>*@
+                                        <i class="fas fa-child text-info" aria-hidden="true"></i>
+                                        <span style="font-family: calibri;font-size: 1.2em;">الأطفال</span>
                                     </a>
                                 </li>
                                 <li>
