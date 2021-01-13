@@ -32,6 +32,9 @@ namespace StAbraamFamily.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create(Person person)
         {
+            var IsExisted = db.People.Any(x => x.Code == person.Code);
+            if (IsExisted)
+                ModelState.AddModelError(String.Empty, "تم أدخال نفس الكود مسبقاً");
 
             if (ModelState.IsValid)
             {
