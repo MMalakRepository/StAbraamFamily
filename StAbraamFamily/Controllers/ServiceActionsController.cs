@@ -52,6 +52,31 @@ namespace StAbraamFamily.Controllers
             return View("MedicalServiceList",serviceActions.ToList());
         }
 
+        public ActionResult getClinicServices(int? id)
+        {
+            var serviceActions = db.ServiceActions.Include(s => s.AspNetUser)
+                                    .Include(s => s.Clinic).Include(s => s.Family)
+                                    .Include(s => s.Hospital).Include(s => s.Person).Include(s => s.Servant)
+                                    .Include(s => s.ServiceType).Where(x => x.IsActive == true && x.ServiceType.ID == 2);
+            if (id != null)
+                serviceActions = serviceActions.Where(x => x.ClinicID == id);
+
+            return View("MedicalServiceList", serviceActions.ToList());
+        }
+
+        public ActionResult getHospitalServices(int? id)
+        {
+            var serviceActions = db.ServiceActions.Include(s => s.AspNetUser)
+                                    .Include(s => s.Clinic).Include(s => s.Family)
+                                    .Include(s => s.Hospital).Include(s => s.Person).Include(s => s.Servant)
+                                    .Include(s => s.ServiceType).Where(x => x.IsActive == true && x.ServiceType.ID == 2);
+            if (id != null)
+                serviceActions = serviceActions.Where(x => x.HospitalID == id);
+
+            return View("MedicalServiceList", serviceActions.ToList());
+        }
+
+
         public ActionResult FinancialServiceList(int? id)
         {
             var serviceActions = db.ServiceActions.Include(s => s.AspNetUser)

@@ -61,6 +61,7 @@ namespace StAbraamFamily.Controllers
         {
             if (ModelState.IsValid)
             {
+                hospital.IsActive = true; 
                 db.Entry(hospital).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
