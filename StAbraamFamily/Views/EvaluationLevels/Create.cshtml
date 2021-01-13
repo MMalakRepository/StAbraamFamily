@@ -11,7 +11,7 @@
         <ol class="breadcrumbs float-md-right mr-5">
             <li>
                 <a href="@Url.Action("Index","Evaluationlevels",null)" class="text-white" style="font-size:18px;font-weight:bold;font-family:Calibri">
-                    <i class="fas fa-user-circle text-white"></i>  تقرير مستويات تقييم العائلات
+                    <i class="fas fa-user-circle text-warning"></i>  تقرير مستويات تقييم العائلات
                 </a>
             </li>
             <li>
@@ -41,7 +41,7 @@
                 <a href="#" class="card-action card-action-toggle" data-card-toggle></a>
             </div>
 
-            <h2 class="card-title" style="text-align:center;font-size:25px;font-weight:bold;font-family:Calibri"> بيانات  الأب الكاهن</h2>
+            <h2 class="card-title" style="text-align:center;font-size:25px;font-weight:bold;font-family:Calibri"> بيانات  مستوى تقييم الأسرة</h2>
         </header>
         <div class="card-body">
             @using (Html.BeginForm())
@@ -50,7 +50,7 @@
                 <div class="form-horizontal">
                     <div class="form-group">
                         <label class="control-label col-md-4" style="float: right;font-size: 14px;font-weight: bold;text-align: right;font-family: Calibri">   مستوى تقييم الأسرة</label>
-                        <div class="col-md-10">
+                        <div class="col-md-8">
                             @Html.EditorFor(model => model.EvaluationLevel1, new { htmlAttributes = new { @class = "form-control" } })
                             @Html.ValidationMessageFor(model => model.EvaluationLevel1, "", new { @class = "text-danger" })
                         </div>
@@ -59,7 +59,7 @@
 
                     <div class="form-group">
                         <div class="col-md-offset-2 col-md-10">
-                            <input type="submit" value="Create" class="btn btn-default" />
+                            <input type="submit" value="أضافة تقييم الأسرة" class="btn btn-primary" style="width: 50%; font-size: 18px; font-family: Calibri; font-weight: bold;" />
                         </div>
                     </div>
                 </div>

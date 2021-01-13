@@ -5,12 +5,38 @@
     Layout = "~/Views/Shared/_FamilyLayout.cshtml";
 }
 
-<h2>Edit</h2>
+<header class="page-header" style="background-color: #0088cc;border-left-color: #0088cc">
+    <h2 class="text-white" style="        border-bottom-color: #17a2b8 !important;font-size: 25px;font-weight: bold;font-family: Calibri"> مستوى تقييم العائلات</h2>
+    <div class="right-wrapper text-left">
+        <ol class="breadcrumbs float-md-right mr-5">
+            <li>
+                <a href="@Url.Action("Index","Evaluationlevels",null)" class="text-white" style="font-size:18px;font-weight:bold;font-family:Calibri">
+                    <i class="fas fa-user-circle text-warning"></i>  تقرير مستويات تقييم العائلات
+                </a>
+            </li>
+            <li>
+                <a href="@Url.Action("Index","Families",null)" class="text-white" style="font-size: 18px; font-weight: bold; font-family: Calibri">
+                    <i class="fas fa-list-ul text-warning"></i> تقرير العائلات
+                </a>
+            </li>
+            <li>
+                <a href="@Url.Action("Create","People")" class="text-white" style="font-size: 18px; font-weight: bold; font-family: Calibri">
+                    <i class="fa fa-user-plus text-warning"></i> أضافة فرد جديد
+                </a>
+            </li>
+            <li>
+                <a href="@Url.Action("Create","Families")" class="text-white" style="font-size: 18px; font-weight: bold; font-family: Calibri">
+                    <i class="fa fa-home text-warning"></i>  أضافة عائلة جديدة
+                </a>
+            </li>
+        </ol>
+    </div>
+</header>
 
-@using (Html.BeginForm())
+@*@using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
-    
+
     <div class="form-horizontal">
         <h4>EvaluationLevel</h4>
         <hr />
@@ -41,8 +67,40 @@
             </div>
         </div>
     </div>
-}
+}*@
 
-<div>
-    @Html.ActionLink("Back to List", "Index")
+
+
+<div class="col-lg-12">
+    <section class="card card-featured card-featured-info mb-4">
+        <header class="card-header">
+            <div class="card-actions">
+                <a href="#" class="card-action card-action-toggle" data-card-toggle></a>
+            </div>
+
+            <h2 class="card-title" style="text-align:center;font-size:25px;font-weight:bold;font-family:Calibri"> بيانات  الأب الكاهن</h2>
+        </header>
+        <div class="card-body">
+            @using (Html.BeginForm())
+            {
+                @Html.AntiForgeryToken()
+                <div class="form-horizontal">
+                    <div class="form-group">
+                        <label class="control-label col-md-4" style="float: right;font-size: 14px;font-weight: bold;text-align: right;font-family: Calibri">   مستوى تقييم الأسرة</label>
+                        <div class="col-md-8">
+                            @Html.EditorFor(model => model.EvaluationLevel1, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.EvaluationLevel1, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-offset-2 col-md-10">
+                            <input type="submit" value="تعديل مستوى التقييم" class="btn btn-primary" style="width:50%;font-size:18px;font-family:Calibri;font-weight:bold;" />
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+
+    </section>
 </div>
+

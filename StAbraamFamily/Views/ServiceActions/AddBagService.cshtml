@@ -10,8 +10,23 @@
     <div class="right-wrapper text-left">
         <ol class="breadcrumbs float-md-right mr-5">
             <li>
+                <a href="@Url.Action("Create","ServiceActions",null)" class="text-white" style="font-size: 18px; font-weight: bold; font-family: Calibri">
+                    <i class="fas fa-plus-circle text-warning  rounded-circle"></i> أضافة خدمات اخرى
+                </a>
+            </li>
+            <li>
+                <a href="@Url.Action("AddHealthyService","ServiceActions",null)" class="text-white" style="font-size: 18px; font-weight: bold; font-family: Calibri">
+                    <i class="fas fa-briefcase-medical text-warning  rounded-circle"></i> أضافة  خدمة علاجية
+                </a>
+            </li>
+            <li>
+                <a href="@Url.Action("MedicalServiceList","ServiceActions",null)" class="text-white" style="font-size:18px;font-weight:bold;font-family:Calibri" ">
+                    <i class="fas fa-user-cog text-warning"></i> تقرير الخدمات العلاجية
+                </a>
+            </li>
+            <li>
                 <a href="@Url.Action("BagServiceList","ServiceActions",null)" class="text-white" style="font-size:18px;font-weight:bold;font-family:Calibri" ">
-                    <i class="fas fa-shopping-bag text-white"></i> تقرير شنط البركة 
+                    <i class="fas fa-shopping-bag text-warning"></i> تقرير شنط البركة
                 </a>
             </li>
         </ol>
