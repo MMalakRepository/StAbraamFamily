@@ -18,11 +18,13 @@
 
     <div class="right-wrapper text-left">
         <ol class="breadcrumbs float-md-right mr-5">
+ 
 
             <li>
-                <a href="@Url.Action("Create","Children",null)" class="text-white">
-                    <i class="fas fa-plus-circle fa-2x text-warning"></i> Add New Child
+                <a href="@Url.Action("Create","Children")" class="text-white" style="font-size: 18px; font-weight: bold; font-family: Calibri">
+                    <i class="fa fa-user-plus text-warning"></i> أضافة طفل جديد
                 </a>
+
             </li>
 
         </ol>
@@ -140,7 +142,7 @@
             $('#myDataTable').dataTable({
                 dom: 'Bfrtip',
                 buttons: [
-                    'excel', 'pdf', 'print'
+                    'excel', 'print'
                 ]
             });
 

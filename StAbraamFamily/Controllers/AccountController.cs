@@ -51,9 +51,7 @@ namespace StAbraamFamily.Controllers
                 _userManager = value;
             }
         }
-
-        //
-        // GET: /Account/Login
+ 
         [AllowAnonymous]
         public ActionResult Login(string returnUrl)
         {
@@ -61,8 +59,6 @@ namespace StAbraamFamily.Controllers
             return View();
         }
 
-        //
-        // POST: /Account/Login
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
@@ -72,14 +68,12 @@ namespace StAbraamFamily.Controllers
             {
                 return View(model);
             }
-
-            // This doesn't count login failures towards account lockout
-            // To enable password failures to trigger account lockout, change to shouldLockout: true
-            var result = await SignInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, shouldLockout: false);
+            var result = await SignInManager.PasswordSignInAsync(model.UserName, model.Password, model.RememberMe, shouldLockout: false);
             switch (result)
             {
                 case SignInStatus.Success:
-                    return RedirectToLocal(returnUrl);
+                    //return RedirectToLocal(returnUrl);
+                    return RedirectToAction("Home", "Home");
                 case SignInStatus.LockedOut:
                     return View("Lockout");
                 case SignInStatus.RequiresVerification:
@@ -91,8 +85,6 @@ namespace StAbraamFamily.Controllers
             }
         }
 
-        //
-        // GET: /Account/VerifyCode
         [AllowAnonymous]
         public async Task<ActionResult> VerifyCode(string provider, string returnUrl, bool rememberMe)
         {
@@ -104,8 +96,6 @@ namespace StAbraamFamily.Controllers
             return View(new VerifyCodeViewModel { Provider = provider, ReturnUrl = returnUrl, RememberMe = rememberMe });
         }
 
-        //
-        // POST: /Account/VerifyCode
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
@@ -134,16 +124,12 @@ namespace StAbraamFamily.Controllers
             }
         }
 
-        //
-        // GET: /Account/Register
         [AllowAnonymous]
         public ActionResult Register()
         {
             return View();
         }
-
-        //
-        // POST: /Account/Register
+ 
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
@@ -156,7 +142,7 @@ namespace StAbraamFamily.Controllers
                 if (result.Succeeded)
                 {
                     await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
-                    return RedirectToAction("Index", "Home");
+                    return RedirectToAction("Login", "Account");
                 }
                 AddErrors(result);
             }
@@ -176,13 +162,11 @@ namespace StAbraamFamily.Controllers
             return View(result.Succeeded ? "ConfirmEmail" : "Error");
         }
 
- 
         [AllowAnonymous]
         public ActionResult ForgotPassword()
         {
             return View();
         }
-
  
         [HttpPost]
         [AllowAnonymous]
@@ -209,25 +193,19 @@ namespace StAbraamFamily.Controllers
  
             return View(model);
         }
-
-        //
-        // GET: /Account/ForgotPasswordConfirmation
+ 
         [AllowAnonymous]
         public ActionResult ForgotPasswordConfirmation()
         {
             return View();
         }
-
-        //
-        // GET: /Account/ResetPassword
+ 
         [AllowAnonymous]
         public ActionResult ResetPassword(string code)
         {
             return code == null ? View("Error") : View();
         }
-
-        //
-        // POST: /Account/ResetPassword
+ 
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
@@ -252,17 +230,14 @@ namespace StAbraamFamily.Controllers
             return View();
         }
 
-        //
-        // GET: /Account/ResetPasswordConfirmation
+ 
         [AllowAnonymous]
         public ActionResult ResetPasswordConfirmation()
         {
             return View();
         }
 
-        //
-        // POST: /Account/ExternalLogin
-        [HttpPost]
+         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
         public ActionResult ExternalLogin(string provider, string returnUrl)
@@ -270,9 +245,7 @@ namespace StAbraamFamily.Controllers
             // Request a redirect to the external login provider
             return new ChallengeResult(provider, Url.Action("ExternalLoginCallback", "Account", new { ReturnUrl = returnUrl }));
         }
-
-        //
-        // GET: /Account/SendCode
+ 
         [AllowAnonymous]
         public async Task<ActionResult> SendCode(string returnUrl, bool rememberMe)
         {
@@ -285,9 +258,7 @@ namespace StAbraamFamily.Controllers
             var factorOptions = userFactors.Select(purpose => new SelectListItem { Text = purpose, Value = purpose }).ToList();
             return View(new SendCodeViewModel { Providers = factorOptions, ReturnUrl = returnUrl, RememberMe = rememberMe });
         }
-
-        //
-        // POST: /Account/SendCode
+ 
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
@@ -297,8 +268,7 @@ namespace StAbraamFamily.Controllers
             {
                 return View();
             }
-
-            // Generate the token and send it
+ 
             if (!await SignInManager.SendTwoFactorCodeAsync(model.SelectedProvider))
             {
                 return View("Error");
@@ -306,9 +276,7 @@ namespace StAbraamFamily.Controllers
             return RedirectToAction("VerifyCode", new { Provider = model.SelectedProvider, ReturnUrl = model.ReturnUrl, RememberMe = model.RememberMe });
         }
 
-        //
-        // GET: /Account/ExternalLoginCallback
-        [AllowAnonymous]
+         [AllowAnonymous]
         public async Task<ActionResult> ExternalLoginCallback(string returnUrl)
         {
             var loginInfo = await AuthenticationManager.GetExternalLoginInfoAsync();
@@ -374,18 +342,15 @@ namespace StAbraamFamily.Controllers
             return View(model);
         }
 
-        //
-        // POST: /Account/LogOff
+ 
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult LogOff()
         {
             AuthenticationManager.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("Login", "Account");
         }
-
-        //
-        // GET: /Account/ExternalLoginFailure
+ 
         [AllowAnonymous]
         public ActionResult ExternalLoginFailure()
         {

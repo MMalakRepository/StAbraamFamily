@@ -400,6 +400,15 @@
     <Content Include="Assets\js\theme.admin.extension.js" />
     <Content Include="Assets\js\theme.init.js" />
     <Content Include="Assets\js\theme.js" />
+    <Content Include="Assets\Login\images\123.jpg" />
+    <Content Include="Assets\Login\images\2.jpg" />
+    <Content Include="Assets\Login\images\54623.jpg" />
+    <Content Include="Assets\Login\images\bg1.svg" />
+    <Content Include="Assets\Login\images\bg2.svg" />
+    <Content Include="Assets\Login\images\screenshot_1.png" />
+    <Content Include="Assets\Login\images\screenshot_2.png" />
+    <Content Include="Assets\Login\index.js" />
+    <Content Include="Assets\Login\styles.css" />
     <Content Include="Assets\master\less\less.js" />
     <Content Include="Assets\master\style-switcher\bootstrap-colorpicker\css\bootstrap-colorpicker.css" />
     <Content Include="Assets\master\style-switcher\bootstrap-colorpicker\css\bootstrap-colorpicker.min.css" />
@@ -3660,6 +3669,7 @@
     <Content Include="Views\EvaluationLevels\Index.cshtml" />
     <Content Include="Views\ServiceActions\AddFinancialService.cshtml" />
     <Content Include="Views\ServiceActions\Editbk.cshtml" />
+    <Content Include="Views\Account\LoginBck.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

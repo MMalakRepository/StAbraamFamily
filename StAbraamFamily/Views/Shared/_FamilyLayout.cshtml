@@ -237,6 +237,13 @@
                                         <span style="font-family:calibri;font-size:1.2em">العيادات</span>
                                     </a>
                                 </li>
+                                <li>
+                                    <a class="nav-link linkFont" href="@Url.Action("Index","EvaluationLevels",null)">
+                                        @*<span class="float-right badge" style=" color:white; background-color:orangered">20</span>*@
+                                        <i class="fas fa-users-cog" style="color: deepskyblue" aria-hidden="true"></i>
+                                        <span style="font-family:calibri;font-size:1.2em">تقييم العائلات</span>
+                                    </a>
+                                </li>
 
 
 
@@ -246,14 +253,14 @@
                         <hr class="separator" />
                         <div class="sidebar-widget widget-tasks">
                             <div class="widget-header">
-                                <h6>تقارير الخدمات العائلية</h6>
+                                <h6> الخدمات العائلية</h6>
                                 <div class="widget-toggle">+</div>
                             </div>
                             <div class="widget-content">
                                 <ul class="list-unstyled m-0">
                                     <li><a href="@Url.Action("AddBagService","ServiceActions")" class="linkFont"> شنط البركة</a></li>
                                     <li><a href="@Url.Action("AddHealthyService","ServiceActions")" class="linkFont">المستشفيات و العيادات</a></li>
-                                    <li><a href="#" class="linkFont">الخدمات المالية</a></li>
+                                    <li><a href="@Url.Action("AddFinancialService","ServiceActions")" class="linkFont">الخدمات المالية</a></li>
                                 </ul>
                             </div>
                         </div>

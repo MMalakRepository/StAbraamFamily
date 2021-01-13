@@ -17,10 +17,9 @@
 
     <div class="right-wrapper text-left">
         <ol class="breadcrumbs float-md-right mr-5">
-
             <li>
-                <a href="@Url.Action("Create","FamilyVisits",null)" class="text-white">
-                    <i class="fas fa-plus-circle fa-2x text-warning"></i> Add New Visit
+                <a href="@Url.Action("Create","FamilyVisits")" class="text-white" style="font-size: 18px; font-weight: bold; font-family: Calibri">
+                    <i class="fa fa-home text-warning"></i>  أضافة زيارة أفتقاد
                 </a>
             </li>
 
@@ -127,7 +126,7 @@
             $('#myDataTable').dataTable({
                 dom: 'Bfrtip',
                 buttons: [
-                    'excel', 'pdf', 'print'
+                    'excel', 'print'
                 ]
             });
 

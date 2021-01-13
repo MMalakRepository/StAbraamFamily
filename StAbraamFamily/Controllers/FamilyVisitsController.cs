@@ -10,6 +10,7 @@ using StAbraamFamily.Models;
 
 namespace StAbraamFamily.Controllers
 {
+    [Authorize]
     public class FamilyVisitsController : Controller
     {
         private StAbraamEntities db = new StAbraamEntities();

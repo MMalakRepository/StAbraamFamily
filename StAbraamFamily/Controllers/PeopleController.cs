@@ -11,6 +11,7 @@ using StAbraamFamily.ViewModels;
 
 namespace StAbraamFamily.Controllers
 {
+    [Authorize]
     public class PeopleController : Controller
     {
         private StAbraamEntities db = new StAbraamEntities();

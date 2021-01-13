@@ -11,6 +11,7 @@ using StAbraamFamily.UnitsOfWork;
 
 namespace StAbraamFamily.Controllers
 {
+    [Authorize]
     public class FamilyServantsController : Controller
     {
         private StAbraamEntities db = new StAbraamEntities();

@@ -11,6 +11,7 @@ using Microsoft.AspNet.Identity;
 
 namespace StAbraamFamily.Controllers
 {
+    [Authorize]
     public class ServiceActionsController : Controller
     {
         private StAbraamEntities db = new StAbraamEntities();
@@ -36,7 +37,7 @@ namespace StAbraamFamily.Controllers
             if (id != null)
                 serviceActions = serviceActions.Where(x => x.PersonID == id);
 
-            return View("ServiceList",serviceActions.ToList());
+            return View("Index", serviceActions.ToList());
         }
 
         public ActionResult MedicalServiceList(int? id)
@@ -60,7 +61,7 @@ namespace StAbraamFamily.Controllers
             if (id != null)
                 serviceActions = serviceActions.Where(x => x.PersonID == id);
 
-            return View("ServiceList", serviceActions.ToList());
+            return View("Index", serviceActions.ToList());
         }
 
         public ActionResult AllServicesList(int? id)
