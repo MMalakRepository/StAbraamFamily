@@ -21,7 +21,11 @@ namespace StAbraamFamily.Controllers
             return View(children.ToList());
         }
 
- 
+        public ActionResult GetChildrenByFamily(int FamilyID)
+        {
+            var children = db.Children.Include(c => c.Family).Include(c => c.Father).Include(c => c.Servant).Where( x => x.FamilyID == FamilyID);
+            return View("Index", children.ToList());
+        }
         public ActionResult Details(int? id)
         {
             if (id == null)
@@ -70,7 +74,7 @@ namespace StAbraamFamily.Controllers
             return View(child);
         }
 
- 
+
         public ActionResult Edit(int? id)
         {
             if (id == null)

@@ -101,6 +101,18 @@ namespace StAbraamFamily.Controllers
             return View("Index", serviceActions.ToList());
         }
 
+        public ActionResult GetServicesByFamily(int? FamilyID)
+        {
+            var serviceActions = db.ServiceActions.Include(s => s.AspNetUser)
+                        .Include(s => s.Clinic).Include(s => s.Family)
+                        .Include(s => s.Hospital).Include(s => s.Person).Include(s => s.Servant)
+                        .Include(s => s.ServiceType).Where(x => x.IsActive == true);
+            if (FamilyID != null)
+                serviceActions = serviceActions.Where(x => x.Person.FamilyID == FamilyID);
+
+            return View("Index", serviceActions.ToList());
+        }
+
         public ActionResult Create()
         {
             ResetData();

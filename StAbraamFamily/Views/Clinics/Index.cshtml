@@ -88,10 +88,10 @@
                                 </td>
                                 <td>
 
-                                    <a href="@Url.Action("Edit",new { id = item.ID })" title="Edit" class="btn bg-primary text-white btn-sm rounded-circle"><i class="fa fa-edit"></i></a>
+                                    <a href="@Url.Action("Edit",new { id = item.ID })" title="تعديل البيانات" class="btn bg-primary text-white btn-sm rounded-circle"><i class="fa fa-edit"></i></a>
                                     @*<a href="@Url.Action("Delete",new { id = item.ID })" class="btn bg-danger text-white btn-sm rounded-circle"><i class="fa fa-trash-alt"></i></a>*@
-                                    <a href="#" onclick="DeleteAction(@item.ID)" title="Delete" class="btn bg-danger text-white btn-sm rounded-circle"><i class="fa fa-trash-alt"></i></a>
-                                    <a href="@Url.Action("getClinicServices","ServiceActions",new { id = item.ID})" title="Get Services" class="btn bg-info btn-sm text-white rounded-circle"><i class="fa fa-user-cog"></i></a>
+                                    <a href="#" onclick="DeleteAction(@item.ID)" title="حذف" class="btn bg-danger text-white btn-sm rounded-circle"><i class="fa fa-trash-alt"></i></a>
+                                    <a href="@Url.Action("getClinicServices","ServiceActions",new { id = item.ID})" title="الخدمات العلاجية" class="btn bg-info btn-sm text-white rounded-circle"><i class="fa fa-user-cog"></i></a>
 
                                 </td>
                             </tr>

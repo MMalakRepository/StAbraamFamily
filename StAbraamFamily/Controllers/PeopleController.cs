@@ -23,7 +23,7 @@ namespace StAbraamFamily.Controllers
         }
          public ActionResult Create()
         {
-            ViewBag.ConfessionFather = new SelectList(db.Fathers, "ID", "FatherName");
+            ViewBag.ConfessionFather = new SelectList(db.Fathers.Where(x => x.IsActive==true), "ID", "FatherName");
             ViewBag.ServantID = new SelectList(db.Servants, "ID", "ServantName");
             return View();
         }
