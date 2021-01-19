@@ -180,6 +180,8 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\HospitalsController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\MedicalContractsController.cs" />
+    <Compile Include="Controllers\MedicalServicesController.cs" />
     <Compile Include="Controllers\PeopleController.cs" />
     <Compile Include="Controllers\ServantsController.cs" />
     <Compile Include="Controllers\ServiceActionsController.cs" />
@@ -3677,6 +3679,16 @@
     <Content Include="Views\ServiceActions\Editbk.cshtml" />
     <Content Include="Views\Account\LoginBck.cshtml" />
     <Content Include="Views\ServiceActions\MedicalServiceList.cshtml" />
+    <Content Include="Views\MedicalServices\Create.cshtml" />
+    <Content Include="Views\MedicalServices\Delete.cshtml" />
+    <Content Include="Views\MedicalServices\Details.cshtml" />
+    <Content Include="Views\MedicalServices\Edit.cshtml" />
+    <Content Include="Views\MedicalServices\Index.cshtml" />
+    <Content Include="Views\MedicalContracts\Create.cshtml" />
+    <Content Include="Views\MedicalContracts\Delete.cshtml" />
+    <Content Include="Views\MedicalContracts\Details.cshtml" />
+    <Content Include="Views\MedicalContracts\Edit.cshtml" />
+    <Content Include="Views\MedicalContracts\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
