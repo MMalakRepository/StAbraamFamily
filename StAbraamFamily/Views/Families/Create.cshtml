@@ -16,7 +16,7 @@
             </li>
             <li>
                 <a href="@Url.Action("Create","EvaluationLevels")" class="text-white" style="font-size: 18px; font-weight: bold; font-family: Calibri">
-                <i class="fa fa-plus-circle text-warning"></i> أضافة مستوى تقييم العائلة </a>
+                <i class="fa fa-plus-circle text-warning"></i> أضافة نسبة تحمل جديدة   </a>
             </li>
             <li>
                 <a href="@Url.Action("Create","People")" class="text-white" style="font-size: 18px; font-weight: bold; font-family: Calibri">
@@ -122,7 +122,7 @@
                     <div class="row">
                         <div class="col-md-4">
                             <div class="form-group">
-                                <label class="control-label col-md-4" style=" float: right; font-size: 14px; font-weight: bold;text-align: right;">تقييم الأسرة</label>
+                                <label class="control-label col-md-4" style=" float: right; font-size: 14px; font-weight: bold;text-align: right;">نسبة التحمل</label>
                                 <div class="col-md-12">
                                     <div class="input-group">
                                         <span class="input-group-prepend">
@@ -130,7 +130,7 @@
                                                 <i class="fas fa-list-ul text-primary bg-white"></i>
                                             </span>
                                         </span>
-                                        @Html.DropDownList("EvaluationLevelID", null, "أختار تقييم الأسرة", htmlAttributes: new { @class = "form-control" })
+                                        @Html.DropDownList("EvaluationLevelID", null, "أختار نسبة التحمل", htmlAttributes: new { @class = "form-control" })
                                         @Html.ValidationMessageFor(model => model.EvaluationLevelID, "", new { @class = "text-danger" })
                                     </div>
 
