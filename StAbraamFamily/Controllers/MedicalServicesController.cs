@@ -14,14 +14,12 @@ namespace StAbraamFamily.Controllers
     public class MedicalServicesController : Controller
     {
         private StAbraamEntities db = new StAbraamEntities();
-
-        // GET: MedicalServices
+ 
         public async Task<ActionResult> Index()
         {
-            return View(await db.MedicalServices.ToListAsync());
+            return View(await db.MedicalServices.Where(x => x.IsActive == true).ToListAsync());
         }
-
-        // GET: MedicalServices/Details/5
+ 
         public async Task<ActionResult> Details(int? id)
         {
             if (id == null)
@@ -36,15 +34,12 @@ namespace StAbraamFamily.Controllers
             return View(medicalService);
         }
 
-        // GET: MedicalServices/Create
+ 
         public ActionResult Create()
         {
             return View();
         }
-
-        // POST: MedicalServices/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
+ 
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Create([Bind(Include = "ID,MedicalService1,Notes,IsActive")] MedicalService medicalService)
@@ -58,8 +53,7 @@ namespace StAbraamFamily.Controllers
 
             return View(medicalService);
         }
-
-        // GET: MedicalServices/Edit/5
+ 
         public async Task<ActionResult> Edit(int? id)
         {
             if (id == null)
@@ -73,10 +67,7 @@ namespace StAbraamFamily.Controllers
             }
             return View(medicalService);
         }
-
-        // POST: MedicalServices/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
+ 
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Edit([Bind(Include = "ID,MedicalService1,Notes,IsActive")] MedicalService medicalService)
@@ -114,6 +105,16 @@ namespace StAbraamFamily.Controllers
             db.MedicalServices.Remove(medicalService);
             await db.SaveChangesAsync();
             return RedirectToAction("Index");
+        }
+
+
+        [HttpPost]
+        public ActionResult DeleteAction(int id)
+        {
+            MedicalService medicalService = db.MedicalServices.Find(id);
+            medicalService.IsActive = false;
+            db.SaveChanges();
+            return Json(data: new { success = true, message = "Medical Service deleted successfully" }, JsonRequestBehavior.AllowGet);
         }
 
         protected override void Dispose(bool disposing)
