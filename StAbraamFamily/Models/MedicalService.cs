@@ -12,23 +12,19 @@ namespace StAbraamFamily.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class Hospital
+    public partial class MedicalService
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Hospital()
+        public MedicalService()
         {
-            this.ServiceActions = new HashSet<ServiceAction>();
             this.MedicalContracts = new HashSet<MedicalContract>();
         }
     
         public int ID { get; set; }
-        public string HospitalName { get; set; }
-        public string Address { get; set; }
-        public Nullable<bool> IsActive { get; set; }
+        public string MedicalService1 { get; set; }
         public string Notes { get; set; }
+        public Nullable<bool> IsActive { get; set; }
     
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<ServiceAction> ServiceActions { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<MedicalContract> MedicalContracts { get; set; }
     }

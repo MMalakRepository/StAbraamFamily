@@ -156,6 +156,29 @@
           <Property Name="IsActive" Type="bit" />
           <Property Name="Notes" Type="nvarchar" MaxLength="500" />
         </EntityType>
+        <EntityType Name="MedicalContracts">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="MedicalServiceID" Type="int" />
+          <Property Name="HospitalID" Type="int" />
+          <Property Name="ClinicID" Type="int" />
+          <Property Name="Notes" Type="nvarchar" MaxLength="500" />
+          <Property Name="IsFinished" Type="bit" />
+          <Property Name="Percentage" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="EntryDate" Type="datetime" />
+          <Property Name="EnteredBy" Type="nvarchar" MaxLength="128" />
+        </EntityType>
+        <EntityType Name="MedicalServices">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="MedicalService" Type="nvarchar" MaxLength="500" />
+          <Property Name="Notes" Type="nvarchar(max)" />
+          <Property Name="IsActive" Type="bit" />
+        </EntityType>
         <EntityType Name="Person">
           <Key>
             <PropertyRef Name="ID" />
@@ -431,6 +454,42 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_MedicalContracts_Clinics">
+          <End Role="Clinics" Type="Self.Clinics" Multiplicity="0..1" />
+          <End Role="MedicalContracts" Type="Self.MedicalContracts" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Clinics">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="MedicalContracts">
+              <PropertyRef Name="ClinicID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MedicalContracts_Hospitals">
+          <End Role="Hospitals" Type="Self.Hospitals" Multiplicity="0..1" />
+          <End Role="MedicalContracts" Type="Self.MedicalContracts" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Hospitals">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="MedicalContracts">
+              <PropertyRef Name="HospitalID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MedicalContracts_MedicalServices">
+          <End Role="MedicalServices" Type="Self.MedicalServices" Multiplicity="0..1" />
+          <End Role="MedicalContracts" Type="Self.MedicalContracts" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MedicalServices">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="MedicalContracts">
+              <PropertyRef Name="MedicalServiceID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Person_Fathers">
           <End Role="Fathers" Type="Self.Fathers" Multiplicity="0..1" />
           <End Role="Person" Type="Self.Person" Multiplicity="*" />
@@ -554,6 +613,8 @@
           <EntitySet Name="FamilyVisits" EntityType="Self.FamilyVisits" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Fathers" EntityType="Self.Fathers" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Hospitals" EntityType="Self.Hospitals" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="MedicalContracts" EntityType="Self.MedicalContracts" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="MedicalServices" EntityType="Self.MedicalServices" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Person" EntityType="Self.Person" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Servants" EntityType="Self.Servants" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ServiceActions" EntityType="Self.ServiceActions" Schema="dbo" store:Type="Tables" />
@@ -622,6 +683,18 @@
           <AssociationSet Name="FK_FamilyVisits_Servants" Association="Self.FK_FamilyVisits_Servants">
             <End Role="Servants" EntitySet="Servants" />
             <End Role="FamilyVisits" EntitySet="FamilyVisits" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MedicalContracts_Clinics" Association="Self.FK_MedicalContracts_Clinics">
+            <End Role="Clinics" EntitySet="Clinics" />
+            <End Role="MedicalContracts" EntitySet="MedicalContracts" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MedicalContracts_Hospitals" Association="Self.FK_MedicalContracts_Hospitals">
+            <End Role="Hospitals" EntitySet="Hospitals" />
+            <End Role="MedicalContracts" EntitySet="MedicalContracts" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MedicalContracts_MedicalServices" Association="Self.FK_MedicalContracts_MedicalServices">
+            <End Role="MedicalServices" EntitySet="MedicalServices" />
+            <End Role="MedicalContracts" EntitySet="MedicalContracts" />
           </AssociationSet>
           <AssociationSet Name="FK_Person_Fathers" Association="Self.FK_Person_Fathers">
             <End Role="Fathers" EntitySet="Fathers" />
@@ -734,6 +807,7 @@
           <Property Name="IsActive" Type="Boolean" />
           <Property Name="Address" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="ServiceActions" Relationship="Self.FK_ServiceActions_Clinics" FromRole="Clinics" ToRole="ServiceActions" />
+          <NavigationProperty Name="MedicalContracts" Relationship="StAbraamModel.FK_MedicalContracts_Clinics" FromRole="Clinic" ToRole="MedicalContract" />
         </EntityType>
         <EntityType Name="EvaluationLevel">
           <Key>
@@ -815,6 +889,7 @@
           <Property Name="IsActive" Type="Boolean" />
           <Property Name="Notes" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="ServiceActions" Relationship="Self.FK_ServiceActions_Hospitals" FromRole="Hospitals" ToRole="ServiceActions" />
+          <NavigationProperty Name="MedicalContracts" Relationship="StAbraamModel.FK_MedicalContracts_Hospitals" FromRole="Hospital" ToRole="MedicalContract" />
         </EntityType>
         <EntityType Name="Person">
           <Key>
@@ -1273,6 +1348,20 @@
             <End Role="Servant" EntitySet="Servants" />
             <End Role="Child" EntitySet="Children" />
           </AssociationSet>
+          <EntitySet Name="MedicalContracts" EntityType="StAbraamModel.MedicalContract" />
+          <EntitySet Name="MedicalServices" EntityType="StAbraamModel.MedicalService" />
+          <AssociationSet Name="FK_MedicalContracts_Clinics" Association="StAbraamModel.FK_MedicalContracts_Clinics">
+            <End Role="Clinic" EntitySet="Clinics" />
+            <End Role="MedicalContract" EntitySet="MedicalContracts" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MedicalContracts_Hospitals" Association="StAbraamModel.FK_MedicalContracts_Hospitals">
+            <End Role="Hospital" EntitySet="Hospitals" />
+            <End Role="MedicalContract" EntitySet="MedicalContracts" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MedicalContracts_MedicalServices" Association="StAbraamModel.FK_MedicalContracts_MedicalServices">
+            <End Role="MedicalService" EntitySet="MedicalServices" />
+            <End Role="MedicalContract" EntitySet="MedicalContracts" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="Child">
           <Key>
@@ -1327,6 +1416,69 @@
             </Principal>
             <Dependent Role="Child">
               <PropertyRef Name="ServantID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="MedicalContract">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="MedicalServiceID" Type="Int32" />
+          <Property Name="HospitalID" Type="Int32" />
+          <Property Name="ClinicID" Type="Int32" />
+          <Property Name="Notes" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="IsFinished" Type="Boolean" />
+          <Property Name="Percentage" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="EntryDate" Type="DateTime" Precision="3" />
+          <Property Name="EnteredBy" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Clinic" Relationship="StAbraamModel.FK_MedicalContracts_Clinics" FromRole="MedicalContract" ToRole="Clinic" />
+          <NavigationProperty Name="Hospital" Relationship="StAbraamModel.FK_MedicalContracts_Hospitals" FromRole="MedicalContract" ToRole="Hospital" />
+          <NavigationProperty Name="MedicalService" Relationship="StAbraamModel.FK_MedicalContracts_MedicalServices" FromRole="MedicalContract" ToRole="MedicalService" />
+        </EntityType>
+        <EntityType Name="MedicalService">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="MedicalService1" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="Notes" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="IsActive" Type="Boolean" />
+          <NavigationProperty Name="MedicalContracts" Relationship="StAbraamModel.FK_MedicalContracts_MedicalServices" FromRole="MedicalService" ToRole="MedicalContract" />
+        </EntityType>
+        <Association Name="FK_MedicalContracts_Clinics">
+          <End Type="StAbraamModel.Clinic" Role="Clinic" Multiplicity="0..1" />
+          <End Type="StAbraamModel.MedicalContract" Role="MedicalContract" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Clinic">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="MedicalContract">
+              <PropertyRef Name="ClinicID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MedicalContracts_Hospitals">
+          <End Type="StAbraamModel.Hospital" Role="Hospital" Multiplicity="0..1" />
+          <End Type="StAbraamModel.MedicalContract" Role="MedicalContract" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Hospital">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="MedicalContract">
+              <PropertyRef Name="HospitalID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MedicalContracts_MedicalServices">
+          <End Type="StAbraamModel.MedicalService" Role="MedicalService" Multiplicity="0..1" />
+          <End Type="StAbraamModel.MedicalContract" Role="MedicalContract" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MedicalService">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="MedicalContract">
+              <PropertyRef Name="MedicalServiceID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1573,6 +1725,31 @@
                 <ScalarProperty Name="IsActive" ColumnName="IsActive" />
                 <ScalarProperty Name="DateOfBirth" ColumnName="DateOfBirth" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MedicalContracts">
+            <EntityTypeMapping TypeName="StAbraamModel.MedicalContract">
+              <MappingFragment StoreEntitySet="MedicalContracts">
+                <ScalarProperty Name="EnteredBy" ColumnName="EnteredBy" />
+                <ScalarProperty Name="EntryDate" ColumnName="EntryDate" />
+                <ScalarProperty Name="Percentage" ColumnName="Percentage" />
+                <ScalarProperty Name="IsFinished" ColumnName="IsFinished" />
+                <ScalarProperty Name="Notes" ColumnName="Notes" />
+                <ScalarProperty Name="ClinicID" ColumnName="ClinicID" />
+                <ScalarProperty Name="HospitalID" ColumnName="HospitalID" />
+                <ScalarProperty Name="MedicalServiceID" ColumnName="MedicalServiceID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MedicalServices">
+            <EntityTypeMapping TypeName="StAbraamModel.MedicalService">
+              <MappingFragment StoreEntitySet="MedicalServices">
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="Notes" ColumnName="Notes" />
+                <ScalarProperty Name="MedicalService1" ColumnName="MedicalService" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>

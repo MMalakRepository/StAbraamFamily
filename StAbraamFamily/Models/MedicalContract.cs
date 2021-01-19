@@ -12,23 +12,20 @@ namespace StAbraamFamily.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class Child
+    public partial class MedicalContract
     {
         public int ID { get; set; }
-        public string Name { get; set; }
-        public Nullable<System.DateTime> DateOfBirth { get; set; }
-        public Nullable<bool> IsActive { get; set; }
-        public bool IsWorking { get; set; }
-        public string WorkingPlace { get; set; }
-        public Nullable<bool> IsStudying { get; set; }
+        public Nullable<int> MedicalServiceID { get; set; }
+        public Nullable<int> HospitalID { get; set; }
+        public Nullable<int> ClinicID { get; set; }
+        public string Notes { get; set; }
+        public Nullable<bool> IsFinished { get; set; }
+        public Nullable<decimal> Percentage { get; set; }
         public Nullable<System.DateTime> EntryDate { get; set; }
         public string EnteredBy { get; set; }
-        public Nullable<int> FamilyID { get; set; }
-        public Nullable<int> ConfessionFather { get; set; }
-        public Nullable<int> ServantID { get; set; }
     
-        public virtual Family Family { get; set; }
-        public virtual Father Father { get; set; }
-        public virtual Servant Servant { get; set; }
+        public virtual Clinic Clinic { get; set; }
+        public virtual Hospital Hospital { get; set; }
+        public virtual MedicalService MedicalService { get; set; }
     }
 }

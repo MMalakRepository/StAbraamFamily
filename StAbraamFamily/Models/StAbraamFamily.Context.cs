@@ -43,5 +43,7 @@ namespace StAbraamFamily.Models
         public virtual DbSet<ServiceType> ServiceTypes { get; set; }
         public virtual DbSet<sysdiagram> sysdiagrams { get; set; }
         public virtual DbSet<Child> Children { get; set; }
+        public virtual DbSet<MedicalContract> MedicalContracts { get; set; }
+        public virtual DbSet<MedicalService> MedicalServices { get; set; }
     }
 }

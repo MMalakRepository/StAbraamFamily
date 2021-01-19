@@ -47,6 +47,11 @@
         <AssociationConnector Association="StAbraamModel.FK_Child_Families" />
         <AssociationConnector Association="StAbraamModel.FK_Child_Fathers" />
         <AssociationConnector Association="StAbraamModel.FK_Child_Servants" />
+        <EntityTypeShape EntityType="StAbraamModel.MedicalContract" Width="1.5" PointX="11.25" PointY="20.125" />
+        <EntityTypeShape EntityType="StAbraamModel.MedicalService" Width="1.5" PointX="9" PointY="25.75" />
+        <AssociationConnector Association="StAbraamModel.FK_MedicalContracts_Clinics" />
+        <AssociationConnector Association="StAbraamModel.FK_MedicalContracts_Hospitals" />
+        <AssociationConnector Association="StAbraamModel.FK_MedicalContracts_MedicalServices" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
