@@ -14,15 +14,11 @@ namespace StAbraamFamily.Controllers
     public class MedicalContractsController : Controller
     {
         private StAbraamEntities db = new StAbraamEntities();
-
-        // GET: MedicalContracts
         public async Task<ActionResult> Index()
         {
-            var medicalContracts = db.MedicalContracts.Include(m => m.Clinic).Include(m => m.Hospital).Include(m => m.MedicalService);
+            var medicalContracts = db.MedicalContracts.Where(x => x.IsFinished == false && x.IsActive == true).Include(m => m.Clinic).Include(m => m.Hospital).Include(m => m.MedicalService);
             return View(await medicalContracts.ToListAsync());
         }
-
-        // GET: MedicalContracts/Details/5
         public async Task<ActionResult> Details(int? id)
         {
             if (id == null)
@@ -36,8 +32,6 @@ namespace StAbraamFamily.Controllers
             }
             return View(medicalContract);
         }
-
-        // GET: MedicalContracts/Create
         public ActionResult Create()
         {
             ViewBag.ClinicID = new SelectList(db.Clinics, "ID", "ClinicName");
@@ -46,27 +40,31 @@ namespace StAbraamFamily.Controllers
             return View();
         }
 
-        // POST: MedicalContracts/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create([Bind(Include = "ID,MedicalServiceID,HospitalID,ClinicID,Notes,IsFinished,Percentage,EntryDate,EnteredBy")] MedicalContract medicalContract)
+        public async Task<ActionResult> Create(MedicalContract medicalContract)
         {
             if (ModelState.IsValid)
             {
+                medicalContract.IsFinished = false;
+                medicalContract.IsActive = true;
+                medicalContract.EntryDate = DateTime.Now;
+                medicalContract.EnteredBy = User.Identity.Name;
                 db.MedicalContracts.Add(medicalContract);
                 await db.SaveChangesAsync();
                 return RedirectToAction("Index");
             }
-
-            ViewBag.ClinicID = new SelectList(db.Clinics, "ID", "ClinicName", medicalContract.ClinicID);
-            ViewBag.HospitalID = new SelectList(db.Hospitals, "ID", "HospitalName", medicalContract.HospitalID);
-            ViewBag.MedicalServiceID = new SelectList(db.MedicalServices, "ID", "MedicalService1", medicalContract.MedicalServiceID);
+            ResetData(medicalContract);
             return View(medicalContract);
         }
 
-        // GET: MedicalContracts/Edit/5
+        private void ResetData(MedicalContract medicalContract)
+        {
+            ViewBag.ClinicID = new SelectList(db.Clinics, "ID", "ClinicName", medicalContract.ClinicID);
+            ViewBag.HospitalID = new SelectList(db.Hospitals, "ID", "HospitalName", medicalContract.HospitalID);
+            ViewBag.MedicalServiceID = new SelectList(db.MedicalServices, "ID", "MedicalService1", medicalContract.MedicalServiceID);
+        }
+
         public async Task<ActionResult> Edit(int? id)
         {
             if (id == null)
@@ -78,32 +76,28 @@ namespace StAbraamFamily.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.ClinicID = new SelectList(db.Clinics, "ID", "ClinicName", medicalContract.ClinicID);
-            ViewBag.HospitalID = new SelectList(db.Hospitals, "ID", "HospitalName", medicalContract.HospitalID);
-            ViewBag.MedicalServiceID = new SelectList(db.MedicalServices, "ID", "MedicalService1", medicalContract.MedicalServiceID);
+            ResetData(medicalContract);
+
             return View(medicalContract);
         }
-
-        // POST: MedicalContracts/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
+ 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit([Bind(Include = "ID,MedicalServiceID,HospitalID,ClinicID,Notes,IsFinished,Percentage,EntryDate,EnteredBy")] MedicalContract medicalContract)
+        public async Task<ActionResult> Edit(MedicalContract medicalContract)
         {
             if (ModelState.IsValid)
             {
+                medicalContract.IsFinished = false;
+                medicalContract.IsActive = true;
                 db.Entry(medicalContract).State = EntityState.Modified;
                 await db.SaveChangesAsync();
                 return RedirectToAction("Index");
             }
-            ViewBag.ClinicID = new SelectList(db.Clinics, "ID", "ClinicName", medicalContract.ClinicID);
-            ViewBag.HospitalID = new SelectList(db.Hospitals, "ID", "HospitalName", medicalContract.HospitalID);
-            ViewBag.MedicalServiceID = new SelectList(db.MedicalServices, "ID", "MedicalService1", medicalContract.MedicalServiceID);
+            ResetData(medicalContract);
+
             return View(medicalContract);
         }
-
-        // GET: MedicalContracts/Delete/5
+ 
         public async Task<ActionResult> Delete(int? id)
         {
             if (id == null)
@@ -118,15 +112,23 @@ namespace StAbraamFamily.Controllers
             return View(medicalContract);
         }
 
-        // POST: MedicalContracts/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public async Task<ActionResult> DeleteConfirmed(int id)
+        [HttpPost]
+        public ActionResult DeleteAction(int id)
         {
-            MedicalContract medicalContract = await db.MedicalContracts.FindAsync(id);
-            db.MedicalContracts.Remove(medicalContract);
-            await db.SaveChangesAsync();
-            return RedirectToAction("Index");
+            MedicalContract medicalContract = db.MedicalContracts.Find(id);
+            medicalContract.IsActive = false;
+            db.SaveChanges();
+            return Json(data: new { success = true, message = "Medical Contract deleted successfully" }, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpPost]
+        public ActionResult FinishAction(int id)
+        {
+            MedicalContract medicalContract = db.MedicalContracts.Find(id);
+            medicalContract.IsActive = true;
+            medicalContract.IsFinished = true;
+            db.SaveChanges();
+            return Json(data: new { success = true, message = "Medical Contract Finished successfully" }, JsonRequestBehavior.AllowGet);
         }
 
         protected override void Dispose(bool disposing)

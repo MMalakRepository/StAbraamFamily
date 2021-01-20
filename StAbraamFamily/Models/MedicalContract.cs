@@ -23,6 +23,7 @@ namespace StAbraamFamily.Models
         public Nullable<decimal> Percentage { get; set; }
         public Nullable<System.DateTime> EntryDate { get; set; }
         public string EnteredBy { get; set; }
+        public Nullable<bool> IsActive { get; set; }
     
         public virtual Clinic Clinic { get; set; }
         public virtual Hospital Hospital { get; set; }

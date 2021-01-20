@@ -20,12 +20,13 @@ namespace StAbraamFamily.Models
         public Nullable<bool> IsActive { get; set; }
         public bool IsWorking { get; set; }
         public string WorkingPlace { get; set; }
-        public Nullable<bool> IsStudying { get; set; }
+        public bool IsStudying { get; set; }
         public Nullable<System.DateTime> EntryDate { get; set; }
         public string EnteredBy { get; set; }
         public Nullable<int> FamilyID { get; set; }
         public Nullable<int> ConfessionFather { get; set; }
         public Nullable<int> ServantID { get; set; }
+        public Nullable<bool> Gender { get; set; }
     
         public virtual Family Family { get; set; }
         public virtual Father Father { get; set; }

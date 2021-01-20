@@ -46,6 +46,7 @@ namespace StAbraamFamily.Controllers
         {
             if (ModelState.IsValid)
             {
+                medicalService.IsActive = true;
                 db.MedicalServices.Add(medicalService);
                 await db.SaveChangesAsync();
                 return RedirectToAction("Index");
@@ -74,6 +75,7 @@ namespace StAbraamFamily.Controllers
         {
             if (ModelState.IsValid)
             {
+                medicalService.IsActive = true;
                 db.Entry(medicalService).State = EntityState.Modified;
                 await db.SaveChangesAsync();
                 return RedirectToAction("Index");

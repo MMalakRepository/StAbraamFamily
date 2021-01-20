@@ -71,17 +71,18 @@
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Name" Type="nvarchar" MaxLength="250" />
+          <Property Name="Name" Type="nvarchar" MaxLength="250" Nullable="false" />
           <Property Name="DateOfBirth" Type="datetime" />
           <Property Name="IsActive" Type="bit" />
           <Property Name="IsWorking" Type="bit" Nullable="false" />
           <Property Name="WorkingPlace" Type="nvarchar" MaxLength="250" />
-          <Property Name="IsStudying" Type="bit" />
+          <Property Name="IsStudying" Type="bit" Nullable="false" />
           <Property Name="EntryDate" Type="datetime" />
           <Property Name="EnteredBy" Type="nvarchar" MaxLength="128" />
           <Property Name="FamilyID" Type="int" />
           <Property Name="ConfessionFather" Type="int" />
           <Property Name="ServantID" Type="int" />
+          <Property Name="Gender" Type="bit" />
         </EntityType>
         <EntityType Name="Clinics">
           <Key>
@@ -169,6 +170,7 @@
           <Property Name="Percentage" Type="decimal" Precision="18" Scale="2" />
           <Property Name="EntryDate" Type="datetime" />
           <Property Name="EnteredBy" Type="nvarchar" MaxLength="128" />
+          <Property Name="IsActive" Type="bit" />
         </EntityType>
         <EntityType Name="MedicalServices">
           <Key>
@@ -1368,12 +1370,12 @@
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Name" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="Name" Type="String" MaxLength="250" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="DateOfBirth" Type="DateTime" Precision="3" />
           <Property Name="IsActive" Type="Boolean" />
           <Property Name="IsWorking" Type="Boolean" Nullable="false" />
           <Property Name="WorkingPlace" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
-          <Property Name="IsStudying" Type="Boolean" />
+          <Property Name="IsStudying" Type="Boolean" Nullable="false" />
           <Property Name="EntryDate" Type="DateTime" Precision="3" />
           <Property Name="EnteredBy" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
           <Property Name="FamilyID" Type="Int32" />
@@ -1382,6 +1384,7 @@
           <NavigationProperty Name="Family" Relationship="StAbraamModel.FK_Child_Families" FromRole="Child" ToRole="Family" />
           <NavigationProperty Name="Father" Relationship="StAbraamModel.FK_Child_Fathers" FromRole="Child" ToRole="Father" />
           <NavigationProperty Name="Servant" Relationship="StAbraamModel.FK_Child_Servants" FromRole="Child" ToRole="Servant" />
+          <Property Name="Gender" Type="Boolean" />
         </EntityType>
         <Association Name="FK_Child_Families">
           <End Type="StAbraamModel.Family" Role="Family" Multiplicity="0..1" />
@@ -1435,6 +1438,7 @@
           <NavigationProperty Name="Clinic" Relationship="StAbraamModel.FK_MedicalContracts_Clinics" FromRole="MedicalContract" ToRole="Clinic" />
           <NavigationProperty Name="Hospital" Relationship="StAbraamModel.FK_MedicalContracts_Hospitals" FromRole="MedicalContract" ToRole="Hospital" />
           <NavigationProperty Name="MedicalService" Relationship="StAbraamModel.FK_MedicalContracts_MedicalServices" FromRole="MedicalContract" ToRole="MedicalService" />
+          <Property Name="IsActive" Type="Boolean" />
         </EntityType>
         <EntityType Name="MedicalService">
           <Key>
@@ -1714,6 +1718,7 @@
           <EntitySetMapping Name="Children">
             <EntityTypeMapping TypeName="StAbraamModel.Child">
               <MappingFragment StoreEntitySet="Child">
+                <ScalarProperty Name="Gender" ColumnName="Gender" />
                 <ScalarProperty Name="ServantID" ColumnName="ServantID" />
                 <ScalarProperty Name="ConfessionFather" ColumnName="ConfessionFather" />
                 <ScalarProperty Name="FamilyID" ColumnName="FamilyID" />
@@ -1732,6 +1737,7 @@
           <EntitySetMapping Name="MedicalContracts">
             <EntityTypeMapping TypeName="StAbraamModel.MedicalContract">
               <MappingFragment StoreEntitySet="MedicalContracts">
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
                 <ScalarProperty Name="EnteredBy" ColumnName="EnteredBy" />
                 <ScalarProperty Name="EntryDate" ColumnName="EntryDate" />
                 <ScalarProperty Name="Percentage" ColumnName="Percentage" />

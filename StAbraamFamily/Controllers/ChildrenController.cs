@@ -17,15 +17,16 @@ namespace StAbraamFamily.Controllers
 
         public ActionResult Index()
         {
-            var children = db.Children.Include(c => c.Family).Include(c => c.Father).Include(c => c.Servant);
+            var children = db.Children.Where(x => x.IsActive == true).Include(c => c.Family).Include(c => c.Father).Include(c => c.Servant);
             return View(children.ToList());
         }
 
         public ActionResult GetChildrenByFamily(int FamilyID)
         {
-            var children = db.Children.Include(c => c.Family).Include(c => c.Father).Include(c => c.Servant).Where( x => x.FamilyID == FamilyID);
+            var children = db.Children.Where(x => x.IsActive ==true && x.FamilyID == FamilyID).Include(c => c.Family).Include(c => c.Father).Include(c => c.Servant);
             return View("Index", children.ToList());
         }
+
         public ActionResult Details(int? id)
         {
             if (id == null)
@@ -47,7 +48,6 @@ namespace StAbraamFamily.Controllers
             ViewBag.ServantID = new SelectList(db.Servants.Where(x => x.IsActive == true), "ID", "ServantName");
             return View();
         }
-
 
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -74,7 +74,6 @@ namespace StAbraamFamily.Controllers
             return View(child);
         }
 
-
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -86,9 +85,7 @@ namespace StAbraamFamily.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.FamilyID = new SelectList(db.Families.Where(x => x.IsActive == true), "ID", "FamilyCode", child.FamilyID);
-            ViewBag.ConfessionFather = new SelectList(db.Fathers.Where(x => x.IsActive == true), "ID", "FatherName", child.ConfessionFather);
-            ViewBag.ServantID = new SelectList(db.Servants.Where(x => x.IsActive == true), "ID", "ServantName", child.ServantID);
+            ResetData(child);
             return View(child);
         }
 
@@ -101,32 +98,21 @@ namespace StAbraamFamily.Controllers
                 child.FamilyID = Convert.ToInt32(Request.Form["FamilyID"].ToString());
                 child.ConfessionFather = Convert.ToInt32(Request.Form["ConfessionFather"].ToString());
                 child.ServantID = Convert.ToInt32(Request.Form["ServantID"].ToString());
-                child.IsStudying = Convert.ToBoolean(Request.Form["IsStudying"].ToString());
-                child.IsWorking = Convert.ToBoolean(Request.Form["IsWorking"].ToString());
-                child.IsActive = true;
+                 child.IsActive = true;
                 child.EntryDate = DateTime.Now;
                 db.Entry(child).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.FamilyID = new SelectList(db.Families.Where(x => x.IsActive == true), "ID", "FamilyCode", child.FamilyID);
-            ViewBag.ConfessionFather = new SelectList(db.Fathers.Where(x => x.IsActive == true), "ID", "FatherName", child.ConfessionFather);
-            ViewBag.ServantID = new SelectList(db.Servants.Where(x => x.IsActive == true), "ID", "ServantName", child.ServantID);
+            ResetData(child);
             return View(child);
         }
 
-        public ActionResult Delete(int? id)
+        private void ResetData(Child child)
         {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Child child = db.Children.Find(id);
-            if (child == null)
-            {
-                return HttpNotFound();
-            }
-            return View(child);
+            ViewBag.FamilyID = new SelectList(db.Families.Where(x => x.IsActive == true), "ID", "FamilyCode", child.FamilyID);
+            ViewBag.ConfessionFather = new SelectList(db.Fathers.Where(x => x.IsActive == true), "ID", "FatherName", child.ConfessionFather);
+            ViewBag.ServantID = new SelectList(db.Servants.Where(x => x.IsActive == true), "ID", "ServantName", child.ServantID);
         }
 
         [HttpPost]
