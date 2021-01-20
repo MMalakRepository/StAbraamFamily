@@ -76,7 +76,6 @@ namespace StAbraamFamily.Controllers
             return View("MedicalServiceList", serviceActions.ToList());
         }
 
-
         public ActionResult FinancialServiceList(int? id)
         {
             var serviceActions = db.ServiceActions.Include(s => s.AspNetUser)
@@ -128,6 +127,7 @@ namespace StAbraamFamily.Controllers
             ViewBag.PersonID = new SelectList(db.People.Where(x => x.IsActive == true), "ID", "FullName");
             ViewBag.ServantID = new SelectList(db.Servants.Where(x => x.IsActive == true), "ID", "ServantName");
             ViewBag.ActionTypeID = new SelectList(db.ServiceTypes.Where(x => x.IsActive == true), "ID", "ActionType");
+            ViewBag.MedicalContractID = new SelectList(db.MedicalContracts.Where(x => x.IsActive == true), "ID", "Notes");
         }
 
         [HttpPost]

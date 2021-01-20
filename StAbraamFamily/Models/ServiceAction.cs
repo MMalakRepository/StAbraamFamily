@@ -26,6 +26,7 @@ namespace StAbraamFamily.Models
         public Nullable<int> PersonID { get; set; }
         public Nullable<int> HospitalID { get; set; }
         public Nullable<int> ClinicID { get; set; }
+        public Nullable<int> MedicalContractID { get; set; }
     
         public virtual AspNetUser AspNetUser { get; set; }
         public virtual Clinic Clinic { get; set; }

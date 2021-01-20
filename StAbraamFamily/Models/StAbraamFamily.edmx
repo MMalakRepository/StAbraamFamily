@@ -235,6 +235,7 @@
           <Property Name="PersonID" Type="int" />
           <Property Name="HospitalID" Type="int" />
           <Property Name="ClinicID" Type="int" />
+          <Property Name="MedicalContractID" Type="int" />
         </EntityType>
         <EntityType Name="ServiceTypes">
           <Key>
@@ -965,6 +966,7 @@
           <NavigationProperty Name="Person" Relationship="Self.FK_ServiceActions_Person" FromRole="ServiceActions" ToRole="Person" />
           <NavigationProperty Name="Servant" Relationship="Self.FK_ServiceActions_Servants" FromRole="ServiceActions" ToRole="Servants" />
           <NavigationProperty Name="ServiceType" Relationship="Self.FK_ServiceActions_ServiceTypes" FromRole="ServiceActions" ToRole="ServiceTypes" />
+          <Property Name="MedicalContractID" Type="Int32" />
         </EntityType>
         <EntityType Name="ServiceType">
           <Key>
@@ -1670,6 +1672,7 @@
           <EntitySetMapping Name="ServiceActions">
             <EntityTypeMapping TypeName="StAbraamModel.ServiceAction">
               <MappingFragment StoreEntitySet="ServiceActions">
+                <ScalarProperty Name="MedicalContractID" ColumnName="MedicalContractID" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="ServantID" ColumnName="ServantID" />
                 <ScalarProperty Name="UserID" ColumnName="UserID" />

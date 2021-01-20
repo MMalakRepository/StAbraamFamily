@@ -84,17 +84,16 @@
 
                     <div class="col-md-4">
                         <div class="form-group">
-                            <label class="control-label col-md-4" style="float: right;font-size: 14px;font-weight: bold;text-align: right;font-family: Calibri">  التاريخ</label>
+                            <label class="control-label col-md-6" style="float: right;font-size: 14px;font-weight: bold;text-align: right;font-family: Calibri">أسم  المستشفى</label>
                             <div class="col-md-12">
                                 <div class="input-group">
                                     <span class="input-group-prepend">
                                         <span class="input-group-text">
-                                            <i class="fas fa-calendar-alt text-info"></i>
+                                            <i class="fas fa-clinic-medical text-info"></i>
                                         </span>
                                     </span>
-                                    @Html.EditorFor(model => model.ActionDate, new { htmlAttributes = new { @class = "form-control" } })
-
-                                    @Html.ValidationMessageFor(model => model.ActionDate, "", new { @class = "text-danger" })
+                                    @Html.DropDownList("MedicalContractID", null, " أختار التعاقد الطبى", htmlAttributes: new { @class = "form-control" })
+                                    @Html.ValidationMessageFor(model => model.MedicalContractID, "", new { @class = "text-danger" })
                                 </div>
 
                             </div>
@@ -143,7 +142,25 @@
 
 
                 <div class="row">
-                    <div class="col-md-12">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label class="control-label col-md-4" style="float: right;font-size: 14px;font-weight: bold;text-align: right;font-family: Calibri">  التاريخ</label>
+                            <div class="col-md-12">
+                                <div class="input-group">
+                                    <span class="input-group-prepend">
+                                        <span class="input-group-text">
+                                            <i class="fas fa-calendar-alt text-info"></i>
+                                        </span>
+                                    </span>
+                                    @Html.EditorFor(model => model.ActionDate, new { htmlAttributes = new { @class = "form-control" } })
+
+                                    @Html.ValidationMessageFor(model => model.ActionDate, "", new { @class = "text-danger" })
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-8">
                         <div class="form-group">
                             <label class="control-label col-md-4" style="float: right;font-size: 14px;font-weight: bold;text-align: right;font-family: Calibri">ملاحظات أضافية  </label>
                             <div class="col-md-12">
