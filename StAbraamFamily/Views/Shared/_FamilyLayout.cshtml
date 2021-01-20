@@ -129,6 +129,9 @@
                                     </a>
                                     <ul class="dropdown-menu">
                                         <li class="">
+                                            @Html.ActionLink("أنواع الخدمات", "Create", "ServiceTypes", null, new { @class = "nav-link linkFont" })
+                                        </li>
+                                        <li class="">
                                             @Html.ActionLink("تقرير الخدمات", "Index", "ServiceActions", null, new { @class = "nav-link linkFont" })
                                         </li>
                                         <li class="">
@@ -136,6 +139,9 @@
                                         </li>
                                         <li class="">
                                             @Html.ActionLink("الخدمات المالية", "AddFinancialService", "ServiceActions", null, new { @class = "nav-link linkFont" })
+                                        </li>
+                                        <li class="">
+                                            @Html.ActionLink("خدمة الأفتقاد", "Index", "FamilyVisits", null, new { @class = "nav-link linkFont" })
                                         </li>
                                         <li class="">
                                             @Html.ActionLink("الخدمات الأخرى", "Create", "ServiceActions", null, new { @class = "nav-link linkFont" })
@@ -162,6 +168,9 @@
                                                 </li>
                                                 <li class="">
                                                     @Html.ActionLink("التعاقدات الطبية ", "Index", "MedicalContracts", null, new { @class = "nav-link linkFont" })
+                                                </li>
+                                                <li class="">
+                                                    @Html.ActionLink("تقرير الخدمات الطبية ", "MedicalServiceList", "ServiceActions", null, new { @class = "nav-link linkFont" })
                                                 </li>
 
                                             </ul>
