@@ -67,7 +67,6 @@
         .logo:hover {
             text-decoration: none;
         }
-            
     </style>
 
 </head>
@@ -88,48 +87,87 @@
                     <div class="header-nav-main header-nav-main-effect-1 header-nav-main-sub-effect-1">
                         <nav>
                             <ul class="nav nav-pills" id="mainNav">
-
-                                <li>
-                                    @Html.ActionLink("الأفراد", "Index", "People", null, new { @class = "nav-link linkFont" })
-                                </li>
-
-                                <li class="">
-                                    @Html.ActionLink("العائلات", "Index", "Families", null, new { @class = "nav-link linkFont" })
-                                </li>
-                                <li class="">
-                                    @Html.ActionLink("الأبناء", "Index", "Children", null, new { @class = "nav-link linkFont" })
-                                </li>
-
-                                <li class="">
-                                    @Html.ActionLink("الخدام", "Index", "Servants", null, new { @class = "nav-link linkFont" })
-                                </li>
-
-                                <li class="">
-                                    @Html.ActionLink("الأباء الكهنة", "Index", "Fathers", null, new { @class = "nav-link linkFont" })
-                                </li>
-
-                                <li class="">
-                                    @Html.ActionLink("الخدمات", "Index", "ServiceActions", null, new { @class = "nav-link linkFont" })
-                                </li>
-                                <li class="">
-                                    @Html.ActionLink("الخدمات العلاجية", "AddHealthyService", "ServiceActions", null, new { @class = "nav-link linkFont" })
-                                </li>
-                                <li class="">
-                                    @Html.ActionLink("شنطة البركة", "AddBagService", "ServiceActions", null, new { @class = "nav-link linkFont" })
-                                </li>
-                                <li class="">
-                                    @Html.ActionLink("الخدمات المالية", "AddFinancialService", "ServiceActions", null, new { @class = "nav-link linkFont" })
-                                </li>
-                                <li class="">
-                                    @Html.ActionLink("المستشفيات", "Index", "Hospitals", null, new { @class = "nav-link linkFont" })
-                                </li>
-
-                                <li class="">
-                                    @Html.ActionLink("العيادات", "Index", "Clinics", null, new { @class = "nav-link linkFont" })
-                                </li>
-
-                                <li class="">
+                                <li class="active">
                                     @Html.ActionLink("Dashboard", "Home", "Home", null, new { @class = "nav-link" })
+                                </li>
+                                <li class="dropdown">
+                                    <a class="nav-link dropdown-toggle linkFont" href="#">
+                                        بيانات العائلات
+                                    </a>
+                                    <ul class="dropdown-menu">
+                                        <li>
+                                            @Html.ActionLink("الأفراد", "Index", "People", null, new { @class = "nav-link linkFont" })
+                                        </li>
+                                        <li class="">
+                                            @Html.ActionLink("العائلات", "Index", "Families", null, new { @class = "nav-link linkFont" })
+                                        </li>
+                                        <li class="">
+                                            @Html.ActionLink("الأبناء", "Index", "Children", null, new { @class = "nav-link linkFont" })
+                                        </li>
+                                        <li class="">
+                                            @Html.ActionLink("تقييم العائلات", "Index", "EvaluationLevels", null, new { @class = "nav-link linkFont" })
+                                        </li>
+                                    </ul>
+                                </li>
+
+                                <li class="dropdown">
+                                    <a class="nav-link dropdown-toggle linkFont" href="#">
+                                        بيانات الأباء الكهنة والخدام
+                                    </a>
+                                    <ul class="dropdown-menu">
+                                        <li class="">
+                                            @Html.ActionLink("الأباء الكهنة", "Index", "Fathers", null, new { @class = "nav-link linkFont" })
+                                        </li>
+                                        <li class="">
+                                            @Html.ActionLink("الخدام", "Index", "Servants", null, new { @class = "nav-link linkFont" })
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li class="dropdown">
+                                    <a class="nav-link dropdown-toggle linkFont" href="#">
+                                        الخدمات 
+                                    </a>
+                                    <ul class="dropdown-menu">
+                                        <li class="">
+                                            @Html.ActionLink("تقرير الخدمات", "Index", "ServiceActions", null, new { @class = "nav-link linkFont" })
+                                        </li>
+                                        <li class="">
+                                            @Html.ActionLink("شنطة البركة", "AddBagService", "ServiceActions", null, new { @class = "nav-link linkFont" })
+                                        </li>
+                                        <li class="">
+                                            @Html.ActionLink("الخدمات المالية", "AddFinancialService", "ServiceActions", null, new { @class = "nav-link linkFont" })
+                                        </li>
+                                        <li class="">
+                                            @Html.ActionLink("الخدمات الأخرى", "Create", "ServiceActions", null, new { @class = "nav-link linkFont" })
+                                        </li>
+                                        <li class="dropdown-submenu">
+                                            <a class="nav-link dropdown-toggle linkFont" href="#">
+                                                الخدمات الطبية
+                                            </a>
+                                            <ul class="dropdown-menu" style="width:270px !important;">
+                                                <li class="">
+                                                    @Html.ActionLink("المستشفيات", "Index", "Hospitals", null, new { @class = "nav-link linkFont" })
+                                                </li>
+                                                <li class="">
+                                                    @Html.ActionLink("العيادات", "Index", "Clinics", null, new { @class = "nav-link linkFont" })
+                                                </li>
+                                                <li class="">
+                                                    @Html.ActionLink("أنواع الخدمات الطبية", "Index", "MedicalServices", null, new { @class = "nav-link linkFont" })
+                                                </li>
+                                                <li class="">
+                                                    @Html.ActionLink("الخدمات الطبية بالمستشفيات", "AddHealthyService", "ServiceActions", null, new { @class = "nav-link linkFont" })
+                                                </li>
+                                                <li class="">
+                                                    @Html.ActionLink("الخدمات الطبية بالعيادات", "AddHealthyClinicService", "ServiceActions", null, new { @class = "nav-link linkFont" })
+                                                </li>
+                                                <li class="">
+                                                    @Html.ActionLink("التعاقدات الطبية ", "Index", "MedicalContracts", null, new { @class = "nav-link linkFont" })
+                                                </li>
+
+                                            </ul>
+                                        </li>
+
+                                    </ul>
                                 </li>
                             </ul>
                         </nav>

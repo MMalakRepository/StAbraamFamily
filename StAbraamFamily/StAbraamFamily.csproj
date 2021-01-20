@@ -3674,6 +3674,7 @@
     <Content Include="Views\MedicalContracts\Create.cshtml" />
     <Content Include="Views\MedicalContracts\Edit.cshtml" />
     <Content Include="Views\MedicalContracts\Index.cshtml" />
+    <Content Include="Views\ServiceActions\AddHealthyClinicService.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

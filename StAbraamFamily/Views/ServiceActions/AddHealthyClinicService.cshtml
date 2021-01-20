@@ -1,7 +1,7 @@
 ﻿@model StAbraamFamily.Models.ServiceAction
 
 @{
-    ViewBag.Title = " أضافة الخدمة الصحية بالمستشفى";
+    ViewBag.Title = "أضافة الخدمة الصحية بالعيادة";
     Layout = "~/Views/Shared/_FamilyLayout.cshtml";
 }
 
@@ -35,7 +35,7 @@
             <div class="card-actions">
                 @*<a href="#" class="card-action card-action-toggle" data-card-toggle></a>*@
             </div>
-            <h2 class="card-title" style="text-align:center;font-size:25px;font-weight:bold;font-family:Calibri">     أضافة خدمة علاجية بالمستشفى   </h2>
+            <h2 class="card-title" style="text-align:center;font-size:25px;font-weight:bold;font-family:Calibri">     أضافة خدمة علاجية بالعيادة   </h2>
         </header>
         <div class="card-body">
             @using (Html.BeginForm())
@@ -99,18 +99,19 @@
                             </div>
                         </div>
                     </div>
+
                     <div class="col-md-6">
                         <div class="form-group">
-                            <label class="control-label col-md-6" style="float: right;font-size: 14px;font-weight: bold;text-align: right;font-family: Calibri">أسم  المستشفى</label>
+                            <label class="control-label col-md-6" style="float: right;font-size: 14px;font-weight: bold;text-align: right;font-family: Calibri">أسم  العيادة</label>
                             <div class="col-md-12">
                                 <div class="input-group">
                                     <span class="input-group-prepend">
                                         <span class="input-group-text">
-                                            <i class="fas fa-clinic-medical text-info"></i>
+                                            <i class="fas fa-user-nurse text-info"></i>
                                         </span>
                                     </span>
-                                    @Html.DropDownList("HospitalID", null, " أختار المستشفى", htmlAttributes: new { @class = "form-control" })
-                                    @Html.ValidationMessageFor(model => model.HospitalID, "", new { @class = "text-danger" })
+                                    @Html.DropDownList("ClinicID", null, " أختار العيادة", htmlAttributes: new { @class = "form-control" })
+                                    @Html.ValidationMessageFor(model => model.ClinicID, "", new { @class = "text-danger" })
                                 </div>
 
                             </div>
@@ -197,11 +198,11 @@
         $(document).ready(function () {
             $("#ActionDate").datepicker();
 
-            $('#HospitalID').change(function () {
+            $('#ClinicID').change(function () {
                 $.ajax({
                     type: "post",
-                    url: "GetMedicalContractsByHospital",
-                    data: { clinicID: $('#HospitalID').val() },
+                    url: "GetMedicalContractsByClinic",
+                    data: { clinicID: $('#ClinicID').val() },
                     datatype: "json",
                     success: function (data) {
                         console.log(data);

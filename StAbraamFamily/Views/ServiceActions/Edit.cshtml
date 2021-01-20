@@ -11,7 +11,7 @@
         <ol class="breadcrumbs float-md-right mr-5">
             <li>
                 <a href="@Url.Action("Index","ServiceActions",null)" class="text-white" style="font-size:18px;font-weight:bold;font-family:Calibri" ">
-                    <i class="fas fa-user-cog text-white"></i> تقرير كل الخدمات
+                    <i class="fas fa-user-cog text-warning"></i> تقرير كل الخدمات
                 </a>
             </li>
         </ol>
@@ -21,9 +21,6 @@
 <div class="col-lg-12">
     <section class="card card-featured card-featured-info mb-4">
         <header class="card-header">
-            <div class="card-actions">
-                @*<a href="#" class="card-action card-action-toggle" data-card-toggle></a>*@
-            </div>
             <h2 class="card-title" style="text-align:center;font-size:25px;font-weight:bold;font-family:Calibri"> تعديل بيانات الخدمة  </h2>
         </header>
         <div class="card-body">
@@ -111,7 +108,6 @@
                                     @*<input type="text" data-plugin-datepicker class="form-control" id="ActionDate" name="ActionDate">*@
                                     @Html.ValidationMessageFor(model => model.ActionDate, "", new { @class = "text-danger" })
                                 </div>
-
                             </div>
                         </div>
                     </div>

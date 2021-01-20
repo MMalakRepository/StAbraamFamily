@@ -22,8 +22,8 @@ namespace StAbraamFamily.Controllers
                 .Include(s => s.Clinic).Include(s => s.Family)
                 .Include(s => s.Hospital).Include(s => s.Person)
                 .Include(s => s.Servant).Include(s => s.ServiceType)
-                .Where(x => x.IsActive == true && (x.ServiceType.ID != 1 || x.ServiceType.ID !=2));
-            return View("Index",serviceActions.ToList());
+                .Where(x => x.IsActive == true && (x.ServiceType.ID != 1 || x.ServiceType.ID != 2));
+            return View("Index", serviceActions.ToList());
         }
 
         public ActionResult BagServiceList(int? id)
@@ -48,8 +48,8 @@ namespace StAbraamFamily.Controllers
                                     .Include(s => s.ServiceType).Where(x => x.IsActive == true && x.ServiceType.ID == 2);
             if (id != null)
                 serviceActions = serviceActions.Where(x => x.PersonID == id);
-  
-            return View("MedicalServiceList",serviceActions.ToList());
+
+            return View("MedicalServiceList", serviceActions.ToList());
         }
 
         public ActionResult getClinicServices(int? id)
@@ -174,6 +174,29 @@ namespace StAbraamFamily.Controllers
             return View(serviceAction);
         }
 
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult AddHealthyClinicService(ServiceAction serviceAction)
+        {
+            if (ModelState.IsValid)
+            {
+                serviceAction.UserID = User.Identity.GetUserId();
+                serviceAction.ServantID = Convert.ToInt32(Request.Form["ServantID"].ToString());
+                serviceAction.PersonID = Convert.ToInt32(Request.Form["PersonID"].ToString());
+                serviceAction.ActionTypeID = 2;
+                serviceAction.IsActive = true;
+                var p = db.People.Where(x => x.ID == serviceAction.PersonID).FirstOrDefault();
+                serviceAction.FamilyID = p.FamilyID;
+                db.ServiceActions.Add(serviceAction);
+                db.SaveChanges();
+                return RedirectToAction("MedicalServiceList");
+            }
+
+            ResetData();
+            return View(serviceAction);
+        }
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult AddBagService(ServiceAction serviceAction)
@@ -218,6 +241,12 @@ namespace StAbraamFamily.Controllers
             return View(serviceAction);
         }
         public ActionResult AddHealthyService()
+        {
+            ResetData();
+            return View();
+        }
+
+        public ActionResult AddHealthyClinicService()
         {
             ResetData();
             return View();
@@ -275,6 +304,39 @@ namespace StAbraamFamily.Controllers
             serviceAction.IsActive = false;
             db.SaveChanges();
             return Json(data: new { success = true, message = "Service has been deleted successfully" }, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpPost]
+        public ActionResult GetMedicalContractsByClinic(string clinicID)
+        {
+            List<SelectListItem> MedicalContracts = new List<SelectListItem>();
+            if (!string.IsNullOrEmpty(clinicID))
+            {
+                int cID = Convert.ToInt32(clinicID);
+                List<MedicalContract> contracts = db.MedicalContracts.Where(x => x.ClinicID == cID).ToList();
+                contracts.ForEach(x =>
+                {
+                    MedicalContracts.Add(new SelectListItem { Text = x.Notes, Value = x.ID.ToString() });
+                });
+            }
+            return Json(MedicalContracts, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpPost]
+        public ActionResult GetMedicalContractsByHospital(string hospitalID)
+        {
+         
+            List<SelectListItem> MedicalContracts = new List<SelectListItem>();
+            if (!string.IsNullOrEmpty(hospitalID))
+            {
+                int cID = Convert.ToInt32(hospitalID);
+                List<MedicalContract> contracts = db.MedicalContracts.Where(x => x.HospitalID == cID).ToList();
+                contracts.ForEach(x =>
+                {
+                    MedicalContracts.Add(new SelectListItem { Text = x.Notes, Value = x.ID.ToString() });
+                });
+            }
+            return Json(MedicalContracts, JsonRequestBehavior.AllowGet);
         }
 
         protected override void Dispose(bool disposing)
