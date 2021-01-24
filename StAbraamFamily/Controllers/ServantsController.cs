@@ -60,6 +60,7 @@ namespace StAbraamFamily.Controllers
         {
             if (ModelState.IsValid)
             {
+                servant.IsActive = true;
                 db.Entry(servant).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
