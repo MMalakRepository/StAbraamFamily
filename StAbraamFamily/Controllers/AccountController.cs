@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using StAbraamFamily.Models;
@@ -201,9 +202,9 @@ namespace StAbraamFamily.Controllers
         }
  
         [AllowAnonymous]
-        public ActionResult ResetPassword(string code)
+        public ActionResult ResetPassword()
         {
-            return code == null ? View("Error") : View();
+            return View();
         }
  
         [HttpPost]
@@ -211,23 +212,21 @@ namespace StAbraamFamily.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> ResetPassword(ResetPasswordViewModel model)
         {
+            model.UserName = User.Identity.Name;
+            var user = await UserManager.FindAsync(model.UserName, model.OldPassword);
+            if (user == null)
+            {
+                ModelState.AddModelError("", "Wrong Old Password");
+            }
             if (!ModelState.IsValid)
             {
                 return View(model);
             }
-            var user = await UserManager.FindByNameAsync(model.Email);
-            if (user == null)
-            {
-                // Don't reveal that the user does not exist
-                return RedirectToAction("ResetPasswordConfirmation", "Account");
-            }
-            var result = await UserManager.ResetPasswordAsync(user.Id, model.Code, model.Password);
-            if (result.Succeeded)
-            {
-                return RedirectToAction("ResetPasswordConfirmation", "Account");
-            }
-            AddErrors(result);
-            return View();
+
+            String hashedNewPassword = UserManager.PasswordHasher.HashPassword(model.Password);
+            UserStore<ApplicationUser> store = new UserStore<ApplicationUser>();
+            await store.SetPasswordHashAsync(user, hashedNewPassword);
+            return RedirectToAction("Home","Home");
         }
 
         [AllowAnonymous]

@@ -3968,6 +3968,7 @@ html.has-left-sidebar-half .header {
 	.header .logo-container .logo {
 		float: none;
 		display: inline-block;
+		padding-left:30%;
 		line-height: 57px;
 		margin-top: 0;
 	}
@@ -14336,8 +14337,7 @@ p.drop-caps.drop-caps-style-2:first-letter {
 @media only screen and (max-width: 767px) {
 	.userbox .name,
 	.userbox .role {
-		max-width: 68px;
-		overflow: hidden;
+		max-width: 200px;
 		text-overflow: ellipsis;
 		white-space: nowrap;
 	}
@@ -14416,9 +14416,9 @@ p.drop-caps.drop-caps-style-2:first-letter {
 		width: 1px;
 	}
 
-	.userbox .profile-picture {
+/*	.userbox .profile-picture {
 		display: none;
-	}
+	}*/
 
 	.userbox.show .dropdown-menu {
 		left: -5px !important;
