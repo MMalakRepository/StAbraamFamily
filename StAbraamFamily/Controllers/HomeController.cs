@@ -8,7 +8,6 @@ using System.Web.Mvc;
 
 namespace StAbraamFamily.Controllers
 {
-    [Authorize]
     public class HomeController : Controller
     {
         private StAbraamEntities db = new StAbraamEntities();

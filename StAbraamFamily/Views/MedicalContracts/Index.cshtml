@@ -19,6 +19,11 @@
         <ol class="breadcrumbs float-md-right mr-5">
 
             <li>
+                <a href="@Url.Action("Create","MedicalContracts",null)" class="text-white" style="font-size: 18px; font-weight: bold; font-family: Calibri">
+                    <i class="fas fa-plus-circle text-warning"></i> أضافة تعاقد جديد
+                </a>
+            </li>
+            <li>
                 <a href="@Url.Action("Create","Hospitals",null)" class="text-white" style="font-size: 18px; font-weight: bold; font-family: Calibri">
                     <i class="fas fa-plus-circle text-warning"></i> أضافة مستشفى جديدة
                 </a>
@@ -49,7 +54,7 @@
 
         <div class="card-body">
             <div class="container p-0" style="max-width:90%">
-                <table class="table table-hover table-sm" id="myDataTable">
+                <table class="table table-hover table-sm table-responsive-md" id="myDataTable">
                     <thead class="bg-info text-white text-center">
                         <tr>
                             <th>

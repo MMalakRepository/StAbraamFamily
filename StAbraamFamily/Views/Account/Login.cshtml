@@ -27,36 +27,8 @@
 <body>
     <!-- Container -->
     <div class="container" id="container">
-        <div class="row">
-            <div class="col align-center flex-col sign-up">
-                <div class="form-wrapper align-center">
-                    <form class="form sign-up">
-                        <div class="input-group">
-                            <i class="bx bxs-user"></i>
-                            <input type="text" placeholder="Username" />
-                        </div>
-                        <div class="input-group">
-                            <i class="bx bx-mail-send"></i>
-                            <input type="email" placeholder="Email" />
-                        </div>
-                        <div class="input-group">
-                            <i class="bx bxs-lock-alt"></i>
-                            <input type="password" placeholder="Password" />
-                        </div>
-                        <div class="input-group">
-                            <i class="bx bxs-lock-alt"></i>
-                            <input type="password" placeholder="Confirm password" />
-                        </div>
-                        <button>Sign up</button>
-                        <p>
-                            <span>Already have an account?</span>
-                            <b id="sign-in">Sign in here</b>
-                        </p>
-                    </form>
-                </div>
-
-
-            </div>
+        <div class="row imgBackground">
+           
             <div class="col align-center flex-col sign-in">
                 <div class="form-wrapper align-center">
                     <div class="form sign-in" style="height:400px">
@@ -66,6 +38,7 @@
                             {
                                 @Html.AntiForgeryToken()
                                 @*<img src="~/Assets/Login/images/54623.jpg" alt="" width="300px" height="150px" style="border:none;" />*@
+                                <span style="font-size: 25px;color: #1da1f2"><i class="fa fa-church text-warning fa-2x" style="color:darkorange"></i> St Abraam Family</span>
                                 <div class="input-group">
                                     <div class="col-md-10">
                                         <i class="fa fa-user-check text-primary"></i>

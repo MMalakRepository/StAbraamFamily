@@ -3578,6 +3578,7 @@
     <Content Include="Assets\vendor\summernote\summernote.js.map" />
     <Content Include="Assets\vendor\datatables\Buttons-1.6.5\css\common.scss" />
     <Content Include="Assets\vendor\datatables\Buttons-1.6.5\css\mixins.scss" />
+    <None Include="Properties\PublishProfiles\FTPProfile.pubxml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
@@ -3675,6 +3676,7 @@
     <Content Include="Views\MedicalContracts\Edit.cshtml" />
     <Content Include="Views\MedicalContracts\Index.cshtml" />
     <Content Include="Views\ServiceActions\AddHealthyClinicService.cshtml" />
+    <Content Include="Views\Shared\_FamilyLayoutk.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -50,7 +50,6 @@ namespace StAbraamFamily.Models
     {
         [Required]
         [Display(Name = "User Name")]
-        [EmailAddress]
         public string UserName { get; set; }
 
         [Required]
@@ -65,8 +64,12 @@ namespace StAbraamFamily.Models
     public class RegisterViewModel
     {
         [Required]
+        [Display(Name = "User Name")]
+        public string UserName { get; set; }
+
+        [Required]
         [EmailAddress]
-        [Display(Name = "Email")]
+        [Display(Name ="Email Address")]
         public string Email { get; set; }
 
         [Required]
