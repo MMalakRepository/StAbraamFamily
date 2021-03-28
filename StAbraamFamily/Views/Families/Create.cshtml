@@ -7,30 +7,27 @@
 
 <header class="page-header" style="background-color: #0088cc;border-left-color: #0088cc">
     <h2 class="text-white" style="border-bottom-color: #ffc107 !important;font-size: 25px;font-weight: bold;font-family: Calibri">أضافة بيانات العائلة</h2>
-    <div class="right-wrapper text-left">
-        <ol class="breadcrumbs float-md-right mr-5">
-            <li>
-                <a href="@Url.Action("Index","Families",null)" class="text-white" style="font-size: 18px; font-weight: bold; font-family: Calibri">
-                    <i class="fas fa-list-ul text-warning"></i> تقرير العائلات
-                </a>
-            </li>
-            <li>
-                <a href="@Url.Action("Create","EvaluationLevels")" class="text-white" style="font-size: 18px; font-weight: bold; font-family: Calibri">
-                <i class="fa fa-plus-circle text-warning"></i> أضافة نسبة تحمل جديدة   </a>
-            </li>
-            <li>
-                <a href="@Url.Action("Create","People")" class="text-white" style="font-size: 18px; font-weight: bold; font-family: Calibri">
-                <i class="fa fa-user-plus text-warning"></i> أضافة فرد جديد</a>
-            </li>
-        </ol>
-    </div>
 </header>
 
 <div class="col-lg-12">
     <div class="row">
-        <div class="col-md-12">
+        <div class="col-md-7">
             <h4 class="display-4 text-center text-primary">New Family Data</h4>
- </div>
+        </div>
+        <div class="col-md-5 mt-5">
+            <a href="@Url.Action("Index","Families",null)" class="text-primary" style="font-size: 18px; font-weight: bold; font-family: Calibri">
+                <i class="fas fa-list-ul text-warning"></i> تقرير العائلات
+            </a>
+
+            <a href="@Url.Action("Create","EvaluationLevels")" class="text-primary" style="font-size: 18px; font-weight: bold; font-family: Calibri">
+                <i class="fa fa-plus-circle text-warning"></i> أضافة نسبة تحمل جديدة
+            </a>
+
+            <a href="@Url.Action("Create","People")" class="text-primary" style="font-size: 18px; font-weight: bold; font-family: Calibri">
+                <i class="fa fa-user-plus text-warning"></i> أضافة فرد جديد
+            </a>
+        </div>
+        
     </div>
     <section class="card card-featured card-featured-primary mb-4">
         <header class="card-header">

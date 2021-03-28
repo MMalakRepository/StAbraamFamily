@@ -311,6 +311,7 @@
     <Content Include="Assets\img\blog-image-1.jpg" />
     <Content Include="Assets\img\blog-image-2.jpg" />
     <Content Include="Assets\img\blog-image-3.jpg" />
+    <Content Include="Assets\img\Church.ico" />
     <Content Include="Assets\img\device.png" />
     <Content Include="Assets\img\favicon.ico" />
     <Content Include="Assets\img\icon.png" />

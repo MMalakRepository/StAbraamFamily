@@ -16,34 +16,26 @@
 
         border-left-color: #0088cc">
     <h2 class="text-white" style=" border-bottom-color: #ffc107 !important;">@ViewBag.Title</h2>
-
-    <div class="right-wrapper text-left">
-        <ol class="breadcrumbs float-md-right mr-5">
-
-            <li>
-                <a href="@Url.Action("Create","Clinics",null)" class="text-white" style="font-size: 18px; font-weight: bold; font-family: Calibri">
-                    <i class="fas fa-plus-circle  text-warning"></i> أضافة عيادة جديدة
-                </a>
-            </li>
-            <li>
-                <a href="@Url.Action("Create","Hospitals")" class="text-white" style="font-size: 18px; font-weight: bold; font-family: Calibri">
-                    <i class="fa fa-clinic-medical text-warning"></i> أضافة مستشفى جديدة
-                </a>
-
-            </li>
-            <li>
-                <a href="@Url.Action("Index","Hospitals")" class="text-white" style="font-size: 18px; font-weight: bold; font-family: Calibri">
-                    <i class="fa fa-briefcase-medical text-warning"></i> تقرير المستشفيات
-                </a>
-            </li>
-
-
-        </ol>
-    </div>
 </header>
 
  
 <div class="col-lg-12">
+    <div class="row">
+        <div class="col-md-6">
+            <h4 class="display-4 text-center text-success">Clinics Report</h4>
+        </div>
+        <div class="col-md-6 mt-5">
+            <a href="@Url.Action("Create","Clinics",null)" class="text-success" style="font-size: 18px; font-weight: bold; font-family: Calibri">
+                <i class="fas fa-plus-circle  text-warning"></i> أضافة عيادة جديدة
+            </a>
+            <a href="@Url.Action("Create","Hospitals")" class="text-success" style="font-size: 18px; font-weight: bold; font-family: Calibri">
+                <i class="fa fa-clinic-medical text-warning"></i> أضافة مستشفى جديدة
+            </a>
+            <a href="@Url.Action("Index","Hospitals")" class="text-success" style="font-size: 18px; font-weight: bold; font-family: Calibri">
+                <i class="fa fa-briefcase-medical text-warning"></i> تقرير المستشفيات
+            </a>
+        </div>
+    </div>
     <section class="card card-featured card-featured-success mb-4 card-featured-bottom">
 
         <header class="card-header">

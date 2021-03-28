@@ -203,9 +203,9 @@
           <Property Name="Gender" Type="bit" />
           <Property Name="Notes" Type="nvarchar" MaxLength="500" />
           <Property Name="NationalID" Type="nvarchar" MaxLength="50" />
-          <Property Name="Salary" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="Salary" Type="decimal" Precision="18" Scale="2" />
           <Property Name="OtherIncome" Type="nvarchar" MaxLength="250" />
-          <Property Name="Status" Type="bit" Nullable="false" />
+          <Property Name="Status" Type="bit" />
           <Property Name="Code" Type="nvarchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="Servants">
@@ -915,14 +915,14 @@
           <Property Name="Gender" Type="Boolean" />
           <Property Name="Notes" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
           <Property Name="NationalID" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Salary" Type="Decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="Salary" Type="Decimal" Precision="18" Scale="2" />
           <Property Name="OtherIncome" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Families" Relationship="Self.FK_Families_Person" FromRole="Person" ToRole="Families" />
           <NavigationProperty Name="Families1" Relationship="Self.FK_Families_Person1" FromRole="Person" ToRole="Families" />
           <NavigationProperty Name="Father" Relationship="Self.FK_Person_Fathers" FromRole="Person" ToRole="Fathers" />
           <NavigationProperty Name="Servant" Relationship="Self.FK_Person_Servants" FromRole="Person" ToRole="Servants" />
           <NavigationProperty Name="ServiceActions" Relationship="Self.FK_ServiceActions_Person" FromRole="Person" ToRole="ServiceActions" />
-          <Property Name="Status" Type="Boolean" Nullable="false" />
+          <Property Name="Status" Type="Boolean" />
           <Property Name="Code" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="FullName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
         </EntityType>

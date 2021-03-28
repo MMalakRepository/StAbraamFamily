@@ -8,29 +8,27 @@
 
 <header class="page-header" style="background-color: #0088cc;border-left-color: #0088cc">
     <h2 class="text-white" style="        border-bottom-color: #5bc0de !important;font-size: 25px;font-weight: bold;font-family: Calibri"> بيانات الخدمات </h2>
-    <div class="right-wrapper text-left">
-        <ol class="breadcrumbs float-md-right mr-5">
-            <li>
-                <a href="@Url.Action("Index","ServiceActions",null)" class="text-white" style="font-size:18px;font-weight:bold;font-family:Calibri" ">
-                    <i class="fas fa-user-cog text-warning"></i> تقرير كل الخدمات
-                </a>
-            </li>
-            <li>
-                <a href="@Url.Action("BagServiceList","ServiceActions",null)" class="text-white" style="font-size:18px;font-weight:bold;font-family:Calibri" ">
-                    <i class="fas fa-user-cog text-warning"></i>  شنط البركة
-                </a>
-            </li>
-            <li>
-                <a href="@Url.Action("MedicalServiceList","ServiceActions",null)" class="text-white" style="font-size:18px;font-weight:bold;font-family:Calibri" ">
-                    <i class="fas fa-user-cog text-warning"></i>  الخدمات العلاجية
-                </a>
-            </li>
-        </ol>
-    </div>
 </header>
 
 
 <div class="col-lg-12">
+    <div class="row">
+        <div class="col-md-9">
+            <h4 class="display-4 text-center text-primary">New Service Data</h4>
+        </div>
+        <div class="col-md-3 mt-5">
+            <a href="@Url.Action("Index","ServiceActions",null)" class="text-primary" style="font-size:18px;font-weight:bold;font-family:Calibri" ">
+                <i class="fas fa-user-cog text-warning"></i> تقرير كل الخدمات
+            </a>
+            <a href="@Url.Action("BagServiceList","ServiceActions",null)" class="text-primary" style="font-size:18px;font-weight:bold;font-family:Calibri" ">
+                <i class="fas fa-user-cog text-warning"></i>  شنط البركة
+            </a>
+            <a href="@Url.Action("MedicalServiceList","ServiceActions",null)" class="text-primary" style="font-size:18px;font-weight:bold;font-family:Calibri" ">
+                <i class="fas fa-user-cog text-warning"></i>  الخدمات العلاجية
+            </a>
+        </div>
+
+    </div>
     <section class="card card-featured card-featured-primary mb-4">
         <header class="card-header">
             <div class="card-actions">
@@ -42,162 +40,162 @@
             @using (Html.BeginForm())
             {
                 @Html.AntiForgeryToken()
-            <div class="form-horizontal">
-                <div class="row">
-                    <div class="col-md-6">
-                        <div class="form-group">
-                            <label class="control-label col-md-6" style="float: right;font-size: 14px;font-weight: bold;text-align: right;font-family: Calibri">أسم  الشخص </label>
-                            <div class="col-md-12">
-                                <div class="input-group">
-                                    <span class="input-group-prepend">
-                                        <span class="input-group-text">
-                                            <i class="fas fa-user text-primary"></i>
+                <div class="form-horizontal">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="control-label col-md-6" style="float: right;font-size: 14px;font-weight: bold;text-align: right;font-family: Calibri">أسم  الشخص </label>
+                                <div class="col-md-12">
+                                    <div class="input-group">
+                                        <span class="input-group-prepend">
+                                            <span class="input-group-text">
+                                                <i class="fas fa-user text-primary"></i>
+                                            </span>
                                         </span>
-                                    </span>
-                                    @Html.DropDownList("PersonID", null, htmlAttributes: new { @class = "form-control" })
-                                    @Html.ValidationMessageFor(model => model.PersonID, "", new { @class = "text-danger" })
-                                </div>
+                                        @Html.DropDownList("PersonID", null, htmlAttributes: new { @class = "form-control" })
+                                        @Html.ValidationMessageFor(model => model.PersonID, "", new { @class = "text-danger" })
+                                    </div>
 
+                                </div>
                             </div>
                         </div>
-                    </div>
 
 
-                    <div class="col-md-6">
-                        <div class="form-group">
-                            <label class="control-label col-md-4" style="float: right;font-size: 14px;font-weight: bold;text-align: right;font-family: Calibri">أسم  الخادم</label>
-                            <div class="col-md-12">
-                                <div class="input-group">
-                                    <span class="input-group-prepend">
-                                        <span class="input-group-text">
-                                            <i class="fas fa-user-check text-primary"></i>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="control-label col-md-4" style="float: right;font-size: 14px;font-weight: bold;text-align: right;font-family: Calibri">أسم  الخادم</label>
+                                <div class="col-md-12">
+                                    <div class="input-group">
+                                        <span class="input-group-prepend">
+                                            <span class="input-group-text">
+                                                <i class="fas fa-user-check text-primary"></i>
+                                            </span>
                                         </span>
-                                    </span>
-                                    @Html.DropDownList("ServantID", null, htmlAttributes: new { @class = "form-control " })
-                                    @Html.ValidationMessageFor(model => model.ServantID, "", new { @class = "text-danger" })
-                                </div>
+                                        @Html.DropDownList("ServantID", null, htmlAttributes: new { @class = "form-control " })
+                                        @Html.ValidationMessageFor(model => model.ServantID, "", new { @class = "text-danger" })
+                                    </div>
 
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-6">
-                        <div class="form-group">
-
-                            <label class="control-label col-md-4" style="float: right;font-size: 14px;font-weight: bold;text-align: right;font-family: Calibri">
-                                نوع الخدمة
-                            </label>
-                            <div class="col-md-12">
-                                <div class="input-group">
-                                    <span class="input-group-prepend">
-                                        <span class="input-group-text">
-                                            <i class="fas fa-cog text-primary"></i>
-                                        </span>
-                                    </span>
-                                    @Html.DropDownList("ActionTypeID", null, htmlAttributes: new { @class = "form-control" })
-                                    @Html.ValidationMessageFor(model => model.ActionTypeID, "", new { @class = "text-danger" })
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-6">
-                        <div class="form-group">
-                            <label class="control-label col-md-4" style="float: right;font-size: 14px;font-weight: bold;text-align: right;font-family: Calibri">  التاريخ</label>
-                            <div class="col-md-12">
-                                <div class="input-group">
-                                    <span class="input-group-prepend">
-                                        <span class="input-group-text">
-                                            <i class="fas fa-calendar-alt text-primary"></i>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+
+                                <label class="control-label col-md-4" style="float: right;font-size: 14px;font-weight: bold;text-align: right;font-family: Calibri">
+                                    نوع الخدمة
+                                </label>
+                                <div class="col-md-12">
+                                    <div class="input-group">
+                                        <span class="input-group-prepend">
+                                            <span class="input-group-text">
+                                                <i class="fas fa-cog text-primary"></i>
+                                            </span>
                                         </span>
-                                    </span>
-                                    @Html.EditorFor(model => model.ActionDate, new { htmlAttributes = new { @class = "form-control" } })
-                                    @*<input type="text" data-plugin-datepicker class="form-control" id="ActionDate" name="ActionDate">*@
-                                    @Html.ValidationMessageFor(model => model.ActionDate, "", new { @class = "text-danger" })
+                                        @Html.DropDownList("ActionTypeID", null, htmlAttributes: new { @class = "form-control" })
+                                        @Html.ValidationMessageFor(model => model.ActionTypeID, "", new { @class = "text-danger" })
+                                    </div>
                                 </div>
-
                             </div>
                         </div>
-                    </div>
-                </div>
-
-
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="form-group">
-                            <label class="control-label col-md-4" style="float: right;font-size: 14px;font-weight: bold;text-align: right;font-family: Calibri">ملاحظات أضافية  </label>
-                            <div class="col-md-12">
-                                <div class="input-group">
-                                    <span class="input-group-prepend">
-                                        <span class="input-group-text">
-                                            <i class="fas fa-user-edit text-primary"></i>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="control-label col-md-4" style="float: right;font-size: 14px;font-weight: bold;text-align: right;font-family: Calibri">  التاريخ</label>
+                                <div class="col-md-12">
+                                    <div class="input-group">
+                                        <span class="input-group-prepend">
+                                            <span class="input-group-text">
+                                                <i class="fas fa-calendar-alt text-primary"></i>
+                                            </span>
                                         </span>
-                                    </span>
-                                    @Html.EditorFor(model => model.Notes, new { htmlAttributes = new { @class = "form-control" } })
-                                    @Html.ValidationMessageFor(model => model.Notes, "", new { @class = "text-danger" })
+                                        @Html.EditorFor(model => model.ActionDate, new { htmlAttributes = new { @class = "form-control" } })
+                                        @*<input type="text" data-plugin-datepicker class="form-control" id="ActionDate" name="ActionDate">*@
+                                        @Html.ValidationMessageFor(model => model.ActionDate, "", new { @class = "text-danger" })
+                                    </div>
+
                                 </div>
-
                             </div>
                         </div>
                     </div>
-                </div>
 
 
-                @*<div class="row">
-            <div class="col-md-6">
-                <div class="form-group">
-                    <label class="control-label col-md-6" style="float: right;font-size: 14px;font-weight: bold;text-align: right;font-family: Calibri">أسم  المستشفى</label>
-                    <div class="col-md-12">
-                        <div class="input-group">
-                            <span class="input-group-prepend">
-                                <span class="input-group-text">
-                                    <i class="fas fa-clinic-medical text-primary"></i>
-                                </span>
-                            </span>
-                            @Html.DropDownList("HospitalID", null, htmlAttributes: new { @class = "form-control" })
-                            @Html.ValidationMessageFor(model => model.HospitalID, "", new { @class = "text-danger" })
-                        </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label class="control-label col-md-4" style="float: right;font-size: 14px;font-weight: bold;text-align: right;font-family: Calibri">ملاحظات أضافية  </label>
+                                <div class="col-md-12">
+                                    <div class="input-group">
+                                        <span class="input-group-prepend">
+                                            <span class="input-group-text">
+                                                <i class="fas fa-user-edit text-primary"></i>
+                                            </span>
+                                        </span>
+                                        @Html.EditorFor(model => model.Notes, new { htmlAttributes = new { @class = "form-control" } })
+                                        @Html.ValidationMessageFor(model => model.Notes, "", new { @class = "text-danger" })
+                                    </div>
 
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-md-6">
-                <div class="form-group">
-                    <label class="control-label col-md-6" style="float: right;font-size: 14px;font-weight: bold;text-align: right;font-family: Calibri">أسم  العيادة</label>
-                    <div class="col-md-12">
-                        <div class="input-group">
-                            <span class="input-group-prepend">
-                                <span class="input-group-text">
-                                    <i class="fas fa-user-nurse text-primary"></i>
-                                </span>
-                            </span>
-                            @Html.DropDownList("ClinicID", null, htmlAttributes: new { @class = "form-control" })
-                            @Html.ValidationMessageFor(model => model.ClinicID, "", new { @class = "text-danger" })
-                        </div>
-
-                    </div>
-                </div>
-            </div>
-        </div>*@
-                <div class="row"></div>
-                <div class="row" style="margin-top:20px">
-                    <div class="col-md-6">
-                        <div class="form-group">
-                            <a href="#" class="btn btn-sm btn-outline-danger" style="width:100%;font-size: 20px;font-weight: bold;text-align: center;font-family: Calibri">ألغاء أدخال الخدمة</a>
-
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="form-group">
-                            <div class="col-md-offset-2 col-md-12">
-                                <input type="submit" value="أضافة الخدمة " class="btn btn-sm btn-primary" style="width:100%;font-size: 20px;font-weight: bold;text-align: center;font-family: Calibri" />
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
 
-            </div>
+
+                    @*<div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="control-label col-md-6" style="float: right;font-size: 14px;font-weight: bold;text-align: right;font-family: Calibri">أسم  المستشفى</label>
+                                    <div class="col-md-12">
+                                        <div class="input-group">
+                                            <span class="input-group-prepend">
+                                                <span class="input-group-text">
+                                                    <i class="fas fa-clinic-medical text-primary"></i>
+                                                </span>
+                                            </span>
+                                            @Html.DropDownList("HospitalID", null, htmlAttributes: new { @class = "form-control" })
+                                            @Html.ValidationMessageFor(model => model.HospitalID, "", new { @class = "text-danger" })
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="control-label col-md-6" style="float: right;font-size: 14px;font-weight: bold;text-align: right;font-family: Calibri">أسم  العيادة</label>
+                                    <div class="col-md-12">
+                                        <div class="input-group">
+                                            <span class="input-group-prepend">
+                                                <span class="input-group-text">
+                                                    <i class="fas fa-user-nurse text-primary"></i>
+                                                </span>
+                                            </span>
+                                            @Html.DropDownList("ClinicID", null, htmlAttributes: new { @class = "form-control" })
+                                            @Html.ValidationMessageFor(model => model.ClinicID, "", new { @class = "text-danger" })
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>*@
+                    <div class="row"></div>
+                    <div class="row" style="margin-top:20px">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <a href="#" class="btn btn-sm btn-outline-danger" style="width:100%;font-size: 20px;font-weight: bold;text-align: center;font-family: Calibri">ألغاء أدخال الخدمة</a>
+
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <div class="col-md-offset-2 col-md-12">
+                                    <input type="submit" value="أضافة الخدمة " class="btn btn-sm btn-primary" style="width:100%;font-size: 20px;font-weight: bold;text-align: center;font-family: Calibri" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
             }
         </div>
     </section>

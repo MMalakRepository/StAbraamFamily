@@ -11,27 +11,23 @@
     }
 </style>
 
-<header class="page-header" style="background-color: #0088cc;
-
-        border-left-color: #0088cc">
+<header class="page-header" style="background-color: #0088cc;border-left-color: #0088cc">
     <h2 class="text-white" style=" border-bottom-color: #ffc107 !important;">@ViewBag.Title</h2>
-
-    <div class="right-wrapper text-left">
-        <ol class="breadcrumbs float-md-right mr-5">
- 
-
-            <li>
-                <a href="@Url.Action("Create","Children")" class="text-white" style="font-size: 18px; font-weight: bold; font-family: Calibri">
-                    <i class="fa fa-user-plus text-warning"></i> أضافة أبن / أبنة جديد
-                </a>
-
-            </li>
-
-        </ol>
-    </div>
 </header>
 
 <div class="col-lg-12">
+    <div class="row">
+        <div class="col-md-9">
+            <h4 class="display-4 text-center text-success">Children Report</h4>
+        </div>
+        <div class="col-md-3 mt-5">
+            <a href="@Url.Action("Create","Children")" class="text-success" style="font-size: 18px; font-weight: bold; font-family: Calibri">
+                <i class="fa fa-user-plus text-warning"></i> أضافة أبن / أبنة جديد
+            </a>
+
+        </div>
+
+    </div>
     <section class="card card-featured card-featured-success mb-4 card-featured-bottom">
 
         <header class="card-header">
@@ -81,7 +77,7 @@
                                 <td>
                                     @Html.DisplayFor(modelItem => item.DateOfBirth)
                                 </td>
-           
+
                                 <td>
                                     @Html.DisplayFor(modelItem => item.IsWorking)
                                 </td>

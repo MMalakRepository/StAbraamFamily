@@ -39,9 +39,9 @@ namespace StAbraamFamily.Models
         public Nullable<bool> Gender { get; set; }
         public string Notes { get; set; }
         public string NationalID { get; set; }
-        public decimal Salary { get; set; }
+        public Nullable<decimal> Salary { get; set; }
         public string OtherIncome { get; set; }
-        public bool Status { get; set; }
+        public Nullable<bool> Status { get; set; }
         public string Code { get; set; }
         public string FullName { get; set; }
     
