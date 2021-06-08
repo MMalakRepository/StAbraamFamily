@@ -11,6 +11,7 @@ using StAbraamFamily.Models;
 
 namespace StAbraamFamily.Controllers
 {
+    [Authorize(Roles ="Management,Health")]
     public class MedicalServicesController : Controller
     {
         private StAbraamEntities db = new StAbraamEntities();

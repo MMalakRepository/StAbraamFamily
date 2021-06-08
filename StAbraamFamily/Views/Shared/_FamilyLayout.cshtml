@@ -90,91 +90,112 @@
                                 <li class="active">
                                     @Html.ActionLink("Dashboard", "Home", "Home", null, new { @class = "nav-link" })
                                 </li>
-                                <li class="dropdown">
-                                    <a class="nav-link dropdown-toggle linkFont" href="#">
-                                        بيانات العائلات
-                                    </a>
-                                    <ul class="dropdown-menu">
-                                        <li>
-                                            @Html.ActionLink("الأفراد", "Index", "People", null, new { @class = "nav-link linkFont" })
-                                        </li>
-                                        <li class="">
-                                            @Html.ActionLink("العائلات", "Index", "Families", null, new { @class = "nav-link linkFont" })
-                                        </li>
-                                        <li class="">
-                                            @Html.ActionLink("الأبناء", "Index", "Children", null, new { @class = "nav-link linkFont" })
-                                        </li>
-                                        <li class="">
-                                            @Html.ActionLink("تقييم العائلات", "Index", "EvaluationLevels", null, new { @class = "nav-link linkFont" })
-                                        </li>
-                                    </ul>
-                                </li>
+                                @if (User.IsInRole("Management"))
+                                {
+                                    <li class="dropdown">
+                                        <a class="nav-link dropdown-toggle linkFont" href="#">
+                                            بيانات العائلات
+                                        </a>
+                                        <ul class="dropdown-menu">
+                                            <li>
+                                                @Html.ActionLink("الأفراد", "Index", "People", null, new { @class = "nav-link linkFont" })
+                                            </li>
+                                            <li class="">
+                                                @Html.ActionLink("العائلات", "Index", "Families", null, new { @class = "nav-link linkFont" })
+                                            </li>
+                                            <li class="">
+                                                @Html.ActionLink("الأبناء", "Index", "Children", null, new { @class = "nav-link linkFont" })
+                                            </li>
+                                            <li class="">
+                                                @Html.ActionLink("تقييم العائلات", "Index", "EvaluationLevels", null, new { @class = "nav-link linkFont" })
+                                            </li>
+                                        </ul>
+                                    </li>
 
-                                <li class="dropdown">
-                                    <a class="nav-link dropdown-toggle linkFont" href="#">
-                                        بيانات الأباء الكهنة والخدام
-                                    </a>
-                                    <ul class="dropdown-menu">
-                                        <li class="">
-                                            @Html.ActionLink("الأباء الكهنة", "Index", "Fathers", null, new { @class = "nav-link linkFont" })
-                                        </li>
-                                        <li class="">
-                                            @Html.ActionLink("الخدام", "Index", "Servants", null, new { @class = "nav-link linkFont" })
-                                        </li>
-                                    </ul>
-                                </li>
+                                    <li class="dropdown">
+                                        <a class="nav-link dropdown-toggle linkFont" href="#">
+                                            بيانات الأباء الكهنة والخدام
+                                        </a>
+                                        <ul class="dropdown-menu">
+                                            <li class="">
+                                                @Html.ActionLink("الأباء الكهنة", "Index", "Fathers", null, new { @class = "nav-link linkFont" })
+                                            </li>
+                                            <li class="">
+                                                @Html.ActionLink("الخدام", "Index", "Servants", null, new { @class = "nav-link linkFont" })
+                                            </li>
+                                        </ul>
+                                    </li>
+                                }
                                 <li class="dropdown">
                                     <a class="nav-link dropdown-toggle linkFont" href="#">
                                         الخدمات
                                     </a>
                                     <ul class="dropdown-menu">
-                                        <li class="">
-                                            @Html.ActionLink("أنواع الخدمات", "Create", "ServiceTypes", null, new { @class = "nav-link linkFont" })
-                                        </li>
-                                        <li class="">
-                                            @Html.ActionLink("تقرير الخدمات", "Index", "ServiceActions", null, new { @class = "nav-link linkFont" })
-                                        </li>
-                                        <li class="">
-                                            @Html.ActionLink("شنطة البركة", "AddBagService", "ServiceActions", null, new { @class = "nav-link linkFont" })
-                                        </li>
-                                        <li class="">
-                                            @Html.ActionLink("الخدمات المالية", "AddFinancialService", "ServiceActions", null, new { @class = "nav-link linkFont" })
-                                        </li>
-                                        <li class="">
-                                            @Html.ActionLink("خدمة الأفتقاد", "Index", "FamilyVisits", null, new { @class = "nav-link linkFont" })
-                                        </li>
-                                        <li class="">
-                                            @Html.ActionLink("الخدمات الأخرى", "Create", "ServiceActions", null, new { @class = "nav-link linkFont" })
-                                        </li>
-                                        <li class="dropdown-submenu">
-                                            <a class="nav-link dropdown-toggle linkFont" href="#">
-                                                الخدمات الطبية
-                                            </a>
-                                            <ul class="dropdown-menu" style="width:270px !important;">
-                                                <li class="">
-                                                    @Html.ActionLink("المستشفيات", "Index", "Hospitals", null, new { @class = "nav-link linkFont" })
-                                                </li>
-                                                <li class="">
-                                                    @Html.ActionLink("العيادات", "Index", "Clinics", null, new { @class = "nav-link linkFont" })
-                                                </li>
-                                                <li class="">
-                                                    @Html.ActionLink("أنواع الخدمات الطبية", "Index", "MedicalServices", null, new { @class = "nav-link linkFont" })
-                                                </li>
-                                                <li class="">
-                                                    @Html.ActionLink("الخدمات الطبية بالمستشفيات", "AddHealthyService", "ServiceActions", null, new { @class = "nav-link linkFont" })
-                                                </li>
-                                                <li class="">
-                                                    @Html.ActionLink("الخدمات الطبية بالعيادات", "AddHealthyClinicService", "ServiceActions", null, new { @class = "nav-link linkFont" })
-                                                </li>
-                                                <li class="">
-                                                    @Html.ActionLink("التعاقدات الطبية ", "Index", "MedicalContracts", null, new { @class = "nav-link linkFont" })
-                                                </li>
-                                                <li class="">
-                                                    @Html.ActionLink("تقرير الخدمات الطبية ", "MedicalServiceList", "ServiceActions", null, new { @class = "nav-link linkFont" })
-                                                </li>
+                                        @if (User.IsInRole("Management"))
+                                        {
+                                            <li class="">
+                                                @Html.ActionLink("أنواع الخدمات", "Create", "ServiceTypes", null, new { @class = "nav-link linkFont" })
+                                            </li>
+                                            <li class="">
+                                                @Html.ActionLink("تقرير الخدمات", "Index", "ServiceActions", null, new { @class = "nav-link linkFont" })
+                                            </li>
+                                        }
 
-                                            </ul>
-                                        </li>
+                                        @if (User.IsInRole("BagService") || User.IsInRole("Management"))
+                                        {
+                                            <li class="">
+                                                @Html.ActionLink("شنطة البركة", "AddBagService", "ServiceActions", null, new { @class = "nav-link linkFont" })
+                                            </li>
+                                        }
+                                        @if (User.IsInRole("Management"))
+                                        {
+                                            @if (User.IsInRole("Finance"))
+                                            {
+                                                <li class="">
+                                                    @Html.ActionLink("الخدمات المالية", "AddFinancialService", "ServiceActions", null, new { @class = "nav-link linkFont" })
+                                                </li>
+                                            }
+                                            <li class="">
+                                                @Html.ActionLink("خدمة الأفتقاد", "Index", "FamilyVisits", null, new { @class = "nav-link linkFont" })
+                                            </li>
+                                            <li class="">
+                                                @Html.ActionLink("الخدمات الأخرى", "Create", "ServiceActions", null, new { @class = "nav-link linkFont" })
+                                            </li>
+                                        }
+
+                                        @if (User.IsInRole("Health") || User.IsInRole("Management"))
+                                        {
+                                            <li class="dropdown-submenu">
+                                                <a class="nav-link dropdown-toggle linkFont" href="#">
+                                                    الخدمات الطبية
+                                                </a>
+                                                <ul class="dropdown-menu" style="width:270px !important;">
+                                                    <li class="">
+                                                        @Html.ActionLink("المستشفيات", "Index", "Hospitals", null, new { @class = "nav-link linkFont" })
+                                                    </li>
+                                                    <li class="">
+                                                        @Html.ActionLink("العيادات", "Index", "Clinics", null, new { @class = "nav-link linkFont" })
+                                                    </li>
+                                                    <li class="">
+                                                        @Html.ActionLink("أنواع الخدمات الطبية", "Index", "MedicalServices", null, new { @class = "nav-link linkFont" })
+                                                    </li>
+                                                    <li class="">
+                                                        @Html.ActionLink("الخدمات الطبية بالمستشفيات", "AddHealthyService", "ServiceActions", null, new { @class = "nav-link linkFont" })
+                                                    </li>
+                                                    <li class="">
+                                                        @Html.ActionLink("الخدمات الطبية بالعيادات", "AddHealthyClinicService", "ServiceActions", null, new { @class = "nav-link linkFont" })
+                                                    </li>
+                                                    <li class="">
+                                                        @Html.ActionLink("التعاقدات الطبية ", "Index", "MedicalContracts", null, new { @class = "nav-link linkFont" })
+                                                    </li>
+                                                    <li class="">
+                                                        @Html.ActionLink("تقرير الخدمات الطبية ", "MedicalServiceList", "ServiceActions", null, new { @class = "nav-link linkFont" })
+                                                    </li>
+
+                                                </ul>
+                                            </li>
+                                        }
+
 
                                     </ul>
                                 </li>
@@ -220,85 +241,94 @@
                         <nav id="menu" class="nav-main" role="navigation">
 
                             <ul class="nav nav-main">
-                                <li>
-                                    <a href="@Url.Action("Index","People",null)" class="nav-link linkFont">
-                                        @*<span class="float-right badge badge-primary">182</span>*@
-                                        <i class="fas fa-user-circle text-primary" aria-hidden="true"></i>
-                                        <span style="font-family:calibri;font-size:1.2em;">الأفراد</span>
-                                    </a>
+                                @if (User.IsInRole("Managment"))
+                                {
+                                    <li>
+                                        <a href="@Url.Action("Index","People",null)" class="nav-link linkFont">
+                                            @*<span class="float-right badge badge-primary">182</span>*@
+                                            <i class="fas fa-user-circle text-primary" aria-hidden="true"></i>
+                                            <span style="font-family:calibri;font-size:1.2em;">الأفراد</span>
+                                        </a>
 
 
-                                </li>
-                                <li>
-                                    <a class="nav-link linkFont" href="@Url.Action("Index","Families",null)">
-                                        @*<span class="float-right badge badge-danger">123</span>*@
-                                        <i class="fas fa-list text-danger" aria-hidden="true"></i>
-                                        <span style="font-family: calibri;font-size: 1.2em;">العائلات</span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a class="nav-link linkFont" href="@Url.Action("Index","Children",null)">
-                                        @*<span class="float-right badge badge-danger">123</span>*@
-                                        <i class="fas fa-child text-info" aria-hidden="true"></i>
-                                        <span style="font-family: calibri;font-size: 1.2em;">الأبناء</span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a class="nav-link linkFont" href="@Url.Action("Index","ServiceActions",null)">
-                                        @*<span class="float-right badge badge-warning">12</span>*@
-                                        <i class="fas fa-globe text-warning" aria-hidden="true"></i>
-                                        <span style="font-family:calibri;font-size :1.2em">الخدمات</span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a class="nav-link linkFont" href="@Url.Action("Index","Fathers",null)">
-                                        @*<span class="float-right badge badge-success">4</span>*@
-                                        <i class="fas fa-pray text-success" aria-hidden="true"></i>
-                                        <span style="font-family:calibri;font-size:1.2em;">الأباء الكهنة</span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a class="nav-link linkFont" href="@Url.Action("Index","Servants",null)">
-                                        @*<span class="float-right badge badge-info">30</span>*@
-                                        <i class="fas fa-user-alt text-info" aria-hidden="true"></i>
-                                        <span style="font-family:calibri;font-size:1.2em;">الخدام</span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a class="nav-link linkFont" href="@Url.Action("Index","Hospitals",null)">
-                                        @*<span class="float-right badge" style=" color:white; background-color:sandybrown">20</span>*@
-                                        <i class="fas fa-hospital" style="color:sandybrown" aria-hidden="true"></i>
-                                        <span style="font-family:calibri;font-size:1.2em;">المستشفيات  </span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a class="nav-link linkFont" href="@Url.Action("Index","Clinics",null)">
-                                        @*<span class="float-right badge" style=" color:white; background-color:orangered">20</span>*@
-                                        <i class="fas fa-clinic-medical" style="color: orangered" aria-hidden="true"></i>
-                                        <span style="font-family:calibri;font-size:1.2em">العيادات</span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a class="nav-link linkFont" href="@Url.Action("Index","MedicalServices",null)">
-                                        @*<span class="float-right badge" style=" color:white; background-color:orangered">20</span>*@
-                                        <i class="fas fa-file-medical-alt" style="color:  dodgerblue" aria-hidden="true"></i>
-                                        <span style="font-family:calibri;font-size:1.2em">الخدمات الطبية</span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a class="nav-link linkFont" href="@Url.Action("Index","MedicalContracts",null)">
-                                        @*<span class="float-right badge" style=" color:white; background-color:orangered">20</span>*@
-                                        <i class="fas fa-file-medical" style="color: forestgreen" aria-hidden="true"></i>
-                                        <span style="font-family:calibri;font-size:1.2em">التعاقدات الطبية</span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a class="nav-link linkFont" href="@Url.Action("Index","EvaluationLevels",null)">
-                                        @*<span class="float-right badge" style=" color:white; background-color:orangered">20</span>*@
-                                        <i class="fas fa-users-cog" style="color: deepskyblue" aria-hidden="true"></i>
-                                        <span style="font-family:calibri;font-size:1.2em">تقييم العائلات</span>
-                                    </a>
-                                </li>
+                                    </li>
+                                    <li>
+                                        <a class="nav-link linkFont" href="@Url.Action("Index","Families",null)">
+                                            @*<span class="float-right badge badge-danger">123</span>*@
+                                            <i class="fas fa-list text-danger" aria-hidden="true"></i>
+                                            <span style="font-family: calibri;font-size: 1.2em;">العائلات</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a class="nav-link linkFont" href="@Url.Action("Index","Children",null)">
+                                            @*<span class="float-right badge badge-danger">123</span>*@
+                                            <i class="fas fa-child text-info" aria-hidden="true"></i>
+                                            <span style="font-family: calibri;font-size: 1.2em;">الأبناء</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a class="nav-link linkFont" href="@Url.Action("Index","ServiceActions",null)">
+                                            @*<span class="float-right badge badge-warning">12</span>*@
+                                            <i class="fas fa-globe text-warning" aria-hidden="true"></i>
+                                            <span style="font-family:calibri;font-size :1.2em">الخدمات</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a class="nav-link linkFont" href="@Url.Action("Index","Fathers",null)">
+                                            @*<span class="float-right badge badge-success">4</span>*@
+                                            <i class="fas fa-pray text-success" aria-hidden="true"></i>
+                                            <span style="font-family:calibri;font-size:1.2em;">الأباء الكهنة</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a class="nav-link linkFont" href="@Url.Action("Index","Servants",null)">
+                                            @*<span class="float-right badge badge-info">30</span>*@
+                                            <i class="fas fa-user-alt text-info" aria-hidden="true"></i>
+                                            <span style="font-family:calibri;font-size:1.2em;">الخدام</span>
+                                        </a>
+                                    </li>
+
+                                    <li>
+                                        <a class="nav-link linkFont" href="@Url.Action("Index","EvaluationLevels",null)">
+                                            @*<span class="float-right badge" style=" color:white; background-color:orangered">20</span>*@
+                                            <i class="fas fa-users-cog" style="color: deepskyblue" aria-hidden="true"></i>
+                                            <span style="font-family:calibri;font-size:1.2em">تقييم العائلات</span>
+                                        </a>
+                                    </li>
+
+                                }
+
+                                @if (User.IsInRole("Management") || User.IsInRole("Health"))
+                                {
+                                    <li>
+                                        <a class="nav-link linkFont" href="@Url.Action("Index","Hospitals",null)">
+                                            @*<span class="float-right badge" style=" color:white; background-color:sandybrown">20</span>*@
+                                            <i class="fas fa-hospital" style="color:sandybrown" aria-hidden="true"></i>
+                                            <span style="font-family:calibri;font-size:1.2em;">المستشفيات  </span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a class="nav-link linkFont" href="@Url.Action("Index","Clinics",null)">
+                                            @*<span class="float-right badge" style=" color:white; background-color:orangered">20</span>*@
+                                            <i class="fas fa-clinic-medical" style="color: orangered" aria-hidden="true"></i>
+                                            <span style="font-family:calibri;font-size:1.2em">العيادات</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a class="nav-link linkFont" href="@Url.Action("Index","MedicalServices",null)">
+                                            @*<span class="float-right badge" style=" color:white; background-color:orangered">20</span>*@
+                                            <i class="fas fa-file-medical-alt" style="color:  dodgerblue" aria-hidden="true"></i>
+                                            <span style="font-family:calibri;font-size:1.2em">الخدمات الطبية</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a class="nav-link linkFont" href="@Url.Action("Index","MedicalContracts",null)">
+                                            @*<span class="float-right badge" style=" color:white; background-color:orangered">20</span>*@
+                                            <i class="fas fa-file-medical" style="color: forestgreen" aria-hidden="true"></i>
+                                            <span style="font-family:calibri;font-size:1.2em">التعاقدات الطبية</span>
+                                        </a>
+                                    </li>
+                                }
 
 
 
@@ -313,26 +343,40 @@
                             </div>
                             <div class="widget-content">
                                 <ul class="list-unstyled m-0">
-                                    <li><a href="@Url.Action("AddBagService","ServiceActions")" class="linkFont"> شنط البركة</a></li>
-                                    <li><a href="@Url.Action("AddHealthyService","ServiceActions")" class="linkFont">المستشفيات و العيادات</a></li>
-                                    <li><a href="@Url.Action("AddFinancialService","ServiceActions")" class="linkFont">الخدمات المالية</a></li>
+                                    @if (User.IsInRole("Management") || User.IsInRole("BagService"))
+                                    {
+                                        <li><a href="@Url.Action("AddBagService","ServiceActions")" class="linkFont"> شنط البركة</a></li>
+
+                                    }
+                                    @if (User.IsInRole("Management") || User.IsInRole("Health"))
+                                    {
+                                        <li><a href="@Url.Action("AddHealthyService","ServiceActions")" class="linkFont">المستشفيات و العيادات</a></li>
+                                    }
+                                    @if (User.IsInRole("Management") || User.IsInRole("Finance"))
+                                    {
+                                        <li><a href="@Url.Action("AddFinancialService","ServiceActions")" class="linkFont">الخدمات المالية</a></li>
+                                    }
                                 </ul>
                             </div>
                         </div>
-                        <hr class="separator" />
-                        <div class="sidebar-widget widget-tasks">
-                            <div class="widget-header">
-                                <h6>التقارير الأساسية</h6>
-                                <div class="widget-toggle">+</div>
+                        @if (User.IsInRole("Management"))
+                        {
+                            <hr class="separator" />
+                            <div class="sidebar-widget widget-tasks">
+                                <div class="widget-header">
+                                    <h6>التقارير الأساسية</h6>
+                                    <div class="widget-toggle">+</div>
+                                </div>
+                                <div class="widget-content">
+                                    <ul class="list-unstyled m-0">
+                                        <li><a href="@Url.Action("Index","ServiceActions",null)" class="linkFont"> الخدمات</a></li>
+                                        <li><a href="@Url.Action("Index","Families",null)" class="linkFont">العائلات</a></li>
+                                        <li><a href="@Url.Action("Index","FamilyServants",null)" class="linkFont">الخدام</a></li>
+                                    </ul>
+                                </div>
                             </div>
-                            <div class="widget-content">
-                                <ul class="list-unstyled m-0">
-                                    <li><a href="@Url.Action("Index","ServiceActions",null)" class="linkFont"> الخدمات</a></li>
-                                    <li><a href="@Url.Action("Index","Families",null)" class="linkFont">العائلات</a></li>
-                                    <li><a href="@Url.Action("Index","FamilyServants",null)" class="linkFont">الخدام</a></li>
-                                </ul>
-                            </div>
-                        </div>
+                        }
+
                     </div>
 
                     <script>

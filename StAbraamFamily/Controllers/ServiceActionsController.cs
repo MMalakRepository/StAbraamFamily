@@ -11,11 +11,12 @@ using Microsoft.AspNet.Identity;
 
 namespace StAbraamFamily.Controllers
 {
-    [Authorize]
+
     public class ServiceActionsController : Controller
     {
         private StAbraamEntities db = new StAbraamEntities();
 
+        [Authorize(Roles = "Management")]
         public ActionResult Index()
         {
             var serviceActions = db.ServiceActions.Include(s => s.AspNetUser)
@@ -25,7 +26,7 @@ namespace StAbraamFamily.Controllers
                 .Where(x => x.IsActive == true && (x.ServiceType.ID != 1 || x.ServiceType.ID != 2));
             return View("Index", serviceActions.ToList());
         }
-
+        [Authorize(Roles = "BagService,Management")]
         public ActionResult BagServiceList(int? id)
         {
             var serviceActions = db.ServiceActions.Include(s => s.AspNetUser)
@@ -40,6 +41,7 @@ namespace StAbraamFamily.Controllers
             return View("Index", serviceActions.ToList());
         }
 
+        [Authorize(Roles = "Management,Health")]
         public ActionResult MedicalServiceList(int? id)
         {
             var serviceActions = db.ServiceActions.Include(s => s.AspNetUser)
@@ -52,6 +54,7 @@ namespace StAbraamFamily.Controllers
             return View("MedicalServiceList", serviceActions.ToList());
         }
 
+        [Authorize(Roles = "Management,Health")]
         public ActionResult getClinicServices(int? id)
         {
             var serviceActions = db.ServiceActions.Include(s => s.AspNetUser)
@@ -64,6 +67,7 @@ namespace StAbraamFamily.Controllers
             return View("MedicalServiceList", serviceActions.ToList());
         }
 
+        [Authorize(Roles = "Management,Health")]
         public ActionResult getHospitalServices(int? id)
         {
             var serviceActions = db.ServiceActions.Include(s => s.AspNetUser)
@@ -76,6 +80,7 @@ namespace StAbraamFamily.Controllers
             return View("MedicalServiceList", serviceActions.ToList());
         }
 
+        [Authorize(Roles = "Management")]
         public ActionResult FinancialServiceList(int? id)
         {
             var serviceActions = db.ServiceActions.Include(s => s.AspNetUser)
@@ -88,6 +93,7 @@ namespace StAbraamFamily.Controllers
             return View("Index", serviceActions.ToList());
         }
 
+        [Authorize(Roles = "Management")]
         public ActionResult AllServicesList(int? id)
         {
             var serviceActions = db.ServiceActions.Include(s => s.AspNetUser)
@@ -100,6 +106,7 @@ namespace StAbraamFamily.Controllers
             return View("Index", serviceActions.ToList());
         }
 
+        [Authorize(Roles = "Management")]
         public ActionResult GetServicesByFamily(int? FamilyID)
         {
             var serviceActions = db.ServiceActions.Include(s => s.AspNetUser)
@@ -154,6 +161,7 @@ namespace StAbraamFamily.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Management,Health")]
         public ActionResult AddHealthyService(ServiceAction serviceAction)
         {
             if (ModelState.IsValid)
@@ -177,6 +185,7 @@ namespace StAbraamFamily.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Management,Health")]
         public ActionResult AddHealthyClinicService(ServiceAction serviceAction)
         {
             if (ModelState.IsValid)
@@ -199,6 +208,7 @@ namespace StAbraamFamily.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Management,BagService")]
         public ActionResult AddBagService(ServiceAction serviceAction)
         {
             if (ModelState.IsValid)
@@ -221,6 +231,7 @@ namespace StAbraamFamily.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Management")]
         public ActionResult AddFinancialService(ServiceAction serviceAction)
         {
             if (ModelState.IsValid)
@@ -240,28 +251,34 @@ namespace StAbraamFamily.Controllers
             ResetData();
             return View(serviceAction);
         }
+
+        [Authorize(Roles = "Management,Health")]
         public ActionResult AddHealthyService()
         {
             ResetData();
             return View();
         }
 
+        [Authorize(Roles = "Management,Health")]
         public ActionResult AddHealthyClinicService()
         {
             ResetData();
             return View();
         }
+        [Authorize(Roles = "Management")]
         public ActionResult AddFinancialService()
         {
             ResetData();
             return View();
         }
+        [Authorize(Roles = "Management,BagService")]
         public ActionResult AddBagService()
         {
             ResetData();
             return View();
         }
- 
+
+        [Authorize(Roles = "Management")]
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -280,6 +297,7 @@ namespace StAbraamFamily.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Management")]
         public ActionResult Edit(ServiceAction serviceAction)
         {
             if (ModelState.IsValid)
@@ -298,6 +316,7 @@ namespace StAbraamFamily.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "Management")]
         public ActionResult DeleteAction(int id)
         {
             ServiceAction serviceAction = db.ServiceActions.Find(id);
@@ -307,6 +326,7 @@ namespace StAbraamFamily.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "Management,Health")]
         public ActionResult GetMedicalContractsByClinic(string clinicID)
         {
             List<SelectListItem> MedicalContracts = new List<SelectListItem>();
@@ -323,6 +343,7 @@ namespace StAbraamFamily.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "Management,Health")]
         public ActionResult GetMedicalContractsByHospital(string hospitalID)
         {
          

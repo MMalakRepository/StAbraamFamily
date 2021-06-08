@@ -13,7 +13,7 @@ using StAbraamFamily.ViewModels;
 
 namespace StAbraamFamily.Controllers
 {
-    [Authorize]
+    [Authorize(Roles = "Management")]
     public class FamiliesController : Controller
     {
         private StAbraamEntities db = new StAbraamEntities();
