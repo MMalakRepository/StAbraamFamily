@@ -10,7 +10,7 @@ using StAbraamFamily.Models;
 
 namespace StAbraamFamily.Controllers
 {
-    [Authorize]
+    [Authorize(Roles ="Management,Health")]
     public class ClinicsController : Controller
     {
         private StAbraamEntities db = new StAbraamEntities();

@@ -149,7 +149,7 @@
                                         }
                                         @if (User.IsInRole("Management"))
                                         {
-                                            @if (User.IsInRole("Finance"))
+                                            if (User.IsInRole("Finance"))
                                             {
                                                 <li class="">
                                                     @Html.ActionLink("الخدمات المالية", "AddFinancialService", "ServiceActions", null, new { @class = "nav-link linkFont" })
@@ -239,9 +239,8 @@
                 <div class="nano">
                     <div class="nano-content">
                         <nav id="menu" class="nav-main" role="navigation">
-
                             <ul class="nav nav-main">
-                                @if (User.IsInRole("Managment"))
+                                @if (User.IsInRole("Management"))
                                 {
                                     <li>
                                         <a href="@Url.Action("Index","People",null)" class="nav-link linkFont">

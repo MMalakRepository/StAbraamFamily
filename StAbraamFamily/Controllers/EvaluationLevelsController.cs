@@ -10,7 +10,7 @@ using StAbraamFamily.Models;
 
 namespace StAbraamFamily.Controllers
 {
-    [Authorize]
+    [Authorize(Roles ="Management")]
     public class EvaluationLevelsController : Controller
     {
         private StAbraamEntities db = new StAbraamEntities();
