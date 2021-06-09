@@ -227,7 +227,7 @@
           <Property Name="ServantID" Type="int" />
           <Property Name="UserID" Type="nvarchar" MaxLength="128" />
           <Property Name="ActionDate" Type="datetime" />
-          <Property Name="EnterDate" Type="datetime" />
+          <Property Name="EntryDate" Type="datetime" />
           <Property Name="Notes" Type="nvarchar(max)" />
           <Property Name="ActionTypeID" Type="int" />
           <Property Name="IsActive" Type="bit" />
@@ -236,6 +236,10 @@
           <Property Name="HospitalID" Type="int" />
           <Property Name="ClinicID" Type="int" />
           <Property Name="MedicalContractID" Type="int" />
+          <Property Name="MedicalServiceTypeID" Type="int" />
+          <Property Name="Cost" Type="nvarchar" MaxLength="50" />
+          <Property Name="UpdatedOn" Type="datetime" />
+          <Property Name="UpdateBy" Type="nvarchar" MaxLength="128" />
         </EntityType>
         <EntityType Name="ServiceTypes">
           <Key>
@@ -565,6 +569,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_ServiceActions_MedicalServices">
+          <End Role="MedicalServices" Type="Self.MedicalServices" Multiplicity="0..1" />
+          <End Role="ServiceActions" Type="Self.ServiceActions" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MedicalServices">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="ServiceActions">
+              <PropertyRef Name="MedicalServiceTypeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_ServiceActions_Person">
           <End Role="Person" Type="Self.Person" Multiplicity="0..1" />
           <End Role="ServiceActions" Type="Self.ServiceActions" Multiplicity="*" />
@@ -721,6 +737,10 @@
           </AssociationSet>
           <AssociationSet Name="FK_ServiceActions_Hospitals" Association="Self.FK_ServiceActions_Hospitals">
             <End Role="Hospitals" EntitySet="Hospitals" />
+            <End Role="ServiceActions" EntitySet="ServiceActions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ServiceActions_MedicalServices" Association="Self.FK_ServiceActions_MedicalServices">
+            <End Role="MedicalServices" EntitySet="MedicalServices" />
             <End Role="ServiceActions" EntitySet="ServiceActions" />
           </AssociationSet>
           <AssociationSet Name="FK_ServiceActions_Person" Association="Self.FK_ServiceActions_Person">
@@ -951,7 +971,6 @@
           <Property Name="ServantID" Type="Int32" />
           <Property Name="UserID" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
           <Property Name="ActionDate" Type="DateTime" Precision="3" />
-          <Property Name="EnterDate" Type="DateTime" Precision="3" />
           <Property Name="Notes" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="ActionTypeID" Type="Int32" />
           <Property Name="IsActive" Type="Boolean" />
@@ -967,6 +986,12 @@
           <NavigationProperty Name="Servant" Relationship="Self.FK_ServiceActions_Servants" FromRole="ServiceActions" ToRole="Servants" />
           <NavigationProperty Name="ServiceType" Relationship="Self.FK_ServiceActions_ServiceTypes" FromRole="ServiceActions" ToRole="ServiceTypes" />
           <Property Name="MedicalContractID" Type="Int32" />
+          <Property Name="EntryDate" Type="DateTime" Precision="3" />
+          <Property Name="Cost" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="UpdatedOn" Type="DateTime" Precision="3" />
+          <Property Name="UpdateBy" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="MedicalServiceTypeID" Type="Int32" />
+          <NavigationProperty Name="MedicalService" Relationship="StAbraamModel.FK_ServiceActions_MedicalServices" FromRole="ServiceAction" ToRole="MedicalService" />
         </EntityType>
         <EntityType Name="ServiceType">
           <Key>
@@ -1366,6 +1391,10 @@
             <End Role="MedicalService" EntitySet="MedicalServices" />
             <End Role="MedicalContract" EntitySet="MedicalContracts" />
           </AssociationSet>
+          <AssociationSet Name="FK_ServiceActions_MedicalServices" Association="StAbraamModel.FK_ServiceActions_MedicalServices">
+            <End Role="MedicalService" EntitySet="MedicalServices" />
+            <End Role="ServiceAction" EntitySet="ServiceActions" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="Child">
           <Key>
@@ -1451,6 +1480,7 @@
           <Property Name="Notes" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="IsActive" Type="Boolean" />
           <NavigationProperty Name="MedicalContracts" Relationship="StAbraamModel.FK_MedicalContracts_MedicalServices" FromRole="MedicalService" ToRole="MedicalContract" />
+          <NavigationProperty Name="ServiceActions" Relationship="StAbraamModel.FK_ServiceActions_MedicalServices" FromRole="MedicalService" ToRole="ServiceAction" />
         </EntityType>
         <Association Name="FK_MedicalContracts_Clinics">
           <End Type="StAbraamModel.Clinic" Role="Clinic" Multiplicity="0..1" />
@@ -1485,6 +1515,18 @@
             </Principal>
             <Dependent Role="MedicalContract">
               <PropertyRef Name="MedicalServiceID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ServiceActions_MedicalServices">
+          <End Type="StAbraamModel.MedicalService" Role="MedicalService" Multiplicity="0..1" />
+          <End Type="StAbraamModel.ServiceAction" Role="ServiceAction" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MedicalService">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="ServiceAction">
+              <PropertyRef Name="MedicalServiceTypeID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1672,12 +1714,16 @@
           <EntitySetMapping Name="ServiceActions">
             <EntityTypeMapping TypeName="StAbraamModel.ServiceAction">
               <MappingFragment StoreEntitySet="ServiceActions">
+                <ScalarProperty Name="MedicalServiceTypeID" ColumnName="MedicalServiceTypeID" />
+                <ScalarProperty Name="UpdateBy" ColumnName="UpdateBy" />
+                <ScalarProperty Name="UpdatedOn" ColumnName="UpdatedOn" />
+                <ScalarProperty Name="Cost" ColumnName="Cost" />
+                <ScalarProperty Name="EntryDate" ColumnName="EntryDate" />
                 <ScalarProperty Name="MedicalContractID" ColumnName="MedicalContractID" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="ServantID" ColumnName="ServantID" />
                 <ScalarProperty Name="UserID" ColumnName="UserID" />
                 <ScalarProperty Name="ActionDate" ColumnName="ActionDate" />
-                <ScalarProperty Name="EnterDate" ColumnName="EnterDate" />
                 <ScalarProperty Name="Notes" ColumnName="Notes" />
                 <ScalarProperty Name="ActionTypeID" ColumnName="ActionTypeID" />
                 <ScalarProperty Name="IsActive" ColumnName="IsActive" />

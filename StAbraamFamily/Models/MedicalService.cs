@@ -18,6 +18,7 @@ namespace StAbraamFamily.Models
         public MedicalService()
         {
             this.MedicalContracts = new HashSet<MedicalContract>();
+            this.ServiceActions = new HashSet<ServiceAction>();
         }
     
         public int ID { get; set; }
@@ -27,5 +28,7 @@ namespace StAbraamFamily.Models
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<MedicalContract> MedicalContracts { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<ServiceAction> ServiceActions { get; set; }
     }
 }

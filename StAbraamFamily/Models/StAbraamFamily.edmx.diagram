@@ -52,6 +52,7 @@
         <AssociationConnector Association="StAbraamModel.FK_MedicalContracts_Clinics" />
         <AssociationConnector Association="StAbraamModel.FK_MedicalContracts_Hospitals" />
         <AssociationConnector Association="StAbraamModel.FK_MedicalContracts_MedicalServices" />
+        <AssociationConnector Association="StAbraamModel.FK_ServiceActions_MedicalServices" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

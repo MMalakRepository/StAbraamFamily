@@ -18,7 +18,7 @@ namespace StAbraamFamily.Models
         public Nullable<System.DateTime> ActionDate { get; set; }
 
         [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}")]
-        public Nullable<System.DateTime> EnterDate { get; set; }
+        public Nullable<System.DateTime> EntryDate { get; set; }
 
     }
 }

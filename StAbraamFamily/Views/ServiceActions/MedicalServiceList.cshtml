@@ -19,12 +19,16 @@
             <h4 class="display-4 text-center text-primary">Medical Services</h4>
         </div>
         <div class="col-md-7 mt-5">
-            <a href="@Url.Action("Create","ServiceActions",null)" class="text-primary" style="font-size: 18px; font-weight: bold; font-family: Calibri">
-                <i class="fas fa-plus-circle text-warning  rounded-circle"></i> أضافة خدمات اخرى
-            </a>
-            <a href="@Url.Action("AddBagService","ServiceActions")" class="text-primary" style="font-size: 18px; font-weight: bold; font-family: Calibri">
-                <i class="fa fa-shopping-basket text-warning"></i> أضافة شنطة البركة
-            </a>
+            @if (User.IsInRole("Management"))
+            {
+                <a href="@Url.Action("Create","ServiceActions",null)" class="text-primary" style="font-size: 18px; font-weight: bold; font-family: Calibri">
+                    <i class="fas fa-plus-circle text-warning  rounded-circle"></i> أضافة خدمات اخرى
+                </a>
+                <a href="@Url.Action("AddBagService","ServiceActions")" class="text-primary" style="font-size: 18px; font-weight: bold; font-family: Calibri">
+                    <i class="fa fa-shopping-basket text-warning"></i> أضافة شنطة البركة
+                </a>
+            }
+
             <a href="@Url.Action("AddHealthyService","ServiceActions")" class="text-primary" style="font-size: 18px; font-weight: bold; font-family: Calibri">
                 <i class="fa fa-briefcase-medical text-warning"></i> أضافة خدمة علاجية
             </a>

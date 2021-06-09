@@ -18,7 +18,6 @@ namespace StAbraamFamily.Models
         public Nullable<int> ServantID { get; set; }
         public string UserID { get; set; }
         public Nullable<System.DateTime> ActionDate { get; set; }
-        public Nullable<System.DateTime> EnterDate { get; set; }
         public string Notes { get; set; }
         public Nullable<int> ActionTypeID { get; set; }
         public Nullable<bool> IsActive { get; set; }
@@ -27,6 +26,11 @@ namespace StAbraamFamily.Models
         public Nullable<int> HospitalID { get; set; }
         public Nullable<int> ClinicID { get; set; }
         public Nullable<int> MedicalContractID { get; set; }
+        public Nullable<System.DateTime> EntryDate { get; set; }
+        public string Cost { get; set; }
+        public Nullable<System.DateTime> UpdatedOn { get; set; }
+        public string UpdateBy { get; set; }
+        public Nullable<int> MedicalServiceTypeID { get; set; }
     
         public virtual AspNetUser AspNetUser { get; set; }
         public virtual Clinic Clinic { get; set; }
@@ -35,5 +39,6 @@ namespace StAbraamFamily.Models
         public virtual Person Person { get; set; }
         public virtual Servant Servant { get; set; }
         public virtual ServiceType ServiceType { get; set; }
+        public virtual MedicalService MedicalService { get; set; }
     }
 }

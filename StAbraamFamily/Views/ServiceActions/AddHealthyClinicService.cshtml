@@ -6,22 +6,25 @@
 }
 
 <header class="page-header" style="background-color: #0088cc;border-left-color: #0088cc">
-    <h2 class="text-white" style="        border-bottom-color: #5bc0de !important;font-size: 25px;font-weight: bold;font-family: Calibri"> بيانات الخدمات العلاجية</h2>
+    <h2 class="text-white" style="border-bottom-color: #5bc0de !important;font-size: 25px;font-weight: bold;font-family: Calibri"> بيانات الخدمات العلاجية</h2>
 </header>
 
 <div class="col-lg-12">
     <div class="row">
         <div class="col-md-5">
-            <h4 class="display-4 text-center text-primary">New Clinic Service</h4>
+            <h4 class="display-4 text-center text-primary"> Clinic Service</h4>
         </div>
         <div class="col-md-7 mt-5">
-            <a href="@Url.Action("Create","ServiceActions",null)" class="text-primary" style="font-size: 18px; font-weight: bold; font-family: Calibri">
-                <i class="fas fa-plus-circle text-warning  rounded-circle"></i> أضافة خدمات اخرى
-            </a>
+            @if (User.IsInRole("Management"))
+            {
+                <a href="@Url.Action("Create","ServiceActions",null)" class="text-primary" style="font-size: 18px; font-weight: bold; font-family: Calibri">
+                    <i class="fas fa-plus-circle text-warning  rounded-circle"></i> أضافة خدمات اخرى
+                </a>
+            }
             <a href="@Url.Action("AddHealthyService","ServiceActions",null)" class="text-primary" style="font-size: 18px; font-weight: bold; font-family: Calibri">
-                <i class="fas fa-briefcase-medical text-warning  rounded-circle"></i> أضافة  خدمة علاجية
+                <i class="fas fa-briefcase-medical text-warning  rounded-circle"></i> أضافة  خدمة مستشفى
             </a>
-            <a href="@Url.Action("MedicalServiceList","ServiceActions",null)" class="text-primary" style="font-size:18px;font-weight:bold;font-family:Calibri" ">
+            <a href="@Url.Action("MedicalServiceList","ServiceActions",null)" class="text-primary" style="font-size:18px;font-weight:bold;font-family:Calibri">
                 <i class="fas fa-user-cog text-warning"></i> تقرير الخدمات العلاجية
             </a>
         </div>
@@ -118,9 +121,44 @@
 
                     <div class="row">
 
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="control-label col-md-6" style="float: right;font-size: 14px;font-weight: bold;text-align: right;font-family: Calibri"> نوع الكشف</label>
+                                <div class="col-md-12">
+                                    <div class="input-group">
+                                        <span class="input-group-prepend">
+                                            <span class="input-group-text">
+                                                <i class="fas fa-clinic-medical text-info"></i>
+                                            </span>
+                                        </span>
+                                        @Html.DropDownList("MedicalServiceTypeID", null, " أختار نوع الكشف", htmlAttributes: new { @class = "form-control" })
+                                        @Html.ValidationMessageFor(model => model.MedicalService, "", new { @class = "text-danger" })
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="control-label col-md-6" style="float: right;font-size: 14px;font-weight: bold;text-align: right;font-family: Calibri">التكلفة</label>
+                                <div class="col-md-12">
+                                    <div class="input-group">
+                                        <span class="input-group-prepend">
+                                            <span class="input-group-text">
+                                                <i class="fas fa-user-nurse text-info"></i>
+                                            </span>
+                                        </span>                                   
+                                        @Html.EditorFor(model => model.Cost, new { htmlAttributes = new { @class = "form-control" } })
+                                        @Html.ValidationMessageFor(model => model.Cost, "", new { @class = "text-danger" })
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
                     </div>
 
-
+                    <div class="row"></div>
                     <div class="row">
                         <div class="col-md-6">
                             <div class="form-group">

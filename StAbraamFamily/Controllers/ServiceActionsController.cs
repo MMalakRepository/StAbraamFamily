@@ -135,6 +135,7 @@ namespace StAbraamFamily.Controllers
             ViewBag.ServantID = new SelectList(db.Servants.Where(x => x.IsActive == true), "ID", "ServantName");
             ViewBag.ActionTypeID = new SelectList(db.ServiceTypes.Where(x => x.IsActive == true), "ID", "ActionType");
             ViewBag.MedicalContractID = new SelectList(db.MedicalContracts.Where(x => x.IsActive == true), "ID", "Notes");
+            ViewBag.MedicalServiceTypeID = new SelectList(db.MedicalServices.Where(x => x.IsActive == true), "ID", "MedicalService1");
         }
 
         [HttpPost]
@@ -148,6 +149,7 @@ namespace StAbraamFamily.Controllers
                 serviceAction.PersonID = Convert.ToInt32(Request.Form["PersonID"].ToString());
                 serviceAction.ActionTypeID = Convert.ToInt32(Request.Form["ActionTypeID"].ToString());
                 serviceAction.IsActive = true;
+                serviceAction.EntryDate = DateTime.Now;
                 var p = db.People.Where(x => x.ID == serviceAction.PersonID).FirstOrDefault();
                 serviceAction.FamilyID = p.FamilyID;
                 db.ServiceActions.Add(serviceAction);
@@ -171,6 +173,7 @@ namespace StAbraamFamily.Controllers
                 serviceAction.PersonID = Convert.ToInt32(Request.Form["PersonID"].ToString());
                 serviceAction.ActionTypeID = 2;
                 serviceAction.IsActive = true;
+                serviceAction.EntryDate = DateTime.Now;
                 var p = db.People.Where(x => x.ID == serviceAction.PersonID).FirstOrDefault();
                 serviceAction.FamilyID = p.FamilyID;
                 db.ServiceActions.Add(serviceAction);
@@ -195,6 +198,7 @@ namespace StAbraamFamily.Controllers
                 serviceAction.PersonID = Convert.ToInt32(Request.Form["PersonID"].ToString());
                 serviceAction.ActionTypeID = 2;
                 serviceAction.IsActive = true;
+                serviceAction.EntryDate = DateTime.Now;
                 var p = db.People.Where(x => x.ID == serviceAction.PersonID).FirstOrDefault();
                 serviceAction.FamilyID = p.FamilyID;
                 db.ServiceActions.Add(serviceAction);
@@ -218,6 +222,7 @@ namespace StAbraamFamily.Controllers
                 serviceAction.PersonID = Convert.ToInt32(Request.Form["PersonID"].ToString());
                 serviceAction.ActionTypeID = 1;
                 serviceAction.IsActive = true;
+                serviceAction.EntryDate = DateTime.Now;
                 var p = db.People.Where(x => x.ID == serviceAction.PersonID).FirstOrDefault();
                 serviceAction.FamilyID = p.FamilyID;
                 db.ServiceActions.Add(serviceAction);
@@ -241,6 +246,7 @@ namespace StAbraamFamily.Controllers
                 serviceAction.PersonID = Convert.ToInt32(Request.Form["PersonID"].ToString());
                 serviceAction.ActionTypeID = 3;
                 serviceAction.IsActive = true;
+                serviceAction.EntryDate = DateTime.Now;
                 var p = db.People.Where(x => x.ID == serviceAction.PersonID).FirstOrDefault();
                 serviceAction.FamilyID = p.FamilyID;
                 db.ServiceActions.Add(serviceAction);
@@ -306,6 +312,8 @@ namespace StAbraamFamily.Controllers
                 serviceAction.ServantID = Convert.ToInt32(Request.Form["ServantID"].ToString());
                 serviceAction.PersonID = Convert.ToInt32(Request.Form["PersonID"].ToString());
                 serviceAction.IsActive = true;
+                serviceAction.UpdatedOn = DateTime.Now;
+                serviceAction.UpdateBy = User.Identity.GetUserId();
                 db.Entry(serviceAction).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
