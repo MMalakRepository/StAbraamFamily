@@ -224,9 +224,9 @@ namespace StAbraamFamily.Controllers
             }
 
             String hashedNewPassword = UserManager.PasswordHasher.HashPassword(model.Password);
-            UserStore<ApplicationUser> store = new UserStore<ApplicationUser>();
-            await store.SetPasswordHashAsync(user, hashedNewPassword);
-            return RedirectToAction("Home","Home");
+            user.PasswordHash = hashedNewPassword;
+            var result = await UserManager.UpdateAsync(user);
+            return RedirectToAction("Login","Account");
         }
 
         [AllowAnonymous]
