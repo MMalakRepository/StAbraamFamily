@@ -11,7 +11,7 @@ using StAbraamFamily.ViewModels;
 
 namespace StAbraamFamily.Controllers
 {
-    [Authorize(Roles = "Management")]
+    [Authorize(Roles = "Management,DataEntry")]
     public class PeopleController : Controller
     {
         private StAbraamEntities db = new StAbraamEntities();
