@@ -1,0 +1,1862 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="StAbraamFamilyData.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="__MigrationHistory">
+          <Key>
+            <PropertyRef Name="MigrationId" />
+            <PropertyRef Name="ContextKey" />
+          </Key>
+          <Property Name="MigrationId" Type="nvarchar" MaxLength="150" Nullable="false" />
+          <Property Name="ContextKey" Type="nvarchar" MaxLength="300" Nullable="false" />
+          <Property Name="Model" Type="varbinary(max)" Nullable="false" />
+          <Property Name="ProductVersion" Type="nvarchar" MaxLength="32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="AspNetRoles">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="256" Nullable="false" />
+        </EntityType>
+        <EntityType Name="AspNetUserClaims">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserId" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="ClaimType" Type="nvarchar(max)" />
+          <Property Name="ClaimValue" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="AspNetUserLogins">
+          <Key>
+            <PropertyRef Name="LoginProvider" />
+            <PropertyRef Name="ProviderKey" />
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="LoginProvider" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="ProviderKey" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="UserId" Type="nvarchar" MaxLength="128" Nullable="false" />
+        </EntityType>
+        <EntityType Name="AspNetUserRoles">
+          <Key>
+            <PropertyRef Name="UserId" />
+            <PropertyRef Name="RoleId" />
+          </Key>
+          <Property Name="UserId" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="RoleId" Type="nvarchar" MaxLength="128" Nullable="false" />
+        </EntityType>
+        <EntityType Name="AspNetUsers">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="Email" Type="nvarchar" MaxLength="256" />
+          <Property Name="EmailConfirmed" Type="bit" Nullable="false" />
+          <Property Name="PasswordHash" Type="nvarchar(max)" />
+          <Property Name="SecurityStamp" Type="nvarchar(max)" />
+          <Property Name="PhoneNumber" Type="nvarchar(max)" />
+          <Property Name="PhoneNumberConfirmed" Type="bit" Nullable="false" />
+          <Property Name="TwoFactorEnabled" Type="bit" Nullable="false" />
+          <Property Name="LockoutEndDateUtc" Type="datetime" />
+          <Property Name="LockoutEnabled" Type="bit" Nullable="false" />
+          <Property Name="AccessFailedCount" Type="int" Nullable="false" />
+          <Property Name="UserName" Type="nvarchar" MaxLength="256" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6013: The table/view 'DB_A6E768_MMalak.dbo.CathedralData' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
+        <EntityType Name="CathedralData">
+          <Property Name="ServedID" Type="float" />
+          <Property Name="FamilyID" Type="float" />
+          <Property Name="Name" Type="nvarchar" MaxLength="255" />
+          <Property Name="IsFather" Type="nvarchar" MaxLength="255" />
+          <Property Name="NationalID" Type="nvarchar" MaxLength="255" />
+          <Property Name="Mobile" Type="nvarchar" MaxLength="255" />
+          <Property Name="BirthDate" Type="datetime" />
+          <Property Name="Relation" Type="nvarchar" MaxLength="255" />
+          <Property Name="Image" Type="nvarchar" MaxLength="255" />
+        </EntityType>-->
+        <EntityType Name="Child">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="250" Nullable="false" />
+          <Property Name="DateOfBirth" Type="datetime" />
+          <Property Name="IsActive" Type="bit" />
+          <Property Name="IsWorking" Type="bit" Nullable="false" />
+          <Property Name="WorkingPlace" Type="nvarchar" MaxLength="250" />
+          <Property Name="IsStudying" Type="bit" Nullable="false" />
+          <Property Name="EntryDate" Type="datetime" />
+          <Property Name="EnteredBy" Type="nvarchar" MaxLength="128" />
+          <Property Name="FamilyID" Type="int" />
+          <Property Name="ConfessionFather" Type="int" />
+          <Property Name="ServantID" Type="int" />
+          <Property Name="Gender" Type="bit" />
+        </EntityType>
+        <EntityType Name="Clinics">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ClinicName" Type="nvarchar" MaxLength="250" />
+          <Property Name="Notes" Type="nvarchar(max)" />
+          <Property Name="IsActive" Type="bit" />
+          <Property Name="Address" Type="nvarchar" MaxLength="250" />
+        </EntityType>
+        <EntityType Name="EvaluationLevels">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="EvaluationLevel" Type="nvarchar" MaxLength="50" />
+          <Property Name="IsActive" Type="bit" />
+        </EntityType>
+        <EntityType Name="Families">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FamilyCode" Type="nvarchar" MaxLength="50" />
+          <Property Name="Address" Type="nvarchar(max)" />
+          <Property Name="ServantID" Type="int" />
+          <Property Name="NoOfChildren" Type="int" />
+          <Property Name="FatherID" Type="int" />
+          <Property Name="MotherID" Type="int" />
+          <Property Name="IsActive" Type="bit" />
+          <Property Name="Notes" Type="nvarchar(max)" />
+          <Property Name="MissingPriestID" Type="int" />
+          <Property Name="EvaluationLevelID" Type="int" />
+        </EntityType>
+        <EntityType Name="FamilyServants">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FamilyID" Type="int" />
+          <Property Name="ServantID" Type="int" />
+          <Property Name="IsActive" Type="bit" />
+        </EntityType>
+        <EntityType Name="FamilyVisits">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FamilyID" Type="int" />
+          <Property Name="ServantID" Type="int" />
+          <Property Name="VisitDate" Type="datetime" />
+          <Property Name="Notes" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="Fathers">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FatherName" Type="nvarchar(max)" />
+          <Property Name="PhoneNumber" Type="nvarchar" MaxLength="50" />
+          <Property Name="IsActive" Type="bit" />
+          <Property Name="Notes" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="Hospitals">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="HospitalName" Type="nvarchar" MaxLength="50" />
+          <Property Name="Address" Type="nvarchar(max)" />
+          <Property Name="IsActive" Type="bit" />
+          <Property Name="Notes" Type="nvarchar" MaxLength="500" />
+        </EntityType>
+        <EntityType Name="MedicalContracts">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="MedicalServiceID" Type="int" />
+          <Property Name="HospitalID" Type="int" />
+          <Property Name="ClinicID" Type="int" />
+          <Property Name="Notes" Type="nvarchar" MaxLength="500" />
+          <Property Name="IsFinished" Type="bit" />
+          <Property Name="Percentage" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="EntryDate" Type="datetime" />
+          <Property Name="EnteredBy" Type="nvarchar" MaxLength="128" />
+          <Property Name="IsActive" Type="bit" />
+        </EntityType>
+        <EntityType Name="MedicalServices">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="MedicalService" Type="nvarchar" MaxLength="500" />
+          <Property Name="Notes" Type="nvarchar(max)" />
+          <Property Name="IsActive" Type="bit" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6013: The table/view 'DB_A6E768_MMalak.dbo.newPerson' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
+        <EntityType Name="newPerson">
+          <Property Name="ServedID" Type="float" />
+          <Property Name="FamilyID" Type="float" />
+          <Property Name="Name" Type="nvarchar" MaxLength="255" />
+          <Property Name="IsFather" Type="nvarchar" MaxLength="255" />
+          <Property Name="NationalID" Type="nvarchar" MaxLength="255" />
+          <Property Name="Mobile" Type="nvarchar" MaxLength="255" />
+          <Property Name="BirthDate" Type="datetime" />
+          <Property Name="Gender" Type="bit" />
+          <Property Name="Image" Type="nvarchar" MaxLength="255" />
+        </EntityType>-->
+        <EntityType Name="Person">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FullName" Type="nvarchar(max)" />
+          <Property Name="Phone" Type="nvarchar" MaxLength="50" />
+          <Property Name="Address" Type="nvarchar(max)" />
+          <Property Name="Area" Type="nvarchar" MaxLength="50" />
+          <Property Name="DateOfBirth" Type="datetime" />
+          <Property Name="DateOfDeath" Type="datetime" />
+          <Property Name="WorkingPlace" Type="nvarchar" MaxLength="250" />
+          <Property Name="IsActive" Type="bit" />
+          <Property Name="Description" Type="nvarchar(max)" />
+          <Property Name="FamilyID" Type="int" />
+          <Property Name="EntryDate" Type="datetime" />
+          <Property Name="ServantID" Type="int" />
+          <Property Name="ConfessionFather" Type="int" />
+          <Property Name="IsWidow" Type="bit" />
+          <Property Name="Gender" Type="bit" />
+          <Property Name="Notes" Type="nvarchar" MaxLength="500" />
+          <Property Name="NationalID" Type="nvarchar" MaxLength="50" />
+          <Property Name="Salary" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="OtherIncome" Type="nvarchar" MaxLength="250" />
+          <Property Name="Status" Type="bit" />
+          <Property Name="Code" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Servants">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ServantName" Type="nvarchar" MaxLength="250" />
+          <Property Name="Phone" Type="nvarchar" MaxLength="50" />
+          <Property Name="EmailAddress" Type="nvarchar" MaxLength="50" />
+          <Property Name="DateOfBirth" Type="datetime" />
+          <Property Name="IsActive" Type="bit" />
+        </EntityType>
+        <EntityType Name="ServiceActions">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ServantID" Type="int" />
+          <Property Name="UserID" Type="nvarchar" MaxLength="128" />
+          <Property Name="ActionDate" Type="datetime" />
+          <Property Name="EntryDate" Type="datetime" />
+          <Property Name="Notes" Type="nvarchar(max)" />
+          <Property Name="ActionTypeID" Type="int" />
+          <Property Name="IsActive" Type="bit" />
+          <Property Name="FamilyID" Type="int" />
+          <Property Name="PersonID" Type="int" />
+          <Property Name="HospitalID" Type="int" />
+          <Property Name="ClinicID" Type="int" />
+          <Property Name="MedicalContractID" Type="int" />
+          <Property Name="MedicalServiceTypeID" Type="int" />
+          <Property Name="Cost" Type="nvarchar" MaxLength="50" />
+          <Property Name="UpdatedOn" Type="datetime" />
+          <Property Name="UpdateBy" Type="nvarchar" MaxLength="128" />
+        </EntityType>
+        <EntityType Name="ServiceTypes">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ActionType" Type="nvarchar" MaxLength="50" />
+          <Property Name="Description" Type="nvarchar" MaxLength="250" />
+          <Property Name="IsActive" Type="bit" />
+          <Property Name="ServantID" Type="int" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
+        <Association Name="FK_Child_Families">
+          <End Role="Families" Type="Self.Families" Multiplicity="0..1" />
+          <End Role="Child" Type="Self.Child" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Families">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Child">
+              <PropertyRef Name="FamilyID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Child_Fathers">
+          <End Role="Fathers" Type="Self.Fathers" Multiplicity="0..1" />
+          <End Role="Child" Type="Self.Child" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Fathers">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Child">
+              <PropertyRef Name="ConfessionFather" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Child_Servants">
+          <End Role="Servants" Type="Self.Servants" Multiplicity="0..1" />
+          <End Role="Child" Type="Self.Child" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Servants">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Child">
+              <PropertyRef Name="ServantID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="AspNetUserClaims" Type="Self.AspNetUserClaims" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AspNetUserClaims">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="AspNetUserLogins" Type="Self.AspNetUserLogins" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AspNetUserLogins">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_AspNetUserRoles_dbo_AspNetRoles_RoleId">
+          <End Role="AspNetRoles" Type="Self.AspNetRoles" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="AspNetUserRoles" Type="Self.AspNetUserRoles" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetRoles">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AspNetUserRoles">
+              <PropertyRef Name="RoleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_AspNetUserRoles_dbo_AspNetUsers_UserId">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="AspNetUserRoles" Type="Self.AspNetUserRoles" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AspNetUserRoles">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Families_EvaluationLevels">
+          <End Role="EvaluationLevels" Type="Self.EvaluationLevels" Multiplicity="0..1" />
+          <End Role="Families" Type="Self.Families" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="EvaluationLevels">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Families">
+              <PropertyRef Name="EvaluationLevelID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Families_Fathers">
+          <End Role="Fathers" Type="Self.Fathers" Multiplicity="0..1" />
+          <End Role="Families" Type="Self.Families" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Fathers">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Families">
+              <PropertyRef Name="MissingPriestID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Families_Person">
+          <End Role="Person" Type="Self.Person" Multiplicity="0..1" />
+          <End Role="Families" Type="Self.Families" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Person">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Families">
+              <PropertyRef Name="FatherID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Families_Person1">
+          <End Role="Person" Type="Self.Person" Multiplicity="0..1" />
+          <End Role="Families" Type="Self.Families" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Person">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Families">
+              <PropertyRef Name="MotherID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Families_Servants">
+          <End Role="Servants" Type="Self.Servants" Multiplicity="0..1" />
+          <End Role="Families" Type="Self.Families" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Servants">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Families">
+              <PropertyRef Name="ServantID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_FamilyServants_Families">
+          <End Role="Families" Type="Self.Families" Multiplicity="0..1" />
+          <End Role="FamilyServants" Type="Self.FamilyServants" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Families">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="FamilyServants">
+              <PropertyRef Name="FamilyID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_FamilyServants_Servants">
+          <End Role="Servants" Type="Self.Servants" Multiplicity="0..1" />
+          <End Role="FamilyServants" Type="Self.FamilyServants" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Servants">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="FamilyServants">
+              <PropertyRef Name="ServantID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_FamilyVisits_Families">
+          <End Role="Families" Type="Self.Families" Multiplicity="0..1" />
+          <End Role="FamilyVisits" Type="Self.FamilyVisits" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Families">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="FamilyVisits">
+              <PropertyRef Name="FamilyID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_FamilyVisits_Servants">
+          <End Role="Servants" Type="Self.Servants" Multiplicity="0..1" />
+          <End Role="FamilyVisits" Type="Self.FamilyVisits" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Servants">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="FamilyVisits">
+              <PropertyRef Name="ServantID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MedicalContracts_Clinics">
+          <End Role="Clinics" Type="Self.Clinics" Multiplicity="0..1" />
+          <End Role="MedicalContracts" Type="Self.MedicalContracts" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Clinics">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="MedicalContracts">
+              <PropertyRef Name="ClinicID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MedicalContracts_Hospitals">
+          <End Role="Hospitals" Type="Self.Hospitals" Multiplicity="0..1" />
+          <End Role="MedicalContracts" Type="Self.MedicalContracts" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Hospitals">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="MedicalContracts">
+              <PropertyRef Name="HospitalID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MedicalContracts_MedicalServices">
+          <End Role="MedicalServices" Type="Self.MedicalServices" Multiplicity="0..1" />
+          <End Role="MedicalContracts" Type="Self.MedicalContracts" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MedicalServices">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="MedicalContracts">
+              <PropertyRef Name="MedicalServiceID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Person_Fathers">
+          <End Role="Fathers" Type="Self.Fathers" Multiplicity="0..1" />
+          <End Role="Person" Type="Self.Person" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Fathers">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Person">
+              <PropertyRef Name="ConfessionFather" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Person_Servants">
+          <End Role="Servants" Type="Self.Servants" Multiplicity="0..1" />
+          <End Role="Person" Type="Self.Person" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Servants">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Person">
+              <PropertyRef Name="ServantID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ServiceActions_AspNetUsers">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="0..1" />
+          <End Role="ServiceActions" Type="Self.ServiceActions" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ServiceActions">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ServiceActions_Clinics">
+          <End Role="Clinics" Type="Self.Clinics" Multiplicity="0..1" />
+          <End Role="ServiceActions" Type="Self.ServiceActions" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Clinics">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="ServiceActions">
+              <PropertyRef Name="ClinicID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ServiceActions_Families">
+          <End Role="Families" Type="Self.Families" Multiplicity="0..1" />
+          <End Role="ServiceActions" Type="Self.ServiceActions" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Families">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="ServiceActions">
+              <PropertyRef Name="FamilyID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ServiceActions_Hospitals">
+          <End Role="Hospitals" Type="Self.Hospitals" Multiplicity="0..1" />
+          <End Role="ServiceActions" Type="Self.ServiceActions" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Hospitals">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="ServiceActions">
+              <PropertyRef Name="HospitalID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ServiceActions_MedicalServices">
+          <End Role="MedicalServices" Type="Self.MedicalServices" Multiplicity="0..1" />
+          <End Role="ServiceActions" Type="Self.ServiceActions" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MedicalServices">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="ServiceActions">
+              <PropertyRef Name="MedicalServiceTypeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ServiceActions_Person">
+          <End Role="Person" Type="Self.Person" Multiplicity="0..1" />
+          <End Role="ServiceActions" Type="Self.ServiceActions" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Person">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="ServiceActions">
+              <PropertyRef Name="PersonID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ServiceActions_Servants">
+          <End Role="Servants" Type="Self.Servants" Multiplicity="0..1" />
+          <End Role="ServiceActions" Type="Self.ServiceActions" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Servants">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="ServiceActions">
+              <PropertyRef Name="ServantID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ServiceActions_ServiceTypes">
+          <End Role="ServiceTypes" Type="Self.ServiceTypes" Multiplicity="0..1" />
+          <End Role="ServiceActions" Type="Self.ServiceActions" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ServiceTypes">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="ServiceActions">
+              <PropertyRef Name="ActionTypeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="StAbraamFamilyDataStoreContainer">
+          <EntitySet Name="__MigrationHistory" EntityType="Self.__MigrationHistory" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AspNetRoles" EntityType="Self.AspNetRoles" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AspNetUserClaims" EntityType="Self.AspNetUserClaims" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AspNetUserLogins" EntityType="Self.AspNetUserLogins" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AspNetUserRoles" EntityType="Self.AspNetUserRoles" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AspNetUsers" EntityType="Self.AspNetUsers" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Child" EntityType="Self.Child" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Clinics" EntityType="Self.Clinics" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="EvaluationLevels" EntityType="Self.EvaluationLevels" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Families" EntityType="Self.Families" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="FamilyServants" EntityType="Self.FamilyServants" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="FamilyVisits" EntityType="Self.FamilyVisits" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Fathers" EntityType="Self.Fathers" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Hospitals" EntityType="Self.Hospitals" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="MedicalContracts" EntityType="Self.MedicalContracts" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="MedicalServices" EntityType="Self.MedicalServices" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Person" EntityType="Self.Person" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Servants" EntityType="Self.Servants" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ServiceActions" EntityType="Self.ServiceActions" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ServiceTypes" EntityType="Self.ServiceTypes" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Child_Families" Association="Self.FK_Child_Families">
+            <End Role="Families" EntitySet="Families" />
+            <End Role="Child" EntitySet="Child" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Child_Fathers" Association="Self.FK_Child_Fathers">
+            <End Role="Fathers" EntitySet="Fathers" />
+            <End Role="Child" EntitySet="Child" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Child_Servants" Association="Self.FK_Child_Servants">
+            <End Role="Servants" EntitySet="Servants" />
+            <End Role="Child" EntitySet="Child" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="AspNetUserClaims" EntitySet="AspNetUserClaims" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="AspNetUserLogins" EntitySet="AspNetUserLogins" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_AspNetUserRoles_dbo_AspNetRoles_RoleId" Association="Self.FK_dbo_AspNetUserRoles_dbo_AspNetRoles_RoleId">
+            <End Role="AspNetRoles" EntitySet="AspNetRoles" />
+            <End Role="AspNetUserRoles" EntitySet="AspNetUserRoles" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_AspNetUserRoles_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserRoles_dbo_AspNetUsers_UserId">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="AspNetUserRoles" EntitySet="AspNetUserRoles" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Families_EvaluationLevels" Association="Self.FK_Families_EvaluationLevels">
+            <End Role="EvaluationLevels" EntitySet="EvaluationLevels" />
+            <End Role="Families" EntitySet="Families" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Families_Fathers" Association="Self.FK_Families_Fathers">
+            <End Role="Fathers" EntitySet="Fathers" />
+            <End Role="Families" EntitySet="Families" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Families_Person" Association="Self.FK_Families_Person">
+            <End Role="Person" EntitySet="Person" />
+            <End Role="Families" EntitySet="Families" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Families_Person1" Association="Self.FK_Families_Person1">
+            <End Role="Person" EntitySet="Person" />
+            <End Role="Families" EntitySet="Families" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Families_Servants" Association="Self.FK_Families_Servants">
+            <End Role="Servants" EntitySet="Servants" />
+            <End Role="Families" EntitySet="Families" />
+          </AssociationSet>
+          <AssociationSet Name="FK_FamilyServants_Families" Association="Self.FK_FamilyServants_Families">
+            <End Role="Families" EntitySet="Families" />
+            <End Role="FamilyServants" EntitySet="FamilyServants" />
+          </AssociationSet>
+          <AssociationSet Name="FK_FamilyServants_Servants" Association="Self.FK_FamilyServants_Servants">
+            <End Role="Servants" EntitySet="Servants" />
+            <End Role="FamilyServants" EntitySet="FamilyServants" />
+          </AssociationSet>
+          <AssociationSet Name="FK_FamilyVisits_Families" Association="Self.FK_FamilyVisits_Families">
+            <End Role="Families" EntitySet="Families" />
+            <End Role="FamilyVisits" EntitySet="FamilyVisits" />
+          </AssociationSet>
+          <AssociationSet Name="FK_FamilyVisits_Servants" Association="Self.FK_FamilyVisits_Servants">
+            <End Role="Servants" EntitySet="Servants" />
+            <End Role="FamilyVisits" EntitySet="FamilyVisits" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MedicalContracts_Clinics" Association="Self.FK_MedicalContracts_Clinics">
+            <End Role="Clinics" EntitySet="Clinics" />
+            <End Role="MedicalContracts" EntitySet="MedicalContracts" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MedicalContracts_Hospitals" Association="Self.FK_MedicalContracts_Hospitals">
+            <End Role="Hospitals" EntitySet="Hospitals" />
+            <End Role="MedicalContracts" EntitySet="MedicalContracts" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MedicalContracts_MedicalServices" Association="Self.FK_MedicalContracts_MedicalServices">
+            <End Role="MedicalServices" EntitySet="MedicalServices" />
+            <End Role="MedicalContracts" EntitySet="MedicalContracts" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Person_Fathers" Association="Self.FK_Person_Fathers">
+            <End Role="Fathers" EntitySet="Fathers" />
+            <End Role="Person" EntitySet="Person" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Person_Servants" Association="Self.FK_Person_Servants">
+            <End Role="Servants" EntitySet="Servants" />
+            <End Role="Person" EntitySet="Person" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ServiceActions_AspNetUsers" Association="Self.FK_ServiceActions_AspNetUsers">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="ServiceActions" EntitySet="ServiceActions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ServiceActions_Clinics" Association="Self.FK_ServiceActions_Clinics">
+            <End Role="Clinics" EntitySet="Clinics" />
+            <End Role="ServiceActions" EntitySet="ServiceActions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ServiceActions_Families" Association="Self.FK_ServiceActions_Families">
+            <End Role="Families" EntitySet="Families" />
+            <End Role="ServiceActions" EntitySet="ServiceActions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ServiceActions_Hospitals" Association="Self.FK_ServiceActions_Hospitals">
+            <End Role="Hospitals" EntitySet="Hospitals" />
+            <End Role="ServiceActions" EntitySet="ServiceActions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ServiceActions_MedicalServices" Association="Self.FK_ServiceActions_MedicalServices">
+            <End Role="MedicalServices" EntitySet="MedicalServices" />
+            <End Role="ServiceActions" EntitySet="ServiceActions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ServiceActions_Person" Association="Self.FK_ServiceActions_Person">
+            <End Role="Person" EntitySet="Person" />
+            <End Role="ServiceActions" EntitySet="ServiceActions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ServiceActions_Servants" Association="Self.FK_ServiceActions_Servants">
+            <End Role="Servants" EntitySet="Servants" />
+            <End Role="ServiceActions" EntitySet="ServiceActions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ServiceActions_ServiceTypes" Association="Self.FK_ServiceActions_ServiceTypes">
+            <End Role="ServiceTypes" EntitySet="ServiceTypes" />
+            <End Role="ServiceActions" EntitySet="ServiceActions" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="StAbraamFamilyData" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="C__MigrationHistory">
+          <Key>
+            <PropertyRef Name="MigrationId" />
+            <PropertyRef Name="ContextKey" />
+          </Key>
+          <Property Name="MigrationId" Type="String" MaxLength="150" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ContextKey" Type="String" MaxLength="300" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Model" Type="Binary" MaxLength="Max" FixedLength="false" Nullable="false" />
+          <Property Name="ProductVersion" Type="String" MaxLength="32" FixedLength="false" Unicode="true" Nullable="false" />
+        </EntityType>
+        <EntityType Name="AspNetRole">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="256" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="AspNetUsers" Relationship="Self.AspNetUserRoles" FromRole="AspNetRoles" ToRole="AspNetUsers" />
+        </EntityType>
+        <EntityType Name="AspNetUserClaim">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserId" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ClaimType" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ClaimValue" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="AspNetUser" Relationship="Self.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" FromRole="AspNetUserClaims" ToRole="AspNetUsers" />
+        </EntityType>
+        <EntityType Name="AspNetUserLogin">
+          <Key>
+            <PropertyRef Name="LoginProvider" />
+            <PropertyRef Name="ProviderKey" />
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="LoginProvider" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ProviderKey" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="UserId" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="AspNetUser" Relationship="Self.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" FromRole="AspNetUserLogins" ToRole="AspNetUsers" />
+        </EntityType>
+        <EntityType Name="AspNetUser">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Email" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="EmailConfirmed" Type="Boolean" Nullable="false" />
+          <Property Name="PasswordHash" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="SecurityStamp" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="PhoneNumber" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="PhoneNumberConfirmed" Type="Boolean" Nullable="false" />
+          <Property Name="TwoFactorEnabled" Type="Boolean" Nullable="false" />
+          <Property Name="LockoutEndDateUtc" Type="DateTime" Precision="3" />
+          <Property Name="LockoutEnabled" Type="Boolean" Nullable="false" />
+          <Property Name="AccessFailedCount" Type="Int32" Nullable="false" />
+          <Property Name="UserName" Type="String" MaxLength="256" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="AspNetUserClaims" Relationship="Self.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" FromRole="AspNetUsers" ToRole="AspNetUserClaims" />
+          <NavigationProperty Name="AspNetUserLogins" Relationship="Self.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" FromRole="AspNetUsers" ToRole="AspNetUserLogins" />
+          <NavigationProperty Name="ServiceActions" Relationship="Self.FK_ServiceActions_AspNetUsers" FromRole="AspNetUsers" ToRole="ServiceActions" />
+          <NavigationProperty Name="AspNetRoles" Relationship="Self.AspNetUserRoles" FromRole="AspNetUsers" ToRole="AspNetRoles" />
+        </EntityType>
+        <EntityType Name="Child">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="250" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="DateOfBirth" Type="DateTime" Precision="3" />
+          <Property Name="IsActive" Type="Boolean" />
+          <Property Name="IsWorking" Type="Boolean" Nullable="false" />
+          <Property Name="WorkingPlace" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="IsStudying" Type="Boolean" Nullable="false" />
+          <Property Name="EntryDate" Type="DateTime" Precision="3" />
+          <Property Name="EnteredBy" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="FamilyID" Type="Int32" />
+          <Property Name="ConfessionFather" Type="Int32" />
+          <Property Name="ServantID" Type="Int32" />
+          <Property Name="Gender" Type="Boolean" />
+          <NavigationProperty Name="Family" Relationship="Self.FK_Child_Families" FromRole="Child" ToRole="Families" />
+          <NavigationProperty Name="Father" Relationship="Self.FK_Child_Fathers" FromRole="Child" ToRole="Fathers" />
+          <NavigationProperty Name="Servant" Relationship="Self.FK_Child_Servants" FromRole="Child" ToRole="Servants" />
+        </EntityType>
+        <EntityType Name="Clinic">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ClinicName" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="Notes" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="IsActive" Type="Boolean" />
+          <Property Name="Address" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="MedicalContracts" Relationship="Self.FK_MedicalContracts_Clinics" FromRole="Clinics" ToRole="MedicalContracts" />
+          <NavigationProperty Name="ServiceActions" Relationship="Self.FK_ServiceActions_Clinics" FromRole="Clinics" ToRole="ServiceActions" />
+        </EntityType>
+        <EntityType Name="EvaluationLevel">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="EvaluationLevel1" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="IsActive" Type="Boolean" />
+          <NavigationProperty Name="Families" Relationship="Self.FK_Families_EvaluationLevels" FromRole="EvaluationLevels" ToRole="Families" />
+        </EntityType>
+        <EntityType Name="Family">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FamilyCode" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Address" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ServantID" Type="Int32" />
+          <Property Name="NoOfChildren" Type="Int32" />
+          <Property Name="FatherID" Type="Int32" />
+          <Property Name="MotherID" Type="Int32" />
+          <Property Name="IsActive" Type="Boolean" />
+          <Property Name="Notes" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="MissingPriestID" Type="Int32" />
+          <Property Name="EvaluationLevelID" Type="Int32" />
+          <NavigationProperty Name="Children" Relationship="Self.FK_Child_Families" FromRole="Families" ToRole="Child" />
+          <NavigationProperty Name="EvaluationLevel" Relationship="Self.FK_Families_EvaluationLevels" FromRole="Families" ToRole="EvaluationLevels" />
+          <NavigationProperty Name="Father" Relationship="Self.FK_Families_Fathers" FromRole="Families" ToRole="Fathers" />
+          <NavigationProperty Name="Person" Relationship="Self.FK_Families_Person" FromRole="Families" ToRole="Person" />
+          <NavigationProperty Name="Person1" Relationship="Self.FK_Families_Person1" FromRole="Families" ToRole="Person" />
+          <NavigationProperty Name="Servant" Relationship="Self.FK_Families_Servants" FromRole="Families" ToRole="Servants" />
+          <NavigationProperty Name="FamilyServants" Relationship="Self.FK_FamilyServants_Families" FromRole="Families" ToRole="FamilyServants" />
+          <NavigationProperty Name="FamilyVisits" Relationship="Self.FK_FamilyVisits_Families" FromRole="Families" ToRole="FamilyVisits" />
+          <NavigationProperty Name="ServiceActions" Relationship="Self.FK_ServiceActions_Families" FromRole="Families" ToRole="ServiceActions" />
+        </EntityType>
+        <EntityType Name="FamilyServant">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FamilyID" Type="Int32" />
+          <Property Name="ServantID" Type="Int32" />
+          <Property Name="IsActive" Type="Boolean" />
+          <NavigationProperty Name="Family" Relationship="Self.FK_FamilyServants_Families" FromRole="FamilyServants" ToRole="Families" />
+          <NavigationProperty Name="Servant" Relationship="Self.FK_FamilyServants_Servants" FromRole="FamilyServants" ToRole="Servants" />
+        </EntityType>
+        <EntityType Name="FamilyVisit">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FamilyID" Type="Int32" />
+          <Property Name="ServantID" Type="Int32" />
+          <Property Name="VisitDate" Type="DateTime" Precision="3" />
+          <Property Name="Notes" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Family" Relationship="Self.FK_FamilyVisits_Families" FromRole="FamilyVisits" ToRole="Families" />
+          <NavigationProperty Name="Servant" Relationship="Self.FK_FamilyVisits_Servants" FromRole="FamilyVisits" ToRole="Servants" />
+        </EntityType>
+        <EntityType Name="Father">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FatherName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="PhoneNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="IsActive" Type="Boolean" />
+          <Property Name="Notes" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Children" Relationship="Self.FK_Child_Fathers" FromRole="Fathers" ToRole="Child" />
+          <NavigationProperty Name="Families" Relationship="Self.FK_Families_Fathers" FromRole="Fathers" ToRole="Families" />
+          <NavigationProperty Name="People" Relationship="Self.FK_Person_Fathers" FromRole="Fathers" ToRole="Person" />
+        </EntityType>
+        <EntityType Name="Hospital">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="HospitalName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Address" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="IsActive" Type="Boolean" />
+          <Property Name="Notes" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="MedicalContracts" Relationship="Self.FK_MedicalContracts_Hospitals" FromRole="Hospitals" ToRole="MedicalContracts" />
+          <NavigationProperty Name="ServiceActions" Relationship="Self.FK_ServiceActions_Hospitals" FromRole="Hospitals" ToRole="ServiceActions" />
+        </EntityType>
+        <EntityType Name="MedicalContract">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="MedicalServiceID" Type="Int32" />
+          <Property Name="HospitalID" Type="Int32" />
+          <Property Name="ClinicID" Type="Int32" />
+          <Property Name="Notes" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="IsFinished" Type="Boolean" />
+          <Property Name="Percentage" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="EntryDate" Type="DateTime" Precision="3" />
+          <Property Name="EnteredBy" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="IsActive" Type="Boolean" />
+          <NavigationProperty Name="Clinic" Relationship="Self.FK_MedicalContracts_Clinics" FromRole="MedicalContracts" ToRole="Clinics" />
+          <NavigationProperty Name="Hospital" Relationship="Self.FK_MedicalContracts_Hospitals" FromRole="MedicalContracts" ToRole="Hospitals" />
+          <NavigationProperty Name="MedicalService" Relationship="Self.FK_MedicalContracts_MedicalServices" FromRole="MedicalContracts" ToRole="MedicalServices" />
+        </EntityType>
+        <EntityType Name="MedicalService">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="MedicalService1" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="Notes" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="IsActive" Type="Boolean" />
+          <NavigationProperty Name="MedicalContracts" Relationship="Self.FK_MedicalContracts_MedicalServices" FromRole="MedicalServices" ToRole="MedicalContracts" />
+          <NavigationProperty Name="ServiceActions" Relationship="Self.FK_ServiceActions_MedicalServices" FromRole="MedicalServices" ToRole="ServiceActions" />
+        </EntityType>
+        <EntityType Name="Person">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FullName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Phone" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Address" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Area" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="DateOfBirth" Type="DateTime" Precision="3" />
+          <Property Name="DateOfDeath" Type="DateTime" Precision="3" />
+          <Property Name="WorkingPlace" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="IsActive" Type="Boolean" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="FamilyID" Type="Int32" />
+          <Property Name="EntryDate" Type="DateTime" Precision="3" />
+          <Property Name="ServantID" Type="Int32" />
+          <Property Name="ConfessionFather" Type="Int32" />
+          <Property Name="IsWidow" Type="Boolean" />
+          <Property Name="Gender" Type="Boolean" />
+          <Property Name="Notes" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="NationalID" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Salary" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="OtherIncome" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="Status" Type="Boolean" />
+          <Property Name="Code" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Families" Relationship="Self.FK_Families_Person" FromRole="Person" ToRole="Families" />
+          <NavigationProperty Name="Families1" Relationship="Self.FK_Families_Person1" FromRole="Person" ToRole="Families" />
+          <NavigationProperty Name="Father" Relationship="Self.FK_Person_Fathers" FromRole="Person" ToRole="Fathers" />
+          <NavigationProperty Name="Servant" Relationship="Self.FK_Person_Servants" FromRole="Person" ToRole="Servants" />
+          <NavigationProperty Name="ServiceActions" Relationship="Self.FK_ServiceActions_Person" FromRole="Person" ToRole="ServiceActions" />
+        </EntityType>
+        <EntityType Name="Servant">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ServantName" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="Phone" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="EmailAddress" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="DateOfBirth" Type="DateTime" Precision="3" />
+          <Property Name="IsActive" Type="Boolean" />
+          <NavigationProperty Name="Children" Relationship="Self.FK_Child_Servants" FromRole="Servants" ToRole="Child" />
+          <NavigationProperty Name="Families" Relationship="Self.FK_Families_Servants" FromRole="Servants" ToRole="Families" />
+          <NavigationProperty Name="FamilyServants" Relationship="Self.FK_FamilyServants_Servants" FromRole="Servants" ToRole="FamilyServants" />
+          <NavigationProperty Name="FamilyVisits" Relationship="Self.FK_FamilyVisits_Servants" FromRole="Servants" ToRole="FamilyVisits" />
+          <NavigationProperty Name="People" Relationship="Self.FK_Person_Servants" FromRole="Servants" ToRole="Person" />
+          <NavigationProperty Name="ServiceActions" Relationship="Self.FK_ServiceActions_Servants" FromRole="Servants" ToRole="ServiceActions" />
+        </EntityType>
+        <EntityType Name="ServiceAction">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ServantID" Type="Int32" />
+          <Property Name="UserID" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="ActionDate" Type="DateTime" Precision="3" />
+          <Property Name="EntryDate" Type="DateTime" Precision="3" />
+          <Property Name="Notes" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ActionTypeID" Type="Int32" />
+          <Property Name="IsActive" Type="Boolean" />
+          <Property Name="FamilyID" Type="Int32" />
+          <Property Name="PersonID" Type="Int32" />
+          <Property Name="HospitalID" Type="Int32" />
+          <Property Name="ClinicID" Type="Int32" />
+          <Property Name="MedicalContractID" Type="Int32" />
+          <Property Name="MedicalServiceTypeID" Type="Int32" />
+          <Property Name="Cost" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="UpdatedOn" Type="DateTime" Precision="3" />
+          <Property Name="UpdateBy" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="AspNetUser" Relationship="Self.FK_ServiceActions_AspNetUsers" FromRole="ServiceActions" ToRole="AspNetUsers" />
+          <NavigationProperty Name="Clinic" Relationship="Self.FK_ServiceActions_Clinics" FromRole="ServiceActions" ToRole="Clinics" />
+          <NavigationProperty Name="Family" Relationship="Self.FK_ServiceActions_Families" FromRole="ServiceActions" ToRole="Families" />
+          <NavigationProperty Name="Hospital" Relationship="Self.FK_ServiceActions_Hospitals" FromRole="ServiceActions" ToRole="Hospitals" />
+          <NavigationProperty Name="MedicalService" Relationship="Self.FK_ServiceActions_MedicalServices" FromRole="ServiceActions" ToRole="MedicalServices" />
+          <NavigationProperty Name="Person" Relationship="Self.FK_ServiceActions_Person" FromRole="ServiceActions" ToRole="Person" />
+          <NavigationProperty Name="Servant" Relationship="Self.FK_ServiceActions_Servants" FromRole="ServiceActions" ToRole="Servants" />
+          <NavigationProperty Name="ServiceType" Relationship="Self.FK_ServiceActions_ServiceTypes" FromRole="ServiceActions" ToRole="ServiceTypes" />
+        </EntityType>
+        <EntityType Name="ServiceType">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ActionType" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Description" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="IsActive" Type="Boolean" />
+          <Property Name="ServantID" Type="Int32" />
+          <NavigationProperty Name="ServiceActions" Relationship="Self.FK_ServiceActions_ServiceTypes" FromRole="ServiceTypes" ToRole="ServiceActions" />
+        </EntityType>
+        <EntityType Name="sysdiagram">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <Association Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
+          <End Role="AspNetUsers" Type="Self.AspNetUser" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="AspNetUserClaims" Type="Self.AspNetUserClaim" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AspNetUserClaims">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId">
+          <End Role="AspNetUsers" Type="Self.AspNetUser" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="AspNetUserLogins" Type="Self.AspNetUserLogin" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AspNetUserLogins">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ServiceActions_AspNetUsers">
+          <End Role="AspNetUsers" Type="Self.AspNetUser" Multiplicity="0..1" />
+          <End Role="ServiceActions" Type="Self.ServiceAction" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ServiceActions">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Child_Families">
+          <End Role="Families" Type="Self.Family" Multiplicity="0..1" />
+          <End Role="Child" Type="Self.Child" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Families">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Child">
+              <PropertyRef Name="FamilyID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Child_Fathers">
+          <End Role="Fathers" Type="Self.Father" Multiplicity="0..1" />
+          <End Role="Child" Type="Self.Child" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Fathers">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Child">
+              <PropertyRef Name="ConfessionFather" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Child_Servants">
+          <End Role="Servants" Type="Self.Servant" Multiplicity="0..1" />
+          <End Role="Child" Type="Self.Child" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Servants">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Child">
+              <PropertyRef Name="ServantID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MedicalContracts_Clinics">
+          <End Role="Clinics" Type="Self.Clinic" Multiplicity="0..1" />
+          <End Role="MedicalContracts" Type="Self.MedicalContract" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Clinics">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="MedicalContracts">
+              <PropertyRef Name="ClinicID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ServiceActions_Clinics">
+          <End Role="Clinics" Type="Self.Clinic" Multiplicity="0..1" />
+          <End Role="ServiceActions" Type="Self.ServiceAction" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Clinics">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="ServiceActions">
+              <PropertyRef Name="ClinicID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Families_EvaluationLevels">
+          <End Role="EvaluationLevels" Type="Self.EvaluationLevel" Multiplicity="0..1" />
+          <End Role="Families" Type="Self.Family" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="EvaluationLevels">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Families">
+              <PropertyRef Name="EvaluationLevelID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Families_Fathers">
+          <End Role="Fathers" Type="Self.Father" Multiplicity="0..1" />
+          <End Role="Families" Type="Self.Family" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Fathers">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Families">
+              <PropertyRef Name="MissingPriestID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Families_Person">
+          <End Role="Person" Type="Self.Person" Multiplicity="0..1" />
+          <End Role="Families" Type="Self.Family" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Person">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Families">
+              <PropertyRef Name="FatherID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Families_Person1">
+          <End Role="Person" Type="Self.Person" Multiplicity="0..1" />
+          <End Role="Families" Type="Self.Family" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Person">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Families">
+              <PropertyRef Name="MotherID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Families_Servants">
+          <End Role="Servants" Type="Self.Servant" Multiplicity="0..1" />
+          <End Role="Families" Type="Self.Family" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Servants">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Families">
+              <PropertyRef Name="ServantID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_FamilyServants_Families">
+          <End Role="Families" Type="Self.Family" Multiplicity="0..1" />
+          <End Role="FamilyServants" Type="Self.FamilyServant" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Families">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="FamilyServants">
+              <PropertyRef Name="FamilyID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_FamilyVisits_Families">
+          <End Role="Families" Type="Self.Family" Multiplicity="0..1" />
+          <End Role="FamilyVisits" Type="Self.FamilyVisit" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Families">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="FamilyVisits">
+              <PropertyRef Name="FamilyID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ServiceActions_Families">
+          <End Role="Families" Type="Self.Family" Multiplicity="0..1" />
+          <End Role="ServiceActions" Type="Self.ServiceAction" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Families">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="ServiceActions">
+              <PropertyRef Name="FamilyID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_FamilyServants_Servants">
+          <End Role="Servants" Type="Self.Servant" Multiplicity="0..1" />
+          <End Role="FamilyServants" Type="Self.FamilyServant" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Servants">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="FamilyServants">
+              <PropertyRef Name="ServantID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_FamilyVisits_Servants">
+          <End Role="Servants" Type="Self.Servant" Multiplicity="0..1" />
+          <End Role="FamilyVisits" Type="Self.FamilyVisit" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Servants">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="FamilyVisits">
+              <PropertyRef Name="ServantID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Person_Fathers">
+          <End Role="Fathers" Type="Self.Father" Multiplicity="0..1" />
+          <End Role="Person" Type="Self.Person" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Fathers">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Person">
+              <PropertyRef Name="ConfessionFather" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MedicalContracts_Hospitals">
+          <End Role="Hospitals" Type="Self.Hospital" Multiplicity="0..1" />
+          <End Role="MedicalContracts" Type="Self.MedicalContract" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Hospitals">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="MedicalContracts">
+              <PropertyRef Name="HospitalID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ServiceActions_Hospitals">
+          <End Role="Hospitals" Type="Self.Hospital" Multiplicity="0..1" />
+          <End Role="ServiceActions" Type="Self.ServiceAction" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Hospitals">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="ServiceActions">
+              <PropertyRef Name="HospitalID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MedicalContracts_MedicalServices">
+          <End Role="MedicalServices" Type="Self.MedicalService" Multiplicity="0..1" />
+          <End Role="MedicalContracts" Type="Self.MedicalContract" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MedicalServices">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="MedicalContracts">
+              <PropertyRef Name="MedicalServiceID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ServiceActions_MedicalServices">
+          <End Role="MedicalServices" Type="Self.MedicalService" Multiplicity="0..1" />
+          <End Role="ServiceActions" Type="Self.ServiceAction" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MedicalServices">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="ServiceActions">
+              <PropertyRef Name="MedicalServiceTypeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Person_Servants">
+          <End Role="Servants" Type="Self.Servant" Multiplicity="0..1" />
+          <End Role="Person" Type="Self.Person" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Servants">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Person">
+              <PropertyRef Name="ServantID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ServiceActions_Person">
+          <End Role="Person" Type="Self.Person" Multiplicity="0..1" />
+          <End Role="ServiceActions" Type="Self.ServiceAction" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Person">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="ServiceActions">
+              <PropertyRef Name="PersonID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ServiceActions_Servants">
+          <End Role="Servants" Type="Self.Servant" Multiplicity="0..1" />
+          <End Role="ServiceActions" Type="Self.ServiceAction" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Servants">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="ServiceActions">
+              <PropertyRef Name="ServantID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ServiceActions_ServiceTypes">
+          <End Role="ServiceTypes" Type="Self.ServiceType" Multiplicity="0..1" />
+          <End Role="ServiceActions" Type="Self.ServiceAction" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ServiceTypes">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="ServiceActions">
+              <PropertyRef Name="ActionTypeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="AspNetUserRoles">
+          <End Role="AspNetRoles" Type="Self.AspNetRole" Multiplicity="*" />
+          <End Role="AspNetUsers" Type="Self.AspNetUser" Multiplicity="*" />
+        </Association>
+        <EntityContainer Name="SaintAbraamEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="C__MigrationHistory" EntityType="Self.C__MigrationHistory" />
+          <EntitySet Name="AspNetRoles" EntityType="Self.AspNetRole" />
+          <EntitySet Name="AspNetUserClaims" EntityType="Self.AspNetUserClaim" />
+          <EntitySet Name="AspNetUserLogins" EntityType="Self.AspNetUserLogin" />
+          <EntitySet Name="AspNetUsers" EntityType="Self.AspNetUser" />
+          <EntitySet Name="Children" EntityType="Self.Child" />
+          <EntitySet Name="Clinics" EntityType="Self.Clinic" />
+          <EntitySet Name="EvaluationLevels" EntityType="Self.EvaluationLevel" />
+          <EntitySet Name="Families" EntityType="Self.Family" />
+          <EntitySet Name="FamilyServants" EntityType="Self.FamilyServant" />
+          <EntitySet Name="FamilyVisits" EntityType="Self.FamilyVisit" />
+          <EntitySet Name="Fathers" EntityType="Self.Father" />
+          <EntitySet Name="Hospitals" EntityType="Self.Hospital" />
+          <EntitySet Name="MedicalContracts" EntityType="Self.MedicalContract" />
+          <EntitySet Name="MedicalServices" EntityType="Self.MedicalService" />
+          <EntitySet Name="People" EntityType="Self.Person" />
+          <EntitySet Name="Servants" EntityType="Self.Servant" />
+          <EntitySet Name="ServiceActions" EntityType="Self.ServiceAction" />
+          <EntitySet Name="ServiceTypes" EntityType="Self.ServiceType" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagram" />
+          <AssociationSet Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="AspNetUserClaims" EntitySet="AspNetUserClaims" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="AspNetUserLogins" EntitySet="AspNetUserLogins" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ServiceActions_AspNetUsers" Association="Self.FK_ServiceActions_AspNetUsers">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="ServiceActions" EntitySet="ServiceActions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Child_Families" Association="Self.FK_Child_Families">
+            <End Role="Families" EntitySet="Families" />
+            <End Role="Child" EntitySet="Children" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Child_Fathers" Association="Self.FK_Child_Fathers">
+            <End Role="Fathers" EntitySet="Fathers" />
+            <End Role="Child" EntitySet="Children" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Child_Servants" Association="Self.FK_Child_Servants">
+            <End Role="Servants" EntitySet="Servants" />
+            <End Role="Child" EntitySet="Children" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MedicalContracts_Clinics" Association="Self.FK_MedicalContracts_Clinics">
+            <End Role="Clinics" EntitySet="Clinics" />
+            <End Role="MedicalContracts" EntitySet="MedicalContracts" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ServiceActions_Clinics" Association="Self.FK_ServiceActions_Clinics">
+            <End Role="Clinics" EntitySet="Clinics" />
+            <End Role="ServiceActions" EntitySet="ServiceActions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Families_EvaluationLevels" Association="Self.FK_Families_EvaluationLevels">
+            <End Role="EvaluationLevels" EntitySet="EvaluationLevels" />
+            <End Role="Families" EntitySet="Families" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Families_Fathers" Association="Self.FK_Families_Fathers">
+            <End Role="Fathers" EntitySet="Fathers" />
+            <End Role="Families" EntitySet="Families" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Families_Person" Association="Self.FK_Families_Person">
+            <End Role="Person" EntitySet="People" />
+            <End Role="Families" EntitySet="Families" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Families_Person1" Association="Self.FK_Families_Person1">
+            <End Role="Person" EntitySet="People" />
+            <End Role="Families" EntitySet="Families" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Families_Servants" Association="Self.FK_Families_Servants">
+            <End Role="Servants" EntitySet="Servants" />
+            <End Role="Families" EntitySet="Families" />
+          </AssociationSet>
+          <AssociationSet Name="FK_FamilyServants_Families" Association="Self.FK_FamilyServants_Families">
+            <End Role="Families" EntitySet="Families" />
+            <End Role="FamilyServants" EntitySet="FamilyServants" />
+          </AssociationSet>
+          <AssociationSet Name="FK_FamilyVisits_Families" Association="Self.FK_FamilyVisits_Families">
+            <End Role="Families" EntitySet="Families" />
+            <End Role="FamilyVisits" EntitySet="FamilyVisits" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ServiceActions_Families" Association="Self.FK_ServiceActions_Families">
+            <End Role="Families" EntitySet="Families" />
+            <End Role="ServiceActions" EntitySet="ServiceActions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_FamilyServants_Servants" Association="Self.FK_FamilyServants_Servants">
+            <End Role="Servants" EntitySet="Servants" />
+            <End Role="FamilyServants" EntitySet="FamilyServants" />
+          </AssociationSet>
+          <AssociationSet Name="FK_FamilyVisits_Servants" Association="Self.FK_FamilyVisits_Servants">
+            <End Role="Servants" EntitySet="Servants" />
+            <End Role="FamilyVisits" EntitySet="FamilyVisits" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Person_Fathers" Association="Self.FK_Person_Fathers">
+            <End Role="Fathers" EntitySet="Fathers" />
+            <End Role="Person" EntitySet="People" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MedicalContracts_Hospitals" Association="Self.FK_MedicalContracts_Hospitals">
+            <End Role="Hospitals" EntitySet="Hospitals" />
+            <End Role="MedicalContracts" EntitySet="MedicalContracts" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ServiceActions_Hospitals" Association="Self.FK_ServiceActions_Hospitals">
+            <End Role="Hospitals" EntitySet="Hospitals" />
+            <End Role="ServiceActions" EntitySet="ServiceActions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MedicalContracts_MedicalServices" Association="Self.FK_MedicalContracts_MedicalServices">
+            <End Role="MedicalServices" EntitySet="MedicalServices" />
+            <End Role="MedicalContracts" EntitySet="MedicalContracts" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ServiceActions_MedicalServices" Association="Self.FK_ServiceActions_MedicalServices">
+            <End Role="MedicalServices" EntitySet="MedicalServices" />
+            <End Role="ServiceActions" EntitySet="ServiceActions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Person_Servants" Association="Self.FK_Person_Servants">
+            <End Role="Servants" EntitySet="Servants" />
+            <End Role="Person" EntitySet="People" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ServiceActions_Person" Association="Self.FK_ServiceActions_Person">
+            <End Role="Person" EntitySet="People" />
+            <End Role="ServiceActions" EntitySet="ServiceActions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ServiceActions_Servants" Association="Self.FK_ServiceActions_Servants">
+            <End Role="Servants" EntitySet="Servants" />
+            <End Role="ServiceActions" EntitySet="ServiceActions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ServiceActions_ServiceTypes" Association="Self.FK_ServiceActions_ServiceTypes">
+            <End Role="ServiceTypes" EntitySet="ServiceTypes" />
+            <End Role="ServiceActions" EntitySet="ServiceActions" />
+          </AssociationSet>
+          <AssociationSet Name="AspNetUserRoles" Association="Self.AspNetUserRoles">
+            <End Role="AspNetRoles" EntitySet="AspNetRoles" />
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="StAbraamFamilyDataStoreContainer" CdmEntityContainer="SaintAbraamEntities">
+          <EntitySetMapping Name="C__MigrationHistory">
+            <EntityTypeMapping TypeName="StAbraamFamilyData.C__MigrationHistory">
+              <MappingFragment StoreEntitySet="__MigrationHistory">
+                <ScalarProperty Name="MigrationId" ColumnName="MigrationId" />
+                <ScalarProperty Name="ContextKey" ColumnName="ContextKey" />
+                <ScalarProperty Name="Model" ColumnName="Model" />
+                <ScalarProperty Name="ProductVersion" ColumnName="ProductVersion" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AspNetRoles">
+            <EntityTypeMapping TypeName="StAbraamFamilyData.AspNetRole">
+              <MappingFragment StoreEntitySet="AspNetRoles">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AspNetUserClaims">
+            <EntityTypeMapping TypeName="StAbraamFamilyData.AspNetUserClaim">
+              <MappingFragment StoreEntitySet="AspNetUserClaims">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="ClaimType" ColumnName="ClaimType" />
+                <ScalarProperty Name="ClaimValue" ColumnName="ClaimValue" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AspNetUserLogins">
+            <EntityTypeMapping TypeName="StAbraamFamilyData.AspNetUserLogin">
+              <MappingFragment StoreEntitySet="AspNetUserLogins">
+                <ScalarProperty Name="LoginProvider" ColumnName="LoginProvider" />
+                <ScalarProperty Name="ProviderKey" ColumnName="ProviderKey" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AspNetUsers">
+            <EntityTypeMapping TypeName="StAbraamFamilyData.AspNetUser">
+              <MappingFragment StoreEntitySet="AspNetUsers">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="EmailConfirmed" ColumnName="EmailConfirmed" />
+                <ScalarProperty Name="PasswordHash" ColumnName="PasswordHash" />
+                <ScalarProperty Name="SecurityStamp" ColumnName="SecurityStamp" />
+                <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+                <ScalarProperty Name="PhoneNumberConfirmed" ColumnName="PhoneNumberConfirmed" />
+                <ScalarProperty Name="TwoFactorEnabled" ColumnName="TwoFactorEnabled" />
+                <ScalarProperty Name="LockoutEndDateUtc" ColumnName="LockoutEndDateUtc" />
+                <ScalarProperty Name="LockoutEnabled" ColumnName="LockoutEnabled" />
+                <ScalarProperty Name="AccessFailedCount" ColumnName="AccessFailedCount" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Children">
+            <EntityTypeMapping TypeName="StAbraamFamilyData.Child">
+              <MappingFragment StoreEntitySet="Child">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="DateOfBirth" ColumnName="DateOfBirth" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="IsWorking" ColumnName="IsWorking" />
+                <ScalarProperty Name="WorkingPlace" ColumnName="WorkingPlace" />
+                <ScalarProperty Name="IsStudying" ColumnName="IsStudying" />
+                <ScalarProperty Name="EntryDate" ColumnName="EntryDate" />
+                <ScalarProperty Name="EnteredBy" ColumnName="EnteredBy" />
+                <ScalarProperty Name="FamilyID" ColumnName="FamilyID" />
+                <ScalarProperty Name="ConfessionFather" ColumnName="ConfessionFather" />
+                <ScalarProperty Name="ServantID" ColumnName="ServantID" />
+                <ScalarProperty Name="Gender" ColumnName="Gender" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Clinics">
+            <EntityTypeMapping TypeName="StAbraamFamilyData.Clinic">
+              <MappingFragment StoreEntitySet="Clinics">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="ClinicName" ColumnName="ClinicName" />
+                <ScalarProperty Name="Notes" ColumnName="Notes" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="EvaluationLevels">
+            <EntityTypeMapping TypeName="StAbraamFamilyData.EvaluationLevel">
+              <MappingFragment StoreEntitySet="EvaluationLevels">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="EvaluationLevel1" ColumnName="EvaluationLevel" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Families">
+            <EntityTypeMapping TypeName="StAbraamFamilyData.Family">
+              <MappingFragment StoreEntitySet="Families">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="FamilyCode" ColumnName="FamilyCode" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="ServantID" ColumnName="ServantID" />
+                <ScalarProperty Name="NoOfChildren" ColumnName="NoOfChildren" />
+                <ScalarProperty Name="FatherID" ColumnName="FatherID" />
+                <ScalarProperty Name="MotherID" ColumnName="MotherID" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="Notes" ColumnName="Notes" />
+                <ScalarProperty Name="MissingPriestID" ColumnName="MissingPriestID" />
+                <ScalarProperty Name="EvaluationLevelID" ColumnName="EvaluationLevelID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="FamilyServants">
+            <EntityTypeMapping TypeName="StAbraamFamilyData.FamilyServant">
+              <MappingFragment StoreEntitySet="FamilyServants">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="FamilyID" ColumnName="FamilyID" />
+                <ScalarProperty Name="ServantID" ColumnName="ServantID" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="FamilyVisits">
+            <EntityTypeMapping TypeName="StAbraamFamilyData.FamilyVisit">
+              <MappingFragment StoreEntitySet="FamilyVisits">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="FamilyID" ColumnName="FamilyID" />
+                <ScalarProperty Name="ServantID" ColumnName="ServantID" />
+                <ScalarProperty Name="VisitDate" ColumnName="VisitDate" />
+                <ScalarProperty Name="Notes" ColumnName="Notes" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Fathers">
+            <EntityTypeMapping TypeName="StAbraamFamilyData.Father">
+              <MappingFragment StoreEntitySet="Fathers">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="FatherName" ColumnName="FatherName" />
+                <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="Notes" ColumnName="Notes" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Hospitals">
+            <EntityTypeMapping TypeName="StAbraamFamilyData.Hospital">
+              <MappingFragment StoreEntitySet="Hospitals">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="HospitalName" ColumnName="HospitalName" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="Notes" ColumnName="Notes" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MedicalContracts">
+            <EntityTypeMapping TypeName="StAbraamFamilyData.MedicalContract">
+              <MappingFragment StoreEntitySet="MedicalContracts">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="MedicalServiceID" ColumnName="MedicalServiceID" />
+                <ScalarProperty Name="HospitalID" ColumnName="HospitalID" />
+                <ScalarProperty Name="ClinicID" ColumnName="ClinicID" />
+                <ScalarProperty Name="Notes" ColumnName="Notes" />
+                <ScalarProperty Name="IsFinished" ColumnName="IsFinished" />
+                <ScalarProperty Name="Percentage" ColumnName="Percentage" />
+                <ScalarProperty Name="EntryDate" ColumnName="EntryDate" />
+                <ScalarProperty Name="EnteredBy" ColumnName="EnteredBy" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MedicalServices">
+            <EntityTypeMapping TypeName="StAbraamFamilyData.MedicalService">
+              <MappingFragment StoreEntitySet="MedicalServices">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="MedicalService1" ColumnName="MedicalService" />
+                <ScalarProperty Name="Notes" ColumnName="Notes" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="People">
+            <EntityTypeMapping TypeName="StAbraamFamilyData.Person">
+              <MappingFragment StoreEntitySet="Person">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="FullName" ColumnName="FullName" />
+                <ScalarProperty Name="Phone" ColumnName="Phone" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="Area" ColumnName="Area" />
+                <ScalarProperty Name="DateOfBirth" ColumnName="DateOfBirth" />
+                <ScalarProperty Name="DateOfDeath" ColumnName="DateOfDeath" />
+                <ScalarProperty Name="WorkingPlace" ColumnName="WorkingPlace" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="FamilyID" ColumnName="FamilyID" />
+                <ScalarProperty Name="EntryDate" ColumnName="EntryDate" />
+                <ScalarProperty Name="ServantID" ColumnName="ServantID" />
+                <ScalarProperty Name="ConfessionFather" ColumnName="ConfessionFather" />
+                <ScalarProperty Name="IsWidow" ColumnName="IsWidow" />
+                <ScalarProperty Name="Gender" ColumnName="Gender" />
+                <ScalarProperty Name="Notes" ColumnName="Notes" />
+                <ScalarProperty Name="NationalID" ColumnName="NationalID" />
+                <ScalarProperty Name="Salary" ColumnName="Salary" />
+                <ScalarProperty Name="OtherIncome" ColumnName="OtherIncome" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="Code" ColumnName="Code" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Servants">
+            <EntityTypeMapping TypeName="StAbraamFamilyData.Servant">
+              <MappingFragment StoreEntitySet="Servants">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="ServantName" ColumnName="ServantName" />
+                <ScalarProperty Name="Phone" ColumnName="Phone" />
+                <ScalarProperty Name="EmailAddress" ColumnName="EmailAddress" />
+                <ScalarProperty Name="DateOfBirth" ColumnName="DateOfBirth" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ServiceActions">
+            <EntityTypeMapping TypeName="StAbraamFamilyData.ServiceAction">
+              <MappingFragment StoreEntitySet="ServiceActions">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="ServantID" ColumnName="ServantID" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="ActionDate" ColumnName="ActionDate" />
+                <ScalarProperty Name="EntryDate" ColumnName="EntryDate" />
+                <ScalarProperty Name="Notes" ColumnName="Notes" />
+                <ScalarProperty Name="ActionTypeID" ColumnName="ActionTypeID" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="FamilyID" ColumnName="FamilyID" />
+                <ScalarProperty Name="PersonID" ColumnName="PersonID" />
+                <ScalarProperty Name="HospitalID" ColumnName="HospitalID" />
+                <ScalarProperty Name="ClinicID" ColumnName="ClinicID" />
+                <ScalarProperty Name="MedicalContractID" ColumnName="MedicalContractID" />
+                <ScalarProperty Name="MedicalServiceTypeID" ColumnName="MedicalServiceTypeID" />
+                <ScalarProperty Name="Cost" ColumnName="Cost" />
+                <ScalarProperty Name="UpdatedOn" ColumnName="UpdatedOn" />
+                <ScalarProperty Name="UpdateBy" ColumnName="UpdateBy" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ServiceTypes">
+            <EntityTypeMapping TypeName="StAbraamFamilyData.ServiceType">
+              <MappingFragment StoreEntitySet="ServiceTypes">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="ActionType" ColumnName="ActionType" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="ServantID" ColumnName="ServantID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="StAbraamFamilyData.sysdiagram">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <AssociationSetMapping Name="AspNetUserRoles" TypeName="StAbraamFamilyData.AspNetUserRoles" StoreEntitySet="AspNetUserRoles">
+            <EndProperty Name="AspNetRoles">
+              <ScalarProperty Name="Id" ColumnName="RoleId" />
+            </EndProperty>
+            <EndProperty Name="AspNetUsers">
+              <ScalarProperty Name="Id" ColumnName="UserId" />
+            </EndProperty>
+          </AssociationSetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

@@ -1,35 +1,37 @@
-﻿using StAbraamFamily.Models;
-using StAbraamFamily.ViewModels;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using System.Linq;
 using System.Web.Mvc;
+using StAbraamFamily.Web.Core.Repositories;
+using StAbraamFamily.Web.Entitie.ViewModels;
+using StAbraamFamily.Web.Entities.Domain;
 
 namespace StAbraamFamily.Controllers
 {
     public class HomeController : Controller
     {
-        private StAbraamEntities db = new StAbraamEntities();
- 
+        private readonly IUnitOfWork saintUnits;
+
+        public HomeController(IUnitOfWork saintUnits)
+        {
+            this.saintUnits = saintUnits;
+        }
         public ActionResult Home()
         {
             SystemDashboard systemDashboard = new SystemDashboard()
             {
-                Fathers = db.Fathers.Where(x => x.IsActive == true).Count(),
-                Servants = db.Servants.Where(x => x.IsActive == true).Count(),
-                Families = db.Families.Where(x => x.IsActive == true).Count(),
-                FamilyServants = db.FamilyServants.Where(x => x.IsActive == true).Count(),
-                BagServices = db.ServiceActions.Where(x => x.IsActive == true && x.ServiceType.ID == 1).Count(),
-                MedicalServices = db.ServiceActions.Where(x => x.IsActive == true && x.ServiceType.ID == 2).Count(),
-                ServiceActions = db.ServiceActions.Where(x => x.IsActive == true).Count(),  
-                Children = db.Children.Where(x => x.IsActive == true).Count(),
-                People = db.People.Where(x => x.IsActive == true).Count(),
-                FamilyVisits = db.FamilyVisits.Count(),
-                serviceTypes = db.ServiceTypes.Where(x => x.IsActive == true).Count(),
-                Clinics = db.Clinics.Where(x => x.IsActive == true).Count(),
-                Hospitals = db.Hospitals.Where(x => x.IsActive == true).Count(),
-                FinancialServices = db.ServiceActions.Where(x => x.IsActive == true && x.ServiceType.ID == 3).Count()
+                Fathers = saintUnits.Fathers.Find(x => x.IsActive == true).Count(),
+                Servants = saintUnits.Servants.Find(x => x.IsActive == true).Count(),
+                Families = saintUnits.Families.Find(x => x.IsActive == true).Count(),
+                FamilyServants = saintUnits.FamilyServants.Find(x => x.IsActive == true).Count(),
+                BagServices = saintUnits.ServiceActions.Find(x => x.IsActive == true && x.ServiceType.ID == 1).Count(),
+                MedicalServices = saintUnits.ServiceActions.Find(x => x.IsActive == true && x.ServiceType.ID == 2).Count(),
+                ServiceActions = saintUnits.ServiceActions.Find(x => x.IsActive == true).Count(),  
+                Children = saintUnits.Children.Find(x => x.IsActive == true).Count(),
+                People = saintUnits.People.Find(x => x.IsActive == true).Count(),
+                FamilyVisits = saintUnits.FamilyVisits.GetAll().Count(),
+                serviceTypes = saintUnits.ServiceTypes.Find(x => x.IsActive == true).Count(),
+                Clinics = saintUnits.Clinics.Find(x => x.IsActive == true).Count(),
+                Hospitals = saintUnits.Hospitals.Find(x => x.IsActive == true).Count(),
+                FinancialServices = saintUnits.ServiceActions.Find(x => x.IsActive == true && x.ServiceType.ID == 3).Count()
             };
 
             return View(systemDashboard);

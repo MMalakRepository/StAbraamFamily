@@ -1,4 +1,5 @@
-﻿@model StAbraamFamily.Models.Father
+﻿@using StAbraamFamily.Web.Entities.Domain
+@model Father
 
 @{
     ViewBag.Title = "أضافة أب كاهن";
@@ -20,10 +21,10 @@
                 </a>
             </li>
             @*<li>
-                <a href="@Url.Action("Create","FamilyServants",null)" class="text-white" style="font-size: 18px; font-weight: bold; font-family: Calibri">
-                    <i class="fas fa-users-cog  text-warning"></i> أضافة خادم أسرة جديد
-                </a>
-            </li>*@
+                    <a href="@Url.Action("Create","FamilyServants",null)" class="text-white" style="font-size: 18px; font-weight: bold; font-family: Calibri">
+                        <i class="fas fa-users-cog  text-warning"></i> أضافة خادم أسرة جديد
+                    </a>
+                </li>*@
             <li>
                 <a href="@Url.Action("Create","FamilyVisits")" class="text-white" style="font-size: 18px; font-weight: bold; font-family: Calibri">
                     <i class="fa fa-home text-warning"></i>  أضافة زيارة أفتقاد

@@ -1,29 +1,32 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
 using System.Linq;
 using System.Net;
-using System.Web;
 using System.Web.Mvc;
-using StAbraamFamily.Models;
+using StAbraamFamily.Web.Core.Repositories;
+using StAbraamFamily.Web.Entities.Domain;
 
 namespace StAbraamFamily.Controllers
 {
     [Authorize(Roles = "Management,DataEntry")]
     public class ChildrenController : Controller
     {
-        private StAbraamEntities db = new StAbraamEntities();
+        private readonly IUnitOfWork saintUnits;
 
+        public ChildrenController(IUnitOfWork saintUnits)
+        {
+            this.saintUnits = saintUnits;
+        }
         public ActionResult Index()
         {
-            var children = db.Children.Where(x => x.IsActive == true).Include(c => c.Family).Include(c => c.Father).Include(c => c.Servant);
+            var children = saintUnits.Children.GetChildrenData();
             return View(children.ToList());
         }
 
         public ActionResult GetChildrenByFamily(int FamilyID)
         {
-            var children = db.Children.Where(x => x.IsActive ==true && x.FamilyID == FamilyID).Include(c => c.Family).Include(c => c.Father).Include(c => c.Servant);
+            var children = saintUnits.Children.GetChildrenDataByFamilyID(FamilyID);
             return View("Index", children.ToList());
         }
 
@@ -33,7 +36,7 @@ namespace StAbraamFamily.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Child child = db.Children.Find(id);
+            Child child = saintUnits.Children.Get(id);
             if (child == null)
             {
                 return HttpNotFound();
@@ -43,9 +46,9 @@ namespace StAbraamFamily.Controllers
 
         public ActionResult Create()
         {
-            ViewBag.FamilyID = new SelectList(db.Families.Where(x => x.IsActive == true), "ID", "FamilyCode");
-            ViewBag.ConfessionFather = new SelectList(db.Fathers.Where(x => x.IsActive == true), "ID", "FatherName");
-            ViewBag.ServantID = new SelectList(db.Servants.Where(x => x.IsActive == true), "ID", "ServantName");
+            ViewBag.FamilyID = new SelectList(saintUnits.Families.Find(x => x.IsActive == true), "ID", "FamilyCode");
+            ViewBag.ConfessionFather = new SelectList(saintUnits.Fathers.Find(x => x.IsActive == true), "ID", "FatherName");
+            ViewBag.ServantID = new SelectList(saintUnits.Servants.Find(x => x.IsActive == true), "ID", "ServantName");
             return View();
         }
 
@@ -63,14 +66,14 @@ namespace StAbraamFamily.Controllers
                 //child.IsWorking = Convert.ToBoolean(Request.Form["IsWorking"].ToString());
                 child.IsActive = true;
                 child.EntryDate = DateTime.Now;
-                db.Children.Add(child);
-                db.SaveChanges();
+                saintUnits.Children.Add(child);
+                saintUnits.Complete();
                 return RedirectToAction("Index");
             }
 
-            ViewBag.FamilyID = new SelectList(db.Families.Where(x => x.IsActive == true), "ID", "FamilyCode", child.FamilyID);
-            ViewBag.ConfessionFather = new SelectList(db.Fathers.Where(x => x.IsActive == true), "ID", "FatherName", child.ConfessionFather);
-            ViewBag.ServantID = new SelectList(db.Servants.Where(x => x.IsActive == true), "ID", "ServantName", child.ServantID);
+            ViewBag.FamilyID = new SelectList(saintUnits.Families.Find(x => x.IsActive == true), "ID", "FamilyCode", child.FamilyID);
+            ViewBag.ConfessionFather = new SelectList(saintUnits.Fathers.Find(x => x.IsActive == true), "ID", "FatherName", child.ConfessionFather);
+            ViewBag.ServantID = new SelectList(saintUnits.Servants.Find(x => x.IsActive == true), "ID", "ServantName", child.ServantID);
             return View(child);
         }
 
@@ -80,7 +83,7 @@ namespace StAbraamFamily.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Child child = db.Children.Find(id);
+            Child child = saintUnits.Children.Get(id);
             if (child == null)
             {
                 return HttpNotFound();
@@ -100,8 +103,8 @@ namespace StAbraamFamily.Controllers
                 child.ServantID = Convert.ToInt32(Request.Form["ServantID"].ToString());
                  child.IsActive = true;
                 child.EntryDate = DateTime.Now;
-                db.Entry(child).State = EntityState.Modified;
-                db.SaveChanges();
+                saintUnits.Children.Update(child);
+                saintUnits.Complete();
                 return RedirectToAction("Index");
             }
             ResetData(child);
@@ -110,17 +113,17 @@ namespace StAbraamFamily.Controllers
 
         private void ResetData(Child child)
         {
-            ViewBag.FamilyID = new SelectList(db.Families.Where(x => x.IsActive == true), "ID", "FamilyCode", child.FamilyID);
-            ViewBag.ConfessionFather = new SelectList(db.Fathers.Where(x => x.IsActive == true), "ID", "FatherName", child.ConfessionFather);
-            ViewBag.ServantID = new SelectList(db.Servants.Where(x => x.IsActive == true), "ID", "ServantName", child.ServantID);
+            ViewBag.FamilyID = new SelectList(saintUnits.Families.Find(x => x.IsActive == true), "ID", "FamilyCode", child.FamilyID);
+            ViewBag.ConfessionFather = new SelectList(saintUnits.Fathers.Find(x => x.IsActive == true), "ID", "FatherName", child.ConfessionFather);
+            ViewBag.ServantID = new SelectList(saintUnits.Servants.Find(x => x.IsActive == true), "ID", "ServantName", child.ServantID);
         }
 
         [HttpPost]
         public ActionResult DeleteAction(int id)
         {
-            Child child = db.Children.Find(id);
-            child.IsActive = false;
-            db.SaveChanges();
+            Child child = saintUnits.Children.Get(id);
+            saintUnits.Children.Remove(child);
+            saintUnits.Complete();
             return Json(data: new { success = true, message = "Child has been deleted successfully" }, JsonRequestBehavior.AllowGet);
         }
 
@@ -128,7 +131,7 @@ namespace StAbraamFamily.Controllers
         {
             if (disposing)
             {
-                db.Dispose();
+                saintUnits.Dispose();
             }
             base.Dispose(disposing);
         }

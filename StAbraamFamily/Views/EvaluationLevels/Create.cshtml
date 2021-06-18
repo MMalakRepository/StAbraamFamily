@@ -1,4 +1,5 @@
-﻿@model StAbraamFamily.Models.EvaluationLevel
+﻿@using StAbraamFamily.Web.Entities.Domain
+@model EvaluationLevel
 
 @{
     ViewBag.Title = "أضافة نسبة تحمل";
@@ -45,7 +46,7 @@
         </header>
         <div class="card-body">
             @using (Html.BeginForm())
-            { 
+            {
                 @Html.AntiForgeryToken()
                 <div class="form-horizontal">
                     <div class="form-group">
@@ -71,4 +72,4 @@
 
 
 
- 
+

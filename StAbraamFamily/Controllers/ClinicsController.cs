@@ -7,17 +7,22 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using StAbraamFamily.Models;
+using StAbraamFamily.Web.Core.Repositories;
+using StAbraamFamily.Web.Entities.Domain;
 
 namespace StAbraamFamily.Controllers
 {
     [Authorize(Roles ="Management,Health")]
     public class ClinicsController : Controller
     {
-        private StAbraamEntities db = new StAbraamEntities();
-
+        private readonly IUnitOfWork saintUnits;
+        public ClinicsController(IUnitOfWork SaintUnits)
+        {
+            saintUnits = SaintUnits;
+        }
         public ActionResult Index()
         {
-            return View(db.Clinics.Where(x => x.IsActive == true).ToList());
+            return View(saintUnits.Clinics.GetAll().Where(x => x.IsActive == true).ToList());
         }
 
         public ActionResult Details(int? id)
@@ -26,7 +31,7 @@ namespace StAbraamFamily.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Clinic clinic = db.Clinics.Find(id);
+            Clinic clinic = saintUnits.Clinics.Get(id);
             if (clinic == null)
             {
                 return HttpNotFound();
@@ -39,7 +44,6 @@ namespace StAbraamFamily.Controllers
             return View();
         }
 
- 
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create(Clinic clinic)
@@ -47,22 +51,21 @@ namespace StAbraamFamily.Controllers
             if (ModelState.IsValid)
             {
                 clinic.IsActive = true;
-                db.Clinics.Add(clinic);
-                db.SaveChanges();
+                saintUnits.Clinics.Add(clinic);
+                saintUnits.Complete();
                 return RedirectToAction("Index");
             }
 
             return View(clinic);
         }
 
- 
-        public ActionResult Edit(int? id)
+         public ActionResult Edit(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Clinic clinic = db.Clinics.Find(id);
+            Clinic clinic = saintUnits.Clinics.Get(id);
             if (clinic == null)
             {
                 return HttpNotFound();
@@ -76,21 +79,20 @@ namespace StAbraamFamily.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Entry(clinic).State = EntityState.Modified;
-                db.SaveChanges();
+                saintUnits.Clinics.Update(clinic);
+                saintUnits.Complete();
                 return RedirectToAction("Index");
             }
             return View(clinic);
         }
 
- 
         public ActionResult Delete(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Clinic clinic = db.Clinics.Find(id);
+            Clinic clinic = saintUnits.Clinics.Get(id);
             if (clinic == null)
             {
                 return HttpNotFound();
@@ -98,22 +100,20 @@ namespace StAbraamFamily.Controllers
             return View(clinic);
         }
 
- 
         [HttpPost]
         public ActionResult DeleteAction(int id)
         {
-            Clinic clinic = db.Clinics.Find(id);
-            clinic.IsActive = false;
-            db.SaveChanges();
+            Clinic clinic = saintUnits.Clinics.Get(id);
+            saintUnits.Clinics.Remove(clinic);
+            saintUnits.Complete();
             return Json(data: new { success = true, message = "Clinic has been deleted successfully" }, JsonRequestBehavior.AllowGet);
-
         }
 
         protected override void Dispose(bool disposing)
         {
             if (disposing)
             {
-                db.Dispose();
+                saintUnits.Dispose();
             }
             base.Dispose(disposing);
         }

@@ -1,14 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
 using System.Linq;
 using System.Net;
-using System.Web;
 using System.Web.Mvc;
-using StAbraamFamily.Models;
-using StAbraamFamily.UnitsOfWork;
-using StAbraamFamily.ViewModels;
+using StAbraamFamily.Web.Core.Repositories;
+using StAbraamFamily.Web.Entities.Domain;
 
 
 namespace StAbraamFamily.Controllers
@@ -16,11 +13,15 @@ namespace StAbraamFamily.Controllers
     [Authorize(Roles = "Management,DataEntry")]
     public class FamiliesController : Controller
     {
-        private StAbraamEntities db = new StAbraamEntities();
+        private readonly IUnitOfWork saintUnits;
+
+        public FamiliesController(IUnitOfWork saintUnits)
+        {
+            this.saintUnits = saintUnits;
+        }
         public ActionResult Index()
         {
-            var families = db.Families.Include(f => f.EvaluationLevel).Include(f => f.Father).Include(f => f.Person)
-                .Include(f => f.Person1).Include(f => f.Servant).Where(x => x.IsActive == true);
+            var families = saintUnits.Families.GetAll().Where(x => x.IsActive == true);
             return View(families.ToList());
         }
 
@@ -30,7 +31,7 @@ namespace StAbraamFamily.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Family family = db.Families.Find(id);
+            Family family = saintUnits.Families.Get(id);
             if (family == null)
             {
                 return HttpNotFound();
@@ -47,7 +48,7 @@ namespace StAbraamFamily.Controllers
         [HttpPost]
         public ActionResult Create(Family family)
         {
-            var IsExisted = db.Families.Any(x => x.FamilyCode == family.FamilyCode);
+            var IsExisted = saintUnits.Families.GetAll().Any(x => x.FamilyCode == family.FamilyCode);
             if (IsExisted)
                 ModelState.AddModelError(String.Empty, "تم أدخال نفس الكود مسبقاً");
   
@@ -87,19 +88,19 @@ namespace StAbraamFamily.Controllers
                     family.EvaluationLevelID = Convert.ToInt32(Evaluation);
 
                 family.IsActive = true;
-                db.Families.Add(family);
-                db.SaveChanges();
+                saintUnits.Families.Add(family);
+                saintUnits.Complete();
 
-                var familyData = db.Families.Where(x => x.FatherID == family.FatherID).FirstOrDefault();
-                var familyFather = db.People.Where(x => x.ID == family.FatherID).FirstOrDefault();
-                var familyMother = db.People.Where(x => x.ID == family.MotherID).FirstOrDefault();
+                var familyData = saintUnits.Families.SingleOrDefault(x => x.FatherID == family.FatherID);
+                var familyFather = saintUnits.People.SingleOrDefault(x => x.ID == family.FatherID);
+                var familyMother = saintUnits.People.SingleOrDefault(x => x.ID == family.MotherID);
                 if(familyFather != null)
                     familyFather.FamilyID = familyData.ID;
 
                 if(familyMother != null)
                     familyMother.FamilyID = familyData.ID;
 
-                db.SaveChanges();
+                saintUnits.Complete();
                 return RedirectToAction("Index");
             }
             ResetData();
@@ -111,7 +112,7 @@ namespace StAbraamFamily.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Family family = db.Families.Find(id);
+            Family family = saintUnits.Families.Get(id);
             if (family == null)
             {
                 return HttpNotFound();
@@ -160,19 +161,19 @@ namespace StAbraamFamily.Controllers
                     family.EvaluationLevelID = Convert.ToInt32(Evaluation);
 
                 family.IsActive = true;
-                db.Entry(family).State = EntityState.Modified;
-                db.SaveChanges();
+                saintUnits.Families.Update(family);
+                saintUnits.Complete();
 
-                var familyData = db.Families.Where(x => x.FatherID == family.FatherID).FirstOrDefault();
-                var familyFather = db.People.Where(x => x.ID == family.FatherID).FirstOrDefault();
-                var familyMother = db.People.Where(x => x.ID == family.MotherID).FirstOrDefault();
+                var familyData = saintUnits.Families.SingleOrDefault(x => x.FatherID == family.FatherID);
+                var familyFather = saintUnits.People.SingleOrDefault(x => x.ID == family.FatherID);
+                var familyMother = saintUnits.People.SingleOrDefault(x => x.ID == family.MotherID);
                 if (familyFather != null)
                     familyFather.FamilyID = familyData.ID;
 
                 if (familyMother != null)
                     familyMother.FamilyID = familyData.ID;
 
-                db.SaveChanges();
+                saintUnits.Complete();
                 return RedirectToAction("Index");
             }
 
@@ -187,7 +188,7 @@ namespace StAbraamFamily.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Family family = db.Families.Find(id);
+            Family family = saintUnits.Families.Get(id);
             if (family == null)
             {
                 return HttpNotFound();
@@ -199,10 +200,10 @@ namespace StAbraamFamily.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Family family = db.Families.Find(id);
+            Family family = saintUnits.Families.Get(id);
             //db.Families.Remove(family);
-            family.IsActive = false;
-            db.SaveChanges();
+            saintUnits.Families.Remove(family);
+            saintUnits.Complete();
             return RedirectToAction("Index");
         }
 
@@ -210,7 +211,7 @@ namespace StAbraamFamily.Controllers
         {
             if (disposing)
             {
-                db.Dispose();
+                saintUnits.Dispose();
             }
             base.Dispose(disposing);
         }
@@ -218,12 +219,12 @@ namespace StAbraamFamily.Controllers
 
         public void ResetData()
         {
-            ViewBag.EvaluationLevelID = new SelectList(db.EvaluationLevels, "ID", "EvaluationLevel1");
-            ViewBag.MissingPriestID = new SelectList(db.Fathers.Where(x => x.IsActive == true), "ID", "FatherName");
-            ViewBag.FatherID = new SelectList(db.People.Where(x => x.Gender == true && x.IsActive == true), "ID", "FullName");
-            ViewBag.MotherID = new SelectList(db.People.Where(x => x.Gender == false && x.IsActive == true), "ID", "FullName");
-            ViewBag.ServantID = new SelectList(db.Servants.Where(x => x.IsActive == true), "ID", "ServantName");
-            ViewBag.ConfessionFather = new SelectList(db.Fathers.Where(x => x.IsActive == true), "ID", "FatherName");
+            ViewBag.EvaluationLevelID = new SelectList(saintUnits.EvaluationLevels.GetAll(), "ID", "EvaluationLevel1");
+            ViewBag.MissingPriestID = new SelectList(saintUnits.Fathers.GetAll().Where(x => x.IsActive == true), "ID", "FatherName");
+            ViewBag.FatherID = new SelectList(saintUnits.People.GetAll().Where(x => x.Gender == true && x.IsActive == true), "ID", "FullName");
+            ViewBag.MotherID = new SelectList(saintUnits.People.GetAll().Where(x => x.Gender == false && x.IsActive == true), "ID", "FullName");
+            ViewBag.ServantID = new SelectList(saintUnits.Servants.GetAll().Where(x => x.IsActive == true), "ID", "ServantName");
+            ViewBag.ConfessionFather = new SelectList(saintUnits.Fathers.GetAll().Where(x => x.IsActive == true), "ID", "FatherName");
         }
     }
 }

@@ -1,32 +1,36 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Net;
-using System.Web;
 using System.Web.Mvc;
-using StAbraamFamily.Models;
+using StAbraamFamily.Web.Entities.Domain;
+using StAbraamFamily.Web.Core.Repositories;
 
 namespace StAbraamFamily.Controllers
 {
     [Authorize(Roles = "Management,Health")]
     public class MedicalContractsController : Controller
     {
-        private StAbraamEntities db = new StAbraamEntities();
-        public async Task<ActionResult> Index()
+        private readonly IUnitOfWork saintUnits;
+
+        public MedicalContractsController(IUnitOfWork saintUnits)
         {
-            var medicalContracts = db.MedicalContracts.Where(x => x.IsFinished == false && x.IsActive == true).Include(m => m.Clinic).Include(m => m.Hospital).Include(m => m.MedicalService);
-            return View(await medicalContracts.ToListAsync());
+            this.saintUnits = saintUnits;
         }
-        public async Task<ActionResult> Details(int? id)
+        public ActionResult Index()
+        {
+            var medicalContracts = saintUnits.MedicalContracts.GetMedicalCOntractDetails();
+            return View(medicalContracts);
+        }
+        public ActionResult Details(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            MedicalContract medicalContract = await db.MedicalContracts.FindAsync(id);
+            MedicalContract medicalContract = saintUnits.MedicalContracts.Get(id);
             if (medicalContract == null)
             {
                 return HttpNotFound();
@@ -35,15 +39,15 @@ namespace StAbraamFamily.Controllers
         }
         public ActionResult Create()
         {
-            ViewBag.ClinicID = new SelectList(db.Clinics, "ID", "ClinicName");
-            ViewBag.HospitalID = new SelectList(db.Hospitals, "ID", "HospitalName");
-            ViewBag.MedicalServiceID = new SelectList(db.MedicalServices, "ID", "MedicalService1");
+            ViewBag.ClinicID = new SelectList(saintUnits.Clinics.GetAll(), "ID", "ClinicName");
+            ViewBag.HospitalID = new SelectList(saintUnits.Hospitals.GetAll(), "ID", "HospitalName");
+            ViewBag.MedicalServiceID = new SelectList(saintUnits.MedicalServices.GetAll(), "ID", "MedicalService1");
             return View();
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create(MedicalContract medicalContract)
+        public ActionResult Create(MedicalContract medicalContract)
         {
             if (ModelState.IsValid)
             {
@@ -51,8 +55,8 @@ namespace StAbraamFamily.Controllers
                 medicalContract.IsActive = true;
                 medicalContract.EntryDate = DateTime.Now;
                 medicalContract.EnteredBy = User.Identity.Name;
-                db.MedicalContracts.Add(medicalContract);
-                await db.SaveChangesAsync();
+                saintUnits.MedicalContracts.Add(medicalContract);
+                saintUnits.Complete();
                 return RedirectToAction("Index");
             }
             ResetData(medicalContract);
@@ -61,18 +65,18 @@ namespace StAbraamFamily.Controllers
 
         private void ResetData(MedicalContract medicalContract)
         {
-            ViewBag.ClinicID = new SelectList(db.Clinics, "ID", "ClinicName", medicalContract.ClinicID);
-            ViewBag.HospitalID = new SelectList(db.Hospitals, "ID", "HospitalName", medicalContract.HospitalID);
-            ViewBag.MedicalServiceID = new SelectList(db.MedicalServices, "ID", "MedicalService1", medicalContract.MedicalServiceID);
+            ViewBag.ClinicID = new SelectList(saintUnits.Clinics.GetAll(), "ID", "ClinicName", medicalContract.ClinicID);
+            ViewBag.HospitalID = new SelectList(saintUnits.Hospitals.GetAll(), "ID", "HospitalName", medicalContract.HospitalID);
+            ViewBag.MedicalServiceID = new SelectList(saintUnits.MedicalServices.GetAll(), "ID", "MedicalService1", medicalContract.MedicalServiceID);
         }
 
-        public async Task<ActionResult> Edit(int? id)
+        public ActionResult Edit(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            MedicalContract medicalContract = await db.MedicalContracts.FindAsync(id);
+            MedicalContract medicalContract = saintUnits.MedicalContracts.Get(id);
             if (medicalContract == null)
             {
                 return HttpNotFound();
@@ -84,14 +88,14 @@ namespace StAbraamFamily.Controllers
  
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit(MedicalContract medicalContract)
+        public ActionResult Edit(MedicalContract medicalContract)
         {
             if (ModelState.IsValid)
             {
                 medicalContract.IsFinished = false;
                 medicalContract.IsActive = true;
-                db.Entry(medicalContract).State = EntityState.Modified;
-                await db.SaveChangesAsync();
+                saintUnits.MedicalContracts.Update(medicalContract);
+                saintUnits.Complete();
                 return RedirectToAction("Index");
             }
             ResetData(medicalContract);
@@ -99,13 +103,13 @@ namespace StAbraamFamily.Controllers
             return View(medicalContract);
         }
  
-        public async Task<ActionResult> Delete(int? id)
+        public ActionResult Delete(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            MedicalContract medicalContract = await db.MedicalContracts.FindAsync(id);
+            MedicalContract medicalContract = saintUnits.MedicalContracts.Get(id);
             if (medicalContract == null)
             {
                 return HttpNotFound();
@@ -116,19 +120,20 @@ namespace StAbraamFamily.Controllers
         [HttpPost]
         public ActionResult DeleteAction(int id)
         {
-            MedicalContract medicalContract = db.MedicalContracts.Find(id);
-            medicalContract.IsActive = false;
-            db.SaveChanges();
+            MedicalContract medicalContract = saintUnits.MedicalContracts.Get(id);
+            saintUnits.MedicalContracts.Remove(medicalContract);
+            saintUnits.Complete();
             return Json(data: new { success = true, message = "Medical Contract deleted successfully" }, JsonRequestBehavior.AllowGet);
         }
 
         [HttpPost]
         public ActionResult FinishAction(int id)
         {
-            MedicalContract medicalContract = db.MedicalContracts.Find(id);
+            MedicalContract medicalContract = saintUnits.MedicalContracts.Get(id);
             medicalContract.IsActive = true;
             medicalContract.IsFinished = true;
-            db.SaveChanges();
+            saintUnits.MedicalContracts.Update(medicalContract);
+            saintUnits.Complete();
             return Json(data: new { success = true, message = "Medical Contract Finished successfully" }, JsonRequestBehavior.AllowGet);
         }
 
@@ -136,7 +141,7 @@ namespace StAbraamFamily.Controllers
         {
             if (disposing)
             {
-                db.Dispose();
+                saintUnits.Dispose();
             }
             base.Dispose(disposing);
         }

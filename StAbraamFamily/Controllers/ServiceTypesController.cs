@@ -1,28 +1,30 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
 using System.Linq;
 using System.Net;
-using System.Web;
 using System.Web.Mvc;
-using StAbraamFamily.Models;
+using StAbraamFamily.Web.Core.Repositories;
+using StAbraamFamily.Web.Entities.Domain;
 
 namespace StAbraamFamily.Controllers
 {
     [Authorize(Roles = "Management")]
     public class ServiceTypesController : Controller
     {
-        private StAbraamEntities db = new StAbraamEntities();
-
+        private readonly IUnitOfWork saintUnits;
+        public ServiceTypesController(IUnitOfWork saintUnits)
+        {
+            this.saintUnits = saintUnits;
+        }
         public ActionResult Index()
         {
-            return View(db.ServiceTypes.Where(x => x.IsActive ==true).ToList());
+            return View(saintUnits.ServiceTypes.Find(x => x.IsActive ==true).ToList());
         }
 
         public ActionResult Create()
         {
-            ViewBag.ServantID = new SelectList(db.Servants.Where(x => x.IsActive == true), "ID", "ServantName");
+            ViewBag.ServantID = new SelectList(saintUnits.Servants.Find(x => x.IsActive == true), "ID", "ServantName");
             return View();
         }
 
@@ -34,8 +36,8 @@ namespace StAbraamFamily.Controllers
             {
                 serviceType.ServantID = Convert.ToInt32(Request.Form["ServantID"].ToString());
                 serviceType.IsActive = true;
-                db.ServiceTypes.Add(serviceType);
-                db.SaveChanges();
+                saintUnits.ServiceTypes.Add(serviceType);
+                saintUnits.Complete();
                 return RedirectToAction("Index");
             }
 
@@ -48,7 +50,7 @@ namespace StAbraamFamily.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            ServiceType serviceType = db.ServiceTypes.Find(id);
+            ServiceType serviceType = saintUnits.ServiceTypes.Get(id);
             if (serviceType == null)
             {
                 return HttpNotFound();
@@ -63,8 +65,8 @@ namespace StAbraamFamily.Controllers
             if (ModelState.IsValid)
             {
                 serviceType.ServantID = Convert.ToInt32(Request.Form["ServantID"].ToString());
-                db.Entry(serviceType).State = EntityState.Modified;
-                db.SaveChanges();
+                saintUnits.ServiceTypes.Update(serviceType);
+                saintUnits.Complete();
                 return RedirectToAction("Index");
             }
             return View(serviceType);
@@ -73,9 +75,9 @@ namespace StAbraamFamily.Controllers
          [HttpPost]
         public ActionResult DeleteAction(int id)
         {
-            ServiceType serviceType = db.ServiceTypes.Find(id);
-            serviceType.IsActive = false;
-            db.SaveChanges();
+            ServiceType serviceType = saintUnits.ServiceTypes.Get(id);
+            saintUnits.ServiceTypes.Remove(serviceType);
+            saintUnits.Complete();
             return Json(data: new { success = true, message = "Service Type Deleted Successfully" }, JsonRequestBehavior.AllowGet);
         }
 
@@ -83,7 +85,7 @@ namespace StAbraamFamily.Controllers
         {
             if (disposing)
             {
-                db.Dispose();
+                saintUnits.Dispose();
             }
             base.Dispose(disposing);
         }

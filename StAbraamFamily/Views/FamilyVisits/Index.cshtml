@@ -1,4 +1,5 @@
-﻿@model IEnumerable<StAbraamFamily.Models.FamilyVisit>
+﻿@using StAbraamFamily.Web.Entities.Domain
+@model IEnumerable<FamilyVisit>
 
 @{
     ViewBag.Title = "تقرير زيارات الأفتقاد";
@@ -52,7 +53,7 @@
                                 <label class="control-label " style="float: right;font-size: 14px;font-weight: bold;text-align: right;font-family: Calibri">كود العائلة </label>
                             </th>
                             <th>
-                           <label class="control-label " style="float: right;font-size: 14px;font-weight: bold;text-align: right;font-family: Calibri">أسم الخادم </label>
+                                <label class="control-label " style="float: right;font-size: 14px;font-weight: bold;text-align: right;font-family: Calibri">أسم الخادم </label>
                             </th>
                             <th></th>
                         </tr>
@@ -64,7 +65,7 @@
                         {
                             <tr>
                                 <td>
- 
+
                                     @Convert.ToDateTime(item.VisitDate).ToString("dd/MM/yyyy")
                                 </td>
                                 <td>

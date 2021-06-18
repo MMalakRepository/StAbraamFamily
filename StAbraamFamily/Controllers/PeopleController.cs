@@ -1,30 +1,33 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
 using System.Linq;
 using System.Net;
-using System.Web;
 using System.Web.Mvc;
 using StAbraamFamily.Models;
-using StAbraamFamily.ViewModels;
+using StAbraamFamily.Web.Core.Repositories;
+using StAbraamFamily.Web.Entities.Domain;
 
 namespace StAbraamFamily.Controllers
 {
     [Authorize(Roles = "Management,DataEntry")]
     public class PeopleController : Controller
     {
-        private StAbraamEntities db = new StAbraamEntities();
+        private readonly IUnitOfWork saintUnits;
 
+        public PeopleController(IUnitOfWork SaintUnits)
+        {
+            saintUnits = SaintUnits;
+        }
          public ActionResult Index()
         {
-            var people = db.People.Include(p => p.Father).Include(p => p.Servant).Where(x => x.IsActive == true);
-            return View(people.ToList());
+            var people = saintUnits.People.GetPeopleData();
+            return View(people);
         }
          public ActionResult Create()
         {
-            ViewBag.ConfessionFather = new SelectList(db.Fathers.Where(x => x.IsActive==true), "ID", "FatherName");
-            ViewBag.ServantID = new SelectList(db.Servants, "ID", "ServantName");
+            ViewBag.ConfessionFather = new SelectList(saintUnits.Fathers.Find(x => x.IsActive==true), "ID", "FatherName");
+            ViewBag.ServantID = new SelectList(saintUnits.Servants.Find(x => x.IsActive == true), "ID", "ServantName");
             return View();
         }
 
@@ -32,17 +35,24 @@ namespace StAbraamFamily.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create(Person person)
         {
-            var IsExisted = db.People.Any(x => x.Code == person.Code);
-            if (IsExisted)
+            var IsExisted = saintUnits.People.Find(x => x.Code == person.Code).ToList();
+            if (IsExisted.Count > 0 )
                 ModelState.AddModelError(String.Empty, "تم أدخال نفس الكود مسبقاً");
+
+            var IsNationalIDExisted = saintUnits.People.Find(x => x.NationalID == person.NationalID).ToList();
+            if (IsNationalIDExisted.Count > 0)
+                ModelState.AddModelError(String.Empty, "تم أدخال نفس رقم البطاقة مسبقاً");
 
             if (ModelState.IsValid)
             {
                 person.IsActive = true;
-                person.ServantID = Convert.ToInt32(Request.Form["ServantID"].ToString());
-                person.ConfessionFather = Convert.ToInt32(Request.Form["ConfessionFather"].ToString());
-                db.People.Add(person);
-                db.SaveChanges();
+                if(!String.IsNullOrEmpty(Request.Form["ServantID"].ToString()))
+                    person.ServantID = Convert.ToInt32(Request.Form["ServantID"].ToString());
+                if(!String.IsNullOrEmpty(Request.Form["ConfessionFather"].ToString()))
+                    person.ConfessionFather = Convert.ToInt32(Request.Form["ConfessionFather"].ToString());
+
+                saintUnits.People.Add(person);
+                saintUnits.Complete();
                 return RedirectToAction("Index");
             }
 
@@ -52,8 +62,8 @@ namespace StAbraamFamily.Controllers
 
         private void ResetData()
         {
-            ViewBag.ConfessionFather = new SelectList(db.Fathers.Where(x => x.IsActive ==true), "ID", "FatherName");
-            ViewBag.ServantID = new SelectList(db.Servants.Where(x => x.IsActive == true), "ID", "ServantName");
+            ViewBag.ConfessionFather = new SelectList(saintUnits.Fathers.Find(x => x.IsActive ==true), "ID", "FatherName");
+            ViewBag.ServantID = new SelectList(saintUnits.Servants.Find(x => x.IsActive == true), "ID", "ServantName");
         }
 
         public ActionResult Edit(int? id)
@@ -62,7 +72,7 @@ namespace StAbraamFamily.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Person person = db.People.Find(id);
+            Person person = saintUnits.People.Get(id);
             if (person == null)
             {
                 return HttpNotFound();
@@ -80,8 +90,8 @@ namespace StAbraamFamily.Controllers
                 person.IsActive = true;
                 person.ServantID = Convert.ToInt32(Request.Form["ServantID"].ToString());
                 person.ConfessionFather = Convert.ToInt32(Request.Form["ConfessionFather"].ToString());
-                db.Entry(person).State = EntityState.Modified;
-                db.SaveChanges();
+                saintUnits.People.Update(person);
+                saintUnits.Complete();
                 return RedirectToAction("Index");
             }
             ResetData();
@@ -91,9 +101,9 @@ namespace StAbraamFamily.Controllers
         [HttpPost]
         public ActionResult DeleteAction(int ID)
         {
-            Person person = db.People.Find(ID);
-            person.IsActive = false;
-            db.SaveChanges();
+            Person person = saintUnits.People.Get(ID);
+            saintUnits.People.Remove(person);
+            saintUnits.Complete();
             return Json(data: new { success = true, message = "Person has been deleted successfully" }, JsonRequestBehavior.AllowGet);
         }
 
@@ -101,7 +111,7 @@ namespace StAbraamFamily.Controllers
         {
             if (disposing)
             {
-                db.Dispose();
+                saintUnits.Dispose();
             }
             base.Dispose(disposing);
         }

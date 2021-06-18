@@ -1,23 +1,25 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
+﻿using System.Data;
 using System.Data.Entity;
 using System.Linq;
 using System.Net;
-using System.Web;
 using System.Web.Mvc;
-using StAbraamFamily.Models;
+using StAbraamFamily.Web.Core.Repositories;
+using StAbraamFamily.Web.Entities.Domain;
 
 namespace StAbraamFamily.Controllers
 {
     [Authorize(Roles = "Management,Health")]
     public class HospitalsController : Controller
     {
-        private StAbraamEntities db = new StAbraamEntities();
 
+        private readonly IUnitOfWork saintUnits;
+        public HospitalsController(IUnitOfWork saintUnits)
+        {
+            this.saintUnits = saintUnits;
+        }
         public ActionResult Index()
         {
-            return View(db.Hospitals.Where(x => x.IsActive == true).ToList());
+            return View(saintUnits.Hospitals.Find(x => x.IsActive == true).ToList());
         }
 
         public ActionResult Create()
@@ -32,9 +34,8 @@ namespace StAbraamFamily.Controllers
             if (ModelState.IsValid)
             {
                 hospital.IsActive = true;
-
-                db.Hospitals.Add(hospital);
-                db.SaveChanges();
+                saintUnits.Hospitals.Add(hospital);
+                saintUnits.Complete();
                 return RedirectToAction("Index");
             }
 
@@ -47,7 +48,7 @@ namespace StAbraamFamily.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Hospital hospital = db.Hospitals.Find(id);
+            Hospital hospital = saintUnits.Hospitals.Get(id);
             if (hospital == null)
             {
                 return HttpNotFound();
@@ -61,9 +62,9 @@ namespace StAbraamFamily.Controllers
         {
             if (ModelState.IsValid)
             {
-                hospital.IsActive = true; 
-                db.Entry(hospital).State = EntityState.Modified;
-                db.SaveChanges();
+                hospital.IsActive = true;
+                saintUnits.Hospitals.Update(hospital);
+                saintUnits.Complete();
                 return RedirectToAction("Index");
             }
             return View(hospital);
@@ -72,9 +73,9 @@ namespace StAbraamFamily.Controllers
         [HttpPost]
         public ActionResult DeleteAction(int id)
         {
-            Hospital hospital = db.Hospitals.Find(id);
-            hospital.IsActive = false;
-            db.SaveChanges();
+            Hospital hospital = saintUnits.Hospitals.Get(id);
+            saintUnits.Hospitals.Remove(hospital);
+            saintUnits.Complete();
             return Json(data: new { success = true, message = "Hospital deleted successfully" }, JsonRequestBehavior.AllowGet);
         }
 
@@ -82,7 +83,7 @@ namespace StAbraamFamily.Controllers
         {
             if (disposing)
             {
-                db.Dispose();
+                saintUnits.Dispose();
             }
             base.Dispose(disposing);
         }

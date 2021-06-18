@@ -1,4 +1,5 @@
-﻿@model StAbraamFamily.Models.Servant
+﻿@using StAbraamFamily.Web.Entities.Domain
+@model Servant
 
 @{
     ViewBag.Title = "أضافة خادم جديد";
@@ -46,100 +47,100 @@
             @using (Html.BeginForm())
             {
                 @Html.AntiForgeryToken()
-            <div class="form-horizontal">
-                <div class="row">
-                    <div class="col-md-6">
-                        <div class="form-group">
-                            <label class="control-label col-md-4" style="float: right;font-size: 14px;font-weight: bold;text-align: right;font-family: Calibri">أسم  الخادم</label>
-                            <div class="col-md-12">
-                                <div class="input-group">
-                                    <span class="input-group-prepend">
-                                        <span class="input-group-text">
-                                            <i class="fas fa-user"></i>
+                <div class="form-horizontal">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="control-label col-md-4" style="float: right;font-size: 14px;font-weight: bold;text-align: right;font-family: Calibri">أسم  الخادم</label>
+                                <div class="col-md-12">
+                                    <div class="input-group">
+                                        <span class="input-group-prepend">
+                                            <span class="input-group-text">
+                                                <i class="fas fa-user"></i>
+                                            </span>
                                         </span>
-                                    </span>
-                                    @Html.EditorFor(model => model.ServantName, new { htmlAttributes = new { @class = "form-control" } })
-                                    @Html.ValidationMessageFor(model => model.ServantName, "", new { @class = "text-danger" })
-                                </div>
+                                        @Html.EditorFor(model => model.ServantName, new { htmlAttributes = new { @class = "form-control" } })
+                                        @Html.ValidationMessageFor(model => model.ServantName, "", new { @class = "text-danger" })
+                                    </div>
 
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="control-label col-md-4" style="float: right;font-size: 14px;font-weight: bold;text-align: right;font-family: Calibri"> رقم التليفون </label>
+                                <div class="col-md-12">
+                                    <div class="input-group">
+                                        <span class="input-group-prepend">
+                                            <span class="input-group-text">
+                                                <i class="fas fa-phone"></i>
+                                            </span>
+                                        </span>
+                                        @Html.EditorFor(model => model.Phone, new { htmlAttributes = new { @class = "form-control" } })
+                                        @Html.ValidationMessageFor(model => model.Phone, "", new { @class = "text-danger" })
+                                    </div>
+
+                                </div>
                             </div>
                         </div>
                     </div>
 
-                    <div class="col-md-6">
-                        <div class="form-group">
-                            <label class="control-label col-md-4" style="float: right;font-size: 14px;font-weight: bold;text-align: right;font-family: Calibri"> رقم التليفون </label>
-                            <div class="col-md-12">
-                                <div class="input-group">
-                                    <span class="input-group-prepend">
-                                        <span class="input-group-text">
-                                            <i class="fas fa-phone"></i>
+                    <div class="row mt-5">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="control-label col-md-4" style="float: right;font-size: 14px;font-weight: bold;text-align: right;font-family: Calibri">Email Address</label>
+                                <div class="col-md-12">
+                                    <div class="input-group">
+                                        <span class="input-group-prepend">
+                                            <span class="input-group-text">
+                                                <i class="fas fa-envelope"></i>
+                                            </span>
                                         </span>
-                                    </span>
-                                    @Html.EditorFor(model => model.Phone, new { htmlAttributes = new { @class = "form-control" } })
-                                    @Html.ValidationMessageFor(model => model.Phone, "", new { @class = "text-danger" })
-                                </div>
+                                        @Html.EditorFor(model => model.EmailAddress, new { htmlAttributes = new { @class = "form-control" } })
+                                        @Html.ValidationMessageFor(model => model.EmailAddress, "", new { @class = "text-danger" })
+                                    </div>
 
+                                </div>
                             </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="control-label col-md-4" style="float: right;font-size: 14px;font-weight: bold;text-align: right;font-family: Calibri"> تاريخ الميلاد</label>
+                                <div class="col-md-12">
+                                    <div class="input-group">
+                                        <span class="input-group-prepend">
+                                            <span class="input-group-text">
+                                                <i class="fas fa-calendar-alt"></i>
+                                            </span>
+                                        </span>
+                                        <input type="text" data-plugin-datepicker class="form-control" id="DateOfBirth" name="DateOfBirth">
+                                        @Html.ValidationMessageFor(model => model.DateOfBirth, "", new { @class = "text-danger" })
+                                    </div>
+                                    @*@Html.EditorFor(model => model.DateOfBirth, new { htmlAttributes = new { @class = "form-control" } })*@
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row m-4">
+                        <div class="col-md-6"></div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <div class="col-md-offset-2 col-md-12">
+                                    <input type="submit" value="أضافةخادم جديد" class="btn btn-sm btn-dark" style="width:100%;font-size: 20px;font-weight: bold;text-align: center;font-family: Calibri" />
+                                </div>
+                            </div>
+
                         </div>
                     </div>
                 </div>
-
-                <div class="row mt-5">
-                    <div class="col-md-6">
-                        <div class="form-group">
-                            <label class="control-label col-md-4" style="float: right;font-size: 14px;font-weight: bold;text-align: right;font-family: Calibri">Email Address</label>
-                            <div class="col-md-12">
-                                <div class="input-group">
-                                    <span class="input-group-prepend">
-                                        <span class="input-group-text">
-                                            <i class="fas fa-envelope"></i>
-                                        </span>
-                                    </span>
-                                    @Html.EditorFor(model => model.EmailAddress, new { htmlAttributes = new { @class = "form-control" } })
-                                    @Html.ValidationMessageFor(model => model.EmailAddress, "", new { @class = "text-danger" })
-                                </div>
-
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-md-6">
-                        <div class="form-group">
-                            <label class="control-label col-md-4" style="float: right;font-size: 14px;font-weight: bold;text-align: right;font-family: Calibri"> تاريخ الميلاد</label>
-                            <div class="col-md-12">
-                                <div class="input-group">
-                                    <span class="input-group-prepend">
-                                        <span class="input-group-text">
-                                            <i class="fas fa-calendar-alt"></i>
-                                        </span>
-                                    </span>
-                                    <input type="text" data-plugin-datepicker class="form-control" id="DateOfBirth" name="DateOfBirth">
-                                    @Html.ValidationMessageFor(model => model.DateOfBirth, "", new { @class = "text-danger" })
-                                </div>
-                                @*@Html.EditorFor(model => model.DateOfBirth, new { htmlAttributes = new { @class = "form-control" } })*@
-
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="row m-4">
-                    <div class="col-md-6"></div>
-                    <div class="col-md-6">
-                        <div class="form-group">
-                            <div class="col-md-offset-2 col-md-12">
-                                <input type="submit" value="أضافةخادم جديد" class="btn btn-sm btn-dark" style="width:100%;font-size: 20px;font-weight: bold;text-align: center;font-family: Calibri" />
-                            </div>
-                        </div>
-
-                    </div>
-                </div>
-            </div>
             }
         </div>
 
- 
+
     </section>
 </div>
 

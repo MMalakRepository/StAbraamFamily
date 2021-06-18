@@ -1,23 +1,25 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
 using System.Linq;
 using System.Net;
-using System.Web;
 using System.Web.Mvc;
-using StAbraamFamily.Models;
+using StAbraamFamily.Web.Core.Repositories;
+using StAbraamFamily.Web.Entities.Domain;
 
 namespace StAbraamFamily.Controllers
 {
     [Authorize(Roles = "Management")]
     public class FamilyVisitsController : Controller
     {
-        private StAbraamEntities db = new StAbraamEntities();
-
+        private readonly IUnitOfWork saintUnits;
+        public FamilyVisitsController(IUnitOfWork saintUnits)
+        {
+            this.saintUnits = saintUnits;
+        }
         public ActionResult Index()
         {
-            var familyVisits = db.FamilyVisits.Include(f => f.Family).Include(f => f.Servant);
+            var familyVisits = saintUnits.FamilyVisits.GetAll();
             return View(familyVisits.ToList());
         }
  
@@ -29,8 +31,8 @@ namespace StAbraamFamily.Controllers
 
         private void ResetData()
         {
-            ViewBag.FamilyID = new SelectList(db.Families.Where(x => x.IsActive == true), "ID", "FamilyCode");
-            ViewBag.ServantID = new SelectList(db.Servants.Where(x => x.IsActive == true), "ID", "ServantName");
+            ViewBag.FamilyID = new SelectList(saintUnits.Families.GetAll().Where(x => x.IsActive == true), "ID", "FamilyCode");
+            ViewBag.ServantID = new SelectList(saintUnits.Servants.GetAll().Where(x => x.IsActive == true), "ID", "ServantName");
         }
 
         [HttpPost]
@@ -42,8 +44,8 @@ namespace StAbraamFamily.Controllers
                
                 familyVisit.ServantID = Convert.ToInt32(Request.Form["ServantID"].ToString());
                 familyVisit.FamilyID = Convert.ToInt32(Request.Form["FamilyID"].ToString());
-                db.FamilyVisits.Add(familyVisit);
-                db.SaveChanges();
+                saintUnits.FamilyVisits.Add(familyVisit);
+                saintUnits.Complete();
                 return RedirectToAction("Index");
             }
 
@@ -57,7 +59,7 @@ namespace StAbraamFamily.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            FamilyVisit familyVisit = db.FamilyVisits.Find(id);
+            FamilyVisit familyVisit = saintUnits.FamilyVisits.Get(id);
             if (familyVisit == null)
             {
                 return HttpNotFound();
@@ -77,8 +79,8 @@ namespace StAbraamFamily.Controllers
 
                 familyVisit.ServantID = Convert.ToInt32(Request.Form["ServantID"].ToString());
                 familyVisit.FamilyID = Convert.ToInt32(Request.Form["FamilyID"].ToString());
-                db.Entry(familyVisit).State = EntityState.Modified;
-                db.SaveChanges();
+                saintUnits.FamilyVisits.Update(familyVisit);
+                saintUnits.Complete();
                 return RedirectToAction("Index");
             }
 
@@ -89,9 +91,9 @@ namespace StAbraamFamily.Controllers
         [HttpPost]
         public ActionResult DeleteAction(int id)
         {
-            FamilyVisit familyVisit = db.FamilyVisits.Find(id);
-            db.FamilyVisits.Remove(familyVisit);
-            db.SaveChanges();
+            FamilyVisit familyVisit = saintUnits.FamilyVisits.Get(id);
+            saintUnits.FamilyVisits.Remove(familyVisit);
+            saintUnits.Complete();
             return Json(data: new { success = true, message = "Visit has been deleted successfully" }, JsonRequestBehavior.AllowGet);
         }
 
@@ -99,7 +101,7 @@ namespace StAbraamFamily.Controllers
         {
             if (disposing)
             {
-                db.Dispose();
+                saintUnits.Dispose();
             }
             base.Dispose(disposing);
         }

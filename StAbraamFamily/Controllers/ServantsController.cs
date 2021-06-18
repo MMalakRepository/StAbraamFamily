@@ -7,17 +7,22 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using StAbraamFamily.Models;
+using StAbraamFamily.Web.Core.Repositories;
+using StAbraamFamily.Web.Entities.Domain;
 
 namespace StAbraamFamily.Controllers
 {
     [Authorize(Roles = "Management,DataEntry")]
     public class ServantsController : Controller
     {
-        private StAbraamEntities db = new StAbraamEntities();
-
+        private readonly IUnitOfWork saintUnits;
+        public ServantsController(IUnitOfWork saintUnits)
+        {
+            this.saintUnits = saintUnits;
+        }
         public ActionResult Index()
         {
-            return View(db.Servants.Where(x => x.IsActive == true).ToList());
+            return View(saintUnits.Servants.Find(x => x.IsActive == true).ToList());
         }
 
         public ActionResult Create()
@@ -32,8 +37,8 @@ namespace StAbraamFamily.Controllers
             if (ModelState.IsValid)
             {
                 servant.IsActive = true;
-                db.Servants.Add(servant);
-                db.SaveChanges();
+                saintUnits.Servants.Add(servant);
+                saintUnits.Complete();
                 return RedirectToAction("Index");
             }
 
@@ -46,7 +51,7 @@ namespace StAbraamFamily.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Servant servant = db.Servants.Find(id);
+            Servant servant = saintUnits.Servants.Get(id);
             if (servant == null)
             {
                 return HttpNotFound();
@@ -61,8 +66,8 @@ namespace StAbraamFamily.Controllers
             if (ModelState.IsValid)
             {
                 servant.IsActive = true;
-                db.Entry(servant).State = EntityState.Modified;
-                db.SaveChanges();
+                saintUnits.Servants.Update(servant);
+                saintUnits.Complete();
                 return RedirectToAction("Index");
             }
             return View(servant);
@@ -71,16 +76,17 @@ namespace StAbraamFamily.Controllers
         [HttpPost]
         public ActionResult DeleteAction(int id)
         {
-            Servant servant = db.Servants.Find(id);
+            Servant servant = saintUnits.Servants.Get(id);
             servant.IsActive = false;
-            db.SaveChanges();
+            saintUnits.Servants.Remove(servant);
+            saintUnits.Complete();
             return Json(data: new { sucess = true, message = "Servant has been deleted successfully" }, JsonRequestBehavior.AllowGet);
         }
         protected override void Dispose(bool disposing)
         {
             if (disposing)
             {
-                db.Dispose();
+                saintUnits.Dispose();
             }
             base.Dispose(disposing);
         }

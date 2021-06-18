@@ -1,4 +1,5 @@
-﻿@model StAbraamFamily.Models.Person
+﻿@using StAbraamFamily.Web.Entities.Domain
+@model Person
 
 @{
     ViewBag.Title = "أضافة فرد جديد";
@@ -217,23 +218,23 @@
                                 </div>
                             </div>
                             @*<div class="col-md-3">
-                                <div class="form-group">
-                                    <label class="  control-label col-md-6" style="float: right;font-size: 14px;font-weight: bold;text-align: right;font-family: Calibri">   أرمل ؟</label>
-                                    <div class="col-md-12">
-                                        <div class="input-group">
-                                            <span class="input-group-prepend">
-                                                <span class="input-group-text">
-                                                    <i class="fas fa-female text-info bg-white"></i>
+                                    <div class="form-group">
+                                        <label class="  control-label col-md-6" style="float: right;font-size: 14px;font-weight: bold;text-align: right;font-family: Calibri">   أرمل ؟</label>
+                                        <div class="col-md-12">
+                                            <div class="input-group">
+                                                <span class="input-group-prepend">
+                                                    <span class="input-group-text">
+                                                        <i class="fas fa-female text-info bg-white"></i>
+                                                    </span>
                                                 </span>
-                                            </span>
-                                            <div class="checkbox">
-                                                @Html.EditorFor(model => model.IsWidow)
-                                                @Html.ValidationMessageFor(model => model.IsWidow, "", new { @class = "text-danger" })
+                                                <div class="checkbox">
+                                                    @Html.EditorFor(model => model.IsWidow)
+                                                    @Html.ValidationMessageFor(model => model.IsWidow, "", new { @class = "text-danger" })
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
-                            </div>*@
+                                </div>*@
 
                         </div>
 

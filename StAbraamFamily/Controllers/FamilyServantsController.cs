@@ -1,24 +1,26 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
 using System.Linq;
 using System.Net;
-using System.Web;
 using System.Web.Mvc;
-using StAbraamFamily.Models;
-using StAbraamFamily.UnitsOfWork;
+using StAbraamFamily.Web.Core.Repositories;
+using StAbraamFamily.Web.Entities.Domain;
 
 namespace StAbraamFamily.Controllers
 {
     [Authorize(Roles = "Management")]
     public class FamilyServantsController : Controller
-    {
-        private StAbraamEntities db = new StAbraamEntities();
+    { 
+        private readonly IUnitOfWork saintUnits;
 
+        public FamilyServantsController(IUnitOfWork saintUnits)
+        {
+            this.saintUnits = saintUnits;
+        }
         public ActionResult Index()
         {
-            var familyServants = db.FamilyServants.Include(f => f.Family).Include(f => f.Servant).Where(x =>x.IsActive ==true);
+            var familyServants = saintUnits.FamilyServants.GetAll().Where(x =>x.IsActive ==true);
             return View(familyServants.ToList());
         }
 
@@ -29,7 +31,7 @@ namespace StAbraamFamily.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            FamilyServant familyServant = db.FamilyServants.Find(id);
+            FamilyServant familyServant = saintUnits.FamilyServants.Get(id);
             if (familyServant == null)
             {
                 return HttpNotFound();
@@ -47,8 +49,8 @@ namespace StAbraamFamily.Controllers
 
         public void ResetData()
         {
-            ViewBag.FamilyID = new SelectList(db.Families.Where(x => x.IsActive == true), "ID", "FamilyCode");
-            ViewBag.ServantID = new SelectList(db.Servants.Where(x => x.IsActive == true), "ID", "ServantName");
+            ViewBag.FamilyID = new SelectList(saintUnits.Families.GetAll().Where(x => x.IsActive == true), "ID", "FamilyCode");
+            ViewBag.ServantID = new SelectList(saintUnits.Servants.GetAll().Where(x => x.IsActive == true), "ID", "ServantName");
         }
 
         [HttpPost]
@@ -61,8 +63,8 @@ namespace StAbraamFamily.Controllers
                 familyServant.ServantID = Convert.ToInt32(Request.Form["ServantID"].ToString());
                 familyServant.FamilyID = Convert.ToInt32(Request.Form["FamilyID"].ToString());
                 familyServant.IsActive = true;
-                db.FamilyServants.Add(familyServant);
-                db.SaveChanges();
+                saintUnits.FamilyServants.Add(familyServant);
+                saintUnits.Complete();
                 return RedirectToAction("Index");
             }
 
@@ -77,13 +79,11 @@ namespace StAbraamFamily.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            FamilyServant familyServant = db.FamilyServants.Find(id);
+            FamilyServant familyServant = saintUnits.FamilyServants.Get(id);
             if (familyServant == null)
             {
                 return HttpNotFound();
             }
-
-
             ResetData();
             return View(familyServant);
         }
@@ -97,8 +97,8 @@ namespace StAbraamFamily.Controllers
                 familyServant.ServantID = Convert.ToInt32(Request.Form["ServantID"].ToString());
                 familyServant.FamilyID = Convert.ToInt32(Request.Form["FamilyID"].ToString());
                 familyServant.IsActive = true;
-                db.Entry(familyServant).State = EntityState.Modified;
-                db.SaveChanges();
+                saintUnits.FamilyServants.Update(familyServant);
+                saintUnits.Complete();
                 return RedirectToAction("Index");
             }
 
@@ -113,7 +113,7 @@ namespace StAbraamFamily.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            FamilyServant familyServant = db.FamilyServants.Find(id);
+            FamilyServant familyServant = saintUnits.FamilyServants.Get(id);
             if (familyServant == null)
             {
                 return HttpNotFound();
@@ -124,9 +124,9 @@ namespace StAbraamFamily.Controllers
         [HttpPost]
         public ActionResult DeleteAction(int id)
         {
-            FamilyServant familyServant = db.FamilyServants.Find(id);
+            FamilyServant familyServant = saintUnits.FamilyServants.Get(id);
             familyServant.IsActive = false;
-            db.SaveChanges();
+            saintUnits.Complete();
             return Json(data: new { sucess = true, message = "Servant has been deleted successfully" }, JsonRequestBehavior.AllowGet);
         }
 
@@ -134,7 +134,8 @@ namespace StAbraamFamily.Controllers
         {
             if (disposing)
             {
-                db.Dispose();
+                saintUnits.Dispose();
+
             }
             base.Dispose(disposing);
         }

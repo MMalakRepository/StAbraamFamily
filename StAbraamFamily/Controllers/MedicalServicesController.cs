@@ -1,33 +1,35 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
+﻿using System.Data;
 using System.Data.Entity;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Net;
-using System.Web;
 using System.Web.Mvc;
-using StAbraamFamily.Models;
+using StAbraamFamily.Web.Entities.Domain;
+using StAbraamFamily.Web.Core.Repositories;
 
 namespace StAbraamFamily.Controllers
 {
     [Authorize(Roles ="Management,Health")]
     public class MedicalServicesController : Controller
     {
-        private StAbraamEntities db = new StAbraamEntities();
- 
-        public async Task<ActionResult> Index()
+        private readonly IUnitOfWork saintUints;
+
+        public MedicalServicesController(IUnitOfWork saintUints)
         {
-            return View(await db.MedicalServices.Where(x => x.IsActive == true).ToListAsync());
+            this.saintUints = saintUints;
+        }
+        public ActionResult Index()
+        {
+            return View(saintUints.MedicalServices.Find(x => x.IsActive == true));
         }
  
-        public async Task<ActionResult> Details(int? id)
+        public  ActionResult Details(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            MedicalService medicalService = await db.MedicalServices.FindAsync(id);
+            MedicalService medicalService =  saintUints.MedicalServices.Get(id);
             if (medicalService == null)
             {
                 return HttpNotFound();
@@ -43,26 +45,26 @@ namespace StAbraamFamily.Controllers
  
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create([Bind(Include = "ID,MedicalService1,Notes,IsActive")] MedicalService medicalService)
+        public ActionResult Create(MedicalService medicalService)
         {
             if (ModelState.IsValid)
             {
                 medicalService.IsActive = true;
-                db.MedicalServices.Add(medicalService);
-                await db.SaveChangesAsync();
+                saintUints.MedicalServices.Add(medicalService);
+                saintUints.Complete();
                 return RedirectToAction("Index");
             }
 
             return View(medicalService);
         }
  
-        public async Task<ActionResult> Edit(int? id)
+        public ActionResult Edit(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            MedicalService medicalService = await db.MedicalServices.FindAsync(id);
+            MedicalService medicalService =  saintUints.MedicalServices.Get(id);
             if (medicalService == null)
             {
                 return HttpNotFound();
@@ -72,51 +74,39 @@ namespace StAbraamFamily.Controllers
  
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit([Bind(Include = "ID,MedicalService1,Notes,IsActive")] MedicalService medicalService)
+        public ActionResult Edit(MedicalService medicalService)
         {
             if (ModelState.IsValid)
             {
                 medicalService.IsActive = true;
-                db.Entry(medicalService).State = EntityState.Modified;
-                await db.SaveChangesAsync();
+                saintUints.MedicalServices.Update(medicalService);
+                saintUints.Complete();
                 return RedirectToAction("Index");
             }
             return View(medicalService);
         }
 
-        // GET: MedicalServices/Delete/5
-        public async Task<ActionResult> Delete(int? id)
+
+        public ActionResult Delete(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            MedicalService medicalService = await db.MedicalServices.FindAsync(id);
+            MedicalService medicalService = saintUints.MedicalServices.Get(id);
             if (medicalService == null)
             {
                 return HttpNotFound();
             }
             return View(medicalService);
         }
-
-        // POST: MedicalServices/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public async Task<ActionResult> DeleteConfirmed(int id)
-        {
-            MedicalService medicalService = await db.MedicalServices.FindAsync(id);
-            db.MedicalServices.Remove(medicalService);
-            await db.SaveChangesAsync();
-            return RedirectToAction("Index");
-        }
-
 
         [HttpPost]
         public ActionResult DeleteAction(int id)
         {
-            MedicalService medicalService = db.MedicalServices.Find(id);
-            medicalService.IsActive = false;
-            db.SaveChanges();
+            MedicalService medicalService = saintUints.MedicalServices.Get(id);
+            saintUints.MedicalServices.Remove(medicalService);
+            saintUints.Complete();
             return Json(data: new { success = true, message = "Medical Service deleted successfully" }, JsonRequestBehavior.AllowGet);
         }
 
@@ -124,7 +114,7 @@ namespace StAbraamFamily.Controllers
         {
             if (disposing)
             {
-                db.Dispose();
+                saintUints.Dispose();
             }
             base.Dispose(disposing);
         }

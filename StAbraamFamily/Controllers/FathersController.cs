@@ -1,23 +1,24 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
+﻿using System.Data;
 using System.Data.Entity;
 using System.Linq;
 using System.Net;
-using System.Web;
 using System.Web.Mvc;
-using StAbraamFamily.Models;
+using StAbraamFamily.Web.Core.Repositories;
+using StAbraamFamily.Web.Entities.Domain;
 
 namespace StAbraamFamily.Controllers
 {
     [Authorize(Roles = "Management")]
     public class FathersController : Controller
     {
-        private StAbraamEntities db = new StAbraamEntities();
-
+        private readonly IUnitOfWork saintUnits;
+        public FathersController(IUnitOfWork saintUnits)
+        {
+            this.saintUnits = saintUnits;
+        }
         public ActionResult Index()
         {
-            return View(db.Fathers.Where(x => x.IsActive ==true).ToList());
+            return View(saintUnits.Fathers.Find(x => x.IsActive ==true).ToList());
         }
        
         public ActionResult Create()
@@ -32,8 +33,8 @@ namespace StAbraamFamily.Controllers
             if (ModelState.IsValid)
             {
                 father.IsActive = true;
-                db.Fathers.Add(father);
-                db.SaveChanges();
+                saintUnits.Fathers.Add(father);
+                saintUnits.Complete();
                 return RedirectToAction("Index");
             }
 
@@ -46,7 +47,7 @@ namespace StAbraamFamily.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Father father = db.Fathers.Find(id);
+            Father father = saintUnits.Fathers.Get(id);
             if (father == null)
             {
                 return HttpNotFound();
@@ -60,8 +61,9 @@ namespace StAbraamFamily.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Entry(father).State = EntityState.Modified;
-                db.SaveChanges();
+                father.IsActive = true;
+                saintUnits.Fathers.Update(father);
+                saintUnits.Complete();
                 return RedirectToAction("Index");
             }
             return View(father);
@@ -70,10 +72,9 @@ namespace StAbraamFamily.Controllers
         [HttpPost]
         public ActionResult DeleteAction(int id)
         {
-            Father father = db.Fathers.Find(id);
-            father.IsActive = false;
-            //db.Fathers.Remove(father);
-            db.SaveChanges();
+            Father father = saintUnits.Fathers.Get(id);
+            saintUnits.Fathers.Remove(father);
+            saintUnits.Complete();
             return Json(data : new { success = true , message ="Father has been deleted successfully"},JsonRequestBehavior.AllowGet);
         }
 
@@ -81,7 +82,7 @@ namespace StAbraamFamily.Controllers
         {
             if (disposing)
             {
-                db.Dispose();
+                saintUnits.Dispose();
             }
             base.Dispose(disposing);
         }

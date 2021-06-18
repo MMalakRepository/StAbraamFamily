@@ -1,5 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\packages\EntityFramework.6.4.4\build\EntityFramework.props" Condition="Exists('..\packages\EntityFramework.6.4.4\build\EntityFramework.props')" />
   <Import Project="..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props" Condition="Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" />
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
@@ -46,12 +47,24 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
-      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
+      <HintPath>..\packages\EntityFramework.6.4.4\lib\net45\EntityFramework.dll</HintPath>
     </Reference>
     <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
-      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+      <HintPath>..\packages\EntityFramework.6.4.4\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Ninject, Version=3.3.4.0, Culture=neutral, PublicKeyToken=c7192dc5380945e7, processorArchitecture=MSIL">
+      <HintPath>..\packages\Ninject.3.3.4\lib\net45\Ninject.dll</HintPath>
+    </Reference>
+    <Reference Include="Ninject.Web.Common, Version=3.3.2.0, Culture=neutral, PublicKeyToken=c7192dc5380945e7, processorArchitecture=MSIL">
+      <HintPath>..\packages\Ninject.Web.Common.3.3.2\lib\net45\Ninject.Web.Common.dll</HintPath>
+    </Reference>
+    <Reference Include="Ninject.Web.Common.WebHost, Version=3.3.2.0, Culture=neutral, PublicKeyToken=c7192dc5380945e7, processorArchitecture=MSIL">
+      <HintPath>..\packages\Ninject.Web.Common.WebHost.3.3.2\lib\net45\Ninject.Web.Common.WebHost.dll</HintPath>
+    </Reference>
+    <Reference Include="Ninject.Web.Mvc, Version=3.3.0.0, Culture=neutral, PublicKeyToken=c7192dc5380945e7, processorArchitecture=MSIL">
+      <HintPath>..\packages\Ninject.MVC5.3.3.0\lib\net45\Ninject.Web.Mvc.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
@@ -110,6 +123,9 @@
     <Reference Include="Newtonsoft.Json">
       <HintPath>..\packages\Newtonsoft.Json.12.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
+    <Reference Include="WebActivatorEx, Version=2.0.0.0, Culture=neutral, PublicKeyToken=7b26dc2a43f6a0d4, processorArchitecture=MSIL">
+      <HintPath>..\packages\WebActivatorEx.2.2.0\lib\net40\WebActivatorEx.dll</HintPath>
+    </Reference>
     <Reference Include="WebGrease">
       <Private>True</Private>
       <HintPath>..\packages\WebGrease.1.6.0\lib\WebGrease.dll</HintPath>
@@ -167,6 +183,7 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\IdentityConfig.cs" />
+    <Compile Include="App_Start\NinjectwebCommon.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
@@ -189,105 +206,11 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="MetaDataModels\PersonMeta.cs" />
-    <Compile Include="MetaDataModels\ServiceActionMeta.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
-    <Compile Include="Models\AspNetRole.cs">
-      <DependentUpon>StAbraamFamily.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\AspNetUser.cs">
-      <DependentUpon>StAbraamFamily.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\AspNetUserClaim.cs">
-      <DependentUpon>StAbraamFamily.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\AspNetUserLogin.cs">
-      <DependentUpon>StAbraamFamily.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\Child.cs">
-      <DependentUpon>StAbraamFamily.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\Clinic.cs">
-      <DependentUpon>StAbraamFamily.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\C__MigrationHistory.cs">
-      <DependentUpon>StAbraamFamily.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\EvaluationLevel.cs">
-      <DependentUpon>StAbraamFamily.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\Family.cs">
-      <DependentUpon>StAbraamFamily.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\FamilyServant.cs">
-      <DependentUpon>StAbraamFamily.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\FamilyVisit.cs">
-      <DependentUpon>StAbraamFamily.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\Father.cs">
-      <DependentUpon>StAbraamFamily.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\Hospital.cs">
-      <DependentUpon>StAbraamFamily.tt</DependentUpon>
-    </Compile>
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
-    <Compile Include="Models\MedicalContract.cs">
-      <DependentUpon>StAbraamFamily.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\MedicalService.cs">
-      <DependentUpon>StAbraamFamily.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\Person.cs">
-      <DependentUpon>StAbraamFamily.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\Servant.cs">
-      <DependentUpon>StAbraamFamily.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\ServiceAction.cs">
-      <DependentUpon>StAbraamFamily.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\ServiceType.cs">
-      <DependentUpon>StAbraamFamily.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\StAbraamFamily.Context.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>StAbraamFamily.Context.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\StAbraamFamily.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>StAbraamFamily.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\StAbraamFamily.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>StAbraamFamily.edmx</DependentUpon>
-    </Compile>
-    <Compile Include="Models\sysdiagram.cs">
-      <DependentUpon>StAbraamFamily.tt</DependentUpon>
-    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Repositories\GeneralRepositories\GenericRepository.cs" />
-    <Compile Include="Repositories\GeneralRepositories\IEntityRepository.cs" />
-    <Compile Include="Repositories\ServiceRepositories\ChildrenRepos.cs" />
-    <Compile Include="Repositories\ServiceRepositories\ClinicsRepos.cs" />
-    <Compile Include="Repositories\ServiceRepositories\FamilyRepository.cs" />
-    <Compile Include="Repositories\ServiceRepositories\FamilyServantsRepos.cs" />
-    <Compile Include="Repositories\ServiceRepositories\FamilyVisitsRepos.cs" />
-    <Compile Include="Repositories\ServiceRepositories\FathersRepos.cs" />
-    <Compile Include="Repositories\ServiceRepositories\HospitalsRepos.cs" />
-    <Compile Include="Repositories\ServiceRepositories\PeopleRepos.cs" />
-    <Compile Include="Repositories\ServiceRepositories\ServantsRepos.cs" />
-    <Compile Include="Repositories\ServiceRepositories\ServiceActionsRepos.cs" />
-    <Compile Include="Repositories\ServiceRepositories\ServiceTypesRepos.cs" />
     <Compile Include="Startup.cs" />
-    <Compile Include="UnitsOfWork\IUnitOfWork.cs" />
-    <Compile Include="UnitsOfWork\StAbraamUOW.cs" />
-    <Compile Include="ViewModels\NewFamily.cs" />
-    <Compile Include="ViewModels\SystemDashboard.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Assets\ajax\ajax-loading-progress.html" />
@@ -3230,25 +3153,8 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
-    <Content Include="Models\StAbraamFamily.Context.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>StAbraamFamily.edmx</DependentUpon>
-      <LastGenOutput>StAbraamFamily.Context.cs</LastGenOutput>
-    </Content>
-    <Content Include="Models\StAbraamFamily.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>StAbraamFamily.edmx</DependentUpon>
-      <LastGenOutput>StAbraamFamily.cs</LastGenOutput>
-    </Content>
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
-    <EntityDeploy Include="Models\StAbraamFamily.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>StAbraamFamily.Designer.cs</LastGenOutput>
-    </EntityDeploy>
-    <Content Include="Models\StAbraamFamily.edmx.diagram">
-      <DependentUpon>StAbraamFamily.edmx</DependentUpon>
-    </Content>
     <Content Include="Assets\ajax\ajax-datatables-sample.json" />
     <Content Include="Assets\ajax\ajax-treeview-children.json" />
     <Content Include="Assets\ajax\ajax-treeview-roots.json" />
@@ -3580,6 +3486,7 @@
     <Content Include="Assets\vendor\summernote\summernote.js.map" />
     <Content Include="Assets\vendor\datatables\Buttons-1.6.5\css\common.scss" />
     <Content Include="Assets\vendor\datatables\Buttons-1.6.5\css\mixins.scss" />
+    <Content Include="StConnections.config" />
     <None Include="Properties\PublishProfiles\FTPProfile.pubxml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
@@ -3662,7 +3569,6 @@
     <Content Include="Views\ServiceActions\AddHealthyService.cshtml" />
     <Content Include="Views\Families\CreateBk.cshtml" />
     <Content Include="Views\ServiceActions\AddBagService.cshtml" />
-    <Content Include="Views\Families\EditBck.cshtml" />
     <Content Include="Views\Families\Edit.cshtml" />
     <Content Include="Views\EvaluationLevels\Create.cshtml" />
     <Content Include="Views\EvaluationLevels\Edit.cshtml" />
@@ -3699,6 +3605,16 @@
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\StAbraamFamily.Web.Core\StAbraamFamily.Web.Core.csproj">
+      <Project>{3b5c92e5-9e3d-4c3d-840d-a471836d89ed}</Project>
+      <Name>StAbraamFamily.Web.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\StAbraamFamily.Web.Entities\StAbraamFamily.Web.Entities.csproj">
+      <Project>{625d736a-8c67-4ff3-bc3c-c9c79ae89f54}</Project>
+      <Name>StAbraamFamily.Web.Entities</Name>
+    </ProjectReference>
+  </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
@@ -3732,7 +3648,10 @@
       <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
     </PropertyGroup>
     <Error Condition="!Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props'))" />
+    <Error Condition="!Exists('..\packages\EntityFramework.6.4.4\build\EntityFramework.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\EntityFramework.6.4.4\build\EntityFramework.props'))" />
+    <Error Condition="!Exists('..\packages\EntityFramework.6.4.4\build\EntityFramework.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\EntityFramework.6.4.4\build\EntityFramework.targets'))" />
   </Target>
+  <Import Project="..\packages\EntityFramework.6.4.4\build\EntityFramework.targets" Condition="Exists('..\packages\EntityFramework.6.4.4\build\EntityFramework.targets')" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

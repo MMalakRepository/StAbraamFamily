@@ -1,23 +1,24 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Data.Entity;
+﻿using System.Data.Entity;
 using System.Linq;
 using System.Net;
-using System.Web;
 using System.Web.Mvc;
-using StAbraamFamily.Models;
+using StAbraamFamily.Web.Core.Repositories;
+using StAbraamFamily.Web.Entities.Domain;
 
 namespace StAbraamFamily.Controllers
 {
     [Authorize(Roles ="Management")]
     public class EvaluationLevelsController : Controller
-    {
-        private StAbraamEntities db = new StAbraamEntities();
-
+    { 
+    
+        private readonly IUnitOfWork saintUnits;
+        public EvaluationLevelsController(IUnitOfWork saintUnits)
+        {
+            this.saintUnits = saintUnits;
+        }
         public ActionResult Index()
         {
-            return View(db.EvaluationLevels.ToList());
+            return View(saintUnits.EvaluationLevels.GetAll().Where(x => x.IsActive == true));
         }
 
         public ActionResult Create()
@@ -31,8 +32,8 @@ namespace StAbraamFamily.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.EvaluationLevels.Add(evaluationLevel);
-                db.SaveChanges();
+                saintUnits.EvaluationLevels.Add(evaluationLevel);
+                saintUnits.Complete();
                 return RedirectToAction("Index");
             }
 
@@ -45,7 +46,7 @@ namespace StAbraamFamily.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            EvaluationLevel evaluationLevel = db.EvaluationLevels.Find(id);
+            EvaluationLevel evaluationLevel = saintUnits.EvaluationLevels.Get(id);
             if (evaluationLevel == null)
             {
                 return HttpNotFound();
@@ -59,8 +60,8 @@ namespace StAbraamFamily.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Entry(evaluationLevel).State = EntityState.Modified;
-                db.SaveChanges();
+                saintUnits.EvaluationLevels.Update(evaluationLevel);
+                saintUnits.Complete();
                 return RedirectToAction("Index");
             }
             return View(evaluationLevel);
@@ -72,7 +73,7 @@ namespace StAbraamFamily.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            EvaluationLevel evaluationLevel = db.EvaluationLevels.Find(id);
+            EvaluationLevel evaluationLevel = saintUnits.EvaluationLevels.Get(id);
             if (evaluationLevel == null)
             {
                 return HttpNotFound();
@@ -83,10 +84,9 @@ namespace StAbraamFamily.Controllers
         [HttpPost]
         public ActionResult DeleteAction(int id)
         {
-            EvaluationLevel evaluationLevel = db.EvaluationLevels.Find(id);
-            //db.EvaluationLevels.Remove(evaluationLevel);
-            evaluationLevel.IsActive = false;
-            db.SaveChanges();
+            EvaluationLevel evaluationLevel = saintUnits.EvaluationLevels.Get(id);
+            saintUnits.EvaluationLevels.Remove(evaluationLevel);
+            saintUnits.Complete();
             return RedirectToAction("Index");
         }
 
@@ -94,7 +94,7 @@ namespace StAbraamFamily.Controllers
         {
             if (disposing)
             {
-                db.Dispose();
+                saintUnits.Dispose();
             }
             base.Dispose(disposing);
         }

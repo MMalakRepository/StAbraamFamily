@@ -8,32 +8,31 @@ using System.Web;
 using System.Web.Mvc;
 using StAbraamFamily.Models;
 using Microsoft.AspNet.Identity;
+using StAbraamFamily.Web.Entities.Domain;
+using StAbraamFamily.Web.Core.Repositories;
 
 namespace StAbraamFamily.Controllers
 {
 
     public class ServiceActionsController : Controller
     {
-        private StAbraamEntities db = new StAbraamEntities();
+        private SaintAbraamEntities db = new SaintAbraamEntities();
+        private readonly IUnitOfWork saintUnits;
 
+        public ServiceActionsController(IUnitOfWork saintUnits)
+        {
+            this.saintUnits = saintUnits;
+        }
         [Authorize(Roles = "Management")]
         public ActionResult Index()
         {
-            var serviceActions = db.ServiceActions.Include(s => s.AspNetUser)
-                .Include(s => s.Clinic).Include(s => s.Family)
-                .Include(s => s.Hospital).Include(s => s.Person)
-                .Include(s => s.Servant).Include(s => s.ServiceType)
-                .Where(x => x.IsActive == true && (x.ServiceType.ID != 1 || x.ServiceType.ID != 2));
+            var serviceActions = saintUnits.ServiceActions.GetAllServiceDetails();
             return View("Index", serviceActions.ToList());
         }
         [Authorize(Roles = "BagService,Management")]
         public ActionResult BagServiceList(int? id)
         {
-            var serviceActions = db.ServiceActions.Include(s => s.AspNetUser)
-                .Include(s => s.Clinic).Include(s => s.Family)
-                .Include(s => s.Hospital).Include(s => s.Person)
-                .Include(s => s.Servant).Include(s => s.ServiceType)
-                .Where(x => x.IsActive == true && x.ServiceType.ID == 1);
+            var serviceActions = saintUnits.ServiceActions.GetBagServices();
 
             if (id != null)
                 serviceActions = serviceActions.Where(x => x.PersonID == id);
@@ -44,10 +43,7 @@ namespace StAbraamFamily.Controllers
         [Authorize(Roles = "Management,Health")]
         public ActionResult MedicalServiceList(int? id)
         {
-            var serviceActions = db.ServiceActions.Include(s => s.AspNetUser)
-                                    .Include(s => s.Clinic).Include(s => s.Family)
-                                    .Include(s => s.Hospital).Include(s => s.Person).Include(s => s.Servant)
-                                    .Include(s => s.ServiceType).Where(x => x.IsActive == true && x.ServiceType.ID == 2);
+            var serviceActions = saintUnits.ServiceActions.GetAllMEdicalService();
             if (id != null)
                 serviceActions = serviceActions.Where(x => x.PersonID == id);
 
@@ -57,10 +53,7 @@ namespace StAbraamFamily.Controllers
         [Authorize(Roles = "Management,Health")]
         public ActionResult getClinicServices(int? id)
         {
-            var serviceActions = db.ServiceActions.Include(s => s.AspNetUser)
-                                    .Include(s => s.Clinic).Include(s => s.Family)
-                                    .Include(s => s.Hospital).Include(s => s.Person).Include(s => s.Servant)
-                                    .Include(s => s.ServiceType).Where(x => x.IsActive == true && x.ServiceType.ID == 2);
+            var serviceActions = saintUnits.ServiceActions.GetAllMEdicalService();
             if (id != null)
                 serviceActions = serviceActions.Where(x => x.ClinicID == id);
 
@@ -70,10 +63,7 @@ namespace StAbraamFamily.Controllers
         [Authorize(Roles = "Management,Health")]
         public ActionResult getHospitalServices(int? id)
         {
-            var serviceActions = db.ServiceActions.Include(s => s.AspNetUser)
-                                    .Include(s => s.Clinic).Include(s => s.Family)
-                                    .Include(s => s.Hospital).Include(s => s.Person).Include(s => s.Servant)
-                                    .Include(s => s.ServiceType).Where(x => x.IsActive == true && x.ServiceType.ID == 2);
+            var serviceActions = saintUnits.ServiceActions.GetAllMEdicalService();
             if (id != null)
                 serviceActions = serviceActions.Where(x => x.HospitalID == id);
 
@@ -83,10 +73,7 @@ namespace StAbraamFamily.Controllers
         [Authorize(Roles = "Management")]
         public ActionResult FinancialServiceList(int? id)
         {
-            var serviceActions = db.ServiceActions.Include(s => s.AspNetUser)
-                                    .Include(s => s.Clinic).Include(s => s.Family)
-                                    .Include(s => s.Hospital).Include(s => s.Person).Include(s => s.Servant)
-                                    .Include(s => s.ServiceType).Where(x => x.IsActive == true && x.ServiceType.ID == 3);
+            var serviceActions = saintUnits.ServiceActions.GetFinancialServices();
             if (id != null)
                 serviceActions = serviceActions.Where(x => x.PersonID == id);
 
@@ -96,10 +83,7 @@ namespace StAbraamFamily.Controllers
         [Authorize(Roles = "Management")]
         public ActionResult AllServicesList(int? id)
         {
-            var serviceActions = db.ServiceActions.Include(s => s.AspNetUser)
-                        .Include(s => s.Clinic).Include(s => s.Family)
-                        .Include(s => s.Hospital).Include(s => s.Person).Include(s => s.Servant)
-                        .Include(s => s.ServiceType).Where(x => x.IsActive == true);
+            var serviceActions = saintUnits.ServiceActions.GetAllServiceDetails();
             if (id != null)
                 serviceActions = serviceActions.Where(x => x.PersonID == id);
 
@@ -109,10 +93,7 @@ namespace StAbraamFamily.Controllers
         [Authorize(Roles = "Management")]
         public ActionResult GetServicesByFamily(int? FamilyID)
         {
-            var serviceActions = db.ServiceActions.Include(s => s.AspNetUser)
-                        .Include(s => s.Clinic).Include(s => s.Family)
-                        .Include(s => s.Hospital).Include(s => s.Person).Include(s => s.Servant)
-                        .Include(s => s.ServiceType).Where(x => x.IsActive == true);
+            var serviceActions = saintUnits.ServiceActions.GetAllServiceDetails();
             if (FamilyID != null)
                 serviceActions = serviceActions.Where(x => x.Person.FamilyID == FamilyID);
 
@@ -128,14 +109,14 @@ namespace StAbraamFamily.Controllers
         private void ResetData()
         {
             ViewBag.UserID = new SelectList(db.AspNetUsers.Where(x => x.LockoutEnabled == true), "Id", "Email");
-            ViewBag.ClinicID = new SelectList(db.Clinics.Where(x => x.IsActive == true), "ID", "ClinicName");
-            ViewBag.FamilyID = new SelectList(db.Families.Where(x => x.IsActive == true), "ID", "FamilyCode");
-            ViewBag.HospitalID = new SelectList(db.Hospitals.Where(x => x.IsActive == true), "ID", "HospitalName");
-            ViewBag.PersonID = new SelectList(db.People.Where(x => x.IsActive == true), "ID", "FullName");
-            ViewBag.ServantID = new SelectList(db.Servants.Where(x => x.IsActive == true), "ID", "ServantName");
-            ViewBag.ActionTypeID = new SelectList(db.ServiceTypes.Where(x => x.IsActive == true), "ID", "ActionType");
+            ViewBag.ClinicID = new SelectList(saintUnits.Clinics.Find(x => x.IsActive == true), "ID", "ClinicName");
+            ViewBag.FamilyID = new SelectList(saintUnits.Families.Find(x => x.IsActive == true), "ID", "FamilyCode");
+            ViewBag.HospitalID = new SelectList(saintUnits.Hospitals.Find(x => x.IsActive == true), "ID", "HospitalName");
+            ViewBag.PersonID = new SelectList(saintUnits.People.Find(x => x.IsActive == true), "ID", "FullName");
+            ViewBag.ServantID = new SelectList(saintUnits.Servants.Find(x => x.IsActive == true), "ID", "ServantName");
+            ViewBag.ActionTypeID = new SelectList(saintUnits.ServiceTypes.Find(x => x.IsActive == true), "ID", "ActionType");
             ViewBag.MedicalContractID = new SelectList(db.MedicalContracts.Where(x => x.IsActive == true), "ID", "Notes");
-            ViewBag.MedicalServiceTypeID = new SelectList(db.MedicalServices.Where(x => x.IsActive == true), "ID", "MedicalService1");
+            ViewBag.MedicalServiceTypeID = new SelectList(saintUnits.MedicalServices.Find(x => x.IsActive == true), "ID", "MedicalService1");
         }
 
         [HttpPost]
@@ -150,10 +131,10 @@ namespace StAbraamFamily.Controllers
                 serviceAction.ActionTypeID = Convert.ToInt32(Request.Form["ActionTypeID"].ToString());
                 serviceAction.IsActive = true;
                 serviceAction.EntryDate = DateTime.Now;
-                var p = db.People.Where(x => x.ID == serviceAction.PersonID).FirstOrDefault();
+                var p = saintUnits.People.SingleOrDefault(x => x.ID == serviceAction.PersonID);
                 serviceAction.FamilyID = p.FamilyID;
-                db.ServiceActions.Add(serviceAction);
-                db.SaveChanges();
+                saintUnits.ServiceActions.Add(serviceAction);
+                saintUnits.Complete();
                 return RedirectToAction("Index");
             }
 
@@ -173,11 +154,11 @@ namespace StAbraamFamily.Controllers
                 serviceAction.PersonID = Convert.ToInt32(Request.Form["PersonID"].ToString());
                 serviceAction.ActionTypeID = 2;
                 serviceAction.IsActive = true;
-                serviceAction.EntryDate = DateTime.Now;
-                var p = db.People.Where(x => x.ID == serviceAction.PersonID).FirstOrDefault();
+                serviceAction.EntryDate = DateTime.Now;                
+                var p = saintUnits.People.SingleOrDefault(x => x.ID == serviceAction.PersonID);
                 serviceAction.FamilyID = p.FamilyID;
-                db.ServiceActions.Add(serviceAction);
-                db.SaveChanges();
+                saintUnits.ServiceActions.Add(serviceAction);
+                saintUnits.Complete();
                 return RedirectToAction("MedicalServiceList");
             }
 
@@ -199,10 +180,10 @@ namespace StAbraamFamily.Controllers
                 serviceAction.ActionTypeID = 2;
                 serviceAction.IsActive = true;
                 serviceAction.EntryDate = DateTime.Now;
-                var p = db.People.Where(x => x.ID == serviceAction.PersonID).FirstOrDefault();
+                var p = saintUnits.People.SingleOrDefault(x => x.ID == serviceAction.PersonID);
                 serviceAction.FamilyID = p.FamilyID;
-                db.ServiceActions.Add(serviceAction);
-                db.SaveChanges();
+                saintUnits.ServiceActions.Add(serviceAction);
+                saintUnits.Complete();
                 return RedirectToAction("MedicalServiceList");
             }
 
@@ -223,10 +204,10 @@ namespace StAbraamFamily.Controllers
                 serviceAction.ActionTypeID = 1;
                 serviceAction.IsActive = true;
                 serviceAction.EntryDate = DateTime.Now;
-                var p = db.People.Where(x => x.ID == serviceAction.PersonID).FirstOrDefault();
+                var p = saintUnits.People.SingleOrDefault(x => x.ID == serviceAction.PersonID);
                 serviceAction.FamilyID = p.FamilyID;
-                db.ServiceActions.Add(serviceAction);
-                db.SaveChanges();
+                saintUnits.ServiceActions.Add(serviceAction);
+                saintUnits.Complete();
                 return RedirectToAction("Index");
             }
 
@@ -247,10 +228,10 @@ namespace StAbraamFamily.Controllers
                 serviceAction.ActionTypeID = 3;
                 serviceAction.IsActive = true;
                 serviceAction.EntryDate = DateTime.Now;
-                var p = db.People.Where(x => x.ID == serviceAction.PersonID).FirstOrDefault();
+                var p = saintUnits.People.SingleOrDefault(x => x.ID == serviceAction.PersonID);
                 serviceAction.FamilyID = p.FamilyID;
-                db.ServiceActions.Add(serviceAction);
-                db.SaveChanges();
+                saintUnits.ServiceActions.Add(serviceAction);
+                saintUnits.Complete();
                 return RedirectToAction("Index");
             }
 
@@ -291,7 +272,7 @@ namespace StAbraamFamily.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            ServiceAction serviceAction = db.ServiceActions.Find(id);
+            ServiceAction serviceAction = saintUnits.ServiceActions.Get(id);
             if (serviceAction == null)
             {
                 return HttpNotFound();
@@ -314,8 +295,8 @@ namespace StAbraamFamily.Controllers
                 serviceAction.IsActive = true;
                 serviceAction.UpdatedOn = DateTime.Now;
                 serviceAction.UpdateBy = User.Identity.GetUserId();
-                db.Entry(serviceAction).State = EntityState.Modified;
-                db.SaveChanges();
+                saintUnits.ServiceActions.Update(serviceAction);
+                saintUnits.Complete();
                 return RedirectToAction("Index");
             }
 
@@ -327,9 +308,9 @@ namespace StAbraamFamily.Controllers
         [Authorize(Roles = "Management")]
         public ActionResult DeleteAction(int id)
         {
-            ServiceAction serviceAction = db.ServiceActions.Find(id);
-            serviceAction.IsActive = false;
-            db.SaveChanges();
+            ServiceAction serviceAction = saintUnits.ServiceActions.Get(id);
+            saintUnits.ServiceActions.Remove(serviceAction);
+            saintUnits.Complete();
             return Json(data: new { success = true, message = "Service has been deleted successfully" }, JsonRequestBehavior.AllowGet);
         }
 
@@ -341,7 +322,7 @@ namespace StAbraamFamily.Controllers
             if (!string.IsNullOrEmpty(clinicID))
             {
                 int cID = Convert.ToInt32(clinicID);
-                List<MedicalContract> contracts = db.MedicalContracts.Where(x => x.ClinicID == cID).ToList();
+                List<MedicalContract> contracts = saintUnits.MedicalContracts.Find(x => x.ClinicID == cID).ToList();
                 contracts.ForEach(x =>
                 {
                     MedicalContracts.Add(new SelectListItem { Text = x.Notes, Value = x.ID.ToString() });
@@ -359,7 +340,7 @@ namespace StAbraamFamily.Controllers
             if (!string.IsNullOrEmpty(hospitalID))
             {
                 int cID = Convert.ToInt32(hospitalID);
-                List<MedicalContract> contracts = db.MedicalContracts.Where(x => x.HospitalID == cID).ToList();
+                List<MedicalContract> contracts = saintUnits.MedicalContracts.Find(x => x.HospitalID == cID).ToList();
                 contracts.ForEach(x =>
                 {
                     MedicalContracts.Add(new SelectListItem { Text = x.Notes, Value = x.ID.ToString() });
@@ -372,7 +353,7 @@ namespace StAbraamFamily.Controllers
         {
             if (disposing)
             {
-                db.Dispose();
+                saintUnits.Dispose();
             }
             base.Dispose(disposing);
         }
