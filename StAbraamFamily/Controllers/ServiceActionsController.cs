@@ -37,7 +37,7 @@ namespace StAbraamFamily.Controllers
             if (id != null)
                 serviceActions = serviceActions.Where(x => x.PersonID == id);
 
-            return View("Index", serviceActions.ToList());
+            return View(serviceActions.ToList());
         }
 
         [Authorize(Roles = "Management,Health")]
@@ -123,6 +123,16 @@ namespace StAbraamFamily.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create(ServiceAction serviceAction)
         {
+            if (String.IsNullOrEmpty(Request.Form["ServantID"].ToString()))
+                ModelState.AddModelError(String.Empty, "برجاء أختيار الخادم");
+
+            if (String.IsNullOrEmpty(Request.Form["PersonID"].ToString()))
+                ModelState.AddModelError(String.Empty, "برجاء أختيار الشخص");
+
+
+            if (String.IsNullOrEmpty(Request.Form["ActionTypeID"].ToString()))
+                ModelState.AddModelError(String.Empty, "برجاء أختيار نوع الخدمة");
+
             if (ModelState.IsValid)
             {
                 serviceAction.UserID = User.Identity.GetUserId();
@@ -147,6 +157,12 @@ namespace StAbraamFamily.Controllers
         [Authorize(Roles = "Management,Health")]
         public ActionResult AddHealthyService(ServiceAction serviceAction)
         {
+            if (String.IsNullOrEmpty(Request.Form["ServantID"].ToString()))
+                ModelState.AddModelError(String.Empty, "برجاء أختيار الخادم");
+
+            if (String.IsNullOrEmpty(Request.Form["PersonID"].ToString()))
+                ModelState.AddModelError(String.Empty, "برجاء أختيار الشخص");
+
             if (ModelState.IsValid)
             {
                 serviceAction.UserID = User.Identity.GetUserId();
@@ -172,6 +188,12 @@ namespace StAbraamFamily.Controllers
         [Authorize(Roles = "Management,Health")]
         public ActionResult AddHealthyClinicService(ServiceAction serviceAction)
         {
+            if (String.IsNullOrEmpty(Request.Form["ServantID"].ToString()))
+                ModelState.AddModelError(String.Empty, "برجاء أختيار الخادم");
+
+            if (String.IsNullOrEmpty(Request.Form["PersonID"].ToString()))
+                ModelState.AddModelError(String.Empty, "برجاء أختيار الشخص");
+
             if (ModelState.IsValid)
             {
                 serviceAction.UserID = User.Identity.GetUserId();
@@ -196,6 +218,12 @@ namespace StAbraamFamily.Controllers
         [Authorize(Roles = "Management,BagService")]
         public ActionResult AddBagService(ServiceAction serviceAction)
         {
+            if (String.IsNullOrEmpty(Request.Form["ServantID"].ToString()))
+                ModelState.AddModelError(String.Empty, "برجاء أختيار الخادم");
+
+            if (String.IsNullOrEmpty(Request.Form["PersonID"].ToString()))
+                ModelState.AddModelError(String.Empty, "برجاء أختيار الشخص");
+
             if (ModelState.IsValid)
             {
                 serviceAction.UserID = User.Identity.GetUserId();
@@ -208,7 +236,49 @@ namespace StAbraamFamily.Controllers
                 serviceAction.FamilyID = p.FamilyID;
                 saintUnits.ServiceActions.Add(serviceAction);
                 saintUnits.Complete();
-                return RedirectToAction("Index");
+                return RedirectToAction("BagServiceList");
+            }
+
+            ResetData();
+            return View(serviceAction);
+        }
+
+        [Authorize(Roles = "Management,BagService")]
+        public ActionResult EditBagService(int? ID)
+        {
+            var service = saintUnits.ServiceActions.Get(ID);
+            ViewBag.PersonID = new SelectList(saintUnits.People.Find(x => x.IsActive == true), "ID", "FullName",service.PersonID);
+            ViewBag.ServantID = new SelectList(saintUnits.Servants.Find(x => x.IsActive == true), "ID", "ServantName",service.ServantID);
+            return View(service);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Management,BagService")]
+        public ActionResult EditBagService(ServiceAction serviceAction)
+        {
+            if (String.IsNullOrEmpty(Request.Form["ServantID"].ToString()))
+                ModelState.AddModelError(String.Empty, "برجاء أختيار الخادم");
+
+            if (String.IsNullOrEmpty(Request.Form["PersonID"].ToString()))
+                ModelState.AddModelError(String.Empty, "برجاء أختيار الشخص");
+
+            if (ModelState.IsValid)
+            {
+                //serviceAction.UserID = User.Identity.GetUserId();
+                serviceAction.ServantID = Convert.ToInt32(Request.Form["ServantID"].ToString());
+                serviceAction.PersonID = Convert.ToInt32(Request.Form["PersonID"].ToString());
+                serviceAction.IsActive = true;
+                serviceAction.UpdatedOn = DateTime.Now;
+                serviceAction.UpdateBy = User.Identity.GetUserId();
+                serviceAction.IsActive = true;
+                serviceAction.EntryDate = DateTime.Now;
+                serviceAction.ActionTypeID = 1;
+                var p = saintUnits.People.SingleOrDefault(x => x.ID == serviceAction.PersonID);
+                serviceAction.FamilyID = p.FamilyID;
+                saintUnits.ServiceActions.Update(serviceAction);
+                saintUnits.Complete();
+                return RedirectToAction("BagServiceList");
             }
 
             ResetData();
@@ -220,6 +290,12 @@ namespace StAbraamFamily.Controllers
         [Authorize(Roles = "Management")]
         public ActionResult AddFinancialService(ServiceAction serviceAction)
         {
+            if (String.IsNullOrEmpty(Request.Form["ServantID"].ToString()))
+                ModelState.AddModelError(String.Empty, "برجاء أختيار الخادم");
+
+            if (String.IsNullOrEmpty(Request.Form["PersonID"].ToString()))
+                ModelState.AddModelError(String.Empty, "برجاء أختيار الشخص");
+
             if (ModelState.IsValid)
             {
                 serviceAction.UserID = User.Identity.GetUserId();
@@ -287,6 +363,12 @@ namespace StAbraamFamily.Controllers
         [Authorize(Roles = "Management")]
         public ActionResult Edit(ServiceAction serviceAction)
         {
+            if (String.IsNullOrEmpty(Request.Form["ServantID"].ToString()))
+                ModelState.AddModelError(String.Empty, "برجاء أختيار الخادم");
+
+            if (String.IsNullOrEmpty(Request.Form["PersonID"].ToString()))
+                ModelState.AddModelError(String.Empty, "برجاء أختيار الشخص");
+
             if (ModelState.IsValid)
             {
                 //serviceAction.UserID = User.Identity.GetUserId();

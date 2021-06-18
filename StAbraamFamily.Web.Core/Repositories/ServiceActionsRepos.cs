@@ -22,7 +22,7 @@ namespace StAbraamFamily.Web.Core.Repositories
             var services = StEntities.ServiceActions.Include(s => s.AspNetUser)
                                     .Include(s => s.Clinic).Include(s => s.Family)
                                     .Include(s => s.Hospital).Include(s => s.Person).Include(s => s.Servant)
-                                    .Include(s => s.ServiceType).Where(x => x.IsActive == true && x.ServiceType.ID == 2);
+                                    .Include(s => s.ServiceType).Where(x => x.IsActive == true && x.ActionTypeID == 2);
             return services;
         }
 
@@ -42,7 +42,7 @@ namespace StAbraamFamily.Web.Core.Repositories
                .Include(s => s.Clinic).Include(s => s.Family)
                .Include(s => s.Hospital).Include(s => s.Person)
                .Include(s => s.Servant).Include(s => s.ServiceType)
-               .Where(x => x.IsActive == true && x.ServiceType.ID == 1);
+               .Where(x => x.IsActive == true && x.ActionTypeID == 1);
             return serviceActions;
         }
 

@@ -3585,6 +3585,8 @@
     <Content Include="Views\MedicalContracts\Index.cshtml" />
     <Content Include="Views\ServiceActions\AddHealthyClinicService.cshtml" />
     <Content Include="Views\Shared\_FamilyLayoutk.cshtml" />
+    <Content Include="Views\ServiceActions\BagServiceList.cshtml" />
+    <Content Include="Views\ServiceActions\EditBagService.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
