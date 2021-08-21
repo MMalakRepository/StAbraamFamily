@@ -331,9 +331,24 @@
                                     </li>
                                 }
 
+                                @if (User.IsInRole("HealthManagment"))
+                                {
+                                    <li>
+                                        <a class="nav-link linkFont" href="@Url.Action("ListOfReservations", "HealthReservations", null)">
+                                            <i class="fas fa-hospital" style="color:sandybrown" aria-hidden="true"></i>
+                                            <span style="font-family:calibri;font-size:1.2em;">تقرير حجز تطعيم وزارة الصحة  </span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a class="nav-link linkFont" href="@Url.Action("AddNewReservation", "HealthReservations", null)">
+                                            @*<span class="float-right badge" style=" color:white; background-color:orangered">20</span>*@
+                                            <i class="fas fa-clinic-medical" style="color: orangered" aria-hidden="true"></i>
+                                            <span style="font-family:calibri;font-size:1.2em">العيادات</span>
+                                        </a>
+                                    </li>
+                                }
 
-
-                            </ul>
+                                </ul>
                         </nav>
 
                         <hr class="separator" />
