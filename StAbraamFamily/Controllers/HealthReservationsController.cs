@@ -18,7 +18,7 @@ namespace StAbraamFamily.Controllers
             saintUnits = SaintUnits;
         }
 
-        [Authorize(Roles = "HealthManagment")]
+        [Authorize(Roles = "HealthManagment,Management")]
         public ActionResult ListOfReservations()
         {
             return View(saintUnits.HealthReservations.GetAll().Where(x => x.IsDeleted == false).ToList());
@@ -48,7 +48,7 @@ namespace StAbraamFamily.Controllers
             return View(reservation);
         }
 
-        [Authorize(Roles = "HealthManagment")]
+        [Authorize(Roles = "HealthManagment,Management")]
         public ActionResult EditReservation(int? id)
         {
             if (id == null)
@@ -82,7 +82,7 @@ namespace StAbraamFamily.Controllers
         }
 
         [HttpPost]
-        [Authorize(Roles = "HealthManagment")]
+        [Authorize(Roles = "HealthManagment,Management")]
         public ActionResult DeleteReservation(int ID)
         {
             CovidReservation reservation = saintUnits.HealthReservations.Get(ID);
