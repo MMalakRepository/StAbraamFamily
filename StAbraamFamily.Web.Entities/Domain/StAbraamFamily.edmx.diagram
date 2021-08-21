@@ -53,6 +53,7 @@
         <AssociationConnector Association="StAbraamFamilyData.FK_ServiceActions_Servants" ManuallyRouted="false" />
         <AssociationConnector Association="StAbraamFamilyData.FK_ServiceActions_ServiceTypes" ManuallyRouted="false" />
         <AssociationConnector Association="StAbraamFamilyData.AspNetUserRoles" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="StAbraamFamilyData.CovidReservation" Width="1.5" PointX="13.375" PointY="0.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

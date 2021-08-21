@@ -21,6 +21,7 @@ namespace StAbraamFamily.Web.Core.Repositories
         IEntityRepository<EvaluationLevel> EvaluationLevels { get; }
         IEntityRepository<MedicalService> MedicalServices { get; }
         IMedicalContracts MedicalContracts { get; }
+        IEntityRepository<CovidReservation> HealthReservations { get; }
         int Complete();
     }
 }

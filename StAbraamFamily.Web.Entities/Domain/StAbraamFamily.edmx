@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="StAbraamFamilyData.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="StAbraamFamilyData.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="__MigrationHistory">
           <Key>
             <PropertyRef Name="MigrationId" />
@@ -66,19 +66,6 @@
           <Property Name="AccessFailedCount" Type="int" Nullable="false" />
           <Property Name="UserName" Type="nvarchar" MaxLength="256" Nullable="false" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6013: The table/view 'DB_A6E768_MMalak.dbo.CathedralData' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
-        <EntityType Name="CathedralData">
-          <Property Name="ServedID" Type="float" />
-          <Property Name="FamilyID" Type="float" />
-          <Property Name="Name" Type="nvarchar" MaxLength="255" />
-          <Property Name="IsFather" Type="nvarchar" MaxLength="255" />
-          <Property Name="NationalID" Type="nvarchar" MaxLength="255" />
-          <Property Name="Mobile" Type="nvarchar" MaxLength="255" />
-          <Property Name="BirthDate" Type="datetime" />
-          <Property Name="Relation" Type="nvarchar" MaxLength="255" />
-          <Property Name="Image" Type="nvarchar" MaxLength="255" />
-        </EntityType>-->
         <EntityType Name="Child">
           <Key>
             <PropertyRef Name="ID" />
@@ -106,6 +93,25 @@ warning 6013: The table/view 'DB_A6E768_MMalak.dbo.CathedralData' does not have 
           <Property Name="Notes" Type="nvarchar(max)" />
           <Property Name="IsActive" Type="bit" />
           <Property Name="Address" Type="nvarchar" MaxLength="250" />
+        </EntityType>
+        <EntityType Name="CovidReservation">
+          <Key>
+            <PropertyRef Name="ReservationID" />
+          </Key>
+          <Property Name="ReservationID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FirstName" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="SecondName" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="ThirdName" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="FourthName" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="FullName" Type="nvarchar(max)" />
+          <Property Name="ReservationNumber" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="NationalID" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Password" Type="nvarchar" MaxLength="50" />
+          <Property Name="CreatedOn" Type="datetime" />
+          <Property Name="UpdatedOn" Type="datetime" />
+          <Property Name="IsDeleted" Type="bit" />
+          <Property Name="IsFinished" Type="bit" />
+          <Property Name="UpdatedBy" Type="nvarchar" MaxLength="125" />
         </EntityType>
         <EntityType Name="EvaluationLevels">
           <Key>
@@ -194,19 +200,6 @@ warning 6013: The table/view 'DB_A6E768_MMalak.dbo.CathedralData' does not have 
           <Property Name="Notes" Type="nvarchar(max)" />
           <Property Name="IsActive" Type="bit" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6013: The table/view 'DB_A6E768_MMalak.dbo.newPerson' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
-        <EntityType Name="newPerson">
-          <Property Name="ServedID" Type="float" />
-          <Property Name="FamilyID" Type="float" />
-          <Property Name="Name" Type="nvarchar" MaxLength="255" />
-          <Property Name="IsFather" Type="nvarchar" MaxLength="255" />
-          <Property Name="NationalID" Type="nvarchar" MaxLength="255" />
-          <Property Name="Mobile" Type="nvarchar" MaxLength="255" />
-          <Property Name="BirthDate" Type="datetime" />
-          <Property Name="Gender" Type="bit" />
-          <Property Name="Image" Type="nvarchar" MaxLength="255" />
-        </EntityType>-->
         <EntityType Name="Person">
           <Key>
             <PropertyRef Name="ID" />
@@ -652,6 +645,7 @@ warning 6013: The table/view 'DB_A6E768_MMalak.dbo.newPerson' does not have a pr
           <EntitySet Name="AspNetUsers" EntityType="Self.AspNetUsers" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Child" EntityType="Self.Child" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Clinics" EntityType="Self.Clinics" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CovidReservation" EntityType="Self.CovidReservation" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="EvaluationLevels" EntityType="Self.EvaluationLevels" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Families" EntityType="Self.Families" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="FamilyServants" EntityType="Self.FamilyServants" Schema="dbo" store:Type="Tables" />
@@ -782,8 +776,7 @@ warning 6013: The table/view 'DB_A6E768_MMalak.dbo.newPerson' does not have a pr
             <End Role="ServiceActions" EntitySet="ServiceActions" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="StAbraamFamilyData" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -1556,7 +1549,27 @@ warning 6013: The table/view 'DB_A6E768_MMalak.dbo.newPerson' does not have a pr
             <End Role="AspNetRoles" EntitySet="AspNetRoles" />
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
           </AssociationSet>
+          <EntitySet Name="CovidReservations" EntityType="StAbraamFamilyData.CovidReservation" />
         </EntityContainer>
+        <EntityType Name="CovidReservation">
+          <Key>
+            <PropertyRef Name="ReservationID" />
+          </Key>
+          <Property Name="ReservationID" Type="Int32" Nullable="false" />
+          <Property Name="FirstName" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="SecondName" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="ThirdName" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="FourthName" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="FullName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ReservationNumber" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="NationalID" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedOn" Type="DateTime" Precision="3" />
+          <Property Name="UpdatedOn" Type="DateTime" Precision="3" />
+          <Property Name="IsDeleted" Type="Boolean" />
+          <Property Name="IsFinished" Type="Boolean" />
+          <Property Name="UpdatedBy" Type="String" MaxLength="125" FixedLength="false" Unicode="true" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1836,6 +1849,26 @@ warning 6013: The table/view 'DB_A6E768_MMalak.dbo.newPerson' does not have a pr
               <ScalarProperty Name="Id" ColumnName="UserId" />
             </EndProperty>
           </AssociationSetMapping>
+          <EntitySetMapping Name="CovidReservations">
+            <EntityTypeMapping TypeName="StAbraamFamilyData.CovidReservation">
+              <MappingFragment StoreEntitySet="CovidReservation">
+                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+                <ScalarProperty Name="IsFinished" ColumnName="IsFinished" />
+                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+                <ScalarProperty Name="UpdatedOn" ColumnName="UpdatedOn" />
+                <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="NationalID" ColumnName="NationalID" />
+                <ScalarProperty Name="ReservationNumber" ColumnName="ReservationNumber" />
+                <ScalarProperty Name="FullName" ColumnName="FullName" />
+                <ScalarProperty Name="FourthName" ColumnName="FourthName" />
+                <ScalarProperty Name="ThirdName" ColumnName="ThirdName" />
+                <ScalarProperty Name="SecondName" ColumnName="SecondName" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="ReservationID" ColumnName="ReservationID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
