@@ -34,11 +34,11 @@ namespace StAbraamFamily.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult AddNewReservation(CovidReservation reservation)
         {
-            var reservations = saintUnits.HealthReservations.Find(x => x.ReservationNumber == reservation.ReservationNumber).FirstOrDefault();
+            var reservations = saintUnits.HealthReservations.Find(x => x.ReservationNumber == reservation.ReservationNumber && x.IsDeleted == false).FirstOrDefault();
             if(reservations != null)
                 ModelState.AddModelError("ReservationNumber", "تم أدخال رقم الحجز من قبل");
         
-             reservations = saintUnits.HealthReservations.Find(x => x.NationalID == reservation.NationalID).FirstOrDefault();
+             reservations = saintUnits.HealthReservations.Find(x => x.NationalID == reservation.NationalID && x.IsDeleted == false).FirstOrDefault();
              if (reservations != null)
                     ModelState.AddModelError("NationalID", "تم أدخال الرقم القومى من قبل");
 
@@ -76,11 +76,11 @@ namespace StAbraamFamily.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult EditReservation(CovidReservation reservation)
         {
-            var reservations = saintUnits.HealthReservations.Find(x => x.ReservationNumber == reservation.ReservationNumber).ToList();
+            var reservations = saintUnits.HealthReservations.Find(x => x.ReservationNumber == reservation.ReservationNumber && x.IsDeleted == false).ToList();
             if (reservations.Count > 1)
                 ModelState.AddModelError("ReservationNumber", "تم أدخال رقم الحجز من قبل");
 
-            reservations = saintUnits.HealthReservations.Find(x => x.NationalID == reservation.NationalID).ToList();
+            reservations = saintUnits.HealthReservations.Find(x => x.NationalID == reservation.NationalID && x.IsDeleted == false).ToList();
             if (reservations.Count > 1)
                 ModelState.AddModelError("NationalID", "تم أدخال الرقم القومى من قبل");
 
@@ -103,7 +103,10 @@ namespace StAbraamFamily.Controllers
         public ActionResult DeleteReservation(int ID)
         {
             CovidReservation reservation = saintUnits.HealthReservations.Get(ID);
-            saintUnits.HealthReservations.Remove(reservation);
+            reservation.IsDeleted = true;
+            reservation.UpdatedBy = User.Identity.Name;
+            reservation.UpdatedOn = DateTime.Now;   
+            saintUnits.HealthReservations.Update(reservation);
             saintUnits.Complete();
             return Json(data: new { success = true, message = "Reservation has been deleted successfully" }, JsonRequestBehavior.AllowGet);
         }

@@ -126,79 +126,83 @@
                                         </ul>
                                     </li>
                                 }
-                                <li class="dropdown">
-                                    <a class="nav-link dropdown-toggle linkFont" href="#">
-                                        الخدمات
-                                    </a>
-                                    <ul class="dropdown-menu">
-                                        @if (User.IsInRole("Management"))
-                                        {
-                                            <li class="">
-                                                @Html.ActionLink("أنواع الخدمات", "Create", "ServiceTypes", null, new { @class = "nav-link linkFont" })
-                                            </li>
-                                            <li class="">
-                                                @Html.ActionLink("تقرير الخدمات", "Index", "ServiceActions", null, new { @class = "nav-link linkFont" })
-                                            </li>
-                                        }
-
-                                        @if (User.IsInRole("BagService") || User.IsInRole("Management"))
-                                        {
-                                            <li class="">
-                                                @Html.ActionLink("شنطة البركة", "AddBagService", "ServiceActions", null, new { @class = "nav-link linkFont" })
-                                            </li>
-                                        }
-                                        @if (User.IsInRole("Management"))
-                                        {
-                                            if (User.IsInRole("Finance"))
+                                @if (User.IsInRole("Management") || User.IsInRole("BagService") || User.IsInRole("Health"))
+                                {
+                                    <li class="dropdown">
+                                        <a class="nav-link dropdown-toggle linkFont" href="#">
+                                            الخدمات
+                                        </a>
+                                        <ul class="dropdown-menu">
+                                            @if (User.IsInRole("Management"))
                                             {
                                                 <li class="">
-                                                    @Html.ActionLink("الخدمات المالية", "AddFinancialService", "ServiceActions", null, new { @class = "nav-link linkFont" })
+                                                    @Html.ActionLink("أنواع الخدمات", "Create", "ServiceTypes", null, new { @class = "nav-link linkFont" })
+                                                </li>
+                                                <li class="">
+                                                    @Html.ActionLink("تقرير الخدمات", "Index", "ServiceActions", null, new { @class = "nav-link linkFont" })
                                                 </li>
                                             }
-                                            <li class="">
-                                                @Html.ActionLink("خدمة الأفتقاد", "Index", "FamilyVisits", null, new { @class = "nav-link linkFont" })
-                                            </li>
-                                            <li class="">
-                                                @Html.ActionLink("الخدمات الأخرى", "Create", "ServiceActions", null, new { @class = "nav-link linkFont" })
-                                            </li>
-                                        }
 
-                                        @if (User.IsInRole("Health") || User.IsInRole("Management"))
-                                        {
-                                            <li class="dropdown-submenu">
-                                                <a class="nav-link dropdown-toggle linkFont" href="#">
-                                                    الخدمات الطبية
-                                                </a>
-                                                <ul class="dropdown-menu" style="width:270px !important;">
+                                            @if (User.IsInRole("BagService") || User.IsInRole("Management"))
+                                            {
+                                                <li class="">
+                                                    @Html.ActionLink("شنطة البركة", "AddBagService", "ServiceActions", null, new { @class = "nav-link linkFont" })
+                                                </li>
+                                            }
+                                            @if (User.IsInRole("Management"))
+                                            {
+                                                if (User.IsInRole("Finance"))
+                                                {
                                                     <li class="">
-                                                        @Html.ActionLink("المستشفيات", "Index", "Hospitals", null, new { @class = "nav-link linkFont" })
+                                                        @Html.ActionLink("الخدمات المالية", "AddFinancialService", "ServiceActions", null, new { @class = "nav-link linkFont" })
                                                     </li>
-                                                    <li class="">
-                                                        @Html.ActionLink("العيادات", "Index", "Clinics", null, new { @class = "nav-link linkFont" })
-                                                    </li>
-                                                    <li class="">
-                                                        @Html.ActionLink("أنواع الخدمات الطبية", "Index", "MedicalServices", null, new { @class = "nav-link linkFont" })
-                                                    </li>
-                                                    <li class="">
-                                                        @Html.ActionLink("الخدمات الطبية بالمستشفيات", "AddHealthyService", "ServiceActions", null, new { @class = "nav-link linkFont" })
-                                                    </li>
-                                                    <li class="">
-                                                        @Html.ActionLink("الخدمات الطبية بالعيادات", "AddHealthyClinicService", "ServiceActions", null, new { @class = "nav-link linkFont" })
-                                                    </li>
-                                                    <li class="">
-                                                        @Html.ActionLink("التعاقدات الطبية ", "Index", "MedicalContracts", null, new { @class = "nav-link linkFont" })
-                                                    </li>
-                                                    <li class="">
-                                                        @Html.ActionLink("تقرير الخدمات الطبية ", "MedicalServiceList", "ServiceActions", null, new { @class = "nav-link linkFont" })
-                                                    </li>
+                                                }
+                                                <li class="">
+                                                    @Html.ActionLink("خدمة الأفتقاد", "Index", "FamilyVisits", null, new { @class = "nav-link linkFont" })
+                                                </li>
+                                                <li class="">
+                                                    @Html.ActionLink("الخدمات الأخرى", "Create", "ServiceActions", null, new { @class = "nav-link linkFont" })
+                                                </li>
+                                            }
 
-                                                </ul>
-                                            </li>
-                                        }
+                                            @if (User.IsInRole("Health") || User.IsInRole("Management"))
+                                            {
+                                                <li class="dropdown-submenu">
+                                                    <a class="nav-link dropdown-toggle linkFont" href="#">
+                                                        الخدمات الطبية
+                                                    </a>
+                                                    <ul class="dropdown-menu" style="width:270px !important;">
+                                                        <li class="">
+                                                            @Html.ActionLink("المستشفيات", "Index", "Hospitals", null, new { @class = "nav-link linkFont" })
+                                                        </li>
+                                                        <li class="">
+                                                            @Html.ActionLink("العيادات", "Index", "Clinics", null, new { @class = "nav-link linkFont" })
+                                                        </li>
+                                                        <li class="">
+                                                            @Html.ActionLink("أنواع الخدمات الطبية", "Index", "MedicalServices", null, new { @class = "nav-link linkFont" })
+                                                        </li>
+                                                        <li class="">
+                                                            @Html.ActionLink("الخدمات الطبية بالمستشفيات", "AddHealthyService", "ServiceActions", null, new { @class = "nav-link linkFont" })
+                                                        </li>
+                                                        <li class="">
+                                                            @Html.ActionLink("الخدمات الطبية بالعيادات", "AddHealthyClinicService", "ServiceActions", null, new { @class = "nav-link linkFont" })
+                                                        </li>
+                                                        <li class="">
+                                                            @Html.ActionLink("التعاقدات الطبية ", "Index", "MedicalContracts", null, new { @class = "nav-link linkFont" })
+                                                        </li>
+                                                        <li class="">
+                                                            @Html.ActionLink("تقرير الخدمات الطبية ", "MedicalServiceList", "ServiceActions", null, new { @class = "nav-link linkFont" })
+                                                        </li>
+
+                                                    </ul>
+                                                </li>
+                                            }
 
 
-                                    </ul>
-                                </li>
+                                        </ul>
+                                    </li>
+
+                                }
                             </ul>
                         </nav>
                     </div>
@@ -228,7 +232,7 @@
 
                 <div class="sidebar-header">
                     <div class="sidebar-title text-primary">
-                        <p><i class="fa fa-cogs fa-2x text-info"></i> <span style="font-size: 18px; font-weight: bold;">     Our Services</span> </p>
+                        <p><i class="fa fa-cogs fa-2x text-info"></i> <span style="font-size: 18px; ">     Our Services</span> </p>
 
                     </div>
                     <div class="sidebar-toggle d-none d-md-block" data-toggle-class="sidebar-left-collapsed" data-target="html" data-fire-event="sidebar-left-toggle">
@@ -332,7 +336,21 @@
                                 }
 
 
-
+                                @if (User.IsInRole("HealthManagment"))
+                                {
+                                    <li>
+                                        <a class="nav-link linkFont" href="@Url.Action("ListOfReservations","HealthReservations",null)">
+                                            <i class="fas fa-file-medical-alt" style="color:sandybrown" aria-hidden="true"></i>
+                                            <span style="font-family:calibri;font-size:1em;">تقرير الحجز الصحى  </span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a class="nav-link linkFont" href="@Url.Action("AddNewReservation","HealthReservations",null)">
+                                            <i class="fas fa-clinic-medical" style="color: orangered" aria-hidden="true"></i>
+                                            <span style="font-family:calibri;font-size:1em">أضافة بيانات الحجز</span>
+                                        </a>
+                                    </li>
+                                }
                             </ul>
                         </nav>
 

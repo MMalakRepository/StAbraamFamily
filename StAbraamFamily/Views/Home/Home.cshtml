@@ -7,361 +7,361 @@
 }
 
 <style>
-    .title{
-        font-weight : bold !important;
-        font-size : 1.5rem !important;
-        font-family : Calibri !important;
+    .title {
+        font-weight: bold !important;
+        font-size: 1.5rem !important;
+        font-family: Calibri !important;
     }
 
-    a:hover{
-        text-decoration :none;
-        font-family : 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
-        font-size : 1rem;
-        font-weight : bold;
-
+    a:hover {
+        text-decoration: none;
+        font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+        font-size: 1rem;
+        font-weight: bold;
     }
 </style>
-
-<div class="row mt-0">
-
-    <div class="col-lg-12 col-xl-4">
-        <div class="row">
-            <div class="col-12">
-                <section class="card mb-4">
-                    <div class="card-body bg-primary">
-                        <div class="widget-summary">
-                            <div class="widget-summary-col widget-summary-col-icon">
-                                <div class="summary-icon">
-                                    <i class="fas fa-church"></i>
-                                </div>
-                            </div>
-                            <div class="widget-summary-col">
-                                <div class="summary">
-                                    <h4 class="title"> الأباء الكهنة</h4>
-                                    <div class="info">
-                                        <strong class="amount">@Html.DisplayFor(model => model.Fathers) </strong>
+@if(!User.IsInRole("HealthManagment"))
+{
+    <div class="row mt-0">
+        <div class="col-lg-12 col-xl-4">
+            <div class="row">
+                <div class="col-12">
+                    <section class="card mb-4">
+                        <div class="card-body bg-primary">
+                            <div class="widget-summary">
+                                <div class="widget-summary-col widget-summary-col-icon">
+                                    <div class="summary-icon">
+                                        <i class="fas fa-church"></i>
                                     </div>
                                 </div>
-                                <div class="summary-footer">
-                                    <a href="@Url.Action("Index","Fathers")" ><i class="fa fa-church"></i>  View All</a>
+                                <div class="widget-summary-col">
+                                    <div class="summary">
+                                        <h4 class="title"> الأباء الكهنة</h4>
+                                        <div class="info">
+                                            <strong class="amount">@Html.DisplayFor(model => model.Fathers) </strong>
+                                        </div>
+                                    </div>
+                                    <div class="summary-footer">
+                                        <a href="@Url.Action("Index","Fathers")"><i class="fa fa-church"></i>  View All</a>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                </section>
+                    </section>
+                </div>
             </div>
-        </div>
 
-        <div class="row">
-            <div class="col-12">
-                <section class="card mb-4">
-                    <div class="card-body bg-secondary">
-                        <div class="widget-summary">
-                            <div class="widget-summary-col widget-summary-col-icon">
-                                <div class="summary-icon">
-                                    <i class="fas fa-user-check"></i>
-                                </div>
-                            </div>
-                            <div class="widget-summary-col">
-                                <div class="summary">
-                                    <h4 class="title"> الأفراد</h4>
-                                    <div class="info">
-                                        <strong class="amount">@Html.DisplayFor(model => model.People)</strong>
+            <div class="row">
+                <div class="col-12">
+                    <section class="card mb-4">
+                        <div class="card-body bg-secondary">
+                            <div class="widget-summary">
+                                <div class="widget-summary-col widget-summary-col-icon">
+                                    <div class="summary-icon">
+                                        <i class="fas fa-user-check"></i>
                                     </div>
                                 </div>
-                                <div class="summary-footer">
-                                    <a href="@Url.Action("Index","People")" ><i class="fa fa-user-check"></i>  View All</a>
+                                <div class="widget-summary-col">
+                                    <div class="summary">
+                                        <h4 class="title"> الأفراد</h4>
+                                        <div class="info">
+                                            <strong class="amount">@Html.DisplayFor(model => model.People)</strong>
+                                        </div>
+                                    </div>
+                                    <div class="summary-footer">
+                                        <a href="@Url.Action("Index","People")"><i class="fa fa-user-check"></i>  View All</a>
 
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                </section>
+                    </section>
+                </div>
             </div>
-        </div>
 
-        <div class="row">
-            <div class="col-12">
-                <section class="card mb-4">
-                    <div class="card-body bg-tertiary">
-                        <div class="widget-summary">
-                            <div class="widget-summary-col widget-summary-col-icon">
-                                <div class="summary-icon">
-                                    <i class="fas fa-users"></i>
-                                </div>
-                            </div>
-                            <div class="widget-summary-col">
-                                <div class="summary">
-                                    <h4 class="title"> العائلات</h4>
-                                    <div class="info">
-                                        <strong class="amount">@Html.DisplayFor(model => model.Families)</strong>
+            <div class="row">
+                <div class="col-12">
+                    <section class="card mb-4">
+                        <div class="card-body bg-tertiary">
+                            <div class="widget-summary">
+                                <div class="widget-summary-col widget-summary-col-icon">
+                                    <div class="summary-icon">
+                                        <i class="fas fa-users"></i>
                                     </div>
                                 </div>
-                                <div class="summary-footer">
-                                    <a href="@Url.Action("Index","Families")" ><i class="fa fa-users"></i>  View All</a>
+                                <div class="widget-summary-col">
+                                    <div class="summary">
+                                        <h4 class="title"> العائلات</h4>
+                                        <div class="info">
+                                            <strong class="amount">@Html.DisplayFor(model => model.Families)</strong>
+                                        </div>
+                                    </div>
+                                    <div class="summary-footer">
+                                        <a href="@Url.Action("Index","Families")"><i class="fa fa-users"></i>  View All</a>
 
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                </section>
+                    </section>
+                </div>
             </div>
-        </div>
 
-        <div class="row">
-            <div class="col-12">
-                <section class="card mb-4">
-                    <div class="card-body bg-success">
-                        <div class="widget-summary">
-                            <div class="widget-summary-col widget-summary-col-icon">
-                                <div class="summary-icon">
-                                    <i class="fas fa-user"></i>
-                                </div>
-                            </div>
-                            <div class="widget-summary-col">
-                                <div class="summary">
-                                    <h4 class="title">الأبناء</h4>
-                                    <div class="info">
-                                        <strong class="amount">@Html.DisplayFor(model => model.Children)</strong>
+            <div class="row">
+                <div class="col-12">
+                    <section class="card mb-4">
+                        <div class="card-body bg-success">
+                            <div class="widget-summary">
+                                <div class="widget-summary-col widget-summary-col-icon">
+                                    <div class="summary-icon">
+                                        <i class="fas fa-user"></i>
                                     </div>
                                 </div>
-                                <div class="summary-footer">
-                                    <a href="@Url.Action("Index","Children")" ><i class="fa fa-user"></i>  View All</a>
+                                <div class="widget-summary-col">
+                                    <div class="summary">
+                                        <h4 class="title">الأبناء</h4>
+                                        <div class="info">
+                                            <strong class="amount">@Html.DisplayFor(model => model.Children)</strong>
+                                        </div>
+                                    </div>
+                                    <div class="summary-footer">
+                                        <a href="@Url.Action("Index","Children")"><i class="fa fa-user"></i>  View All</a>
 
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                </section>
+                    </section>
+                </div>
             </div>
         </div>
+
+        <div class="col-lg-12 col-xl-4">
+            <div class="row">
+                <div class="col-12">
+                    <section class="card mb-4">
+                        <div class="card-body bg-primary">
+                            <div class="widget-summary">
+                                <div class="widget-summary-col widget-summary-col-icon">
+                                    <div class="summary-icon">
+                                        <i class="fas fa-globe-africa"></i>
+                                    </div>
+                                </div>
+                                <div class="widget-summary-col">
+                                    <div class="summary">
+                                        <h4 class="title">كل الخدمات</h4>
+                                        <div class="info">
+                                            <strong class="amount">@Html.DisplayFor(model => model.ServiceActions)</strong>
+                                        </div>
+                                    </div>
+                                    <div class="summary-footer">
+                                        <a href="@Url.Action("AllServicesList","ServiceActions")"><i class="fa fa-globe-africa"></i>  View All</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-12">
+                    <section class="card mb-4">
+                        <div class="card-body bg-secondary">
+                            <div class="widget-summary">
+                                <div class="widget-summary-col widget-summary-col-icon">
+                                    <div class="summary-icon">
+                                        <i class="fas fa-clinic-medical"></i>
+                                    </div>
+                                </div>
+                                <div class="widget-summary-col">
+                                    <div class="summary">
+                                        <h4 class="title">الخدمات العلاجية</h4>
+                                        <div class="info">
+                                            <strong class="amount">@Html.DisplayFor(model => model.MedicalServices)</strong>
+                                        </div>
+                                    </div>
+                                    <div class="summary-footer">
+                                        <a href="@Url.Action("MedicalServiceList","ServiceActions")"><i class="fa fa-clinic-medical"></i>  View All</a>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-12">
+                    <section class="card mb-4">
+                        <div class="card-body bg-tertiary">
+                            <div class="widget-summary">
+                                <div class="widget-summary-col widget-summary-col-icon">
+                                    <div class="summary-icon">
+                                        <i class="fas fa-shopping-basket"></i>
+                                    </div>
+                                </div>
+                                <div class="widget-summary-col">
+                                    <div class="summary">
+                                        <h4 class="title">شنط البركة</h4>
+                                        <div class="info">
+                                            <strong class="amount">@Html.DisplayFor(model => model.BagServices)</strong>
+                                        </div>
+                                    </div>
+                                    <div class="summary-footer">
+                                        <a href="@Url.Action("BagServiceList","ServiceActions")"><i class="fa fa-shopping-basket"></i>  View All</a>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-12">
+                    <section class="card mb-4">
+                        <div class="card-body bg-success">
+                            <div class="widget-summary">
+                                <div class="widget-summary-col widget-summary-col-icon">
+                                    <div class="summary-icon">
+                                        <i class="fas fa-dollar-sign"></i>
+                                    </div>
+                                </div>
+                                <div class="widget-summary-col">
+                                    <div class="summary">
+                                        <h4 class="title"> الخدمات المالية </h4>
+                                        <div class="info">
+                                            <strong class="amount">@Html.DisplayFor(model => model.FinancialServices)</strong>
+                                        </div>
+                                    </div>
+                                    <div class="summary-footer">
+                                        <a href="@Url.Action("FinancialServiceList","ServiceActions")"><i class="fa fa-dollar-sign"></i>  View All</a>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-12 col-xl-4">
+            <div class="row">
+                <div class="col-12">
+                    <section class="card mb-4">
+                        <div class="card-body bg-primary">
+                            <div class="widget-summary">
+                                <div class="widget-summary-col widget-summary-col-icon">
+                                    <div class="summary-icon">
+                                        <i class="fas fa-briefcase-medical"></i>
+                                    </div>
+                                </div>
+                                <div class="widget-summary-col">
+                                    <div class="summary">
+                                        <h4 class="title">العيادات</h4>
+                                        <div class="info">
+                                            <strong class="amount">@Html.DisplayFor(model => model.Clinics)</strong>
+                                        </div>
+                                    </div>
+                                    <div class="summary-footer">
+                                        <a href="@Url.Action("Index","Clinics")"><i class="fa fa-briefcase-medical"></i>  View All</a>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-12">
+                    <section class="card mb-4">
+                        <div class="card-body bg-secondary">
+                            <div class="widget-summary">
+                                <div class="widget-summary-col widget-summary-col-icon">
+                                    <div class="summary-icon">
+                                        <i class="fas fa-file-medical-alt"></i>
+                                    </div>
+                                </div>
+                                <div class="widget-summary-col">
+                                    <div class="summary">
+                                        <h4 class="title"> المستشفيات</h4>
+                                        <div class="info">
+                                            <strong class="amount">@Html.DisplayFor(model => model.Hospitals)</strong>
+                                        </div>
+                                    </div>
+                                    <div class="summary-footer">
+                                        <a href="@Url.Action("Index","Hospitals")"><i class="fa fa-file-medical-alt"></i>  View All</a>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-12">
+                    <section class="card mb-4">
+                        <div class="card-body bg-tertiary">
+                            <div class="widget-summary">
+                                <div class="widget-summary-col widget-summary-col-icon">
+                                    <div class="summary-icon">
+                                        <i class="fas fa-home"></i>
+                                    </div>
+                                </div>
+                                <div class="widget-summary-col">
+                                    <div class="summary">
+                                        <h4 class="title">زيارات الأفتقاد </h4>
+                                        <div class="info">
+                                            <strong class="amount">@Html.DisplayFor(model => model.FamilyVisits)</strong>
+                                        </div>
+                                    </div>
+                                    <div class="summary-footer">
+                                        <a href="@Url.Action("Index","FamilyVisits")"><i class="fa fa-home"></i>  View All</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-12">
+                    <section class="card mb-4">
+                        <div class="card-body bg-success">
+                            <div class="widget-summary">
+                                <div class="widget-summary-col widget-summary-col-icon">
+                                    <div class="summary-icon">
+                                        <i class="fas fa-user-cog"></i>
+                                    </div>
+                                </div>
+                                <div class="widget-summary-col">
+                                    <div class="summary">
+                                        <h4 class="title">خدام الأسرة</h4>
+                                        <div class="info">
+                                            <strong class="amount">@Html.DisplayFor(model => model.FamilyServants)</strong>
+                                        </div>
+                                    </div>
+                                    <div class="summary-footer">
+                                        <a href="@Url.Action("Index","FamilyServants")"><i class="fa fa-user-cog"></i>  View All</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+            </div>
+        </div>
+
     </div>
 
-    <div class="col-lg-12 col-xl-4">
-        <div class="row">
-            <div class="col-12">
-                <section class="card mb-4">
-                    <div class="card-body bg-primary">
-                        <div class="widget-summary">
-                            <div class="widget-summary-col widget-summary-col-icon">
-                                <div class="summary-icon">
-                                    <i class="fas fa-globe-africa"></i>
-                                </div>
-                            </div>
-                            <div class="widget-summary-col">
-                                <div class="summary">
-                                    <h4 class="title">كل الخدمات</h4>
-                                    <div class="info">
-                                        <strong class="amount">@Html.DisplayFor(model => model.ServiceActions)</strong>
-                                    </div>
-                                </div>
-                                <div class="summary-footer">
-                                    <a href="@Url.Action("AllServicesList","ServiceActions")" ><i class="fa fa-globe-africa"></i>  View All</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </section>
-            </div>
-        </div>
 
-        <div class="row">
-            <div class="col-12">
-                <section class="card mb-4">
-                    <div class="card-body bg-secondary">
-                        <div class="widget-summary">
-                            <div class="widget-summary-col widget-summary-col-icon">
-                                <div class="summary-icon">
-                                    <i class="fas fa-clinic-medical"></i>
-                                </div>
-                            </div>
-                            <div class="widget-summary-col">
-                                <div class="summary">
-                                    <h4 class="title">الخدمات العلاجية</h4>
-                                    <div class="info">
-                                        <strong class="amount">@Html.DisplayFor(model => model.MedicalServices)</strong>
-                                    </div>
-                                </div>
-                                <div class="summary-footer">
-                                    <a href="@Url.Action("MedicalServiceList","ServiceActions")" ><i class="fa fa-clinic-medical"></i>  View All</a>
-
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </section>
-            </div>
-        </div>
-
-        <div class="row">
-            <div class="col-12">
-                <section class="card mb-4">
-                    <div class="card-body bg-tertiary">
-                        <div class="widget-summary">
-                            <div class="widget-summary-col widget-summary-col-icon">
-                                <div class="summary-icon">
-                                    <i class="fas fa-shopping-basket"></i>
-                                </div>
-                            </div>
-                            <div class="widget-summary-col">
-                                <div class="summary">
-                                    <h4 class="title">شنط البركة</h4>
-                                    <div class="info">
-                                        <strong class="amount">@Html.DisplayFor(model => model.BagServices)</strong>
-                                    </div>
-                                </div>
-                                <div class="summary-footer">
-                                    <a href="@Url.Action("BagServiceList","ServiceActions")" ><i class="fa fa-shopping-basket"></i>  View All</a>
-
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </section>
-            </div>
-        </div>
-
-        <div class="row">
-            <div class="col-12">
-                <section class="card mb-4">
-                    <div class="card-body bg-success">
-                        <div class="widget-summary">
-                            <div class="widget-summary-col widget-summary-col-icon">
-                                <div class="summary-icon">
-                                    <i class="fas fa-dollar-sign"></i>
-                                </div>
-                            </div>
-                            <div class="widget-summary-col">
-                                <div class="summary">
-                                    <h4 class="title"> الخدمات المالية </h4>
-                                    <div class="info">
-                                        <strong class="amount">@Html.DisplayFor(model => model.FinancialServices)</strong>
-                                    </div>
-                                </div>
-                                <div class="summary-footer">
-                                    <a href="@Url.Action("FinancialServiceList","ServiceActions")" ><i class="fa fa-dollar-sign"></i>  View All</a>
-
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </section>
-            </div>
-        </div>
-    </div>
-
-    <div class="col-lg-12 col-xl-4">
-        <div class="row">
-            <div class="col-12">
-                <section class="card mb-4">
-                    <div class="card-body bg-primary">
-                        <div class="widget-summary">
-                            <div class="widget-summary-col widget-summary-col-icon">
-                                <div class="summary-icon">
-                                    <i class="fas fa-briefcase-medical"></i>
-                                </div>
-                            </div>
-                            <div class="widget-summary-col">
-                                <div class="summary">
-                                    <h4 class="title">العيادات</h4>
-                                    <div class="info">
-                                        <strong class="amount">@Html.DisplayFor(model => model.Clinics)</strong>
-                                    </div>
-                                </div>
-                                <div class="summary-footer">
-                                    <a href="@Url.Action("Index","Clinics")" ><i class="fa fa-briefcase-medical"></i>  View All</a>
-
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </section>
-            </div>
-        </div>
-
-        <div class="row">
-            <div class="col-12">
-                <section class="card mb-4">
-                    <div class="card-body bg-secondary">
-                        <div class="widget-summary">
-                            <div class="widget-summary-col widget-summary-col-icon">
-                                <div class="summary-icon">
-                                    <i class="fas fa-file-medical-alt"></i>
-                                </div>
-                            </div>
-                            <div class="widget-summary-col">
-                                <div class="summary">
-                                    <h4 class="title"> المستشفيات</h4>
-                                    <div class="info">
-                                        <strong class="amount">@Html.DisplayFor(model => model.Hospitals)</strong>
-                                    </div>
-                                </div>
-                                <div class="summary-footer">
-                                    <a href="@Url.Action("Index","Hospitals")" ><i class="fa fa-file-medical-alt"></i>  View All</a>
-
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </section>
-            </div>
-        </div>
-
-        <div class="row">
-            <div class="col-12">
-                <section class="card mb-4">
-                    <div class="card-body bg-tertiary">
-                        <div class="widget-summary">
-                            <div class="widget-summary-col widget-summary-col-icon">
-                                <div class="summary-icon">
-                                    <i class="fas fa-home"></i>
-                                </div>
-                            </div>
-                            <div class="widget-summary-col">
-                                <div class="summary">
-                                    <h4 class="title">زيارات الأفتقاد </h4>
-                                    <div class="info">
-                                        <strong class="amount">@Html.DisplayFor(model => model.FamilyVisits)</strong>
-                                    </div>
-                                </div>
-                                <div class="summary-footer">
-                                    <a href="@Url.Action("Index","FamilyVisits")" ><i class="fa fa-home"></i>  View All</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </section>
-            </div>
-        </div>
-
-        <div class="row">
-            <div class="col-12">
-                <section class="card mb-4">
-                    <div class="card-body bg-success">
-                        <div class="widget-summary">
-                            <div class="widget-summary-col widget-summary-col-icon">
-                                <div class="summary-icon">
-                                    <i class="fas fa-user-cog"></i>
-                                </div>
-                            </div>
-                            <div class="widget-summary-col">
-                                <div class="summary">
-                                    <h4 class="title">خدام الأسرة</h4>
-                                    <div class="info">
-                                        <strong class="amount">@Html.DisplayFor(model => model.FamilyServants)</strong>
-                                    </div>
-                                </div>
-                                <div class="summary-footer">
-                                    <a href="@Url.Action("Index","FamilyServants")" ><i class="fa fa-user-cog"></i>  View All</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </section>
-            </div>
-        </div>
-    </div>
-
-</div>
- 
- 
+}
