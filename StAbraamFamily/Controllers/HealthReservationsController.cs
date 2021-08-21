@@ -34,6 +34,14 @@ namespace StAbraamFamily.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult AddNewReservation(CovidReservation reservation)
         {
+            var reservations = saintUnits.HealthReservations.Find(x => x.ReservationNumber == reservation.ReservationNumber).FirstOrDefault();
+            if(reservations != null)
+                ModelState.AddModelError("ReservationNumber", "تم أدخال رقم الحجز من قبل");
+        
+             reservations = saintUnits.HealthReservations.Find(x => x.NationalID == reservation.NationalID).FirstOrDefault();
+             if (reservations != null)
+                    ModelState.AddModelError("NationalID", "تم أدخال الرقم القومى من قبل");
+
             if (ModelState.IsValid)
             {
                 reservation.FullName = reservation.FirstName + " " + reservation.SecondName + " " + reservation.ThirdName + " " + reservation.FourthName;
@@ -42,9 +50,8 @@ namespace StAbraamFamily.Controllers
                 reservation.IsFinished = false;
                 saintUnits.HealthReservations.Add(reservation);
                 saintUnits.Complete();
-                return View(new CovidReservation());
+                return View("GetReservationDetails",reservation);
             }
-
             return View(reservation);
         }
 
@@ -55,7 +62,9 @@ namespace StAbraamFamily.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
+
             CovidReservation reservation = saintUnits.HealthReservations.Get(id);
+
             if (reservation == null)
             {
                 return HttpNotFound();
@@ -67,6 +76,14 @@ namespace StAbraamFamily.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult EditReservation(CovidReservation reservation)
         {
+            var reservations = saintUnits.HealthReservations.Find(x => x.ReservationNumber == reservation.ReservationNumber).ToList();
+            if (reservations.Count > 1)
+                ModelState.AddModelError("ReservationNumber", "تم أدخال رقم الحجز من قبل");
+
+            reservations = saintUnits.HealthReservations.Find(x => x.NationalID == reservation.NationalID).ToList();
+            if (reservations.Count > 1)
+                ModelState.AddModelError("NationalID", "تم أدخال الرقم القومى من قبل");
+
             if (ModelState.IsValid)
             {
                 reservation.FullName = reservation.FirstName + " " + reservation.SecondName + " " + reservation.ThirdName + " " + reservation.FourthName;
@@ -90,23 +107,10 @@ namespace StAbraamFamily.Controllers
             saintUnits.Complete();
             return Json(data: new { success = true, message = "Reservation has been deleted successfully" }, JsonRequestBehavior.AllowGet);
         }
-
-        public JsonResult IsReservationNumberAvailable(string ReservationNo)
+        public ActionResult GetReservationDetails(CovidReservation reservation)
         {
-            List<CovidReservation> reservations = saintUnits.HealthReservations.Find(x => x.ReservationNumber == ReservationNo).ToList();
-            if(reservations == null)
-                return Json(true, JsonRequestBehavior.AllowGet);
-            else
-                return Json(false, JsonRequestBehavior.AllowGet);
-        }
-
-        public JsonResult IsNationalIDAvailable(string NationalID)
-        {
-            List<CovidReservation> reservations = saintUnits.HealthReservations.Find(x => x.NationalID == NationalID).ToList();
-            if (reservations == null)
-                return Json(true, JsonRequestBehavior.AllowGet);
-            else
-                return Json(false, JsonRequestBehavior.AllowGet);
+            CovidReservation reservationData = saintUnits.HealthReservations.Find(x => x.NationalID == reservation.NationalID).FirstOrDefault();
+            return View(reservationData);
         }
         protected override void Dispose(bool disposing)
         {

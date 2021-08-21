@@ -3592,6 +3592,7 @@
     <Content Include="Views\Shared\_ReservationsLayout.cshtml" />
     <Content Include="Views\HealthReservations\ListOfReservations.cshtml" />
     <Content Include="Views\HealthReservations\EditReservation.cshtml" />
+    <Content Include="Views\HealthReservations\GetReservationDetails.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

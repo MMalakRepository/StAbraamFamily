@@ -20,7 +20,7 @@
     }
 </style>
 
-<div class="col-lg-12">
+<div class="col-lg-12" style="padding-top:150px;">
     <section class="card card-featured card-info mb-4 card-featured-bottom">
         <header class="card-header">
             <h2 class="card-title" style="text-align:center;font-size:25px;font-weight:bold;font-family:Calibri"> تقرير حجز وزارة الصحة  </h2>
@@ -37,7 +37,9 @@
                             <th>
                                 <label class="control-label lblReportText ">الرقم القومى </label>
                             </th>
-
+                            <th>
+                                <label class="control-label lblReportText "> رقم الموبايل </label>
+                            </th>
                             <th>
                                 <label class="control-label lblReportText ">رقم حجز وزارة الصحة </label>
                             </th>
@@ -48,22 +50,24 @@
                     <tbody>
                         @foreach (var item in Model)
                         {
-                            <tr>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.FullName)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.NationalID)
-                                </td>
-
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.ReservationNumber)
-                                </td>
-                                <td>
-                                    <a href="@Url.Action("EditReservation",new { id = item.ReservationID })" title="تعديل البيانات" class="btn bg-primary text-white btn-sm rounded-circle"><i class="fa fa-edit"></i></a>
-                                    <a href="#" onclick="DeleteAction(@item.ReservationID)" title="حذف" class="btn bg-danger text-white btn-sm rounded-circle"><i class="fa fa-trash-alt"></i></a>
-                                </td>
-                            </tr>
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.FullName)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.NationalID)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.MobileNumber)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.ReservationNumber)
+                            </td>
+                            <td>
+                                <a href="@Url.Action("EditReservation",new { id = item.ReservationID })" title="تعديل البيانات" class="btn bg-primary text-white btn-sm rounded-circle"><i class="fa fa-edit"></i></a>
+                                <a href="#" onclick="DeleteAction(@item.ReservationID)" title="حذف" class="btn bg-danger text-white btn-sm rounded-circle"><i class="fa fa-trash-alt"></i></a>
+                            </td>
+                        </tr>
                         }
 
                     </tbody>

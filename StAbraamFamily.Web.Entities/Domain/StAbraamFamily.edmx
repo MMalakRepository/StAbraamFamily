@@ -112,6 +112,7 @@
           <Property Name="IsDeleted" Type="bit" />
           <Property Name="IsFinished" Type="bit" />
           <Property Name="UpdatedBy" Type="nvarchar" MaxLength="125" />
+          <Property Name="MobileNumber" Type="nvarchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="EvaluationLevels">
           <Key>
@@ -1569,6 +1570,7 @@
           <Property Name="IsDeleted" Type="Boolean" />
           <Property Name="IsFinished" Type="Boolean" />
           <Property Name="UpdatedBy" Type="String" MaxLength="125" FixedLength="false" Unicode="true" />
+          <Property Name="MobileNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -1852,6 +1854,7 @@
           <EntitySetMapping Name="CovidReservations">
             <EntityTypeMapping TypeName="StAbraamFamilyData.CovidReservation">
               <MappingFragment StoreEntitySet="CovidReservation">
+                <ScalarProperty Name="MobileNumber" ColumnName="MobileNumber" />
                 <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
                 <ScalarProperty Name="IsFinished" ColumnName="IsFinished" />
                 <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />

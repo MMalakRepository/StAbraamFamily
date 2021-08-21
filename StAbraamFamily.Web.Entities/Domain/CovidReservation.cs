@@ -28,5 +28,6 @@ namespace StAbraamFamily.Web.Entities.Domain
         public Nullable<bool> IsDeleted { get; set; }
         public Nullable<bool> IsFinished { get; set; }
         public string UpdatedBy { get; set; }
+        public string MobileNumber { get; set; }
     }
 }

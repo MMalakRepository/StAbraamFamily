@@ -67,15 +67,18 @@
         .logo:hover {
             text-decoration: none;
         }
- 
+        .imgBackground {
+            background: linear-gradient(0deg, rgba(0.2, 0.2, 0.2, 0.3), rgba(0.2, 0.2, 0.2, 0.3)), url('../../Assets/img/HealthReservation.jpg') center center/cover no-repeat;
+        }
     </style>
 
 </head>
 <body>
 
-    <section class="body">
+    <section class="body imgBackground">
 
-        <img src="~/Assets/img/HealthReservation.jpg" class="image-fluid" width="100%" height="300px" />
+        @*<img src="~/Assets/img/HealthReservation.jpg" class="image-fluid" width="100%" height="300px" />*@
+        <div style="height:50%"></div>
         @RenderBody()
 
     </section>
