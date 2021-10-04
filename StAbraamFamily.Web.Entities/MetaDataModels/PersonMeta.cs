@@ -11,9 +11,9 @@ namespace StAbraamFamily.Web.Entities.Domain
 
     public class PersonMetaData
     {
-        [MaxLength(14,ErrorMessage ="رقم البطاقة يحتوى على 14 رقم فقط ")]
-        [MinLength(14,ErrorMessage ="برجاء أدخال 14 رقم للبطاقة")]
-        [Required(ErrorMessage ="برجاء أدخال رقم البطاقة")]
+        //[MaxLength(14,ErrorMessage ="رقم البطاقة يحتوى على 14 رقم فقط ")]
+        //[MinLength(14,ErrorMessage ="برجاء أدخال 14 رقم للبطاقة")]
+        //[Required(ErrorMessage ="برجاء أدخال رقم البطاقة")]
         public string NationalID { get; set; }
 
         [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}")]
@@ -26,9 +26,9 @@ namespace StAbraamFamily.Web.Entities.Domain
         public Nullable<System.DateTime> DateOfDeath { get; set; }
 
 
-        [Required(ErrorMessage = "برجاء أدخال الدخل الشهرى")]
+        //[Required(ErrorMessage = "برجاء أدخال الدخل الشهرى")]
         public decimal Salary { get; set; }
-        [Required(ErrorMessage = "برجاء أدخال الحالة الأجتماعية")]
+        //[Required(ErrorMessage = "برجاء أدخال الحالة الأجتماعية")]
 
         public bool Status { get; set; }
     }
