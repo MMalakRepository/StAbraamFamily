@@ -77,7 +77,11 @@ namespace StAbraamFamily.Controllers
             {
                 return HttpNotFound();
             }
-            ResetData();
+            //ResetData();
+            ViewBag.ConfessionFather = new SelectList(saintUnits.Fathers.Find(x => x.IsActive == true), "ID", "FatherName",saintUnits.Fathers.Find(x => x.ID == person.ConfessionFather).Select(c => c.ID));
+            ViewBag.ServantID = new SelectList(saintUnits.Servants.Find(x => x.IsActive == true), "ID", "ServantName",saintUnits.Servants.Find(x => x.ID == person.ServantID).Select(c => c.ID));
+
+
             return View(person);
         }
  
