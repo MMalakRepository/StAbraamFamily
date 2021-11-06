@@ -203,6 +203,7 @@
     <Compile Include="Controllers\ServantsController.cs" />
     <Compile Include="Controllers\ServiceActionsController.cs" />
     <Compile Include="Controllers\ServiceTypesController.cs" />
+    <Compile Include="Controllers\ShroukFamiliesController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -3593,6 +3594,7 @@
     <Content Include="Views\HealthReservations\ListOfReservations.cshtml" />
     <Content Include="Views\HealthReservations\EditReservation.cshtml" />
     <Content Include="Views\HealthReservations\GetReservationDetails.cshtml" />
+    <Content Include="Views\ShroukFamilies\DataReport.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

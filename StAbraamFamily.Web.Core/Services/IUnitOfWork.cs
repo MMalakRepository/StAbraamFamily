@@ -22,6 +22,7 @@ namespace StAbraamFamily.Web.Core.Repositories
         IEntityRepository<MedicalService> MedicalServices { get; }
         IMedicalContracts MedicalContracts { get; }
         IEntityRepository<CovidReservation> HealthReservations { get; }
+        IEntityRepository<ShroukFamily> ShroukFamilies { get; }
         int Complete();
     }
 }

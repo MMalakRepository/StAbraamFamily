@@ -89,6 +89,9 @@
     <Compile Include="Domain\Child.cs">
       <DependentUpon>StAbraamFamily.tt</DependentUpon>
     </Compile>
+    <Compile Include="Domain\ChurchDataSheet.cs">
+      <DependentUpon>StAbraamFamily.tt</DependentUpon>
+    </Compile>
     <Compile Include="Domain\Clinic.cs">
       <DependentUpon>StAbraamFamily.tt</DependentUpon>
     </Compile>
@@ -132,6 +135,9 @@
       <DependentUpon>StAbraamFamily.tt</DependentUpon>
     </Compile>
     <Compile Include="Domain\ServiceType.cs">
+      <DependentUpon>StAbraamFamily.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Domain\ShroukFamily.cs">
       <DependentUpon>StAbraamFamily.tt</DependentUpon>
     </Compile>
     <Compile Include="Domain\StAbraamFamily.Context.cs">

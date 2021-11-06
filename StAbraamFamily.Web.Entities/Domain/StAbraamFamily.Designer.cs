@@ -1,4 +1,4 @@
-﻿// T4 code generation is enabled for model 'E:\Flasha\StAbraamFamily\StAbraamFamily\StAbraamFamily.Web.Entities\Domain\StAbraamFamily.edmx'. 
+﻿// T4 code generation is enabled for model 'D:\Micky\Work\Projects\StAbraamFamily\StAbraamFamily\StAbraamFamily.Web.Entities\Domain\StAbraamFamily.edmx'. 
 // To enable legacy code generation, change the value of the 'Code Generation Strategy' designer
 // property to 'Legacy ObjectContext'. This property is available in the Properties Window when the model
 // is open in the designer.

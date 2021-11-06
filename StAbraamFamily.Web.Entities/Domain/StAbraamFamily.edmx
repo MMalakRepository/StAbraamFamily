@@ -84,6 +84,19 @@
           <Property Name="ServantID" Type="int" />
           <Property Name="Gender" Type="bit" />
         </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'DB_A6E768_MMalak.dbo.ChurchDataSheet' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="ChurchDataSheet">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="HusbandName" Type="nvarchar" MaxLength="500" />
+          <Property Name="HusbandMobile" Type="nvarchar" MaxLength="50" />
+          <Property Name="WifeName" Type="nvarchar" MaxLength="500" />
+          <Property Name="WifeMobile" Type="nvarchar" MaxLength="50" />
+          <Property Name="Address" Type="nvarchar(max)" />
+        </EntityType>
         <EntityType Name="Clinics">
           <Key>
             <PropertyRef Name="ID" />
@@ -270,6 +283,18 @@
           <Property Name="Description" Type="nvarchar" MaxLength="250" />
           <Property Name="IsActive" Type="bit" />
           <Property Name="ServantID" Type="int" />
+        </EntityType>
+        <EntityType Name="ShroukFamilies">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="PersonID" Type="int" />
+          <Property Name="Name" Type="nvarchar" MaxLength="255" />
+          <Property Name="Phone" Type="bigint" />
+          <Property Name="Address" Type="nvarchar" MaxLength="255" />
+          <Property Name="Area" Type="nvarchar" MaxLength="255" />
+          <Property Name="FamilyCode" Type="int" />
         </EntityType>
         <EntityType Name="sysdiagrams">
           <Key>
@@ -659,7 +684,18 @@
           <EntitySet Name="Servants" EntityType="Self.Servants" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ServiceActions" EntityType="Self.ServiceActions" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ServiceTypes" EntityType="Self.ServiceTypes" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ShroukFamilies" EntityType="Self.ShroukFamilies" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ChurchDataSheet" EntityType="Self.ChurchDataSheet" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [ChurchDataSheet].[ID] AS [ID], 
+    [ChurchDataSheet].[HusbandName] AS [HusbandName], 
+    [ChurchDataSheet].[HusbandMobile] AS [HusbandMobile], 
+    [ChurchDataSheet].[WifeName] AS [WifeName], 
+    [ChurchDataSheet].[WifeMobile] AS [WifeMobile], 
+    [ChurchDataSheet].[Address] AS [Address]
+    FROM [dbo].[ChurchDataSheet] AS [ChurchDataSheet]</DefiningQuery>
+          </EntitySet>
           <AssociationSet Name="FK_Child_Families" Association="Self.FK_Child_Families">
             <End Role="Families" EntitySet="Families" />
             <End Role="Child" EntitySet="Child" />
@@ -1551,6 +1587,8 @@
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
           </AssociationSet>
           <EntitySet Name="CovidReservations" EntityType="StAbraamFamilyData.CovidReservation" />
+          <EntitySet Name="ChurchDataSheets" EntityType="StAbraamFamilyData.ChurchDataSheet" />
+          <EntitySet Name="ShroukFamilies" EntityType="StAbraamFamilyData.ShroukFamily" />
         </EntityContainer>
         <EntityType Name="CovidReservation">
           <Key>
@@ -1571,6 +1609,29 @@
           <Property Name="IsFinished" Type="Boolean" />
           <Property Name="UpdatedBy" Type="String" MaxLength="125" FixedLength="false" Unicode="true" />
           <Property Name="MobileNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="ChurchDataSheet">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="HusbandName" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="HusbandMobile" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="WifeName" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="WifeMobile" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Address" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="ShroukFamily">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="PersonID" Type="Int32" />
+          <Property Name="Name" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Phone" Type="Int64" />
+          <Property Name="Address" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Area" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="FamilyCode" Type="Int32" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -1872,6 +1933,31 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="ChurchDataSheets">
+            <EntityTypeMapping TypeName="StAbraamFamilyData.ChurchDataSheet">
+              <MappingFragment StoreEntitySet="ChurchDataSheet">
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="WifeMobile" ColumnName="WifeMobile" />
+                <ScalarProperty Name="WifeName" ColumnName="WifeName" />
+                <ScalarProperty Name="HusbandMobile" ColumnName="HusbandMobile" />
+                <ScalarProperty Name="HusbandName" ColumnName="HusbandName" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ShroukFamilies">
+            <EntityTypeMapping TypeName="StAbraamFamilyData.ShroukFamily">
+              <MappingFragment StoreEntitySet="ShroukFamilies">
+                <ScalarProperty Name="FamilyCode" ColumnName="FamilyCode" />
+                <ScalarProperty Name="Area" ColumnName="Area" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="Phone" ColumnName="Phone" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="PersonID" ColumnName="PersonID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
@@ -1887,7 +1973,7 @@
       <DesignerInfoPropertySet>
         <DesignerProperty Name="ValidateOnBuild" Value="true" />
         <DesignerProperty Name="EnablePluralization" Value="true" />
-        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="False" />
         <DesignerProperty Name="UseLegacyProvider" Value="false" />
         <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
       </DesignerInfoPropertySet>

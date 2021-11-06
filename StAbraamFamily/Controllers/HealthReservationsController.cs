@@ -21,7 +21,7 @@ namespace StAbraamFamily.Controllers
         [Authorize(Roles = "HealthManagment,Management")]
         public ActionResult ListOfReservations()
         {
-            return View(saintUnits.HealthReservations.GetAll().Where(x => x.IsDeleted == false).ToList());
+            return View(saintUnits.HealthReservations.GetAll().Where(x => x.IsDeleted == false).OrderByDescending(x => x.ReservationID).ToList());
         }
 
         [AllowAnonymous]

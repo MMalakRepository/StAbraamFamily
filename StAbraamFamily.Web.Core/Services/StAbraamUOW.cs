@@ -11,6 +11,7 @@ namespace StAbraamFamily.Web.Core.Repositories
         private IEntityRepository<Clinic> ClinicRepos;
         private IEntityRepository<Father> FathersRepos;
         private IEntityRepository<Family> FamilyRepos; 
+        private IEntityRepository<ShroukFamily> ShroukFamilyRepos;
         private IEntityRepository<ServiceType> ServiceTypeRepos;
         private IEntityRepository<Hospital> HospitalRepos;
         private IServiceAction ServiceRepos; 
@@ -73,6 +74,14 @@ namespace StAbraamFamily.Web.Core.Repositories
             get
             {
                 return FamilyRepos = FamilyRepos ?? new FamilyRepository(familyDB);
+            }
+        }
+
+        public IEntityRepository<ShroukFamily> ShroukFamilies
+        {
+            get
+            {
+                return ShroukFamilyRepos = ShroukFamilyRepos ?? new ShroukFamilyRepository(familyDB);
             }
         }
         public IEntityRepository<Father> Fathers

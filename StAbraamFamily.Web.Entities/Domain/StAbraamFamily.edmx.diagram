@@ -4,7 +4,7 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="30a17aa172ec46dcbd7f1c12819884fb" Name="Diagram1">
+      <Diagram DiagramId="30a17aa172ec46dcbd7f1c12819884fb" Name="Diagram1" ZoomLevel="82">
         <EntityTypeShape EntityType="StAbraamFamilyData.C__MigrationHistory" Width="1.5" PointX="0.75" PointY="1.25" IsExpanded="true" />
         <EntityTypeShape EntityType="StAbraamFamilyData.AspNetRole" Width="1.5" PointX="6.75" PointY="5.125" IsExpanded="true" />
         <EntityTypeShape EntityType="StAbraamFamilyData.AspNetUserClaim" Width="1.5" PointX="11.25" PointY="3.75" IsExpanded="true" />
@@ -54,6 +54,8 @@
         <AssociationConnector Association="StAbraamFamilyData.FK_ServiceActions_ServiceTypes" ManuallyRouted="false" />
         <AssociationConnector Association="StAbraamFamilyData.AspNetUserRoles" ManuallyRouted="false" />
         <EntityTypeShape EntityType="StAbraamFamilyData.CovidReservation" Width="1.5" PointX="13.375" PointY="0.75" />
+        <EntityTypeShape EntityType="StAbraamFamilyData.ChurchDataSheet" Width="1.5" PointX="5.375" PointY="0.75" />
+        <EntityTypeShape EntityType="StAbraamFamilyData.ShroukFamily" Width="1.5" PointX="5.375" PointY="7.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
