@@ -30,7 +30,7 @@
             <div class="card-actions">
                 @*<a href="#" class="card-action card-action-toggle" data-card-toggle></a>*@
             </div>
-            <h2 class="card-title" style="text-align:center;font-size:25px;font-weight:bold;font-family:Calibri"> تقرير العائلات  </h2>
+            <h2 class="card-title" style="text-align:center;font-size:25px;font-weight:bold;font-family:Calibri"> Families Data  </h2>
         </header>
 
         <div class="card-body">
@@ -38,18 +38,20 @@
                 <table class="table table-hover table-sm table-responsive-md display compact" id="myDataTable">
                     <thead class="bg-primary text-white text-center">
                         <tr>
-                            <th>
+                            <th class="hidden">
                                 <label class="control-label " style="font-size: 10px;font-family: Calibri"> </label>
                             </th>
                             <th>
-
-                                <label class="control-label " style=" font-size: 14px;font-weight: bold;text-align: right;font-family: Calibri;width:300px!important">   أسم الشخص  </label>
+                                <label class="control-label " style=" font-size: 14px;font-weight: bold;text-align: right;font-family: Calibri;width:200px!important">   أسم الشخص  </label>
                             </th>
                             <th>
                                 <label class="control-label " style="font-size: 14px;font-weight: bold;text-align: right;font-family: Calibri;width: 100px!important">رقم التليفون </label>
                             </th>
                             <th>
                                 <label class="control-label " style="font-size: 14px;font-weight: bold;text-align: right;font-family: Calibri;width:100px!important">المنطقة </label>
+                            </th>
+                            <th>
+                                <label class="control-label " style="font-size: 14px;font-weight: bold;text-align: right;font-family: Calibri;width:100px!important">العنوان </label>
                             </th>
                             <th>
                                 <label class="control-label " style="font-size: 14px;font-weight: bold;text-align: right;font-family: Calibri;width:80px!important">كود العائلة </label>
@@ -64,27 +66,30 @@
                     <tbody>
                         @foreach (var item in Model)
                         {
-                            <tr>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.ID)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.Name)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.Phone)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.Area)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.FamilyCode)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.PersonID)
-                                </td>
+                        <tr>
+                            <td class="hidden">
+                                @Html.DisplayFor(modelItem => item.ID)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Name)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Phone)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Area)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Address)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.FamilyCode)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.PersonID)
+                            </td>
 
-                            </tr>
+                        </tr>
                         }
                     </tbody>
 
@@ -152,7 +157,7 @@
                     api.column(groupColumn, { page: 'current' }).data().each(function (group, i) {
                         if (last !== group) {
                             $(rows).eq(i).before(
-                                '<tr class="group" ><td colspan="5">Family Code : ' + group + '</td></tr>'
+                                '<tr class="group" ><td colspan="5" style="text-align:center;">Family Address : ' + group + '</td></tr>'
                             );
 
                             last = group;
