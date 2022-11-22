@@ -17,6 +17,7 @@ namespace StAbraamFamily.Web.Core.General
         void Add(TEntity entity);
         void AddRange(IEnumerable<TEntity> entities);
 
+        void Detach(TEntity entity);
         void Update(TEntity entity);
 
         void Remove(TEntity entity);

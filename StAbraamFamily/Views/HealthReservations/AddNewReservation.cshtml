@@ -23,159 +23,170 @@
             text-align: center;
             font-family: Calibri
         }
-
     </style>
 </head>
 
 <div class="col-lg-12" style="padding-top:100px;">
     <section class="card card-featured card-primary ">
         <header class="card-header">
-            <h2 class="card-title" style="text-align:center;font-size:25px;font-weight:bold;font-family:Calibri">بيانات حجز وزارة الصحة</h2>
+            <h2 class="card-title" style="text-align:center;font-size:25px;font-weight:bold;font-family:Calibri">كنيسة السيدة العذراء مريم أم النور و الشهيد مارجرجس بالشروق - حجز تطعيم الأنفلونزا</h2>
         </header>
         <div class="card-body" style="direction :rtl">
             @using (Html.BeginForm())
             {
-                @Html.AntiForgeryToken()
-     
-            <div class="form-horizontal">
-                <div class="row">
-                    <label class="control-label col-md-12 lblText text-danger">   تسجيل البيانات باللغة العربية لشخص واحد فقط - الأسم رباعى </label>
-                </div>
-               
-                <div class="row">
-                    <div class="col-md-6">
-                        <div class="form-group">
-                            <label class="control-label col-md-4 lblText"> الأسم الأول </label>
-                            <div class="col-md-12">
-                                <div class="input-group">
-                                    <span class="input-group-prepend">
-                                        <span class="input-group-text">
-                                            <i class="fas fa-user-check text-primary bg-white"></i>
-                                        </span>
-                                    </span>
-                                    @Html.EditorFor(model => model.FirstName, new { htmlAttributes = new { @class = "form-control", tabindex = 2 } })
+                @Html.AntiForgeryToken()<div class="form-horizontal">
+                    <div class="row">
+                        <label class="control-label col-md-12 lblText text-success">   تسجيل البيانات باللغة العربية لشخص واحد فقط - الأسم رباعى </label>
+                        @if (!string.IsNullOrEmpty(ViewBag.Message))
+                        {
+                            <label class="control-label col-md-12 lblText text-danger"> @Html.ValidationSummary(false) </label>
+                        }
+                    </div>
+                    @*<div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="control-label col-md-6 lblText"> رقم حجز وزارة الصحة</label>
+                                    <div class="col-md-12">
+                                        <div class="input-group">
+                                            <span class="input-group-prepend">
+                                                <span class="input-group-text">
+                                                    <i class="fas fa-credit-card text-primary bg-white"></i>
+                                                </span>
+                                            </span>
+                                            @Html.EditorFor(model => model.ReservationNumber, new { htmlAttributes = new { @class = "form-control", tabindex = 1 } })
+
+                                        </div>
+                                        @Html.ValidationMessageFor(model => model.ReservationNumber, "", new { @class = "text-danger" })
+                                    </div>
                                 </div>
-                                @Html.ValidationMessageFor(model => model.FirstName, "", new { @class = "text-danger text-right" })
                             </div>
-
-                        </div>
-                    </div>
-
-                    <div class="col-md-6">
-                        <div class="form-group">
-                            <label class="control-label col-md-4 lblText"> الأسم الثانى</label>
-                            <div class="col-md-12">
-                                <div class="input-group">
-                                    <span class="input-group-prepend">
-                                        <span class="input-group-text">
-                                            <i class="fas fa-user-circle text-primary bg-white"></i>
+                        </div>*@
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="control-label col-md-4 lblText"> الأسم الأول </label>
+                                <div class="col-md-12">
+                                    <div class="input-group">
+                                        <span class="input-group-prepend">
+                                            <span class="input-group-text">
+                                                <i class="fas fa-user-check text-primary bg-white"></i>
+                                            </span>
                                         </span>
-                                    </span>
-                                    @Html.EditorFor(model => model.SecondName, new { htmlAttributes = new { @class = "form-control", tabindex = 3 } })
-
+                                        @Html.EditorFor(model => model.FirstName, new { htmlAttributes = new { @class = "form-control", tabindex = 2 } })
+                                    </div>
+                                    @*@Html.ValidationMessageFor(model => model.FirstName, "", new { @class = "text-danger text-right" })*@
                                 </div>
-                                @Html.ValidationMessageFor(model => model.SecondName, "", new { @class = "text-danger" })
+
                             </div>
                         </div>
-                    </div>
 
-                </div>
-                <div class="row">
-                    <div class="col-md-6">
-                        <div class="form-group">
-                            <label class="control-label col-md-4 lblText"> الأسم الثالث</label>
-                            <div class="col-md-12">
-                                <div class="input-group">
-                                    <span class="input-group-prepend">
-                                        <span class="input-group-text">
-                                            <i class="fas fa-user-cog text-primary bg-white"></i>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="control-label col-md-4 lblText"> الأسم الثانى</label>
+                                <div class="col-md-12">
+                                    <div class="input-group">
+                                        <span class="input-group-prepend">
+                                            <span class="input-group-text">
+                                                <i class="fas fa-user-circle text-primary bg-white"></i>
+                                            </span>
                                         </span>
-                                    </span>
-                                    @Html.EditorFor(model => model.ThirdName, new { htmlAttributes = new { @class = "form-control", tabindex = 4 } })
+                                        @Html.EditorFor(model => model.SecondName, new { htmlAttributes = new { @class = "form-control", tabindex = 3 } })
 
+                                    </div>
+                                    @*@Html.ValidationMessageFor(model => model.SecondName, "", new { @class = "text-danger" })*@
                                 </div>
-                                @Html.ValidationMessageFor(model => model.ThirdName, "", new { @class = "text-danger" })
                             </div>
                         </div>
-                    </div>
-                    <div class="col-md-6">
 
-                        <div class="form-group">
-                            <label class="control-label col-md-4 lblText"> الأسم الرابع</label>
-                            <div class="col-md-12">
-                                <div class="input-group">
-                                    <span class="input-group-prepend">
-                                        <span class="input-group-text">
-                                            <i class="fas fa-user-edit text-primary bg-white"></i>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="control-label col-md-4 lblText"> الأسم الثالث</label>
+                                <div class="col-md-12">
+                                    <div class="input-group">
+                                        <span class="input-group-prepend">
+                                            <span class="input-group-text">
+                                                <i class="fas fa-user-cog text-primary bg-white"></i>
+                                            </span>
                                         </span>
-                                    </span>
-                                    @Html.EditorFor(model => model.FourthName, new { htmlAttributes = new { @class = "form-control", tabindex = 5 } })
+                                        @Html.EditorFor(model => model.ThirdName, new { htmlAttributes = new { @class = "form-control", tabindex = 4 } })
 
+                                    </div>
+                                    @*@Html.ValidationMessageFor(model => model.ThirdName, "", new { @class = "text-danger" })*@
                                 </div>
-                                @Html.ValidationMessageFor(model => model.FourthName, "", new { @class = "text-danger" })
                             </div>
                         </div>
-                    </div>
+                        <div class="col-md-6">
 
-                </div>
-                <div class="row">
-                    <div class="col-md-6">
-                        <div class="form-group">
-                            <label class="control-label col-md-4 lblText">  رقم الموبايل </label>
-                            <div class="col-md-12">
-                                <div class="input-group">
-                                    <span class="input-group-prepend">
-                                        <span class="input-group-text">
-                                            <i class="fas fa-mobile text-primary bg-white"></i>
+                            <div class="form-group">
+                                <label class="control-label col-md-4 lblText"> الأسم الرابع</label>
+                                <div class="col-md-12">
+                                    <div class="input-group">
+                                        <span class="input-group-prepend">
+                                            <span class="input-group-text">
+                                                <i class="fas fa-user-edit text-primary bg-white"></i>
+                                            </span>
                                         </span>
-                                    </span>
-                                    @Html.EditorFor(model => model.MobileNumber, new { htmlAttributes = new { @class = "form-control", tabindex = 6 } })
+                                        @Html.EditorFor(model => model.FourthName, new { htmlAttributes = new { @class = "form-control", tabindex = 5 } })
 
+                                    </div>
+                                    @*@Html.ValidationMessageFor(model => model.FourthName, "", new { @class = "text-danger" })*@
                                 </div>
-                                @Html.ValidationMessageFor(model => model.MobileNumber, "", new { @class = "text-danger" })
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="form-group">
-                            <div class="col-md-offset-2 col-md-12">
-                                <input type="submit" value="أضافة الحجز" class="btn btn-sm btn-primary btnText" />
                             </div>
                         </div>
 
                     </div>
-                    @*<div class="col-md-6">
-            <div class="form-group">
-                <label class="control-label col-md-4 lblText"> الرقم القومى </label>
-                <div class="col-md-12">
-                    <div class="input-group">
-                        <span class="input-group-prepend">
-                            <span class="input-group-text">
-                                <i class="fas fa-id-card text-primary bg-white"></i>
-                            </span>
-                        </span>
-                        @Html.EditorFor(model => model.NationalID, new { htmlAttributes = new { @class = "form-control", tabindex = 7 } })
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="control-label col-md-4 lblText">  رقم الموبايل </label>
+                                <div class="col-md-12">
+                                    <div class="input-group">
+                                        <span class="input-group-prepend">
+                                            <span class="input-group-text">
+                                                <i class="fas fa-mobile text-primary bg-white"></i>
+                                            </span>
+                                        </span>
+                                        @Html.EditorFor(model => model.MobileNumber, new { htmlAttributes = new { @class = "form-control", tabindex = 6 } })
+
+                                    </div>
+                                    @*@Html.ValidationMessageFor(model => model.MobileNumber, "", new { @class = "text-danger" })*@
+                                </div>
+                            </div>
+                        </div>
+                        @*<div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="control-label col-md-4 lblText"> الرقم القومى </label>
+                                    <div class="col-md-12">
+                                        <div class="input-group">
+                                            <span class="input-group-prepend">
+                                                <span class="input-group-text">
+                                                    <i class="fas fa-id-card text-primary bg-white"></i>
+                                                </span>
+                                            </span>
+                                            @Html.EditorFor(model => model.NationalID, new { htmlAttributes = new { @class = "form-control", tabindex = 7 } })
+
+                                        </div>
+                                        @Html.ValidationMessageFor(model => model.NationalID, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                            </div>*@
 
                     </div>
-                    @Html.ValidationMessageFor(model => model.NationalID, "", new { @class = "text-danger" })
+
+                    <div class="row m-4">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <div class="col-md-offset-2 col-md-12">
+                                    <input type="submit" value="أضافة الحجز" class="btn btn-sm btn-primary btnText" />
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="col-md-6"></div>
+                    </div>
                 </div>
-            </div>
-        </div>*@
-
-                </div>
-
-                @*<div class="row m-4">
-                    <div class="col-md-6">
-                        <div class="form-group">
-                            <div class="col-md-offset-2 col-md-12">
-                                <input type="submit" value="أضافة الحجز" class="btn btn-sm btn-primary btnText" />
-                            </div>
-                        </div>
-
-                    </div>
-                    <div class="col-md-6"></div>
-                </div>*@
-            </div>
             }
         </div>
 

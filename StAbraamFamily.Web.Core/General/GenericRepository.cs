@@ -30,12 +30,12 @@ namespace StAbraamFamily.Web.Core.General
 
         public IEnumerable<TEntity> Find(Expression<Func<TEntity, bool>> predicate)
         {
-            return Context.Set<TEntity>().Where(predicate);
+            return Context.Set<TEntity>().AsNoTracking().Where(predicate);
         }
 
         public TEntity SingleOrDefault(Expression<Func<TEntity, bool>> predicate)
         {
-            return Context.Set<TEntity>().SingleOrDefault(predicate);
+            return Context.Set<TEntity>().AsNoTracking().SingleOrDefault(predicate);
         }
 
         public void Add(TEntity entity)
@@ -48,6 +48,10 @@ namespace StAbraamFamily.Web.Core.General
             Context.Set<TEntity>().AddRange(entities);
         }
 
+        public void Detach(TEntity entity)
+        {
+            Context.Entry(entity).State = EntityState.Detached;
+        }
         public void Update(TEntity entity)
         {
             Context.Entry(entity).State = EntityState.Modified;

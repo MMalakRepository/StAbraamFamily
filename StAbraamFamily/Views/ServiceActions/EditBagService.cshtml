@@ -1,0 +1,183 @@
+﻿@using StAbraamFamily.Web.Entities.Domain
+@model ServiceAction
+
+@{
+    ViewBag.Title = "أضافة خدمة شنطة البركة";
+    Layout = "~/Views/Shared/_FamilyLayout.cshtml";
+}
+
+<header class="page-header" style="background-color: #0088cc;border-left-color: #0088cc">
+    <h2 class="text-white" style="        border-bottom-color: #5bc0de !important;font-size: 25px;font-weight: bold;font-family: Calibri"> بيانات  خدمة شنطة البركة</h2>
+</header>
+
+<div class="col-lg-12">
+    <div class="row">
+        <div class="col-md-5">
+            <h4 class="display-4 text-center text-primary">Update Bag Service</h4>
+        </div>
+        <div class="col-md-7 mt-5">
+            @if (User.IsInRole("Management"))
+            {
+                <a href="@Url.Action("Create","ServiceActions",null)" class="text-primary" style="font-size: 18px; font-weight: bold; font-family: Calibri">
+                    <i class="fas fa-plus-circle text-warning  rounded-circle"></i> أضافة خدمات اخرى
+                </a>
+                <a href="@Url.Action("AddHealthyService","ServiceActions",null)" class="text-primary" style="font-size: 18px; font-weight: bold; font-family: Calibri">
+                    <i class="fas fa-briefcase-medical text-warning  rounded-circle"></i> أضافة  خدمة علاجية
+                </a>
+                <a href="@Url.Action("MedicalServiceList","ServiceActions",null)" class="text-primary" style="font-size:18px;font-weight:bold;font-family:Calibri">
+                    <i class="fas fa-user-cog text-warning"></i> تقرير الخدمات العلاجية
+                </a>
+            }
+
+            <a href="@Url.Action("BagServiceList","ServiceActions",null)" class="text-primary" style="font-size:18px;font-weight:bold;font-family:Calibri">
+                <i class="fas fa-shopping-bag text-warning"></i> تقرير شنط البركة
+            </a>
+        </div>
+
+    </div>
+    <section class="card card-featured card-featured-primary mb-4">
+        <header class="card-header">
+            <div class="card-actions">
+                @*<a href="#" class="card-action card-action-toggle" data-card-toggle></a>*@
+            </div>
+            <h2 class="card-title" style="text-align:center;font-size:25px;font-weight:bold;font-family:Calibri"> تعديل خدمة شنطة البركة   </h2>
+        </header>
+        <div class="card-body">
+            @using (Html.BeginForm())
+            {
+                @Html.AntiForgeryToken()
+                <div class="form-horizontal">
+                    <div class="row" style="font-size:18px;font-weight:bold;font-family:Calibri;">
+                        @Html.ValidationSummary(false, "", new { @class = "text-danger" })
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="control-label col-md-6" style="float: right;font-size: 14px;font-weight: bold;text-align: right;font-family: Calibri">أسم  الشخص </label>
+                                <div class="col-md-12">
+                                    <div class="input-group">
+                                        <span class="input-group-prepend">
+                                            <span class="input-group-text">
+                                                <i class="fas fa-user text-primary"></i>
+                                            </span>
+                                        </span>
+                                        @Html.DropDownList("PersonID", null, "أختار الشخص", htmlAttributes: new { @class = "form-control" })
+                                        @Html.ValidationMessageFor(model => model.PersonID, "", new { @class = "text-danger" })
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="control-label col-md-4" style="float: right;font-size: 14px;font-weight: bold;text-align: right;font-family: Calibri">أسم  الخادم</label>
+                                <div class="col-md-12">
+                                    <div class="input-group">
+                                        <span class="input-group-prepend">
+                                            <span class="input-group-text">
+                                                <i class="fas fa-user-check text-primary"></i>
+                                            </span>
+                                        </span>
+                                        @Html.DropDownList("ServantID", null, "أختار الخادم", htmlAttributes: new { @class = "form-control " })
+                                        @Html.ValidationMessageFor(model => model.ServantID, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="control-label col-md-4" style="float: right;font-size: 14px;font-weight: bold;text-align: right;font-family: Calibri">  التاريخ</label>
+                                <div class="col-md-12">
+                                    <div class="input-group">
+                                        <span class="input-group-prepend">
+                                            <span class="input-group-text">
+                                                <i class="fas fa-calendar-alt text-primary"></i>
+                                            </span>
+                                        </span>
+                                        @Html.EditorFor(model => model.ActionDate, new { htmlAttributes = new { @class = "form-control" } })
+
+                                        @Html.ValidationMessageFor(model => model.ActionDate, "", new { @class = "text-danger" })
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="control-label col-md-4" style="float: right;font-size: 14px;font-weight: bold;text-align: right;font-family: Calibri"> التكلفة  </label>
+                                <div class="col-md-12">
+                                    <div class="input-group">
+                                        <span class="input-group-prepend">
+                                            <span class="input-group-text">
+                                                <i class="fas fa-user-edit text-primary"></i>
+                                            </span>
+                                        </span>
+                                        @Html.EditorFor(model => model.Cost, new { htmlAttributes = new { @class = "form-control" } })
+                                        @Html.ValidationMessageFor(model => model.Cost, "", new { @class = "text-danger" })
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label class="control-label col-md-4" style="float: right;font-size: 14px;font-weight: bold;text-align: right;font-family: Calibri">ملاحظات أضافية  </label>
+                                <div class="col-md-12">
+                                    <div class="input-group">
+                                        <span class="input-group-prepend">
+                                            <span class="input-group-text">
+                                                <i class="fas fa-user-edit text-primary"></i>
+                                            </span>
+                                        </span>
+                                        @Html.EditorFor(model => model.Notes, new { htmlAttributes = new { @class = "form-control" } })
+                                        @Html.ValidationMessageFor(model => model.Notes, "", new { @class = "text-danger" })
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row m-4">
+                        <div class="col-md-6">
+                            <a href="@Url.Action("BagServiceList","ServiceActions")" class="btn btn-sm btn-outline-danger" style="width:100%;font-size: 20px;font-weight: bold;text-align: center;font-family: Calibri">ألغاء أدخال الخدمة</a>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <div class="col-md-offset-2 col-md-12">
+                                    <input type="submit" value="أضافة الخدمة " class="btn btn-sm btn-primary" style="width:100%;font-size: 20px;font-weight: bold;text-align: center;font-family: Calibri" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+
+    </section>
+</div>
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+
+    <link href="~/Assets/vendor/select2/css/select2.min.css" rel="stylesheet" />
+    <link href="~/Assets/vendor/jquery-ui/jquery-ui.min.css" rel="stylesheet" />
+
+    <script src="~/Assets/vendor/jquery/jquery.min.js"></script>
+    <script src="~/Assets/vendor/select2/js/select2.full.min.js"></script>
+    <script src="~/Assets/vendor/jquery-ui/jquery-ui.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            $("#ActionDate").datepicker();
+        });
+    </script>
+}

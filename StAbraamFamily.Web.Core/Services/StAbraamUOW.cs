@@ -22,6 +22,7 @@ namespace StAbraamFamily.Web.Core.Repositories
         private IEntityRepository<EvaluationLevel> EvaluationRepo;
         private IEntityRepository<MedicalService> MedicalServiceRep;
         private IMedicalContracts MedicalContractRepo;
+        private IEntityRepository<CovidReservation> CovidReservationsRepo;
         public StAbraamUOW(SaintAbraamEntities familyDB)
         {
             this.familyDB = familyDB;
@@ -114,6 +115,14 @@ namespace StAbraamFamily.Web.Core.Repositories
             get
             {
                 return MedicalServiceRep = MedicalServiceRep ?? new MedicalServicesRepo(familyDB);
+            }
+        }
+
+        public IEntityRepository<CovidReservation> HealthReservations
+        {
+            get
+            {
+                return CovidReservationsRepo = CovidReservationsRepo ?? new CovidReservationsRepos(familyDB);
             }
         }
 

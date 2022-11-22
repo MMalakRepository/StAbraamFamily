@@ -47,6 +47,9 @@
             {
                 @Html.AntiForgeryToken()
                 <div class="form-horizontal">
+                    <div class="row" style="font-size:18px;font-weight:bold;font-family:Calibri;">
+                        @Html.ValidationSummary(false, "", new { @class = "text-danger" })
+                    </div>
                     <div class="row">
                         <div class="col-md-6">
                             <div class="form-group">

@@ -1,7 +1,10 @@
 ﻿using StAbraamFamily.Web.Core.Repositories;
+using StAbraamFamily.Web.Entities.Domain;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Net;
+using System.Web;
 using System.Web.Mvc;
 
 namespace StAbraamFamily.Controllers
@@ -29,13 +32,26 @@ namespace StAbraamFamily.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+
         public ActionResult AddNewReservation(CovidReservation reservation)
         {
-            //var reservations = saintUnits.HealthReservations.Find(x => x.ReservationNumber == reservation.ReservationNumber && x.IsDeleted == false).FirstOrDefault();
+            string fullName = reservation.FirstName + " " + reservation.SecondName + " " + reservation.ThirdName + " " + reservation.FourthName;
+            var t = saintUnits.HealthReservations.Find(x => x.FullName == fullName && x.IsDeleted == false).ToList();
+            if (t != null && t.Count > 0)
+            {
+                ModelState.AddModelError("FullName", "تم أدخال هذا الأسم من قبل");
+                ViewBag.Message = "تم أدخال هذا الأسم من قبل";
+            }
+            t = saintUnits.HealthReservations.Find(x => x.MobileNumber == reservation.MobileNumber && x.IsDeleted == false).ToList();
+            if (t != null && t.Count > 0)
+            {
+                ModelState.AddModelError("MobileNumber", "تم أدخال رقم الهاتف من قبل");
+                ViewBag.Message = "تم أدخال رقم الهاتف من قبل";
+            }
 
             if (ModelState.IsValid)
             {
-                reservation.FullName = reservation.FirstName + " " + reservation.SecondName + " " + reservation.ThirdName + " " + reservation.FourthName;
+                reservation.FullName = fullName;
                 reservation.CreatedOn = DateTime.Now;
                 reservation.IsDeleted = false;
                 reservation.IsFinished = false;
