@@ -1,15 +1,11 @@
-﻿using System.Data;
-using System.Data.Entity;
-using System.Linq;
-using System.Threading.Tasks;
-using System.Net;
+﻿using System.Net;
 using System.Web.Mvc;
-using StAbraamFamily.Web.Entities.Domain;
 using StAbraamFamily.Web.Core.Repositories;
+using StAbraamFamily.Web.Entities.Domain;
 
 namespace StAbraamFamily.Controllers
 {
-    [Authorize(Roles ="Management,Health")]
+    [Authorize(Roles = "Management,Health")]
     public class MedicalServicesController : Controller
     {
         private readonly IUnitOfWork saintUints;
@@ -22,14 +18,14 @@ namespace StAbraamFamily.Controllers
         {
             return View(saintUints.MedicalServices.Find(x => x.IsActive == true));
         }
- 
-        public  ActionResult Details(int? id)
+
+        public ActionResult Details(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            MedicalService medicalService =  saintUints.MedicalServices.Get(id);
+            MedicalService medicalService = saintUints.MedicalServices.Get(id);
             if (medicalService == null)
             {
                 return HttpNotFound();
@@ -37,12 +33,11 @@ namespace StAbraamFamily.Controllers
             return View(medicalService);
         }
 
- 
         public ActionResult Create()
         {
             return View();
         }
- 
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create(MedicalService medicalService)
@@ -57,21 +52,21 @@ namespace StAbraamFamily.Controllers
 
             return View(medicalService);
         }
- 
+
         public ActionResult Edit(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            MedicalService medicalService =  saintUints.MedicalServices.Get(id);
+            MedicalService medicalService = saintUints.MedicalServices.Get(id);
             if (medicalService == null)
             {
                 return HttpNotFound();
             }
             return View(medicalService);
         }
- 
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit(MedicalService medicalService)
@@ -85,7 +80,6 @@ namespace StAbraamFamily.Controllers
             }
             return View(medicalService);
         }
-
 
         public ActionResult Delete(int? id)
         {

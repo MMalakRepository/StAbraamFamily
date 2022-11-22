@@ -1,0 +1,91 @@
+﻿@using StAbraamFamily.Web.Entities.Domain
+@model CovidReservation
+
+@{
+    ViewBag.Title = "Reservation Details";
+    Layout = "~/Views/Shared/_ReservationsLayout.cshtml";
+}
+
+<head>
+    <style>
+        .lblText {
+            float: right;
+            font-size: 14px;
+            font-weight: bold;
+            text-align: right;
+            font-family: Calibri
+        }
+
+        .btnText {
+            width: 100%;
+            font-size: 30px;
+            font-weight: bold;
+            text-align: center;
+            font-family: Calibri
+        }
+    </style>
+</head>
+
+<div class="col-lg-12" style="padding-top:100px;">
+    <section class="card card-featured card-primary ">
+        <header class="card-header">
+            <h2 class="card-title" style="text-align:center;font-size:25px;font-weight:bold;font-family:Calibri">بيانات حجز وزارة الصحة</h2>
+        </header>
+        <div class="card-body" style="direction :rtl">
+            @using (Html.BeginForm())
+            {
+                @Html.AntiForgeryToken()
+
+                <div class="form-horizontal">
+                    <div class="row">
+                        <label class="control-label col-md-12 lblText text-danger">   تم تسجيل البيانات بنجاح </label>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="control-label col-md-6 lblText"> رقم حجز وزارة الصحة</label>
+                                <div class="col-md-12">
+                                        @Html.DisplayFor(model => model.ReservationNumber, new { htmlAttributes = new { @class = "form-control" } })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="control-label col-md-6 lblText"> الأسم بالكامل</label>
+                                <div class="col-md-12">
+                                        @Html.DisplayFor(model => model.FullName, new { htmlAttributes = new { @class = "form-control" } })
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="control-label col-md-4 lblText">  رقم الموبايل </label>
+                                <div class="col-md-12">
+                                        @Html.DisplayFor(model => model.MobileNumber, new { htmlAttributes = new { @class = "form-control"} })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="control-label col-md-4 lblText"> الرقم القومى </label>
+                                <div class="col-md-12">
+                                        @Html.DisplayFor(model => model.NationalID, new { htmlAttributes = new { @class = "form-control"} })
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+        <footer class="card-footer">
+            <a class="btn btn-sm btn-primary btnText" href="@Url.Action("AddNewReservation","HealthReservations")">أضافة حجز أخر</a>
+        </footer>
+    </section>
+</div>
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
