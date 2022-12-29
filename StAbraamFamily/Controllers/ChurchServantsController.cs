@@ -68,15 +68,19 @@ namespace StAbraamFamily.Controllers
                     CreatedOn = DateTime.Now
                 };
                 servant.ServantServices = new List<ServantService>();
+                List<string> services = new List<string>();
                 foreach (var service in model.Services)
                 {
-
-                    servant.ServantServices.Add(new ServantService() { ChurchServiceID = Convert.ToInt32(service) });
+                    var t = Convert.ToInt32(service);
+                    var s = saintUnits.ChurchServices.Find(x => x.ID == t).FirstOrDefault().Name;
+                    services.Add(s);
+                    servant.ServantServices.Add(new ServantService() { ChurchServiceID = t });
                 }
 
                 saintUnits.ChurchServants.Add(servant);
                 saintUnits.Complete();
-                model.ServiceName = String.Join(",", model.Services);
+
+                model.ServiceName = String.Join(",", services.ToArray());
                 //model.ServiceName = saintUnits.ChurchServices.Find(x => x.ID == model.ServiceID).FirstOrDefault().Name;
                 return View("GetServantDetails", model);
             }
