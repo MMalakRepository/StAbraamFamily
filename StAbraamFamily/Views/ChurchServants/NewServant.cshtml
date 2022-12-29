@@ -1,0 +1,262 @@
+﻿@using StAbraamFamily.Models
+@model ServantModel
+
+@{
+    ViewBag.Title = "New Servant";
+    Layout = "~/Views/Shared/_ServantsLayout.cshtml";
+}
+
+<head>
+    <style>
+        .lblText {
+            float: right;
+            font-size: 14px;
+            font-weight: bold;
+            text-align: right;
+            font-family: Calibri
+        }
+
+        .btnText {
+            width: 100%;
+            font-size: 30px;
+            font-weight: bold;
+            text-align: center;
+            font-family: Calibri
+        }
+
+        .center {
+            /*margin: auto;*/
+            /*width: 100%;*/
+            padding-top: 100px;
+            padding-bottom: 100px;
+        }
+    </style>
+</head>
+
+<div class="col-lg-12 center">
+    <section class="card card-info ">
+        <header class="card-header">
+            <h2 class="card-title" style="text-align:center;font-size:25px;font-weight:bold;font-family:Calibri">بيانات خدام الكنيسة</h2>
+        </header>
+        <div class="card-body" style="direction :rtl">
+            @using (Html.BeginForm())
+            {
+                @Html.AntiForgeryToken()
+            <div class="form-horizontal">
+                <div class="row mt-2">
+                    <div class="col-md-6 col-sm-12 col-xs-12">
+                        <div class="form-group">
+                            <label class="control-label lblText"> الأسم </label>
+
+                            <div class="input-group">
+                                <span class="input-group-prepend">
+                                    <span class="input-group-text">
+                                        <i class="fas fa-user-check text-info bg-white"></i>
+                                    </span>
+                                </span>
+                                @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control", tabindex = 1 } })
+                            </div>
+                            @Html.ValidationMessageFor(model => model.Name, "", new { @class = "lblText text-danger text-right" })
+
+                        </div>
+                    </div>
+                    <div class="col-md-6  col-sm-12 col-xs-12" style="width:100%;text-align:right">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <label class="control-label lblText"> الخدمة </label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12 float-left">
+                                @Html.DropDownListFor(x => x.Services,
+                               (IEnumerable<SelectListItem>)ViewBag.Services, "أختر الخدمة",
+                               new { @class = "form-control select2", tabindex = 2, @multiple = "multiple" })
+                                @Html.ValidationMessageFor(model => model.Services, "",
+                               new { @class = "lblText text-danger" })
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="row mt-2">
+                    <div class="col-md-6  col-sm-12 col-xs-12">
+                        <div class="form-group">
+                            <label class="control-label lblText">  رقم الموبايل </label>
+                            <div class="input-group">
+                                <span class="input-group-prepend">
+                                    <span class="input-group-text">
+                                        <i class="fas fa-mobile text-info bg-white"></i>
+                                    </span>
+                                </span>
+                                @Html.EditorFor(model => model.PhoneNumber, new { htmlAttributes = new { @class = "form-control", tabindex = 3 } })
+                            </div>
+                            @Html.ValidationMessageFor(model => model.PhoneNumber, "", new { @class = " lblText text-danger" })
+                        </div>
+                    </div>
+                    <div class="col-md-6  col-sm-12 col-xs-12">
+                        <div class="form-group">
+                            <label class="control-label lblText"> البريد الألكترونى</label>
+                            <div class="input-group">
+                                <span class="input-group-prepend">
+                                    <span class="input-group-text">
+                                        <i class="fas fa-envelope text-info bg-white"></i>
+                                    </span>
+                                </span>
+                                @Html.EditorFor(model => model.EmailAddress, new { htmlAttributes = new { @class = "form-control", tabindex = 4 } })
+                            </div>
+                            @Html.ValidationMessageFor(model => model.EmailAddress, "", new { @class = "lblText text-danger" })
+                        </div>
+                    </div>
+                </div>
+                <div class="row mt-2">
+                    <div class="col-md-6  col-sm-12 col-xs-12">
+                        <div class="form-group">
+                            <label class="control-label lblText">الوظيفة </label>
+                            <div class="input-group">
+                                <span class="input-group-prepend">
+                                    <span class="input-group-text">
+                                        <i class="fas fa-cogs text-info bg-white"></i>
+                                    </span>
+                                </span>
+                                @Html.EditorFor(model => model.Job, new { htmlAttributes = new { @class = "form-control", tabindex = 5 } })
+                            </div>
+                            @Html.ValidationMessageFor(model => model.Job, "", new { @class = "lblText text-danger" })
+                        </div>
+                    </div>
+                    <div class="col-md-6  col-sm-12 col-xs-12">
+                        <div class="form-group">
+                            <label class="control-label lblText">الدراسة </label>
+                            <div class="input-group">
+                                <span class="input-group-prepend">
+                                    <span class="input-group-text">
+                                        <i class="fas fa-book-open text-info bg-white"></i>
+                                    </span>
+                                </span>
+                                @Html.EditorFor(model => model.Studying, new { htmlAttributes = new { @class = "form-control", tabindex = 6 } })
+
+                            </div>
+                            @Html.ValidationMessageFor(model => model.Studying, "", new { @class = "lblText text-danger" })
+                        </div>
+                    </div>
+                </div>
+                <div class="row mt-2">
+                    <div class="col-md-6  col-sm-12 col-xs-12">
+                        <div class="form-group">
+                            <label class="control-label lblText"> أب الأعتراف</label>
+                            <div class="input-group">
+                                <span class="input-group-prepend">
+                                    <span class="input-group-text">
+                                        <i class="fas fa-user-alt text-info bg-white"></i>
+                                    </span>
+                                </span>
+                                @Html.EditorFor(model => model.ConfessionFR, new { htmlAttributes = new { @class = "form-control", tabindex = 7 } })
+                            </div>
+                            @Html.ValidationMessageFor(model => model.ConfessionFR, "", new { @class = "lblText text-danger" })
+                        </div>
+                    </div>
+                    <div class="col-md-6  col-sm-12 col-xs-12">
+                        <div class="form-group">
+                            <label class="control-label lblText">رقم أب الأعتراف</label>
+                            <div class="input-group">
+                                <span class="input-group-prepend">
+                                    <span class="input-group-text">
+                                        <i class="fas fa-mobile-alt text-info bg-white"></i>
+                                    </span>
+                                </span>
+                                @Html.EditorFor(model => model.ConfessionFRNumber, new { htmlAttributes = new { @class = "form-control", tabindex = 8 } })
+                            </div>
+                            @Html.ValidationMessageFor(model => model.ConfessionFRNumber, "", new { @class = "lblText text-danger" })
+                        </div>
+                    </div>
+                </div>
+                <div class="row mt-2 ">
+                    <div class="col-md-6 col-sm-12 col-xs-12">
+                        <div class="form-group">
+                            <label class="control-label lblText"> كنيسة أب الأعتراف</label>
+                            <div class="input-group">
+                                <span class="input-group-prepend">
+                                    <span class="input-group-text">
+                                        <i class="fas fa-church text-info bg-white"></i>
+                                    </span>
+                                </span>
+                                @Html.EditorFor(model => model.ConfessionFRChurch, new { htmlAttributes = new { @class = "form-control", tabindex = 9 } })
+                            </div>
+                            @Html.ValidationMessageFor(model => model.ConfessionFRChurch, "", new { @class = "lblText text-danger" })
+                        </div>
+                    </div>
+                    <div class="col-md-6  col-sm-12 col-xs-12">
+                        <div class="form-group">
+                            <label class="control-label lblText">الخدمات السابقة</label>
+                            <div class="input-group">
+                                <span class="input-group-prepend">
+                                    <span class="input-group-text">
+                                        <i class="fas fa-cog text-info bg-white"></i>
+                                    </span>
+                                </span>
+                                @Html.EditorFor(model => model.PreviousServices, new { htmlAttributes = new { @class = "form-control", tabindex = 10 } })
+                            </div>
+                            @Html.ValidationMessageFor(model => model.PreviousServices, "", new { @class = "lblText text-danger" })
+                        </div>
+                    </div>
+
+                </div>
+                <div class="row mt-2">
+                    <div class="col-md-6 col-sm-12 col-xs-12">
+                        <div class="form-group">
+                            <label class="control-label lblText">دارسات متخصصة فى الخدمة</label>
+                            <div class="input-group">
+                                <span class="input-group-prepend">
+                                    <span class="input-group-text">
+                                        <i class="fas fa-university text-info bg-white"></i>
+                                    </span>
+                                </span>
+                                @Html.EditorFor(model => model.SpecialStudies, new { htmlAttributes = new { @class = "form-control", tabindex = 11 } })
+                            </div>
+                            @Html.ValidationMessageFor(model => model.SpecialStudies, "", new { @class = "lblText text-danger" })
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-sm-12 col-xs-12">
+                        <div class="form-group">
+                            <label class="control-label lblText">القراءات الروحية</label>
+                            <div class="input-group">
+                                <span class="input-group-prepend">
+                                    <span class="input-group-text">
+                                        <i class="fas fa-book-reader text-info bg-white"></i>
+                                    </span>
+                                </span>
+                                @Html.EditorFor(model => model.Readings, new { htmlAttributes = new { @class = "form-control", tabindex = 12 } })
+                            </div>
+                            @Html.ValidationMessageFor(model => model.Readings, "", new { @class = "lblText text-danger" })
+                        </div>
+                    </div>
+                </div>
+                <div class="row mt-4">
+                    <div class="col-md-3 col-sm-12 col-xs-12"></div>
+                    <div class="col-md-6 col-sm-12 col-xs-12">
+                        <div class="form-group">
+                            <div class="col-md-offset-2 col-md-12">
+                                <input type="submit" value="أضافة البيانات" style="text-align:center;font-size:20px;font-weight:bold;font-family:Calibri" class="btn btn-sm btn-info btnText" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-sm-12 col-xs-12"></div>
+                </div>
+            </div>
+            }
+        </div>
+
+    </section>
+</div>
+
+@section Scripts {
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $(".select2").select2(
+                {
+                    theme: 'bootstrap4',
+                    width: $(this).data('width') ? $(this).data('width') : $(this).hasClass('w-100') ? '100%' : 'style'
+                });
+        });
+    </script>
+    @Scripts.Render("~/bundles/jqueryval")
+}

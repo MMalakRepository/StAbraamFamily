@@ -22,6 +22,8 @@ namespace StAbraamFamily.Web.Core.Repositories
         IEntityRepository<MedicalService> MedicalServices { get; }
         IMedicalContracts MedicalContracts { get; }
         IEntityRepository<CovidReservation> HealthReservations { get; }
+        IEntityRepository<ChurchServant> ChurchServants { get; }
+        IEntityRepository<ChurchService> ChurchServices { get; }
         int Complete();
     }
 }

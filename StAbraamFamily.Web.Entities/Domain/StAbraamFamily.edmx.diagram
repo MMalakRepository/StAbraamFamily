@@ -54,6 +54,11 @@
         <AssociationConnector Association="StAbraamFamilyData.FK_ServiceActions_ServiceTypes" ManuallyRouted="false" />
         <AssociationConnector Association="StAbraamFamilyData.AspNetUserRoles" ManuallyRouted="false" />
         <EntityTypeShape EntityType="StAbraamFamilyData.CovidReservation" Width="1.5" PointX="13.375" PointY="0.75" />
+        <EntityTypeShape EntityType="StAbraamFamilyData.ChurchServant" Width="1.5" PointX="5.375" PointY="0.75" />
+        <EntityTypeShape EntityType="StAbraamFamilyData.ChurchService" Width="1.5" PointX="5.375" PointY="7.75" />
+        <EntityTypeShape EntityType="StAbraamFamilyData.ServantService" Width="1.5" PointX="13.625" PointY="5.5" />
+        <AssociationConnector Association="StAbraamFamilyData.FK_ServantServices_ChurchServants" />
+        <AssociationConnector Association="StAbraamFamilyData.FK_ServantServices_ChurchServices" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

@@ -84,6 +84,38 @@
           <Property Name="ServantID" Type="int" />
           <Property Name="Gender" Type="bit" />
         </EntityType>
+        <EntityType Name="ChurchServants">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="500" Nullable="false" />
+          <Property Name="PhoneNumber" Type="nvarchar" MaxLength="50" />
+          <Property Name="EmailAddress" Type="nvarchar" MaxLength="50" />
+          <Property Name="ConfessionFR" Type="nvarchar" MaxLength="50" />
+          <Property Name="ConfessionFRNumber" Type="nvarchar" MaxLength="50" />
+          <Property Name="ConfessionFRChurch" Type="nvarchar" MaxLength="500" />
+          <Property Name="SpecialStudies" Type="nvarchar(max)" />
+          <Property Name="Job" Type="nvarchar" MaxLength="50" />
+          <Property Name="Studying" Type="nvarchar" MaxLength="200" />
+          <Property Name="PreviousServices" Type="nvarchar(max)" />
+          <Property Name="Readings" Type="nvarchar(max)" />
+          <Property Name="IsActive" Type="bit" />
+          <Property Name="CreatedOn" Type="datetime" />
+          <Property Name="UpdatedOn" Type="datetime" />
+        </EntityType>
+        <EntityType Name="ChurchServices">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="500" Nullable="false" />
+          <Property Name="CreatedBy" Type="nvarchar" MaxLength="128" />
+          <Property Name="CreatedOn" Type="datetime" />
+          <Property Name="UpdatedBy" Type="nvarchar" MaxLength="128" />
+          <Property Name="UpdatedOn" Type="datetime" />
+          <Property Name="IsActive" Type="bit" />
+        </EntityType>
         <EntityType Name="Clinics">
           <Key>
             <PropertyRef Name="ID" />
@@ -238,6 +270,14 @@
           <Property Name="EmailAddress" Type="nvarchar" MaxLength="50" />
           <Property Name="DateOfBirth" Type="datetime" />
           <Property Name="IsActive" Type="bit" />
+        </EntityType>
+        <EntityType Name="ServantServices">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ChurchServiceID" Type="int" Nullable="false" />
+          <Property Name="ChurchServantID" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="ServiceActions">
           <Key>
@@ -541,6 +581,30 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_ServantServices_ChurchServants">
+          <End Role="ChurchServants" Type="Self.ChurchServants" Multiplicity="1" />
+          <End Role="ServantServices" Type="Self.ServantServices" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ChurchServants">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="ServantServices">
+              <PropertyRef Name="ChurchServantID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ServantServices_ChurchServices">
+          <End Role="ChurchServices" Type="Self.ChurchServices" Multiplicity="1" />
+          <End Role="ServantServices" Type="Self.ServantServices" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ChurchServices">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="ServantServices">
+              <PropertyRef Name="ChurchServiceID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_ServiceActions_AspNetUsers">
           <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="0..1" />
           <End Role="ServiceActions" Type="Self.ServiceActions" Multiplicity="*" />
@@ -645,6 +709,8 @@
           <EntitySet Name="AspNetUserRoles" EntityType="Self.AspNetUserRoles" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AspNetUsers" EntityType="Self.AspNetUsers" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Child" EntityType="Self.Child" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ChurchServants" EntityType="Self.ChurchServants" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ChurchServices" EntityType="Self.ChurchServices" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Clinics" EntityType="Self.Clinics" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CovidReservation" EntityType="Self.CovidReservation" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="EvaluationLevels" EntityType="Self.EvaluationLevels" Schema="dbo" store:Type="Tables" />
@@ -657,6 +723,7 @@
           <EntitySet Name="MedicalServices" EntityType="Self.MedicalServices" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Person" EntityType="Self.Person" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Servants" EntityType="Self.Servants" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ServantServices" EntityType="Self.ServantServices" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ServiceActions" EntityType="Self.ServiceActions" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ServiceTypes" EntityType="Self.ServiceTypes" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
@@ -743,6 +810,14 @@
           <AssociationSet Name="FK_Person_Servants" Association="Self.FK_Person_Servants">
             <End Role="Servants" EntitySet="Servants" />
             <End Role="Person" EntitySet="Person" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ServantServices_ChurchServants" Association="Self.FK_ServantServices_ChurchServants">
+            <End Role="ChurchServants" EntitySet="ChurchServants" />
+            <End Role="ServantServices" EntitySet="ServantServices" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ServantServices_ChurchServices" Association="Self.FK_ServantServices_ChurchServices">
+            <End Role="ChurchServices" EntitySet="ChurchServices" />
+            <End Role="ServantServices" EntitySet="ServantServices" />
           </AssociationSet>
           <AssociationSet Name="FK_ServiceActions_AspNetUsers" Association="Self.FK_ServiceActions_AspNetUsers">
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
@@ -1551,6 +1626,17 @@
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
           </AssociationSet>
           <EntitySet Name="CovidReservations" EntityType="StAbraamFamilyData.CovidReservation" />
+          <EntitySet Name="ChurchServants" EntityType="StAbraamFamilyData.ChurchServant" />
+          <EntitySet Name="ChurchServices" EntityType="StAbraamFamilyData.ChurchService" />
+          <EntitySet Name="ServantServices" EntityType="StAbraamFamilyData.ServantService" />
+          <AssociationSet Name="FK_ServantServices_ChurchServants" Association="StAbraamFamilyData.FK_ServantServices_ChurchServants">
+            <End Role="ChurchServant" EntitySet="ChurchServants" />
+            <End Role="ServantService" EntitySet="ServantServices" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ServantServices_ChurchServices" Association="StAbraamFamilyData.FK_ServantServices_ChurchServices">
+            <End Role="ChurchService" EntitySet="ChurchServices" />
+            <End Role="ServantService" EntitySet="ServantServices" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="CovidReservation">
           <Key>
@@ -1572,6 +1658,74 @@
           <Property Name="UpdatedBy" Type="String" MaxLength="125" FixedLength="false" Unicode="true" />
           <Property Name="MobileNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
         </EntityType>
+        <EntityType Name="ChurchServant">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="PhoneNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="EmailAddress" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ConfessionFR" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ConfessionFRNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ConfessionFRChurch" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="SpecialStudies" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Job" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Studying" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="PreviousServices" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Readings" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="IsActive" Type="Boolean" />
+          <Property Name="CreatedOn" Type="DateTime" Precision="3" />
+          <Property Name="UpdatedOn" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="ServantServices" Relationship="StAbraamFamilyData.FK_ServantServices_ChurchServants" FromRole="ChurchServant" ToRole="ServantService" />
+        </EntityType>
+        <EntityType Name="ChurchService">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedBy" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedOn" Type="DateTime" Precision="3" />
+          <Property Name="UpdatedBy" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="UpdatedOn" Type="DateTime" Precision="3" />
+          <Property Name="IsActive" Type="Boolean" />
+          <NavigationProperty Name="ServantServices" Relationship="StAbraamFamilyData.FK_ServantServices_ChurchServices" FromRole="ChurchService" ToRole="ServantService" />
+        </EntityType>
+        <EntityType Name="ServantService">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="ChurchServiceID" Type="Int32" Nullable="false" />
+          <Property Name="ChurchServantID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="ChurchServant" Relationship="StAbraamFamilyData.FK_ServantServices_ChurchServants" FromRole="ServantService" ToRole="ChurchServant" />
+          <NavigationProperty Name="ChurchService" Relationship="StAbraamFamilyData.FK_ServantServices_ChurchServices" FromRole="ServantService" ToRole="ChurchService" />
+        </EntityType>
+        <Association Name="FK_ServantServices_ChurchServants">
+          <End Type="StAbraamFamilyData.ChurchServant" Role="ChurchServant" Multiplicity="1" />
+          <End Type="StAbraamFamilyData.ServantService" Role="ServantService" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ChurchServant">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="ServantService">
+              <PropertyRef Name="ChurchServantID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ServantServices_ChurchServices">
+          <End Type="StAbraamFamilyData.ChurchService" Role="ChurchService" Multiplicity="1" />
+          <End Type="StAbraamFamilyData.ServantService" Role="ServantService" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ChurchService">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="ServantService">
+              <PropertyRef Name="ChurchServiceID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1869,6 +2023,49 @@
                 <ScalarProperty Name="SecondName" ColumnName="SecondName" />
                 <ScalarProperty Name="FirstName" ColumnName="FirstName" />
                 <ScalarProperty Name="ReservationID" ColumnName="ReservationID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ChurchServants">
+            <EntityTypeMapping TypeName="StAbraamFamilyData.ChurchServant">
+              <MappingFragment StoreEntitySet="ChurchServants">
+                <ScalarProperty Name="UpdatedOn" ColumnName="UpdatedOn" />
+                <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="Readings" ColumnName="Readings" />
+                <ScalarProperty Name="PreviousServices" ColumnName="PreviousServices" />
+                <ScalarProperty Name="Studying" ColumnName="Studying" />
+                <ScalarProperty Name="Job" ColumnName="Job" />
+                <ScalarProperty Name="SpecialStudies" ColumnName="SpecialStudies" />
+                <ScalarProperty Name="ConfessionFRChurch" ColumnName="ConfessionFRChurch" />
+                <ScalarProperty Name="ConfessionFRNumber" ColumnName="ConfessionFRNumber" />
+                <ScalarProperty Name="ConfessionFR" ColumnName="ConfessionFR" />
+                <ScalarProperty Name="EmailAddress" ColumnName="EmailAddress" />
+                <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ChurchServices">
+            <EntityTypeMapping TypeName="StAbraamFamilyData.ChurchService">
+              <MappingFragment StoreEntitySet="ChurchServices">
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="UpdatedOn" ColumnName="UpdatedOn" />
+                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+                <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ServantServices">
+            <EntityTypeMapping TypeName="StAbraamFamilyData.ServantService">
+              <MappingFragment StoreEntitySet="ServantServices">
+                <ScalarProperty Name="ChurchServantID" ColumnName="ChurchServantID" />
+                <ScalarProperty Name="ChurchServiceID" ColumnName="ChurchServiceID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

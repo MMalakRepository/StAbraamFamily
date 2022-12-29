@@ -1,0 +1,167 @@
+﻿@using StAbraamFamily.Models
+@model ServantModel
+
+@{
+    ViewBag.Title = "New Servant Details";
+    Layout = "~/Views/Shared/_ServantsLayout.cshtml";
+}
+
+<head>
+    <style>
+        .lblText {
+            float: right;
+            font-size: 14px;
+            font-weight: bold;
+            text-align: right;
+            font-family: Calibri
+        }
+
+        .btnText {
+            width: 100%;
+            font-size: 30px;
+            font-weight: bold;
+            text-align: center;
+            font-family: Calibri
+        }
+
+        .center {
+            margin: auto;
+            width: 90%;
+            padding: 100px;
+        }
+    </style>
+</head>
+
+<div class="col-lg-12 center">
+    <section class="card card-info ">
+        <header class="card-header">
+            <h2 class="card-title" style="text-align:center;font-size:25px;font-weight:bold;font-family:Calibri">تم التسجيل بنجاح</h2>
+        </header>
+        <div class="card-body" style="direction :rtl">
+            @using (Html.BeginForm())
+            {
+                @Html.AntiForgeryToken()
+                <div class="form-horizontal">
+                    <div class="row mt-2">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="control-label col-md-4 lblText"> الأسم </label>
+                                <div class="col-md-12">
+                                    @Html.DisplayFor(model => model.Name, new { htmlAttributes = new { @class = "form-control", tabindex = 2 } })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="control-label col-md-4 lblText">الخدمة </label>
+                                <div class="col-md-12">
+                                    @Html.DisplayFor(model => model.ServiceName, new { htmlAttributes = new { @class = "form-control", tabindex = 6 } })
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row mt-2">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="control-label col-md-4 lblText">  رقم الموبايل </label>
+                                <div class="col-md-12">
+                                    @Html.DisplayFor(model => model.PhoneNumber, new { htmlAttributes = new { @class = "form-control", tabindex = 6 } })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="control-label col-md-4 lblText"> البريد الألكترونى</label>
+                                <div class="col-md-12">
+                                    @Html.DisplayFor(model => model.EmailAddress, new { htmlAttributes = new { @class = "form-control", tabindex = 3 } })
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row mt-2">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="control-label col-md-4 lblText">الوظيفة </label>
+                                <div class="col-md-12">
+                                    @Html.DisplayFor(model => model.Job, new { htmlAttributes = new { @class = "form-control", tabindex = 8 } })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="control-label col-md-4 lblText">الدراسة </label>
+                                <div class="col-md-12">
+                                    @Html.DisplayFor(model => model.Studying, new { htmlAttributes = new { @class = "form-control", tabindex = 9 } })
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row mt-2">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="control-label col-md-4 lblText"> أب الأعتراف</label>
+                                <div class="col-md-12">
+                                    @Html.DisplayFor(model => model.ConfessionFR, new { htmlAttributes = new { @class = "form-control", tabindex = 4 } })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="control-label col-md-4 lblText">رقم أب الأعتراف</label>
+                                <div class="col-md-12">
+                                    @Html.DisplayFor(model => model.ConfessionFRNumber, new { htmlAttributes = new { @class = "form-control", tabindex = 5 } })
+                                    v
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="row mt-2">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="control-label col-md-4 lblText"> كنيسة أب الأعتراف</label>
+                                <div class="col-md-12">
+                                    @Html.DisplayFor(model => model.ConfessionFRChurch, new { htmlAttributes = new { @class = "form-control", tabindex = 6 } })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="control-label col-md-4 lblText">الخدمات السابقة</label>
+                                <div class="col-md-12">
+                                    @Html.DisplayFor(model => model.PreviousServices, new { htmlAttributes = new { @class = "form-control", tabindex = 10 } })
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="row mt-2">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="control-label col-md-8 lblText">دارسات متخصصة فى الخدمة</label>
+                                <div class="col-md-12">
+                                    @Html.DisplayFor(model => model.SpecialStudies, new { htmlAttributes = new { @class = "form-control", tabindex = 11 } })
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="control-label col-md-4 lblText">القراءات الروحية</label>
+                                <div class="col-md-12">
+                                    @Html.DisplayFor(model => model.Readings, new { htmlAttributes = new { @class = "form-control", tabindex = 12 } })
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+
+    </section>
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

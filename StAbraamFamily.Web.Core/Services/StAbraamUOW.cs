@@ -10,11 +10,11 @@ namespace StAbraamFamily.Web.Core.Repositories
         private readonly SaintAbraamEntities familyDB;
         private IEntityRepository<Clinic> ClinicRepos;
         private IEntityRepository<Father> FathersRepos;
-        private IEntityRepository<Family> FamilyRepos; 
+        private IEntityRepository<Family> FamilyRepos;
         private IEntityRepository<ServiceType> ServiceTypeRepos;
         private IEntityRepository<Hospital> HospitalRepos;
-        private IServiceAction ServiceRepos; 
-        private IChildrenData ChildRepos; 
+        private IServiceAction ServiceRepos;
+        private IChildrenData ChildRepos;
         private IEntityRepository<FamilyServant> FSRepos;
         private IEntityRepository<FamilyVisit> VisitsRepos;
         private IEntityRepository<Servant> ServantRepos;
@@ -23,13 +23,16 @@ namespace StAbraamFamily.Web.Core.Repositories
         private IEntityRepository<MedicalService> MedicalServiceRep;
         private IMedicalContracts MedicalContractRepo;
         private IEntityRepository<CovidReservation> CovidReservationsRepo;
+        private IEntityRepository<ChurchService> ChurchServicesRepo;
+        private IEntityRepository<ChurchServant> ChurchServantsRepo;
         public StAbraamUOW(SaintAbraamEntities familyDB)
         {
             this.familyDB = familyDB;
         }
         public IEntityRepository<Clinic> Clinics
         {
-            get{
+            get
+            {
                 return ClinicRepos = ClinicRepos ?? new ClinicsRepos(familyDB);
             }
         }
@@ -131,6 +134,22 @@ namespace StAbraamFamily.Web.Core.Repositories
             get
             {
                 return MedicalContractRepo = MedicalContractRepo ?? new MedicalContractRepo(familyDB);
+            }
+        }
+
+        public IEntityRepository<ChurchServant> ChurchServants
+        {
+            get
+            {
+                return ChurchServantsRepo = ChurchServantsRepo ?? new ChurchServantRepos(familyDB);
+            }
+        }
+
+        public IEntityRepository<ChurchService> ChurchServices
+        {
+            get
+            {
+                return ChurchServicesRepo = ChurchServicesRepo ?? new ChurchServiceRepos(familyDB);
             }
         }
         public int Complete()

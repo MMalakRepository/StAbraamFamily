@@ -46,5 +46,8 @@ namespace StAbraamFamily.Web.Entities.Domain
         public virtual DbSet<ServiceType> ServiceTypes { get; set; }
         public virtual DbSet<sysdiagram> sysdiagrams { get; set; }
         public virtual DbSet<CovidReservation> CovidReservations { get; set; }
+        public virtual DbSet<ChurchServant> ChurchServants { get; set; }
+        public virtual DbSet<ChurchService> ChurchServices { get; set; }
+        public virtual DbSet<ServantService> ServantServices { get; set; }
     }
 }

@@ -187,6 +187,7 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\ChildrenController.cs" />
+    <Compile Include="Controllers\ChurchServantsController.cs" />
     <Compile Include="Controllers\ClinicsController.cs" />
     <Compile Include="Controllers\HealthReservationsController.cs" />
     <Compile Include="Controllers\EvaluationLevelsController.cs" />
@@ -209,6 +210,7 @@
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\ServantModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
@@ -3593,6 +3595,10 @@
     <Content Include="Views\HealthReservations\ListOfReservations.cshtml" />
     <Content Include="Views\HealthReservations\EditReservation.cshtml" />
     <Content Include="Views\HealthReservations\GetReservationDetails.cshtml" />
+    <Content Include="Views\Shared\_ReservationsLayout - Copy.cshtml" />
+    <Content Include="Views\Shared\_ServantsLayout.cshtml" />
+    <Content Include="Views\ChurchServants\NewServant.cshtml" />
+    <Content Include="Views\ChurchServants\GetServantDetails.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -60,6 +60,8 @@
     <Compile Include="obj\Debug\.NETFramework,Version=v4.7.2.AssemblyAttributes.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\ChildrenRepos.cs" />
+    <Compile Include="Repositories\ChurchServantRepos.cs" />
+    <Compile Include="Repositories\ChurchServiceRepos.cs" />
     <Compile Include="Repositories\ClinicsRepos.cs" />
     <Compile Include="Repositories\CovidReservationsRepos.cs" />
     <Compile Include="Repositories\FamilyRepository.cs" />
