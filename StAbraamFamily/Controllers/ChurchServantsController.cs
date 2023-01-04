@@ -4,6 +4,7 @@ using StAbraamFamily.Web.Core.Repositories;
 using StAbraamFamily.Web.Entities.Domain;
 using System;
 using System.Collections.Generic;
+using System.Data.SqlTypes;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -72,11 +73,13 @@ namespace StAbraamFamily.Controllers
                 {
                     var ServantServices = new List<ServantService>();
                     List<string> services = new List<string>();
+
                     foreach (var service in model.Services)
                     {
                         var t = Convert.ToInt32(service);
-                        var s = saintUnits.ChurchServices.Find(x => x.ID == t).FirstOrDefault().Name;
-                        services.Add(s);
+                        var s = saintUnits.ChurchServices.Find(x => x.ID == t).FirstOrDefault();
+                        if (s != null)
+                            services.Add(s.Name);
                     }
                     model.ServiceName = String.Join(",", existing.ServantServices.Select(x => x.ChurchService.Name).ToList().ToArray());
                     return View("GetServantDetails", model);
@@ -104,8 +107,9 @@ namespace StAbraamFamily.Controllers
                     foreach (var service in model.Services)
                     {
                         var t = Convert.ToInt32(service);
-                        var s = saintUnits.ChurchServices.Find(x => x.ID == t).FirstOrDefault().Name;
-                        services.Add(s);
+                        var s = saintUnits.ChurchServices.Find(x => x.ID == t).FirstOrDefault();
+                        if (s != null)
+                            services.Add(s.Name);
                         servant.ServantServices.Add(new ServantService() { ChurchServiceID = t });
                     }
 
