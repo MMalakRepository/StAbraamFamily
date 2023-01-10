@@ -132,10 +132,11 @@ namespace StAbraamFamily.Controllers
         }
 
         [HttpGet]
-        [Route("ServantsReport")]
-        public ActionResult ServantsList()
+        [Route("ServantsReport/{ID}")]
+        public ActionResult ServantsList(int ID)
         {
-            var servants = saintUnits.ChurchServants.GetAll();
+            var servants = saintUnits.ChurchServants.GetServantsByServiceID(ID);
+
             List<ServantModel> servantModels = new List<ServantModel>();
             foreach (var servant in servants)
             {

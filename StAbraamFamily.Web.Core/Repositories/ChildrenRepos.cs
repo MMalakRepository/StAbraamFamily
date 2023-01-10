@@ -7,7 +7,7 @@ using System.Linq;
 
 namespace StAbraamFamily.Web.Core.Repositories
 {
-    public class ChildrenRepos : GenericRepository<Child>,IChildrenData
+    public class ChildrenRepos : GenericRepository<Child>, IChildrenData
     {
         public ChildrenRepos(SaintAbraamEntities context) : base(context)
         {

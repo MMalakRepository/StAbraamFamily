@@ -24,7 +24,7 @@ namespace StAbraamFamily.Web.Core.Repositories
         private IMedicalContracts MedicalContractRepo;
         private IEntityRepository<CovidReservation> CovidReservationsRepo;
         private IEntityRepository<ChurchService> ChurchServicesRepo;
-        private IEntityRepository<ChurchServant> ChurchServantsRepo;
+        private IChurchServant ChurchServantsRepo;
         public StAbraamUOW(SaintAbraamEntities familyDB)
         {
             this.familyDB = familyDB;
@@ -137,11 +137,11 @@ namespace StAbraamFamily.Web.Core.Repositories
             }
         }
 
-        public IEntityRepository<ChurchServant> ChurchServants
+        public IChurchServant ChurchServants
         {
             get
             {
-                return ChurchServantsRepo = ChurchServantsRepo ?? new ChurchServantRepos(familyDB);
+                return ChurchServantsRepo = ChurchServantsRepo ?? new ChurchServantsRepo(familyDB);
             }
         }
 
