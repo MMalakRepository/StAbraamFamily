@@ -3602,6 +3602,7 @@
     <Content Include="Views\Shared\_ServantsLayout.cshtml" />
     <Content Include="Views\ChurchServants\NewServant.cshtml" />
     <Content Include="Views\ChurchServants\GetServantDetails.cshtml" />
+    <Content Include="Views\ChurchServants\ServantsList.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

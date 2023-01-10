@@ -1,0 +1,145 @@
+﻿@using StAbraamFamily.Models
+@model IEnumerable<ServantModel>
+
+@{
+    ViewBag.Title = "تقرير الخدام العام";
+    Layout = "~/Views/Shared/_FamilyLayout.cshtml";
+}
+<style>
+    td {
+        text-align: right;
+    }
+    .header {
+        float: right;
+        font-size: 14px;
+        font-weight: bold;
+        text-align: right;
+        font-family: Calibri;
+        width : max-content;
+    }
+</style>
+
+<header class="page-header" style="background-color: #0088cc;border-left-color: #0088cc">
+    <h2 class="text-white" style=" border-bottom-color: #ffc107 !important;">@ViewBag.Title</h2>
+</header>
+
+<div class="col-lg-12">
+    <section class="card card-featured card-featured-primary mb-4 card-featured-bottom">
+        <header class="card-header">
+            <h2 class="card-title header" style="font-size:25px;"> تقرير الخدام  </h2>
+        </header>
+        <div class="card-body">
+            <div class="container p-0" style="max-width:90%">
+                <table class="table table-hover table-sm table-responsive-md" id="tblServants" dir="rtl">
+                    <thead class="bg-primary text-white text-center">
+                        <tr>
+                           
+                            <th><label class="control-label header"></label>الأسم</th>
+                            <th><label class="control-label header"></label>التليفون</th>
+                            <th><label class="control-label header"></label>الوظيفة</th>
+                            <th><label class="control-label header"></label>أب الأعتراف</th>
+                            <th><label class="control-label header"></label>كنيسة أب الأعتراف</th>
+                            <th><label class="control-label header"></label>رقم أب الاعتراف</th>
+                            <th><label class="control-label header"></label>Email Address</th>
+                            <th><label class="control-label header"></label>الخدمات السابقة</th>
+                            <th><label class="control-label header"></label>القراءات الروحية</th>
+                            <th><label class="control-label header"></label>دراسات خاصة بالخدمة</th>
+                            <th><label class="control-label header"></label>الدراسة</th>
+                            <th><label class="control-label header"></label>الخدمات المشارك بها</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>@Html.DisplayFor(modelItem => item.Name)</td>
+                                <td>@Html.DisplayFor(modelItem => item.PhoneNumber)</td>
+                                <td>@Html.DisplayFor(modelItem => item.Job)</td>
+                                <td>@Html.DisplayFor(modelItem => item.ConfessionFR)</td>
+                                <td>@Html.DisplayFor(modelItem => item.ConfessionFRChurch)</td>
+                                <td>@Html.DisplayFor(modelItem => item.ConfessionFRNumber)</td>
+                                <td>@Html.DisplayFor(modelItem => item.EmailAddress)</td>
+                                <td>@Html.DisplayFor(modelItem => item.PreviousServices)</td> 
+                                <td>@Html.DisplayFor(modelItem => item.Readings)</td>  
+                                <td>@Html.DisplayFor(modelItem => item.SpecialStudies)</td> 
+                                <td>@Html.DisplayFor(modelItem => item.Studying)</td>
+                                <td>@Html.DisplayFor(modelItem => item.ServiceName)</td>
+                            </tr>
+                        }
+                    </tbody>
+
+                </table>
+            </div>
+        </div>
+    </section>
+</div>
+
+@section Scripts {
+    <script src="https://code.jquery.com/jquery-3.5.1.js" type="text/javascript"></script>
+    <script src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.min.js" type="text/javascript"></script>
+    <script src="~/Assets/vendor/datatables/Buttons-1.6.5/js/dataTables.buttons.js"></script>
+    <script src="~/Assets/vendor/datatables/Buttons-1.6.5/js/buttons.bootstrap4.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+    <script src="~/Assets/vendor/datatables/pdfmake-0.1.36/pdfmake.js"></script>
+    <script src="~/Assets/vendor/datatables/pdfmake-0.1.36/vfs_fonts.js"></script>
+    <script src="https://cdn.datatables.net/buttons/1.6.4/js/buttons.html5.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/1.6.4/js/buttons.print.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.22/css/dataTables.bootstrap4.min.css" />
+    <link href="~/Assets/vendor/datatables/Buttons-1.6.5/css/buttons.bootstrap4.css" rel="stylesheet" />
+    <script src="https://cdn.datatables.net/1.10.22/js/dataTables.bootstrap4.min.js" type="text/javascript"></script>
+    <style>
+        .exportbtns {
+            margin-bottom: 10px;
+            padding-left: 20%;
+            float: right;
+        }
+    </style>
+    <script>
+        $(document).ready(function () {
+            $('#tblServants').dataTable({
+                dom: 'Bfrtip',
+                buttons: [
+                    'excel', 'print'
+                ],
+                 "pageLength": 8
+            });
+
+            var btnexcel = document.querySelector('.buttons-excel');
+            var btnprint = document.querySelector('.buttons-print');
+            var btnpdf = document.querySelector('.buttons-pdf');
+
+            document.querySelector('.dt-buttons').classList.add("exportbtns");
+
+            btnexcel.innerHTML = '<i class="fa fa-file-excel "></i>';
+            btnexcel.className = 'btn btn-success rounded-circle text-white ml-1';
+            btnexcel.addEventListener('mouseover', function () {
+                btnexcel.className = 'btn btn-light rounded-circle text-success border-success ml-1';
+            });
+            btnexcel.addEventListener('mouseout', function () {
+                btnexcel.className = 'btn btn-success rounded-circle text-white ml-1 border-success';
+            });
+
+            btnprint.innerHTML = '<i class="fa fa-print"></i>';
+            btnprint.className = 'btn btn-primary rounded-circle text-white ml-1';
+            btnprint.addEventListener('mouseover', function () {
+                btnprint.className = 'btn btn-light rounded-circle text-primary border-primary ml-1';
+            });
+            btnprint.addEventListener('mouseout', function () {
+                btnprint.className = 'btn btn-primary rounded-circle text-white ml-1 border-primary';
+            });
+
+            btnpdf.innerHTML = '<i class="fa fa-file-pdf"></i>';
+            btnpdf.className = 'btn btn-danger rounded-circle text-white ml-1';
+            btnpdf.addEventListener('mouseover', function () {
+                btnpdf.className = 'btn btn-light rounded-circle text-danger border-danger ml-1';
+            });
+            btnpdf.addEventListener('mouseout', function () {
+                btnpdf.className = 'btn btn-danger rounded-circle text-white ml-1 border-danger';
+            });
+
+        });
+
+    </script>
+
+}

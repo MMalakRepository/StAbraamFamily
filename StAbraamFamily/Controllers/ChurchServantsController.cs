@@ -59,7 +59,6 @@ namespace StAbraamFamily.Controllers
         }
 
         [HttpPost]
-        [ValidateAntiForgeryToken]
         [Route("ChurchServants")]
         public ActionResult NewServant(ServantModel model)
         {
@@ -130,6 +129,40 @@ namespace StAbraamFamily.Controllers
                 return View("NewServant");
             }
 
+        }
+
+        [HttpGet]
+        [Route("ServantsReport")]
+        public ActionResult ServantsList()
+        {
+            var servants = saintUnits.ChurchServants.GetAll();
+            List<ServantModel> servantModels = new List<ServantModel>();
+            foreach (var servant in servants)
+            {
+                ServantModel model = new ServantModel()
+                {
+                    Name = servant.Name,
+                    PhoneNumber = servant.PhoneNumber,
+                    Job = servant.Job,
+                    ConfessionFR = servant.ConfessionFR,
+                    ConfessionFRChurch = servant.ConfessionFRChurch,
+                    ConfessionFRNumber = servant.ConfessionFRNumber,
+                    EmailAddress = servant.EmailAddress,
+                    PreviousServices = servant.PreviousServices,
+                    Readings = servant.Readings,
+                    SpecialStudies = servant.SpecialStudies,
+                    Studying = servant.Studying,
+                };
+
+                List<string> services = new List<string>();
+                foreach (var service in servant.ServantServices)
+                {
+                    services.Add(service.ChurchService?.Name);
+                }
+                model.ServiceName = String.Join(",", services.ToArray());
+                servantModels.Add(model);
+            }
+            return View(servantModels);
         }
     }
 }
